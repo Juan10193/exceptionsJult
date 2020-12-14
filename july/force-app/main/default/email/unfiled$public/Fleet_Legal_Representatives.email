@@ -1,0 +1,14 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font face="Verdana, Helvetica, sans-serif" style="" size="2" color="#000066"><b>Dear Approver</b></font>]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[<font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2"><font style=""><font style="">You are receiving this notification because&nbsp;</font></font><font style="">Legal representative {!Legal_Representatives__c.Stage__c}&nbsp;for customer {!Opportunity.Account} has been submitted for your approval:</font></font><div style=""><font face="Verdana, Helvetica, sans-serif" color="#000066" size="2"><b><br></b></font></div><div style=""><ul style=""><li style=""><font size="2" style=""><font color="#000066" style=""><font face="Verdana, Helvetica, sans-serif" style="">Requestor:&nbsp;</font></font></font><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2">{!Legal_Representatives__c.LastModifiedBy}</font></li><li style=""><font size="2"><font face="Verdana, Helvetica, sans-serif" color="#000066" style="">Fleet Name:&nbsp;</font><font color="#000066" face="Verdana, Helvetica, sans-serif">{!FleetToGo__c.Fleet_Name__c}</font></font></li></ul></div><div style=""><div style=""><font face="Verdana, Helvetica, sans-serif" style="" size="2" color="#000066">If you want to see the record in Salesforce, <a href="{!Legal_Representatives__c.Link}">click here</a>.</font></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2"><br></font></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2">Regards,</font></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2"><br></font></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2"><b style="">Digital Marketing</b></font></div></div>]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[]]></td>
+</tr>
+</table>

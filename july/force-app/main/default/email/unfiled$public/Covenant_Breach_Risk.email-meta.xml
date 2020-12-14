@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Covenant Breach Risk</name>
+    <style>formalLetter</style>
+    <subject>New opportunity has been created on an account with covenant breach</subject>
+    <textOnly>Dear {!Account.OwnerFullName}, {!Credit_approval_CP__c.Risk_Analyst__c}
+You are receiving this notification because an opportunity that belongs to an account with covenant breach ({!Account.Name}) has been sent to Risk.
+
+Please review the covenant status with portfolio analyst {!Account.Portfolio_Monitoring_Analyst__c} before you continue your origination process.
+
+To review account record in Salesforce, click here.
+
+Regards,
+
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

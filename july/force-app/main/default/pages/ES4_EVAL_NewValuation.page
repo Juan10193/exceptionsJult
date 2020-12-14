@@ -1,0 +1,159 @@
+<apex:page lightningStylesheets="true"  controller="ES4_Controller_EVAL">
+    <apex:form >
+        <script>
+        
+        function remplazar(valor){
+            document.getElementById(valor).value = document.getElementById(valor).value.replace(/[^0-9-.-\s]/,'');
+        }
+        </script>
+        <apex:PageBlock title="Valuation">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <apex:pageBlockSection columns="2" title="General Information">
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutStartDate,'T',' '),'.000-05:00','')}" /> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Id" for="Oportunity_Id"/>
+                    <apex:outputText id="Oportunity_Id" value="{!req.pOutSourceOpId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Id" for="Account_Id"/>
+                    <apex:outputText id="Account_Id" value="{!req.pOutSourceAccountId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Name" for="Account_Name"/>
+                    <apex:outputText id="Account_Name" value="{!req.pOutSourceAccountName}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutEndDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (SSO)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By User Name" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameAssignedTo}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset Id" for="Asset_Id"/>
+                    <apex:outputText id="Asset_Id" value="{!VALL.pOutEVValAssetId}"/> 
+                </apex:pageBlockSectionItem>  
+
+            </apex:pageBlockSection>
+
+            <!--------------------------------------------------------------------------------------------------------------------->
+
+            <apex:pageBlockSection columns="2" title="Valuation">
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Term Months" for="TermMonths"/>
+                    <apex:inputText id="TermMonths" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValTermMonths}"/> 
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="FMV Amount" for="FMVAmount"/>
+                    <apex:inputText id="FMVAmount" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValFMVAmount}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="FMV Percent" for="FMVPercent"/>
+                    <apex:inputText id="FMVPercent" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValFMVPercent}"/> 
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="NRV Amount" for="NRVAmount"/>
+                    <apex:inputText id="NRVAmount" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValNRVAmount}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="NRV Percent" for="NRVPercent"/>
+                    <apex:inputText id="NRVPercent" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValNRVPercent}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="OLV Amount" for="OLVAmount"/>
+                    <apex:inputText id="OLVAmount" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValOLVAmount}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="OLV Percent" for="OLVPercent"/>
+                    <apex:inputText id="OLVPercent" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValOLVPercent}"/> 
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RV Amount" for="RVAmount"/>
+                    <apex:inputText id="RVAmount" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValRVAmount}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RV Percent" for="RVPercent"/>
+                    <apex:inputText id="RVPercent" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!VALL.pOutEVValRVPercent}"/> 
+                </apex:pageBlockSectionItem>  
+
+            </apex:pageBlockSection>
+
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            <div style="width: 230px;margin-left: AUTO;margin-right: AUTO;">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!NewValua}"/>
+                <apex:commandButton style="width: 120px;" value="Back" action="{!backAsset}"/>
+            </div>
+
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead_General</letterhead>
+    <name>issuance of insurance policy</name>
+    <style>freeForm</style>
+    <subject>Solicitud de emisión de la póliza para Engenium capital: {!Insurance_VoBo__c.Takedown_CP__c}, {!Insurance_Policy__c.Customer__c}</subject>
+    <textOnly>Hola
+
+Estás recibiendo este correo ya que Engenium Capital solicita la emisión de la siguiente póliza:
+
+Cliente: {!Insurance_Policy__c.Customer__c}
+Cobertura: {!Insurance_Policy__c.Coverage_Type__c}
+Inicio de Vigencia: {!Insurance_Policy__c.Start_of_Validity__c}
+Fin de Vigencia: {!Insurance_Policy__c.End_of_Validity__c}
+Takedown: {!Insurance_VoBo__c.Takedown_CP__c}
+Entidad: {!Insurance_Policy__c.Operation_Unit__c}
+Moneda: {!Insurance_VoBo__c.Takedown_Currency__c}
+
+Si quiere ver el registro en sistema, haga clic aquí.
+
+
+Saludos,
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

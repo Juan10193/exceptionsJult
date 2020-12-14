@@ -1,0 +1,126 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[<p class="MsoNormal"><b><span lang="EN-US" style="font-size:10.0pt;font-family:
+&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:
+Arial;color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Dear&nbsp;{!Account.OwnerFirstName},&nbsp;</span></b><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">&nbsp;</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">You’re
+receiving this notification, because&nbsp;<b>{!Account.ACC_fm_Company_Legal_Name__c}</b>,
+has changed status to&nbsp;<b>{!Account.ACC_tx_Account_Status__c}</b>. Please
+refer to the following information about the account:</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;">&nbsp;</span></p>
+
+<p class="MsoNormal"><b><span lang="EN-US" style="font-size:10.0pt;font-family:
+&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:
+Arial;color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Business
+generation history:</span></b><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<ul type="disc">
+ <li class="MsoListParagraph" style="margin-left: 0cm;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Customer
+     since:&nbsp;{!Account.ACC_tx_Customer_Since__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0cm;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Historic
+     funded volume ($USD):&nbsp;{!Account.Total_Volume__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0cm;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Current
+     pipeline (Opp. - In credit):&nbsp;{!Account.Total_Pipeline__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0cm;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Historic
+     lost deals:&nbsp;{!Account.Historic_Lost_Deals__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+</ul>
+
+<p class="MsoNormal"><b><span lang="EN-US" style="font-size:10.0pt;font-family:
+&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:
+Arial;color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Coverage
+KPI’s:</span></b><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<ul type="disc">
+ <li class="MsoListParagraph" style="margin-left: 0.6pt;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Last
+     meeting date: {!Account.ACC_fh_Last_meeting_Date__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0.6pt;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Last
+     call date: {!Account.ACC_fh_Last_Call_Date__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0.6pt;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Last
+     opportunity created date:
+     {!Account.ACC_fh_Last_date_opportunity_created__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+</ul>
+
+<p class="MsoNormal"><b><span lang="EN-US" style="font-size:10.0pt;font-family:
+&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:
+Arial;color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Potential
+assessment:</span></b><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<ul type="disc">
+ <li class="MsoListParagraph" style="margin-left: 0.6pt;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Tier:
+     {!Account.ACC_tx_Account_Tier__c}</span><span lang="EN-US" style="font-family:
+     &quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0.6pt;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Company
+     Rank: {!Account.ACC_tx_Company_Rank__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+ <li class="MsoListParagraph" style="margin-left: 0.6pt;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:EN-US">Potential
+     comments: {!Account.ACC_tx_Account_Potential_Comments__c}</span><span lang="EN-US" style="font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:EN-US"><o:p></o:p></span></li>
+</ul>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">&nbsp;</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">As per
+Engenium Capital policy, a proper strategy is required to revert the status,
+please review it with your manager and if an action is required, create an
+Account Plan in the correspondent section of the account in Salesforce.</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">&nbsp;</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">To review
+this record, click in the following link:&nbsp;<span style="background:white">{!Account.Link}&nbsp;</span></span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">&nbsp;</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Regards,</span><span style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">&nbsp;</span><span style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Digital
+Marketing – Engenuim Capital</span><span style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">&nbsp;</span></p>]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[]]></td>
+</tr>
+</table>

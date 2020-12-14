@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notificación por asignación de caso para aprobación</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_notiCasoPorAprobae</name>
+    <style>formalLetter</style>
+    <subject>Se le ha asignado el caso {!Case.CaseNumber} para su aprobación</subject>
+    <textOnly>Hola, buena tarde:
+Le informamos que se le ha asignado el caso  {!Case.CaseNumber} del tipo {!Case.CAS001_ls_requerimiento__c} con el siguiente asunto:
+
+{!Case.Subject}
+
+y el siguiente contenido:
+
+{!Case.Description}
+
+Para su revisión y aprobación de su parte, por favor le solicitamos que lo revise y apruebe o rechace y coloque sus comentarios al respecto, para lo cual se han cumplido con los siguientes requisitos para ejecutar el caso:
+
+{!Case.CAS008_te_requisitosParaEjecutarElCaso__c}
+
+(Puede abrir el caso dando clic directamente en el numero de caso o dando clic AQUI)
+
+Atentamente el equipo de Servicio a Clientes de ENGENIUM CAPITAL
+Tel.: +52 (55) 5257.6161 (CDMX o zona metropolitana)
+Tel.: 01-800-714-3227 (Interior)
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

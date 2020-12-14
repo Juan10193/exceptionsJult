@@ -1,0 +1,18 @@
+<messaging:emailTemplate subject="Supplier in Scorecar" recipientType="Contact" relatedToType="Supplier__c">
+    <messaging:htmlEmailBody >
+      <br/><br/><p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"><b><i>Estimado usuario,</i></b></p><br/>
+       <p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"><i>Recibe esta notificación porque el Proveedor {!RelatedTo.Name} del Takedown CP / Eval se encuentra</i> <b><i>PENDIENTE DE APROBACIÓN</i></b>.</p>
+        <p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"> <b><i>Para la aprobación del proveedor se va a requerir la siguiente información:</i></b> </p>
+        
+        <apex:outputText rendered="{!IF(RelatedTo.TKD_Se_encuentra_en_Google_Search__c =='NO',true,false)}"> 
+          <p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"> - Vo. Bo. por parte de AML. (Pendiente de respuesta)</p>
+        </apex:outputText>
+        <apex:outputText rendered="{!IF(RelatedTo.TKD_quien_es_quien__c=='NO',true,false)}"> 
+          <p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"> - Vo. Bo. por parte de AML. (Pendiente de respuesta)</p>
+        </apex:outputText>
+    
+          <p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"><b><i>Saludos,</i></b></p>
+          <p style="font-family:Verdana;text-align:left;color:#003764;font-size: 10pt"><b><i>Engen Capital.</i></b></p>
+          
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

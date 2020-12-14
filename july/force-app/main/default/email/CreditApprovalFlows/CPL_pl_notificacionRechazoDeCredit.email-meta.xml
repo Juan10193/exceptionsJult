@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CPL_pl_notificacionRechazoDeCredit</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>MembreteCreditApproval</letterhead>
+    <name>CPL_pl_notificacionRechazoDeCredit</name>
+    <style>freeForm</style>
+    <subject>Credit Approval Rechazado</subject>
+    <textOnly>Hola, buenas tardes:
+
+Se le informa que el Credit Approval:
+
+
+Nombre: {!Credit_approval_CP__c.Name}
+Monto Total: {!Credit_approval_CP__c.CPL_fm_Amount_of_opportunities__c}
+Exposure :{!Credit_approval_CP__c.Exposure__c}
+Creado por:{!Credit_approval_CP__c.OwnerFullName} el {!Credit_approval_CP__c.CreatedDate}
+
+Ha sido rechazado, por lo que se le pide revisar los comentarios de los aprobadores para actuar en consecuencia.
+
+Saludos.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

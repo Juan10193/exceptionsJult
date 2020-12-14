@@ -1,0 +1,10 @@
+<apex:page controller="ACC_cvf_CalculateAccountStatus" docType="html-5.0">
+    <apex:form id="calculateAccountStatusForm">
+    	<apex:pageBlock mode="maindetail" >
+            <apex:pageMessages />
+            <center>
+                <apex:commandButton value="Calcular Account Status" action="{!doCalculate}" />
+            </center>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Tabla" icon-name="action:quote">
+		<lightning-layout-item>
+			<div style="height: 300px;" class="slds-m-vertical_large slds-m-around_medium lgc-id_content-toggle">
+				<lightning-datatable
+					key-field="id"
+					data={lstAmortizacion}
+					columns={tablecols}>
+				</lightning-datatable>
+			</div>
+		</lightning-layout-item>
+	</lightning-card>
+</template>

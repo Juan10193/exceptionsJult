@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>ES3_pl_ca_comentarios</name>
+    <style>freeForm</style>
+    <subject>Nuevo Preescreening aprobado</subject>
+    <textOnly>Hola Equipo de AML, les informamos que el Credit Approval {!Credit_approval_CP__c.Name} ha sido enviado para su revisión.
+
+
+Detalle del Credit Approval:
+
+
+
+
+
+Cliente: {!Credit_approval_CP__c.CPL_rb_account__c}
+
+
+Account Name: {!Account.Name}
+Amount: {!ES2_Obj_Prescreening__c.ES2_fm_Amount__c}
+Line of business: {!ES2_Obj_Prescreening__c.ES2_fm_Line_of_Business__c}
+Collateral:{!ES2_Obj_Prescreening__c.ES2_fm_Collateral__c}
+Product: {!ES2_Obj_Prescreening__c.ES2_fm_Product__c}
+Deal category:  {!ES2_Obj_Prescreening__c.ES2_fm_Deal_Category__c}
+
+
+https://na30.salesforce.com/{!ES2_Obj_Prescreening__c.Id}
+
+
+Saludos,
+
+
+Digital Marketing – Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

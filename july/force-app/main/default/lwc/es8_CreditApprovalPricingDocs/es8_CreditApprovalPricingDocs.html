@@ -1,0 +1,68 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="12">
+            <lightning-card>
+                <h3 slot="title">
+                    <lightning-layout>
+                        <lightning-icon icon-name="doctype:gdoc" size="small"></lightning-icon>
+                        <div style="margin-left: 1em"><p><b>Pricing Docs</b></p></div>
+                        </br>
+                    </lightning-layout>
+                </h3>
+                
+                <div class="slds-scrollable_x" style="height: auto; width: auto;">
+                <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                                <div class="slds-truncate" title="Download"></div>
+                            </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Uploaded by">Uploaded by</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Creation Date">Creation Date</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="File Name">
+                                File Name
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={listaAttachments} for:item=docto>
+                        <tr key={docto.id} class="slds-hint-parent tabla">
+                        <td key={docto.id} data-label="Download">
+                                <div class="slds-truncate" title={docto.contentDocId}  onclick={downloadDocumment}>
+                                    <lightning-icon icon-name="utility:download" size="x-small" title={docto.contentDocId} variant="brand" style="cursor:pointer"></lightning-icon>
+                                </div>
+                        </td>
+                        <td key={docto.id} data-label="Uploaded by">
+                            <div class="slds-truncate" title="Uploaded by">
+                                {docto.nameCreatedBy}
+                            </div>
+                        </td>
+                        <td key={docto.id} data-label="Creation Date">
+                            <div class="slds-truncate" title="Creation Date">
+                                {docto.creationDate}
+                            </div>
+                        </td>
+                        <td key={docto.id} data-label="File Name">
+                            <template if:false={showText}>
+                            <div class="slds-truncate"  title={docto.name} onclick={nameTransform} style="color: blue; cursor: pointer;">...</div>
+                            </template>
+                            <template if:true={showText}>
+                            <div class="slds-truncate"  title={docto.name} onclick={nameTransform}>{docto.name}</div>
+                            </template>
+                        </td>
+                    </tr>  
+                    </template>
+                </tbody>
+            </table>
+        </div>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

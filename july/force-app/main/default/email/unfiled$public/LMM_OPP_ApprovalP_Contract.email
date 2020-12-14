@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[Dear User,<div style="color: rgb(0, 0, 0);"><br></div><div style="color: rgb(0, 0, 0);">You have received this notification to Approve the Opportunity&nbsp;{!Opportunity.Name}&nbsp;</div><div style="color: rgb(0, 0, 0);"><br></div><div style="color: rgb(0, 0, 0);">Opportunity details:</div><div style="color: rgb(0, 0, 0);"><ul><li>Opportunity Name:&nbsp;{!Opportunity.Name}</li><li>Account LegalName:&nbsp;{!Opportunity.Account}</li><li>Stage:&nbsp;{!Opportunity.StageName}</li><li>Amount:&nbsp;{!Opportunity.Amount}</li><li>Prodocut:&nbsp;{!Opportunity.OPP_ls_Product__c}&nbsp;</li></ul></div><div style="color: rgb(0, 0, 0);"><br></div><div style="color: rgb(0, 0, 0);">If you want to view more detail in Salesforce, please <a href="{!Opportunity.Link}">"Click here"</a></div><div style="color: rgb(0, 0, 0);"><br></div><div style=""><font color="#ff0000"><i>Remember that if you want to assign this approval process to RISK team, you should mark the check field "Assign to Risk" and next approve the approval process</i></font></div>]]></td>
+</tr>
+</table>

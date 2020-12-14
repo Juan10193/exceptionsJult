@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Insurance VoBo Quote Broker</name>
+    <style>formalLetter</style>
+    <subject>{!Insurance_VoBo__c.Name} del cliente {!Insurance_VoBo__c.Customer__c} necesita un breakdown</subject>
+    <textOnly>Dear Approver
+Estás recibiendo esta notificación porque {!Insurance_VoBo__c.Name} del cliente  {!Insurance_VoBo__c.Customer__c}  necesita un breakdown:
+
+Solicitante: {!Insurance_VoBo__c.CreatedBy}
+#InsuranceToGo: {!Insurance_VoBo__c.Name}
+Takedown CP: {!Insurance_VoBo__c.Takedown_CP__c}
+Typo de Seguro: {!Insurance_VoBo__c.Insurance_Type__c}
+Plazo: {!Insurance_VoBo__c.Term__c}
+Línea de Negocio: {!Insurance_VoBo__c.Line_of_Business__c}
+% UDI: {!Insurance_VoBo__c.UDI__c}
+Comentarios: {!Insurance_VoBo__c.Requestor_Comments__c}
+
+
+Si quiere ver el registor en Salesforce, haga click aquí.
+
+Saludos,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

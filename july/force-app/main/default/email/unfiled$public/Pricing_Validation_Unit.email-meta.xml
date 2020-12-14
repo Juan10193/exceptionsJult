@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Pricing Validation Unit</name>
+    <style>formalLetter</style>
+    <subject>{!Units__c.Name} from  #FleetToGo {!FleetToGo__c.Name} for customer {!Units__c.Customer_Name__c}  has been submitted for your approval</subject>
+    <textOnly>Dear Approver
+You are receiving this notification because the {!Units__c.Name} from  #FleetToGo {!FleetToGo__c.Name} for customer {!Units__c.Customer_Name__c}  has been submitted for your approval:
+
+Requestor: {!Units__c.LastModifiedBy}
+Fleet Name: {!FleetToGo__c.Fleet_Name__c}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

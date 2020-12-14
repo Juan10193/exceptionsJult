@@ -1,0 +1,247 @@
+<apex:page lightningStylesheets="true"  controller="LMM_Controller_Closingmemo_PDF" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+    <apex:slds />
+    <apex:includeLightning />
+    <div class="slds-scope">
+        <apex:form >
+            <article class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-opportunity" title="Opportunities">
+                                <span 
+                                      class="slds-assistive-text">Opportunity
+                                </span>
+                            </span>
+                        </div>
+                        
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <a class="slds-card__header-link slds-truncate" title="Opportunities">
+                                    <span>
+                                        
+                                                        
+                <div
+                     class="slds-card__body slds-card__body_inner"><b>Opportunity:</b> {!Opparent.Name}
+                </div>  
+                                    </span>
+                                </a>
+                            </h2>
+                        </div>
+                    </header>
+                </div>                
+                <br/>
+                <div class="myapp">
+                    <div class="slds-grid slds-wrap" >
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-1" >
+                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#0c4976;color:#FFFFFF">General Information</div>
+                            
+                            <div class="myapp">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-2">                            
+                                                                                                                                                    
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Credit Approval Type: </b>{!Opparent.LMM_Tipo_de_credito__c}</div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Approval Date:</b> 
+                                            <td role="gridcell" class="slds-text-title_caps slds-text-align_center">
+                                                <apex:outputText value="{0, date, dd/MM/yyyy }"> 
+                                                    <apex:param value="{!Opparent.Approval_Date__c}"/>
+                                                </apex:outputText>
+                                            </td>
+                                        </div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Underwriter:</b> {!Uw}</div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Originador:</b> {!Opparent.Owner.Name}</div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Approval Level:</b> {!Opparent.Approval_Level__c}</div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Currency: </b>{!Opparent.CurrencyIsoCode}</div>
+                                        
+
+                                    </div>
+                                    <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-2">
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Vertical:</b> {!Opparent.OPP_ls_Vertical__c}</div>                                      
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Economic Group:</b></div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Status Opportunity:</b> {!Opparent.StageName}</div>
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Status Risk:</b> {!Opparent.LMM_Status_Risk__c}</div>       
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Status AML:</b> {!Opparent.LMM_Status_AML__c}</div> 
+                                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Amount:</b>
+                                             <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                              <apex:param value="{!Opparent.Amount}"></apex:param>
+                                             </apex:outputText>
+                                        </div>
+                                    
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+   <!--Entities Structure-->   
+                
+                   <div class="myapp">
+                    <div class="slds-grid slds-wrap" >
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-1" >
+                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#0c4976;color:#FFFFFF">ENTITIES STRUCTURE </div>
+                            
+                            <div class="myapp">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-small-size--1-of-1">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <tr>
+                                                        <td>
+                                                            <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                                                                
+                                                                <thead>                                                        
+                                                                    <tr class="slds-line-height_reset">
+                      
+                                                                        <th class="slds-text-title_caps slds-text-align_center" scope="col" style="background-color:#47d7ac">
+                                                                            <div class="slds-truncate" title="Company" style="color:#ffffff;background-color: #47d7ac">Entidad</div>
+                                                                        </th>
+                                                                        <th class="slds-text-title_caps slds-text-align_center" scope="col" style="background-color:#47d7ac">
+                                                                            <div class="slds-truncate" title="Title" style="color:#ffffff;background-color: #47d7ac">Rol</div>
+                                                                        </th>                                                                   
+                                                        
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <apex:repeat value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp" >
+                                                                        <tr class="slds-hint-parent">
+                                                                            
+                                                                            <td role="gridcell" class="slds-text-title_caps slds-text-align_center">
+                                                                                 <apex:outputText escape="false" value="{!EntOpp.LMM_tx_Entity_Name__c}"/>
+                                                                            </td>
+                                                                            <td role="gridcell" class="slds-text-title_caps slds-text-align_center">
+                                                                                <apex:outputText escape="false" value="{!EntOpp.LMM_lm_Rol__c}"/>
+                                                                            </td>
+  
+                                                                        </tr> 
+                                                                    </apex:repeat>  
+                                                                </tbody> 
+                                                            </table>
+                                                        </td>
+                                                    </tr>   
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+             <!--Quotes-->
+                
+                             <table>
+                                            <tr>
+                                                <td>
+                                                    <apex:repeat value="{!EcQuotesOpp}" var="EcQuotes" id="Quotes2" >
+                                                        <tr>
+                                                            <td>
+                                                                <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                                                                    <div class="myapp">
+                                                                        <div class="slds-grid slds-wrap" >
+                                                                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-1" >
+                                                                                <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#0c4976;color:#FFFFFF">EC Quotes: {!EcQuotes.Name}</div>
+                                                                                
+                                                                                <div class="myapp">
+                                                                                    <div class="slds-grid slds-wrap">
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-3">
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#47d7ac;color:#FFFFFF">STRUCTURE</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Product:</b> {!EcQuotes.Tipo_de_Financiamiento__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Currency:</b> {!EcQuotes.CurrencyIsoCode}</div>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Amount to Finance K: </b>
+                                                                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                                                                                                    <apex:param value="{!EcQuotes.Monto_Total__c}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>
+                                                                                            
+
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#EEFEFB;text-align: justify;"><b>Term in Months: </b> {!EcQuotes.Plazo__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#EEFEFB;text-align: justify;"><b>Progress Payments(M):</b> {!EcQuotes.LMM_Periodo_de_pagos_progresivos__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#EEFEFB;text-align: justify;"><b>Grace Period (M):</b> {!EcQuotes.LMM_Periodo_de_gracia__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#EEFEFB;text-align: justify;"><b>Low-High/High-Low:</b> {!EcQuotes.LMM_Low_High__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#EEFEFB;text-align: justify;"><b>Used/New:</b> {!EcQuotes.LMM_Nuevo_Usado__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#EEFEFB;text-align: justify;"><b>SL&amp;B YES/NO:</b> {!EcQuotes.LMM_SL_B__c}</div>
+
+                                                                                            
+                                                                                        </div>
+                                                                                     <!--   <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-3">
+                                                                                            
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#47d7ac;color:#FFFFFF">STRUCTURE</div>
+      
+                                                                                        </div>-->
+                                                                                        
+                                                                                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-3">
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="background-color:#47d7ac;color:#FFFFFF">ECONOMICS</div>                                                                                            
+                                                                                           <!-- <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>ROI (no insurance) %: </b>
+                                                                                                <apex:outputText value="{0,number,0.0000}">    
+                                                                                                    <apex:param id="Equipment_Amount" value="{!EcQuotes.ES3_rb_Pricing__r.LMM_ROI_Sin_seguro__c}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Rate (fixed-floating):</b> {!price.ES3_rb_Pricing__r.TBO018_tx_Rate_Type__c}</div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Rate %:</b> 
+                                                                                                <apex:outputText value="{0,number,0.0000}">    
+                                                                                                    <apex:param id="RatePercentent" value="{! IF(ISBLANK(TEXT( price.ES3_pc_Rate__c )),IF(price.ES3_rb_Pricing__r.TBO018_tx_Supertrump_Template__c=='EC Quasi Lease',price.ES3_rb_Pricing__r.TBO018_pr_Full_Term_Rate__c,IF(price.ES3_rb_Pricing__r.TBO018_tx_Supertrump_Template__c!='EC Loan', price.ES3_rb_Pricing__r.TBO018_pr_Full_Term_Rate_w_Resid__c,price.ES3_rb_Pricing__r.TBO018_pr_Lending_Rate__c)),price.ES3_pc_Rate__c)}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>  
+                                                                                            
+                                                                                            
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>RV %:</b> 
+                                                                                                <apex:outputText value="{0,number,0.0000}">    
+                                                                                                    <apex:param id="rv" value="{!IF(ISBLANK(TEXT(price.ES3_pc_RV__c)),IF(contains(price.ES3_rb_Pricing__r.TBO018_tx_Product__c, 'True') || contains(price.ES3_rb_Pricing__r.TBO018_tx_Product__c, 'Fleet') || contains(price.ES3_rb_Pricing__r.TBO018_tx_Product__c, 'TF'),price.ES3_rb_Pricing__r.ES3_nu_Residual_Value_Percent__c,''),price.ES3_pc_RV__c)}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>Balloon/Bullet Payment: </b> 
+                                                                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                                                                                                    <apex:param id="ballon" value="{!IF(ISBLANK(TEXT(price.ES3_num_Ballon_Bullet_Payment__c )),VALUE(price.ES3_rb_Pricing__r.ES3_tx_Ballon_Bullet_Payment__c),price.ES3_num_Ballon_Bullet_Payment__c )}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;"><b>P option %:</b> 
+                                                                                                <apex:outputText value="{0,number,0.0000}">    
+                                                                                                    <apex:param id="p" value="{!IF(ISBLANK(TEXT(price.ES3_pc_P_option__c)),IF(contains(price.ES3_rb_Pricing__r.TBO018_tx_Product__c, 'Quasi'),price.ES3_rb_Pricing__r.ES3_nu_Residual_Value_Percent__c,''),price.ES3_pc_P_option__c)}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>
+                                                                                            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around--x-small" style="text-align: justify;">
+                                                                                                <b>Last Update:</b> 
+                                                                                                <apex:outputText value="{0, date, dd/MM/yyyy }"> 
+                                                                                                    <apex:param value="{!price.ES3_rb_Pricing__r.LastModifiedDate}"/>
+                                                                                                </apex:outputText>
+                                                                                            </div>-->
+                                                                                            
+
+                                                                                            
+                                                                                        </div>
+                                                                                    </div><!-- EL DE ARRIBA CIERRA -->
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                </table>
+                                                            </td>
+                                                        </tr>                                        
+                                                    </apex:repeat>                                        
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                
+            </article>
+            
+        </apex:form>
+    </div>
+</apex:page>

@@ -1,0 +1,152 @@
+<!--
+  @File Name          : tkd_LinkEvalToTakedown.html
+  @Description        : 
+  @Author             : juandedios.hernandez@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 10-15-2020
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    2/10/2019   juandedios.hernandez@engeniumcapital.com     Initial Version
+-->
+<template>
+    <lightning-card  variant="Narrow"  title="Link Eval to Opportunity" style="width: 100%" icon-name="standard:output">
+        <fieldset class="slds-form-element slds-form-element_compound animated fadeInRight">
+            <div class="slds-form-element__control">
+                <div class="slds-form-element__row">
+                    <div class="slds-size_4-of-12">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning-combobox
+                                        name="Entitys"
+                                        label="Entities of Opportunity"
+                                        value=""
+                                        placeholder="Select Entity"
+                                        options={listEntitys}
+                                        onchange={handleSelect}
+                                        required
+                                ></lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form-element__control">
+                <div class="slds-form-element__row">
+                    <!-- <div class="slds-size_4-of-12">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning-input type="text" variant="standard" name="Eval" label='Eval' placeholder="Serch Evals"></lightning-input>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="slds-size_2-of-12">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label"></label>
+                            <div class="slds-form-element__control">
+                                <lightning-button variant="brand" label="Search Evals" title="Search Evals" onclick={handleSearch}></lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={loadSearch}>
+                        <div class="slds-size_2-of-12">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label"></label>
+                                <div class="slds-form-element__control">
+                                   LOADING ...
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="slds-size_2-of-12">
+                    </div>
+                    <div class="slds-size_1-of-12">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Linked Eval</label>
+                            <div class="slds-form-element__control">
+                                <a href={urlEval} title='View Eval'>{evalrequestId}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-size_1-of-12">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label"></label>
+                            <div class="slds-form-element__control">
+                                <lightning-button-icon icon-name="utility:delete"  alternative-text="Remove this eval" onclick={removeEval} class="slds-m-left_xx-small"></lightning-button-icon>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+            </br>
+            <div class="slds-grid slds gutters">
+                <div class="slds-col slds-size_6-of-12">
+                    <template if:true={listEvalsEntitiesProporsals}>
+                        <h2 class="slds-text-heading_medium slds-m-bottom_medium animated slideInUp" style="text-align: center">
+                            <code>Evals in Entity</code>
+                        </h2>
+                        <table class="animated bounceInLeft">
+                            <thead>
+                                <tr>
+                                    <th>Link</th>
+                                    <th>RequestId</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Created By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={listEvalsEntitiesProporsals} for:item="evals">
+                                    <tr key={evals.header.requestId}>
+                                        <td data-column="Clone">
+                                            <lightning-button-icon icon-name="utility:overflow"  
+                                            alternative-text="Clone Eval" onclick={cloneEvalEnt}   
+                                            class="slds-m-left_xx-small" data-reqid ={evals.header.requestId}>
+                                        </lightning-button-icon></td>
+                                        <td data-column="RequestId"><a href="#" title="View Eval" onclick={previewEvalTable} data-requestid={evals.header.requestId}>{evals.header.requestId}</a></td>
+                                        
+                                        <td data-column="Type">{evals.header.ndaType}</td>
+                                        <td data-column="Status">{evals.header.requestStatus}</td>
+                                        <td data-column="Created By">{evals.header.nameCreatedBy}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>      
+                    </template>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-left_small">
+                    <template if:true={listOppEvalsProporsal}>
+                        <h2 class="slds-text-heading_medium slds-m-bottom_medium animated slideInUp" style="text-align: center">
+                            <code>Evals in Opportunity</code>
+                        </h2>
+                        <table class="animated bounceInRight">
+                            <thead>
+                                <tr>
+                                    <th>Link</th>
+                                    <th>RequestId</th>                                    
+                                    <th>Entity Name</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Created By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={listOppEvalsProporsal} for:item="evalsOp">
+                                    <tr key={evalsOp.header.requestId}>
+                                            <td data-column="Clone"><lightning-button-icon icon-name="utility:overflow"  data-requestid={evalsOp.header.requestId} alternative-text="Clone Eval" onclick={cloneEvalOpp}   class="slds-m-left_xx-small"></lightning-button-icon></td>
+                                        <td data-column="RequestId"><a href="#" title="View Eval" onclick={previewEvalTable} data-requestid={evalsOp.header.requestId}>{evalsOp.header.requestId}</a></td>
+                                        <td data-column="EntityName">{evalsOp.header.partyName}</td>
+                                        <td data-column="Type">{evalsOp.header.ndaType}</td>
+                                        <td data-column="Status">{evalsOp.header.requestStatus}</td>
+                                        <td data-column="Created By">{evalsOp.header.nameCreatedBy}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>      
+                    </template>
+                </div>
+            </div>
+        </fieldset>
+        <p slot="footer"></p>
+    </lightning-card>
+</template>

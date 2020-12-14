@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Aclaración de FX</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Aclaracion_de_FX</name>
+    <style>formalLetter</style>
+    <subject>Aclaración de FX</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+El concepto en factura: &quot;Gastos relacionados al contrato&quot; es derivado de la variación en el costo del equipo al momento del fondeo.
+
+Adjunto el soporte del cálculo.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

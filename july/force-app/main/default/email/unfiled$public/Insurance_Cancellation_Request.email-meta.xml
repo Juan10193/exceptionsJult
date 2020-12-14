@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead_General</letterhead>
+    <name>Insurance Cancellation Request</name>
+    <style>freeForm</style>
+    <subject>Solicitud de Cancelación de la póliza {!Insurance_Policy__c.Insurance_Policy_Number__c}</subject>
+    <textOnly>Hola
+
+Estás recibientdo este correo ya que Engenium Capital solicita la cancelación de la siguiente póliza:
+
+Número de póliza: {!Insurance_Policy__c.Insurance_Policy_Number__c}
+Cliente: {!Insurance_Policy__c.Customer__c}
+Fecha de Cancelación: {!Insurance_Policy__c.Cancellation_Date__c}
+
+
+
+Saludos,
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

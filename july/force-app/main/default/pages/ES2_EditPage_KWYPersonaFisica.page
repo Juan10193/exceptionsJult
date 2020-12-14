@@ -1,0 +1,735 @@
+<apex:page lightningStylesheets="true" docType="HTML-5.0" controller="ES2_Controller_KWYPersonaFisica">
+    <apex:form id="frm">
+        <script>	           
+    		function remplazar(valor){
+                document.getElementById(valor).value = document.getElementById(valor).value.replace(/[^0-9]/,'');
+                if(document.getElementById(valor).value.length > 2){
+                	document.getElementById(valor).value = document.getElementById(valor).value.substring(0,2);
+                }  
+			}
+        
+        	function remplazarCp(valor){
+                document.getElementById(valor).value = document.getElementById(valor).value.replace(/[^0-9]/,'');
+                if(document.getElementById(valor).value.length > 5){
+                	document.getElementById(valor).value = document.getElementById(valor).value.substring(0,5);
+                }  
+			}
+        </script>
+        <apex:pageBlock title="Customer Prospect Portal (Person)" id="pb">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <br/><br/>
+            <p align="center">
+                <strong>FORMATO DE CONOCIMIENTO DEL CLIENTE PARA PERSONAS FÍSICAS (FIADORES / GARANTES/ PROPIETARIOS REALES)</strong> 
+            </p>
+            
+                <p>
+                Engenium Capital ha implementado una política que requiere mantener expedientes completos y actualizados de nuestros clientes. Por tal motivo y en cumplimiento de dicha política, es importante que nos ayude a mantener su información al día en el presente Formato, conforme a lo siguiente: 
+            </p>
+            <p>
+                1.  <strong>Llene</strong> debidamente el formato (para facilitar el llenado, podrá guardar el documento en su computadora). En caso de ser necesario, adjunte la documentación adicional correspondiente.<br/>
+                2.  Una vez llenado, <strogn>imprima</strogn> el formato y <strong>firme</strong> en los espacios correspondientes.<br/>
+                3.  <strong>Entregar</strong> los formatos debidamente llenados y firmados.<br/>
+                4.  <strong>Favor de adjuntar</strong> a este formato la Documentación de cumplimiento Normativo, proporcione copia legible de los siguientes documentos:<br/>
+                (i)  Identificación oficial vigente con fotografía y firma.<br/>
+                (ii)  Comprobante de domicilio con una antigüedad no mayor a tres meses a su fecha de emisión. Puede ser comprobante de pago por impuesto predial o de derechos por suministro de agua, suministro de energía eléctrica, gas natural, telefonía (excepto telefonía celular), estado de cuenta bancario, contrato de arrendamiento vigente a la fecha de presentación por el Cliente y registrado ante la autoridad fiscal competente, constancia de residencia emitida por autoridad municipal o el comprobante de inscripción ante el Registro Federal de Contribuyentes.<br/>
+                (iii) Poder e identificación oficial vigente con fotografía y firma del representante legal que suscriba el presente formato, en su caso.<br/>
+                (iv) Anexar la relación patrimonial de bienes con información reciente, solicitar formato a su ejecutivo del área de Ventas.<br/>
+            </p>
+            <p>
+                Para efectos del presente Formato de Conocimiento del Cliente para Personas Físicas (“Formato”), por Engenium Capital deberá entenderse: Engencap Holding, S. de R.L. de C.V.; Engencap Fin, S.A. de C.V., SOFOM, E.N.R.; y/o Engencap, S. de C.V., según corresponda a la entidad Legal con la que contrate el Cliente.
+            </p>
+            
+            
+            <apex:pageBlockSection title="Datos Generales" id="pbs">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value=" Nombre Completo (Nombres y Apellidos sin abreviaturas) " for="pOutKYCIndName"/>
+                    <apex:inputText id="pOutKYCIndName" value="{!req.kwypfObj.pOutKYCIndName}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Fecha de nacimiento (DD/MM/AAAA)" for="pOutKYCIndGDBirthDate"/>
+                    <apex:input id="pOutKYCIndGDBirthDate" type="date" value="{!req.kwypfObj.datosObj.BirthDate}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="RFC (con homoclave)" />
+                    <apex:inputText id="pOutKYCIndGDRFC" disabled="true" value="{!req.kwypfObj.datosObj.GDRFC}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi4">
+                    <apex:outputLabel value="CURP (cuando cuente con ella)" for="pOutKYCIndGDCURP"/>
+                    <apex:inputText id="pOutKYCIndGDCURP" value="{!req.kwypfObj.datosObj.GDCURP}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi5">
+                    <apex:outputLabel value="Nacionalidad (en caso de contar con más de una señalar todas)" for="pOutKYCIndGDNacionalities"/>
+                    <apex:inputText id="pOutKYCIndGDNacionalities" value="{!req.kwypfObj.datosObj.GDNacionalities}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi6">
+                    <apex:outputLabel value="Número de serie de la Firma Electrónica Avanzada (cuando cuente con ella)" for="pOutKYCIndGDFEASerialNo"/>
+                    <apex:inputText id="pOutKYCIndGDFEASerialNo" value="{!req.kwypfObj.datosObj.GDFEASerialNo}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi7">
+                    <apex:outputLabel value="País de nacimiento" for="pOutKYCIndGDBirthCountry"/>
+                        <apex:selectList size="1" id="pOutKYCIndGDBirthCountry"  style="width: 173px" value="{!req.kwypfObj.datosObj.GDBirthCountry}" >
+                        <apex:selectoption itemLabel="Select" itemValue="Select"></apex:selectoption>
+                        <apex:selectOption itemValue="MEX" itemLabel="MÉXICO"> </apex:selectOption>
+                        <apex:selectOption itemValue="AFG" itemLabel="AFGANISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="ALA" itemLabel="ISLAS ÅLAND"> </apex:selectOption>
+                        <apex:selectOption itemValue="ALB" itemLabel="ALBANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="DEU" itemLabel="ALEMANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AND" itemLabel="ANDORRA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AGO" itemLabel="ANGOLA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AIA" itemLabel="ANGUILA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ATA" itemLabel="ANTÁRTIDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ATG" itemLabel="ANTIGUA Y BARBUDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SAU" itemLabel="ARABIA SAUDITA"> </apex:selectOption>
+                        <apex:selectOption itemValue="DZA" itemLabel="ARGELIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ARG" itemLabel="ARGENTINA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ARM" itemLabel="ARMENIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ABW" itemLabel="ARUBA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AUS" itemLabel="AUSTRALIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AUT" itemLabel="AUSTRIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AZE" itemLabel="AZERBAIYÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="BHS" itemLabel="BAHAMAS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="BGD" itemLabel="BANGLADÉS"> </apex:selectOption>
+                        <apex:selectOption itemValue="BRB" itemLabel="BARBADOS"> </apex:selectOption>
+                        <apex:selectOption itemValue="BHR" itemLabel="BARÉIN"> </apex:selectOption>
+                        <apex:selectOption itemValue="BEL" itemLabel="BÉLGICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BLZ" itemLabel="BELICE"> </apex:selectOption>
+                        <apex:selectOption itemValue="BEN" itemLabel="BENÍN"> </apex:selectOption>
+                        <apex:selectOption itemValue="BMU" itemLabel="BERMUDAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="BLR" itemLabel="BIELORRUSIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MMR" itemLabel="MYANMAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="BOL" itemLabel="BOLIVIA, ESTADO PLURINACIONAL DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="BIH" itemLabel="BOSNIA Y HERZEGOVINA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BWA" itemLabel="BOTSUANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BRA" itemLabel="BRASIL"> </apex:selectOption>
+                        <apex:selectOption itemValue="BRN" itemLabel="BRUNÉI DARUSSALAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="BGR" itemLabel="BULGARIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BFA" itemLabel="BURKINA FASO"> </apex:selectOption>
+                        <apex:selectOption itemValue="BDI" itemLabel="BURUNDI"> </apex:selectOption>
+                        <apex:selectOption itemValue="BTN" itemLabel="BUTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="CPV" itemLabel="CABO VERDE"> </apex:selectOption>
+                        <apex:selectOption itemValue="KHM" itemLabel="CAMBOYA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CMR" itemLabel="CAMERÚN"> </apex:selectOption>
+                        <apex:selectOption itemValue="CAN" itemLabel="CANADÁ"> </apex:selectOption>
+                        <apex:selectOption itemValue="QAT" itemLabel="CATAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="BES" itemLabel="BONAIRE, SAN EUSTAQUIO Y SABA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TCD" itemLabel="CHAD"> </apex:selectOption>
+                        <apex:selectOption itemValue="CHL" itemLabel="CHILE"> </apex:selectOption>
+                        <apex:selectOption itemValue="CHN" itemLabel="CHINA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CYP" itemLabel="CHIPRE"> </apex:selectOption>
+                        <apex:selectOption itemValue="COL" itemLabel="COLOMBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="COM" itemLabel="COMORAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRK" itemLabel="COREA (LA REPÚBLICA DEMOCRÁTICA POPULAR DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="KOR" itemLabel="COREA (LA REPÚBLICA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CIV" itemLabel="CÔTE D'IVOIRE"> </apex:selectOption>
+                        <apex:selectOption itemValue="CRI" itemLabel="COSTA RICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="HRV" itemLabel="CROACIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CUB" itemLabel="CUBA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CUW" itemLabel="CURAÇAO"> </apex:selectOption>
+                        <apex:selectOption itemValue="DNK" itemLabel="DINAMARCA"> </apex:selectOption>
+                        <apex:selectOption itemValue="DMA" itemLabel="DOMINICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ECU" itemLabel="ECUADOR"> </apex:selectOption>
+                        <apex:selectOption itemValue="EGY" itemLabel="EGIPTO"> </apex:selectOption>
+                        <apex:selectOption itemValue="SLV" itemLabel="EL SALVADOR"> </apex:selectOption>
+                        <apex:selectOption itemValue="ARE" itemLabel="EMIRATOS ÁRABES UNIDOS (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="ERI" itemLabel="ERITREA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SVK" itemLabel="ESLOVAQUIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SVN" itemLabel="ESLOVENIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ESP" itemLabel="ESPAÑA"> </apex:selectOption>
+                        <apex:selectOption itemValue="USA" itemLabel="ESTADOS UNIDOS (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="EST" itemLabel="ESTONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ETH" itemLabel="ETIOPÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="PHL" itemLabel="FILIPINAS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="FIN" itemLabel="FINLANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="FJI" itemLabel="FIYI"> </apex:selectOption>
+                        <apex:selectOption itemValue="FRA" itemLabel="FRANCIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GAB" itemLabel="GABÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="GMB" itemLabel="GAMBIA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="GEO" itemLabel="GEORGIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GHA" itemLabel="GHANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GIB" itemLabel="GIBRALTAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="GRD" itemLabel="GRANADA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GRC" itemLabel="GRECIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GRL" itemLabel="GROENLANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GLP" itemLabel="GUADALUPE"> </apex:selectOption>
+                        <apex:selectOption itemValue="GUM" itemLabel="GUAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="GTM" itemLabel="GUATEMALA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GUF" itemLabel="GUAYANA FRANCESA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GGY" itemLabel="GUERNSEY"> </apex:selectOption>
+                        <apex:selectOption itemValue="GIN" itemLabel="GUINEA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GNB" itemLabel="GUINEA-BISÁU"> </apex:selectOption>
+                        <apex:selectOption itemValue="GNQ" itemLabel="GUINEA ECUATORIAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="GUY" itemLabel="GUYANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="HTI" itemLabel="HAITÍ"> </apex:selectOption>
+                        <apex:selectOption itemValue="HND" itemLabel="HONDURAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="HKG" itemLabel="HONG KONG"> </apex:selectOption>
+                        <apex:selectOption itemValue="HUN" itemLabel="HUNGRÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="IND" itemLabel="INDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="IDN" itemLabel="INDONESIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="IRQ" itemLabel="IRAK"> </apex:selectOption>
+                        <apex:selectOption itemValue="IRN" itemLabel="IRÁN (LA REPÚBLICA ISLÁMICA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="IRL" itemLabel="IRLANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BVT" itemLabel="ISLA BOUVET"> </apex:selectOption>
+                        <apex:selectOption itemValue="IMN" itemLabel="ISLA DE MAN"> </apex:selectOption>
+                        <apex:selectOption itemValue="CXR" itemLabel="ISLA DE NAVIDAD"> </apex:selectOption>
+                        <apex:selectOption itemValue="NFK" itemLabel="ISLA NORFOLK"> </apex:selectOption>
+                        <apex:selectOption itemValue="ISL" itemLabel="ISLANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CYM" itemLabel="ISLAS CAIMÁN (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CCK" itemLabel="ISLAS COCOS (KEELING)"> </apex:selectOption>
+                        <apex:selectOption itemValue="COK" itemLabel="ISLAS COOK (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="FRO" itemLabel="ISLAS FEROE (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SGS" itemLabel="GEORGIA DEL SUR Y LAS ISLAS SANDWICH DEL SUR"> </apex:selectOption>
+                        <apex:selectOption itemValue="HMD" itemLabel="ISLA HEARD E ISLAS MCDONALD"> </apex:selectOption>
+                        <apex:selectOption itemValue="FLK" itemLabel="ISLAS MALVINAS [FALKLAND] (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MNP" itemLabel="ISLAS MARIANAS DEL NORTE (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MHL" itemLabel="ISLAS MARSHALL (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="PCN" itemLabel="PITCAIRN"> </apex:selectOption>
+                        <apex:selectOption itemValue="SLB" itemLabel="ISLAS SALOMÓN (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="TCA" itemLabel="ISLAS TURCAS Y CAICOS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="UMI" itemLabel="ISLAS DE ULTRAMAR MENORES DE ESTADOS UNIDOS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="VGB" itemLabel="ISLAS VÍRGENES (BRITÁNICAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="VIR" itemLabel="ISLAS VÍRGENES (EE.UU.)"> </apex:selectOption>
+                        <apex:selectOption itemValue="ISR" itemLabel="ISRAEL"> </apex:selectOption>
+                        <apex:selectOption itemValue="ITA" itemLabel="ITALIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="JAM" itemLabel="JAMAICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="JPN" itemLabel="JAPÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="JEY" itemLabel="JERSEY"> </apex:selectOption>
+                        <apex:selectOption itemValue="JOR" itemLabel="JORDANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="KAZ" itemLabel="KAZAJISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="KEN" itemLabel="KENIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="KGZ" itemLabel="KIRGUISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="KIR" itemLabel="KIRIBATI"> </apex:selectOption>
+                        <apex:selectOption itemValue="KWT" itemLabel="KUWAIT"> </apex:selectOption>
+                        <apex:selectOption itemValue="LAO" itemLabel="LAO, (LA) REPÚBLICA DEMOCRÁTICA POPULAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="LSO" itemLabel="LESOTO"> </apex:selectOption>
+                        <apex:selectOption itemValue="LVA" itemLabel="LETONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LBN" itemLabel="LÍBANO"> </apex:selectOption>
+                        <apex:selectOption itemValue="LBR" itemLabel="LIBERIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LBY" itemLabel="LIBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LIE" itemLabel="LIECHTENSTEIN"> </apex:selectOption>
+                        <apex:selectOption itemValue="LTU" itemLabel="LITUANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LUX" itemLabel="LUXEMBURGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MAC" itemLabel="MACAO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MDG" itemLabel="MADAGASCAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="MYS" itemLabel="MALASIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MWI" itemLabel="MALAUI"> </apex:selectOption>
+                        <apex:selectOption itemValue="MDV" itemLabel="MALDIVAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="MLI" itemLabel="MALÍ"> </apex:selectOption>
+                        <apex:selectOption itemValue="MLT" itemLabel="MALTA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MAR" itemLabel="MARRUECOS"> </apex:selectOption>
+                        <apex:selectOption itemValue="MTQ" itemLabel="MARTINICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MUS" itemLabel="MAURICIO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MRT" itemLabel="MAURITANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MYT" itemLabel="MAYOTTE"> </apex:selectOption>
+                        <apex:selectOption itemValue="FSM" itemLabel="MICRONESIA (LOS ESTADOS FEDERADOS DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MDA" itemLabel="MOLDAVIA (LA REPÚBLICA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MCO" itemLabel="MÓNACO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MNG" itemLabel="MONGOLIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MNE" itemLabel="MONTENEGRO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MSR" itemLabel="MONTSERRAT"> </apex:selectOption>
+                        <apex:selectOption itemValue="MOZ" itemLabel="MOZAMBIQUE"> </apex:selectOption>
+                        <apex:selectOption itemValue="NAM" itemLabel="NAMIBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NRU" itemLabel="NAURU"> </apex:selectOption>
+                        <apex:selectOption itemValue="NPL" itemLabel="NEPAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="NIC" itemLabel="NICARAGUA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NER" itemLabel="NÍGER (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="NGA" itemLabel="NIGERIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NIU" itemLabel="NIUE"> </apex:selectOption>
+                        <apex:selectOption itemValue="NOR" itemLabel="NORUEGA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NCL" itemLabel="NUEVA CALEDONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NZL" itemLabel="NUEVA ZELANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="OMN" itemLabel="OMÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="NLD" itemLabel="PAÍSES BAJOS (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="PAK" itemLabel="PAKISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="PLW" itemLabel="PALAOS"> </apex:selectOption>
+                        <apex:selectOption itemValue="PSE" itemLabel="PALESTINA, ESTADO DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="PAN" itemLabel="PANAMÁ"> </apex:selectOption>
+                        <apex:selectOption itemValue="PNG" itemLabel="PAPÚA NUEVA GUINEA"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRY" itemLabel="PARAGUAY"> </apex:selectOption>
+                        <apex:selectOption itemValue="PER" itemLabel="PERÚ"> </apex:selectOption>
+                        <apex:selectOption itemValue="PYF" itemLabel="POLINESIA FRANCESA"> </apex:selectOption>
+                        <apex:selectOption itemValue="POL" itemLabel="POLONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRT" itemLabel="PORTUGAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRI" itemLabel="PUERTO RICO"> </apex:selectOption>
+                        <apex:selectOption itemValue="GBR" itemLabel="REINO UNIDO (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CAF" itemLabel="REPÚBLICA CENTROAFRICANA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CZE" itemLabel="REPÚBLICA CHECA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MKD" itemLabel="MACEDONIA (LA ANTIGUA REPÚBLICA YUGOSLAVA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="COG" itemLabel="CONGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="COD" itemLabel="CONGO (LA REPÚBLICA DEMOCRÁTICA DEL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="DOM" itemLabel="REPÚBLICA DOMINICANA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="REU" itemLabel="REUNIÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="RWA" itemLabel="RUANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ROU" itemLabel="RUMANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="RUS" itemLabel="RUSIA, (LA) FEDERACIÓN DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="ESH" itemLabel="SAHARA OCCIDENTAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="WSM" itemLabel="SAMOA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ASM" itemLabel="SAMOA AMERICANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BLM" itemLabel="SAN BARTOLOMÉ"> </apex:selectOption>
+                        <apex:selectOption itemValue="KNA" itemLabel="SAN CRISTÓBAL Y NIEVES"> </apex:selectOption>
+                        <apex:selectOption itemValue="SMR" itemLabel="SAN MARINO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MAF" itemLabel="SAN MARTÍN (PARTE FRANCESA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SPM" itemLabel="SAN PEDRO Y MIQUELÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="VCT" itemLabel="SAN VICENTE Y LAS GRANADINAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="SHN" itemLabel="SANTA HELENA, ASCENSIÓN Y TRISTÁN DE ACUÑA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LCA" itemLabel="SANTA LUCÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="STP" itemLabel="SANTO TOMÉ Y PRÍNCIPE"> </apex:selectOption>
+                        <apex:selectOption itemValue="SEN" itemLabel="SENEGAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="SRB" itemLabel="SERBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SYC" itemLabel="SEYCHELLES"> </apex:selectOption>
+                        <apex:selectOption itemValue="SLE" itemLabel="SIERRA LEONA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SGP" itemLabel="SINGAPUR"> </apex:selectOption>
+                        <apex:selectOption itemValue="SXM" itemLabel="SINT MAARTEN (PARTE HOLANDESA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SYR" itemLabel="SIRIA, (LA) REPÚBLICA ÁRABE"> </apex:selectOption>
+                        <apex:selectOption itemValue="SOM" itemLabel="SOMALIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LKA" itemLabel="SRI LANKA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SWZ" itemLabel="SUAZILANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZAF" itemLabel="SUDÁFRICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SDN" itemLabel="SUDÁN (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SSD" itemLabel="SUDÁN DEL SUR"> </apex:selectOption>
+                        <apex:selectOption itemValue="SWE" itemLabel="SUECIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CHE" itemLabel="SUIZA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SUR" itemLabel="SURINAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="SJM" itemLabel="SVALBARD Y JAN MAYEN"> </apex:selectOption>
+                        <apex:selectOption itemValue="THA" itemLabel="TAILANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TWN" itemLabel="TAIWÁN (PROVINCIA DE CHINA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="TZA" itemLabel="TANZANIA, REPÚBLICA UNIDA DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="TJK" itemLabel="TAYIKISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="IOT" itemLabel="TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="ATF" itemLabel="TERRITORIOS AUSTRALES FRANCESES (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="TLS" itemLabel="TIMOR-LESTE"> </apex:selectOption>
+                        <apex:selectOption itemValue="TGO" itemLabel="TOGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="TKL" itemLabel="TOKELAU"> </apex:selectOption>
+                        <apex:selectOption itemValue="TON" itemLabel="TONGA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TTO" itemLabel="TRINIDAD Y TOBAGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="TUN" itemLabel="TÚNEZ"> </apex:selectOption>
+                        <apex:selectOption itemValue="TKM" itemLabel="TURKMENISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="TUR" itemLabel="TURQUÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TUV" itemLabel="TUVALU"> </apex:selectOption>
+                        <apex:selectOption itemValue="UKR" itemLabel="UCRANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="UGA" itemLabel="UGANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="URY" itemLabel="URUGUAY"> </apex:selectOption>
+                        <apex:selectOption itemValue="UZB" itemLabel="UZBEKISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="VUT" itemLabel="VANUATU"> </apex:selectOption>
+                        <apex:selectOption itemValue="VAT" itemLabel="SANTA SEDE[ESTADO DE LA CIUDAD DEL VATICANO] (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="VEN" itemLabel="VENEZUELA, REPÚBLICA BOLIVARIANA DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="VNM" itemLabel="VIET NAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="WLF" itemLabel="WALLIS Y FUTUNA"> </apex:selectOption>
+                        <apex:selectOption itemValue="YEM" itemLabel="YEMEN"> </apex:selectOption>
+                        <apex:selectOption itemValue="DJI" itemLabel="YIBUTI"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZMB" itemLabel="ZAMBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZWE" itemLabel="ZIMBABUE"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZZZ" itemLabel="PAÍSES NO DECLARADOS"> </apex:selectOption>
+                    </apex:selectList>
+
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi8">
+                    <apex:outputLabel value="Entidad federativa de nacimiento" for="pOutKYCIndGDBirthState"/>
+                    <apex:selectList size="1" id="pOutKYCIndGDBirthState"  style="width: 173px" value="{!req.kwypfObj.datosObj.GDBirthState}" >
+                        <apex:selectOption itemValue="" itemLabel="Select"></apex:selectOption>
+                        <apex:selectOption itemValue="Ags." itemLabel="Aguascalientes"></apex:selectOption>
+                        <apex:selectOption itemValue="B.C." itemLabel="Baja California"></apex:selectOption>
+                        <apex:selectOption itemValue="B.C.S." itemLabel="Baja California Sur"></apex:selectOption>
+                        <apex:selectOption itemValue="Camp." itemLabel="Campeche"></apex:selectOption>
+                        <apex:selectOption itemValue="Chis." itemLabel="Chiapas"></apex:selectOption>
+                        <apex:selectOption itemValue="Chih." itemLabel="Chihuahua"></apex:selectOption>
+                        <apex:selectOption itemValue="Coah." itemLabel="Coahuila"></apex:selectOption>
+                        <apex:selectOption itemValue="Col." itemLabel="Colima"></apex:selectOption>
+                        <apex:selectOption itemValue="C.D.Mx." itemLabel="Ciudad de México"></apex:selectOption>
+                        <apex:selectOption itemValue="Dgo." itemLabel="Durango"></apex:selectOption>
+                        <apex:selectOption itemValue="Gto." itemLabel="Guanajuato"></apex:selectOption>
+                        <apex:selectOption itemValue="Gro." itemLabel="Guerrero"></apex:selectOption>
+                        <apex:selectOption itemValue="Hgo." itemLabel="Hidalgo"></apex:selectOption>
+                        <apex:selectOption itemValue="Edo. Méx." itemLabel="México"></apex:selectOption>
+                        <apex:selectOption itemValue="Mich." itemLabel="Michoacán"></apex:selectOption>
+                        <apex:selectOption itemValue="Mor." itemLabel="Morelos"></apex:selectOption>
+                        <apex:selectOption itemValue="Nay." itemLabel="Nayarit"></apex:selectOption>
+                        <apex:selectOption itemValue="N.L." itemLabel="Nuevo León"></apex:selectOption>
+                        <apex:selectOption itemValue="Oax." itemLabel="Oaxaca"></apex:selectOption>
+                        <apex:selectOption itemValue="Pue." itemLabel="Puebla"></apex:selectOption>
+                        <apex:selectOption itemValue="Qro." itemLabel="Querétaro"></apex:selectOption>
+                        <apex:selectOption itemValue="Q. Roo." itemLabel="Quintana Roo"></apex:selectOption>
+                        <apex:selectOption itemValue="S.L.P." itemLabel="San Luis Potosí"></apex:selectOption>	
+                        
+                        <apex:selectOption itemValue="Sin." itemLabel="Sinaloa"></apex:selectOption>
+                        <apex:selectOption itemValue="Son." itemLabel="Sonora"></apex:selectOption>
+                        <apex:selectOption itemValue="Tab." itemLabel="Tabasco"></apex:selectOption>
+                        <apex:selectOption itemValue="Tamps." itemLabel="Tamaulipas"></apex:selectOption>
+                        <apex:selectOption itemValue="Tlax." itemLabel="Tlaxcala"></apex:selectOption>
+                        <apex:selectOption itemValue="Ver." itemLabel="Veracruz"></apex:selectOption>
+                        <apex:selectOption itemValue="Yuc." itemLabel="Yucatán"></apex:selectOption>
+                        <apex:selectOption itemValue="Zac." itemLabel="Zacatecas"></apex:selectOption>
+                        
+                    </apex:selectList>    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Sexo"/>
+                    <apex:selectList size="1" id="pOutKYCIndGDSex" value="{!req.kwypfObj.datosObj.GDSex}">
+                        <apex:selectOption itemValue="" itemLabel="Select" />
+                        <apex:selectOption itemValue="M" itemLabel="Masculino" />
+                        <apex:selectOption itemValue="F" itemLabel="Femenino" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Estado Civil"/>
+                    <apex:selectList size="1" id="pOutKYCIndGDMarriageStatus" value="{!req.kwypfObj.datosObj.GDMarriageStatus}">
+                        <apex:selectOption itemValue="" itemLabel="Select"/>
+                        <apex:selectOption itemValue="Casado" itemLabel="Casado"/>
+                        <apex:selectOption itemValue="Soltero" itemLabel="Soltero"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Si es casado"/>
+                    <apex:selectList size="1" id="pOutKYCIndGDMarriageRegime" value="{!req.kwypfObj.datosObj.GDMarriageRegime}">
+                        <apex:selectOption itemValue="" itemLabel="Select" />
+                        <apex:selectOption itemValue="Casado por bienes mancomunados" itemLabel="Régimen por bienes mancomunados" />
+                        <apex:selectOption itemValue="Por bienes separados" itemLabel="Régimen por bienes separados" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi13">
+                    <apex:outputLabel value="Nombre del cónyuge y dependientes económicos" for="pOutKYCIndGDNameOfSpouse"/>
+                    <apex:inputText id="pOutKYCIndGDNameOfSpouse" value="{!req.kwypfObj.datosObj.GDNameOfSpouse}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Domicilio particular de residencia" id="pbs2">
+                <apex:pageBlockSectionItem id="pbsi14">
+                    <apex:outputLabel value="Calle" for="pOutKYCIndAdrStreet"/>
+                    <apex:inputText id="pOutKYCIndAdrStreet" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrStreet}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi15">
+                    <apex:outputLabel value="Número exterior" for="pOutKYCIndAdrOutNum"/>
+                    <apex:inputText id="pOutKYCIndAdrOutNum" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrOutNum}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi16">
+                    <apex:outputLabel value="Número interior" for="pOutKYCIndAdrIntNum"/>
+                    <apex:inputText id="pOutKYCIndAdrIntNum" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrIntNum}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi17">
+                    <apex:outputLabel value="Colonia / Urbanización" for="pOutKYCIndAdrCounty"/>
+                    <apex:inputText id="pOutKYCIndAdrCounty" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrCounty}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi18">
+                    <apex:outputLabel value="Alcaldía / Municipio" for="pOutKYCIndAdrMunicipality"/>
+                    <apex:inputText id="pOutKYCIndAdrMunicipality" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrMunicipality}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi19">
+                    <apex:outputLabel value="Ciudad" for="pOutKYCIndAdrCity"/>
+                    <apex:inputText id="pOutKYCIndAdrCity" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrCity}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi20">
+                    <apex:outputLabel value="Estado" for="pOutKYCIndAdrState"/>
+                    <apex:inputText id="pOutKYCIndAdrState" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrState}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi21">
+                    <apex:outputLabel value="País" for="pOutKYCIndAdrCountry"/>
+                    <apex:inputText id="pOutKYCIndAdrCountry" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrCountry}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi211">
+                    <apex:outputLabel value="C.P" for="pOutKYCIndIntAdrZipCode"/>
+                    <apex:inputText id="pOutKYCIndIntAdrZipCode" value="{!req.kwypfObj.dominioObj.pOutKYCIndIntAdrZipCode}" onkeyup="remplazarCp(this.id);" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Datos generales de su empleo u ocupación principal" id="pbs3">
+                <apex:pageBlockSectionItem id="pbsi22">
+                    <apex:outputLabel value="Profesión u ocupación" for="pOutKYCIndBizTitle"/>
+                    <apex:inputText id="pOutKYCIndBizTitle" value="{!req.kwypfObj.datosgObj.pOutKYCIndBizTitle}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi23">
+                    <apex:outputLabel value="a) En caso de mantener vínculos patrimoniales con sociedades o asociaciones, mencionar la denominación o razón social" for="pOutKYCIndBizRelatedPaties"/>
+                    <apex:inputText id="pOutKYCIndBizRelatedPaties" value="{!req.kwypfObj.datosgObj.pOutKYCIndBizRelatedPaties}"/>
+                </apex:pageBlockSectionItem>
+              
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="pbs4" title="Personas Políticamente Expuestas (PPE) o Persona Políticamente Expuesta por Asimilación (PPE por asimilación)">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="a) ¿Es usted PPE? " />
+                    <apex:selectList id="pOutKYCIndPPEFlag" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEFlag}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Select" />
+                        <apex:selectOption itemValue="Y" itemLabel="Si" />
+                        <apex:selectOption itemValue="N" itemLabel="No" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi26">
+                    <apex:outputLabel value="En caso afirmativo señale el puesto (Ejemplo, presidente de la República, secretario o Subsecretario de Estado, Senador, diputado, Gobernador, Presidente Municipal, Magistrado, etc.)" for="PPEIYP"/>
+                    <apex:inputText id="pOutKYCIndPPEJob" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEJob}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi27">
+                    <apex:outputLabel value="b)  ¿Es usted PPE por asimilación?"/>
+                    <apex:selectList id="pOutKYCIndPPEAFlag" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEAFlag}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Select" />
+                        <apex:selectOption itemValue="Y" itemLabel="Si" />
+                        <apex:selectOption itemValue="N" itemLabel="No" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi28">
+                    <apex:outputLabel value="En caso afirmativo señale lo siguiente:"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi29">
+                    <apex:outputLabel value="Nombre de la PPE" for="pOutKYCIndPPEAName"/>
+                    <apex:inputText id="pOutKYCIndPPEAName" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEAName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi30">
+                    <apex:outputLabel value=" Parentesco" for="pOutKYCIndPPEARelationship"/>
+                    <apex:inputText id="pOutKYCIndPPEARelationship" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEARelationship}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Confidencialidad" columns="1">
+            	<p>
+                    Engenium Capital reitera su compromiso de mantener toda  la  información  proporcionada  mediante  el  presente  Formato en cumplimiento a todas y cada una de las obligaciones de  confidencialidad  aplicables  conforme  a  la legislación  de  los  Estados Unidos Mexicanos y conforme a los contratos, acuerdos y convenios que en esta materia se  han celebrado entre el Garante, la persona moral cuyas obligaciones ha garantizado y Engenium Capital, incluyendo a todas sus subsidiarias, filiales y partes relacionadas. 
+                </p>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Aviso de Privacidad respecto del tratamiento de Datos Personales" columns="1">
+                <p>
+                   Sus datos personales están seguros en Engenium Capital. En los términos de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y su reglamento, Engenium Capital (así como entidades filiales y subsidiarias), con domicilio en Antonio Dovalí Jaime No. 70, Torre C, Piso 5° Col. Santa Fe, 01210, México, D.F. utilizará sus datos personales aquí recabados con la 
+                    finalidad de analizarlos y evaluarlos para ofrecerle cualquiera de nuestros productos y servicios financieros, cumplir con nuestros términos y condiciones en la prestación de nuestros productos y servicios, para el análisis de riesgo en la contratación de los mismos y en general, para hacer de su conocimiento los servicios que ofrece Engenium Capital. Mediante su contestación a este correo entenderemos que acepta y reconoce expresamente que sus datos personales, incluidos aquellos catalogados como sensibles, 
+                    financieros y patrimoniales podrán ser tratados, transmitidos y verificados para dichos efectos por Engenium Capital, así como por terceros autorizados proveedores de servicios. Para mayor información acerca del tratamiento y de los derechos que puede hacer valer, usted puede acceder al aviso de privacidad completo a través de nuestra página de internet <a href="www.engeniumcapital.com" target="blank">www.engeniumcapital.com</a> 
+                </p>
+            </apex:pageBlockSection>
+           <!-- <apex:pageBlockSection id="pbs5" title="Origin of resources / resource provider / Real Owner" columns="1">
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="En caso de no actuar por cuenta propia deberá proporcionar lo datos solicitados del Proveedor de Recursos en el siguiente recuadro:"/>
+                	<apex:selectCheckboxes ></apex:selectCheckboxes>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi31">
+                    <apex:outputLabel value="If there is a Resource Provider, please include the following information:"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <!--
+                <apex:pageBlockSectionItem id="pbsi32">
+                    <apex:outputLabel value="Name, Reason or Social denomination" for="ORRRNAME"/>
+                    <apex:inputText id="ORRRNAME"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi33">
+                    <apex:outputLabel value="Nationality / Place of Constitution" for="ORRNC"/>
+                    <apex:inputText id="ORRNC"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi34">
+                    <apex:outputLabel value="RFC (Only for Mexicans) or Date of Birth" for="ORRRFCB"/>
+                    <apex:inputText id="ORRRFCB"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi35">
+                    <apex:outputLabel value="Domicilie" for="ORRDOM"/>
+                    <apex:inputText id="ORRDOM"/>
+                </apex:pageBlockSectionItem>  
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="ADD"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem> -->
+               <!-- <apex:pageBlockSectionItem >
+                    <table border="1" cellspacing="0" width="100%">
+                        <tr>
+                            <th>Action</th>
+      						<th> Nombre, Razón o Denominación Social</th>
+                            <th>Nacionalidad / Lugar de constitución</th>
+                            <th>RFC (Sólo para mexicanos) y Fecha de Nacimiento</th>
+                            <th>Domicilio </th>
+                            <th>Número de serie de la Firma Electrónica Avanzada</th>
+                            <th> </th>
+                        </tr>
+                    	<tr>
+                            <td><button>
+                                Delete
+                                </button></td>
+                    		<td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td>
+                            	<button>
+                                    View
+                                </button>
+                            </td>
+                    	</tr>
+   					 </table>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi36">
+                    <apex:outputLabel value="I manifest under protest to tell the truth that I do not have a Real Owner of resources"/>
+                    <apex:selectCheckboxes ></apex:selectCheckboxes>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi37">
+                    <apex:outputLabel value="If there is a Real Owner, please include the following information:"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <!--<apex:pageBlockSectionItem id="pbsi38">
+                    <apex:outputLabel value="Social denomination" for="ORRSD"/>
+                    <apex:inputText id="ORRSD"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi39">
+                    <apex:outputLabel value="Nationality / Place of constitution" for="ORRNPC"/>
+                    <apex:inputText id="ORRNPC"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi40">
+                    <apex:outputLabel value="RFC (Only for Mexicans) or Date of Birth" for="ORRRFBRO"/>
+                    <apex:inputText id="ORRRFBRO"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi41">
+                    <apex:outputLabel value="Domicile" for="ORRDOM"/>
+                    <apex:inputText id="ORRDOM"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="ADD"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>-->
+               <!-- <apex:pageBlockSectionItem id="pbsi42">
+                    <table border="1" cellspacing="0" width="100%">
+                        <tr>
+                            <th>Action</th>
+      						<th> Name, Reason or Social denomination</th>
+                            <th>Nationality / Place of Constitution</th>
+                            <th> RFC (Only for Mexicans) or Date of Birth</th>
+                            <th>Domicilie</th>
+                            <th> </th>
+                        </tr>
+                    	<tr>
+                            <td><button>
+                                Delete
+                                </button></td>
+                    		<td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td><button>
+                                    View
+                                </button></td>
+                    	</tr>
+   					 </table>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection> -->
+            <apex:pageBlockSection title="El presente Formato es suscrito por:" id="pbs6">
+                <apex:pageBlockSectionItem id="pbsi43">
+                    <apex:outputLabel value="Nombre" for="pOutKYCIndSignName"/>
+                    <apex:inputText id="pOutKYCIndSignName" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi44">
+                    <apex:outputLabel value="Por mi propio Derecho"/>
+                    <apex:inputCheckbox id="pOutKYCIndSignFlag" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignFlag}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi45">
+                    <apex:outputLabel value="En calidad de apoderado conforme a la escritura pública"/>
+                    <apex:inputCheckbox id="pOutKYCIndSignPowerFlag" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignPowerFlag}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi46">
+                    <apex:outputLabel value="Número" for="pOutKYCIndSignPublicDeedNum"/>
+                    <apex:inputText id="pOutKYCIndSignPublicDeedNum" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignPublicDeedNum}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi47">
+                    <apex:outputLabel value="de fecha"  for="pOutKYCIndSignPublicDeedDate"/>
+                    <apex:input id="pOutKYCIndSignPublicDeedDate" type="date" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignPublicDeedDate}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi48">
+                    <apex:outputLabel value="Otorgada ante el Licenciado" for="pOutKYCIndSignNotaryName"/>
+                    <apex:inputText id="pOutKYCIndSignNotaryName" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignNotaryName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi49">
+                    <apex:outputLabel value="Notario Público número " for="pOutKYCIndSignNotaryNum"/>
+                    <apex:inputText id="pOutKYCIndSignNotaryNum" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignNotaryNum}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi50">
+                    <apex:outputLabel value="de la Ciudad de " for="pOutKYCIndSignNotaryState"/>
+                    <apex:inputText id="pOutKYCIndSignNotaryState" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignNotaryState}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi51">
+                    <apex:outputLabel value="Mediante la firma del presente Formato, el suscrito reconoce y declara bajo protesta de decir verdad que los datos antes mencionados son correctos, veraces y exactos.  Asimismo, el suscrito declara que los datos se encuentran actualizados hasta el día" for="pOutKYCIndSignDateDay"/>
+                    <apex:inputText id="pOutKYCIndSignDateDay" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignDateDay}" onkeyup="remplazar(this.id)"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi52">
+                    <apex:outputLabel value="del mes de" for="pOutKYCIndSignDateMonth"/>
+                    <apex:inputText id="pOutKYCIndSignDateMonth" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignDateMonth}" onkeyup="remplazar(this.id)"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi53">
+                    <apex:outputLabel value="de 20" for="pOutKYCIndSignDateYear"/>
+                    <apex:inputText id="pOutKYCIndSignDateYear" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignDateYear}" onkeyup="remplazar(this.id);" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- <apex:pageBlockSection id="pbs7" title="Authorization to request Credit Reports">
+                    <apex:pageBlockSectionItem id="pbsi54">
+                        <apex:outputLabel value="Authorization for:"/>
+                        <apex:selectRadio >
+                            <apex:selectOption itemValue="Physical Person (PF)" itemLabel="Physical Person (PF)"/>
+                            <apex:selectOption itemValue="Physical Person with Business Activity (PFAE)" itemLabel="Physical Person with Business Activity (PFAE)" />
+                            <apex:selectOption itemValue="Moral Person (PM)" itemLabel="Moral Person (PM)" />
+                        </apex:selectRadio>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi55">
+                        <apex:outputLabel value="Applicant name" for="ANameFormat"/>
+                        <apex:inputText id="ANameFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi56">
+                        <apex:outputLabel value="RFC or CURP" for="RFCCURPFORMAT"/>
+                        <apex:inputText id="RFCCURPFORMAT"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi57">
+                        <apex:outputLabel value="Domicilie" for="DomicilieFormat"/>
+                        <apex:inputText id="DomicilieFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi58">
+                        <apex:outputLabel value="County" for="CountyFormat"/>
+                        <apex:inputText id="CountyFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi59">
+                        <apex:outputLabel value="Municipality" for="MunicipalityFormat"/>
+                        <apex:inputText id="MunicipalityFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi60">
+                        <apex:outputLabel value="State" for="StateFormat"/>
+                        <apex:inputText id="StateFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi61">
+                        <apex:outputLabel value="Zip Code" for="ZCFormat"/>
+                        <apex:inputText id="ZCFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi62">
+                        <apex:outputLabel value="Phone(s)" for="PhoneFormat"/>
+                        <apex:inputText id="PhoneFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi63">
+                        <apex:outputLabel value="In the case of Moral, name of the Legal Representative" for="IMLRFormat"/>
+                        <apex:inputText id="IMLRFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi64">
+                        <apex:outputLabel value="Date the authorization is signed" for="DASFormat"/>
+                        <apex:inputText id="DASFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi65">
+                        <apex:outputLabel value="Place where the authorization is signed" for="PWASFormat"/>
+                        <apex:inputText id="PWASFormat"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi66">
+                        <apex:outputLabel value="Name of the official that collecting the authorization" for="NOCAFormat"/>
+                        <apex:inputText id="NOCAFormat"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            	<apex:pageBlockSection title="For the exclusive use of the Company that makes the Consultation" id="pbs8">
+                    <apex:pageBlockSectionItem id="pbsi67">
+                        <apex:outputLabel value="Date of Consultation BC" for="DCBCFCC"/>
+                        <apex:inputText id="DCBCFCC"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi68">
+                        <apex:outputLabel value="Consultation Folium BC" for="CFBCCC"/>
+                        <apex:inputText id="CFBCCC"/>
+                    </apex:pageBlockSectionItem>
+            	</apex:pageBlockSection> -->
+             <div align="Center" draggable="false">
+                <apex:commandButton value="SAVE" action="{!saveKYCPF}" />
+                 <apex:commandButton value="CANCEL" action="{!backToEntity}"/>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

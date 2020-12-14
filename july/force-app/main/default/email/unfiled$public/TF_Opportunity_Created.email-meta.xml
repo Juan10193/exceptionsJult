@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>TF Opportunity Created</name>
+    <style>freeForm</style>
+    <subject>A TF opportunity in {!Opportunity.Account} has been created</subject>
+    <textOnly>Dear Juan Pedro,
+
+You&apos;re receiving this notification because a Technology opportunity has been created. Please refer to the following details for your reference:
+
+Created by: {!Opportunity.OwnerFullName}
+Region: {!Opportunity.OPP_ls_Region__c}
+Stage: {!Opportunity.StageName}
+Account: {!Opportunity.Account}
+Opportunity name: {!Opportunity.Name}
+Amount: {!Opportunity.OPP_un_Amount_USD_Converted__c}
+Product: {!Opportunity.OPP_ls_Product__c}
+Collateral: {!Opportunity.OPP_ls_Collateral__c}
+Expected 1st funding date: {!Opportunity.CloseDate}
+Vendor/ Broker: {!Opportunity.OPP_ls_Vendor_Brand__c} {!Opportunity.OPP_ls_Broker_name__c}
+Shared opportunity: {!Opportunity.OPP_ls_Shared_Opportunity__c}
+Rep included in share 1: {!Opportunity.OPP_rb_Share_Rep_1__c}
+Rep included in share 2: {!Opportunity.OPP_rb_Share_Rep_2__c}
+
+To access to opportunity click here
+
+Digital Marketing.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

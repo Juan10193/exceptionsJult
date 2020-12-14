@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead_General</letterhead>
+    <name>Insurance Policy Changed</name>
+    <style>freeForm</style>
+    <subject>Insurance Policy for {!Takedowns_Contingency_plan__c.Name} has changed</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because there was a change in the Insurance policy {!Insurance_Policy__c.Name}  for {!Takedowns_Contingency_plan__c.Name}.
+
+If you want to see the waiver record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

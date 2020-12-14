@@ -1,0 +1,144 @@
+<!--
+  @Component Name     : takedownTableAB.html
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 22/11/2019 12:55:20
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    22/8/2019 11:04:25   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<template>
+    <div style="height:840px">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModalAB}>
+                        <lightning-icon icon-name="standard:first_non_empty" size="medium">
+                        </lightning-icon><div class="spinner"></div>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Asset breakdown</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="spinner">
+                        <template if:true={isLoading}>
+                             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                             </lightning-spinner>
+                        </template>
+                    </div>
+                    <template if:true={currentData}>
+                        <!--<lightning-card title="Name Asset Breakdown">
+                                            https://www.salesforcecodecrack.com/2019/06/custom-file-upload-in-lightning-web.html
+                                            https://www.salesforcecodecrack.com/2019/05/export-data-as-csv-file-with-javascript.html
+                                        -->
+                        <div slot="actions" class="slds-m-top_xxx-small slds-m-bottom_x-large">
+                            <div style="display: block;" class="lgc-bg">
+                                <div style="display: inline-block;margin: 0.2em;clear:right;">
+                                    <lightning-input label="Upload / Download File" name="Upload File"
+                                        type="file" onchange={handleFilesChange} accept=".xlsx"></lightning-input>
+                                </div>
+                                <div style="display: inline-block;margin: 0.2em;clear:right;">
+                                    <lightning-button label="Download File" icon-name="utility:download"
+                                        alternative-text="Download File" onclick={downloadWorkBook}>
+                                    </lightning-button> &nbsp;
+                                    <lightning-button label="Send EVAL" icon-name="utility:approval" variant="brand-outline"
+                                        alternative-text="Send EVAL"  onclick={sendEval}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                        <template if:true={showLoadingSpinner}>
+                            <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                        </template>
+                        <div style="height:32em;width:auto;display:block;" class="DivHeader">
+                            <!--<lightning-datatable key-field="Id" data={takedownInvoice.data} show-row-number-column row-number-offset={rowOffset} columns={columns} onsave={handleSave} draft-values={draftValues} hide-checkbox-column style="font-family:Calibri;font-size:10px;">
+    </lightning-datatable>-->
+                           <!-- <lightning-datatable key-field="Id" data={currentData} show-row-number-column
+                                row-number-offset={rowOffset} columns={columns} onsave={handleSave}
+                                draft-values={draftValues} hide-checkbox-column
+                                style="font-family:Calibri;font-size:10px;">
+                            </lightning-datatable> -->
+                            <c-custom-datatable key-field="Id" data={currentData} show-row-number-column
+                                row-number-offset={rowOffset} columns={columns} onsave={handleSave}
+                                draft-values={draftValues} hide-checkbox-column
+                                style="font-family:Calibri;font-size:10px;">
+                            </c-custom-datatable>
+                        </div>
+                        <!-- </lightning-card> -->
+                    </template>
+                    <template if:true={modalAskUpload}>
+                        <div style="width:300px;">
+                            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+                                aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                                <div class="slds-modal__container">
+                                    <header class="slds-modal__header">
+                                        <button
+                                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                            title="Close" onclick={closeModal}>
+                                            <lightning-icon icon-name="standard:first_non_empty" size="medium">
+                                            </lightning-icon>
+                                            <span class="slds-assistive-text">Close</span>
+                                        </button>
+                                        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Do you
+                                            want to update
+                                            data?</h2>
+                                    </header>
+                                    <footer class="slds-modal__footer">
+                                        <lightning-button label="No" title="No" onclick={closeModal}
+                                            class="slds-m-left_x-small">
+                                        </lightning-button>
+                                        <lightning-button variant="brand" label="Yes" title="Yes"
+                                            onclick={handleSaveDocument} class="slds-m-left_x-small"></lightning-button>
+                                    </footer>
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </div>
+
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+
+                    <lightning-layout>
+                        <lightning-layout-item  size="12">
+                            <lightning-layout>
+                                <lightning-layout-item  size="3">
+                                    <div class="page-section page-left">
+                                        <lightning-button label="First" icon-name="utility:chevronleft"
+                                            onclick={pageFirst} disabled={showFirstButton}></lightning-button>
+                                        <lightning-button label="Previous" icon-name="utility:chevronleft"
+                                            onclick={pagePrevious} disabled={showFirstButton}></lightning-button>
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout-item  size="3">
+                                    <div class="page-section page-main">
+                                        <p>{currentPage} / {pageSize}</p>
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout-item  size="3">
+                                    <div class="page-section page-right">
+                                        <lightning-button label="Next" icon-name="utility:chevronright"
+                                            icon-position="right" onclick={pageNext} disabled={showLastButton}>
+                                        </lightning-button>
+                                        <lightning-button label="Last" icon-name="utility:chevronright"
+                                            icon-position="right" onclick={pageLast} disabled={showLastButton}>
+                                        </lightning-button>
+                                    </div>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+
+
+</template>

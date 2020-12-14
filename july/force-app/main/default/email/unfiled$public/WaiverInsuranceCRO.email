@@ -1,0 +1,63 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:
+EN-US;mso-fareast-language:ES-MX">You are receiving this notification because
+the waiver {!WaiverToGo__c.Name} for customer {!WaiverToGo__c.Customer_Name__c}
+has been&nbsp;<b>{!WaiverToGo__c.Stage__c}</b></span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:black;mso-ansi-language:EN-US;mso-fareast-language:
+ES-MX"><o:p></o:p></span></p>]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[<ul type="disc" style="">
+ <li class="MsoNormal" style="color: black; font-family: arial; font-size: 12pt; line-height: normal;"><span style="color: rgb(0, 0, 102); font-family: Verdana, sans-serif; font-size: 10pt;">Waiver:&nbsp;{!WaiverToGo__c.Document_Type__c}</span></li>
+ <li class="MsoNormal" style="color: black; font-family: arial; font-size: 12pt; line-height: normal;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+     color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Reason(s)
+     for Waiver:&nbsp;{!WaiverToGo__c.Reason_for_Exception__c}</span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:EN-US;
+     mso-fareast-language:ES-MX"><o:p></o:p></span></li>
+ <li class="MsoNormal" style="color: black; font-family: arial; font-size: 12pt; line-height: normal;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+     color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Requestor
+     Comments:&nbsp;{!WaiverToGo__c.Requester_Comments__c}</span></li>
+ <li class="MsoNormal" style="color: black; font-family: arial; font-size: 12pt; line-height: normal;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+     color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Takedown:&nbsp;{!WaiverToGo__c.Takedown_CP__c}</span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:EN-US;
+     mso-fareast-language:ES-MX"><o:p></o:p></span></li>
+ <li class="MsoNormal" style="color: black; font-family: arial; font-size: 12pt; line-height: normal;"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+     color:#000066;mso-ansi-language:EN-US;mso-fareast-language:ES-MX">Takedown
+     Amount USD:&nbsp;{!WaiverToGo__c.Takedown_Amount_USD__c}</span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:EN-US;
+     mso-fareast-language:ES-MX"><o:p></o:p></span></li><li class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; line-height: normal;"><font color="#000066" face="Verdana, sans-serif"><span style="font-size: 13.3333px;">Comments InsuranceCRO:{!WaiverToGo__c.Exc_Comments_Insurance__c}</span></font></li><li class="MsoNormal" style="line-height: normal;"><font color="#000066" face="Verdana, sans-serif" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 13.3333px;">Archivo prueba:&nbsp;</span></font><font color="#000066" face="Verdana, sans-serif"><span style="font-size: 13.3333px;">{!WaiverToGo__c.Informacion_Adjunta__c}</span></font></li>
+</ul>]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:
+EN-US;mso-fareast-language:ES-MX">If you want to see the waiver record in
+Salesforce,&nbsp;</span><span style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-fareast-language:ES-MX"><a href="https://engeniumcapital--devjune--c.documentforce.com/email/{!WaiverToGo__c.Link}"><span lang="EN-US" style="color:blue;mso-ansi-language:EN-US">click here</span></a></span><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;color:#000066;mso-ansi-language:
+EN-US;mso-fareast-language:ES-MX">.</span><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span lang="EN-US" style="font-size: 12pt; font-family: Arial, sans-serif;">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style="font-size:10.0pt;font-family:&quot;Verdana&quot;,sans-serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;color:#000066;mso-fareast-language:
+ES-MX">Regards,</span><span style="font-size: 12pt; font-family: Arial, sans-serif;"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style="font-size: 12pt; font-family: Arial, sans-serif;">&nbsp;</span></p>
+
+<b><span style="font-size:10.0pt;line-height:107%;font-family:&quot;Verdana&quot;,sans-serif;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial;
+color:#000066;mso-ansi-language:ES-MX;mso-fareast-language:ES-MX;mso-bidi-language:
+AR-SA">Digital Marketing</span></b>]]></td>
+</tr>
+</table>

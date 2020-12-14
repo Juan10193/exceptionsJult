@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Gestoría por acreditación propiedad</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Gestoria_por_acreditacion_propiedad</name>
+    <style>formalLetter</style>
+    <subject>Gestoría por acreditación propiedad</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+De acuerdo a su requerimiento, anexamos el costo de la gestoría para {!Case.CAS007_ls_tramites__c}:
+
+Costo gestoría: {!Case.CAS008_ls_precioClienteRapidTag__c}.
+
+Para este trámite es necesario nos proporcione la siguiente información:
+
+·  Número de serie de su equipo para ubicar Contrato y Anexo en el que se encuentra.
+
+· Datos del usuario afectado (Nombre, teléfono celular y correo electrónico)
+
+· Dirección del MP en donde se deberá presentar el gestor.
+
+· Copia de la infracción.
+
+· Copia del comprobante de pago de la infracción.
+
+· Tramitar y proporcionar fecha de la cita ante el MP con aviso mínimo de 5 días CDMX y Zona Metropolitana y de 7 días, para el interior de la República (Si aplica).
+
+
+· Al acudir al MP será necesario que el representante de su empresa presente, adicional a la infracción y comprobantes de pago originales, la tarjeta de circulación, póliza de seguro y tenencias (si aplican) originales.
+
+Es necesario contar con su aprobación por esta vía para iniciar con el proceso de la gestoría.
+
+Por nuestra parte, solicitamos los documentos originales a nuestro archivo (lapso de entrega 24 a 48 horas).
+
+Una vez autorizado el cargo y enviada la información requerida, se dará inicio al trámite.
+
+En caso de que la autoridad determine el pago de algún derecho o multa deberá ser cubierto por su empresa.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

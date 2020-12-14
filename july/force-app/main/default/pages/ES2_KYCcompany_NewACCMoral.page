@@ -1,0 +1,77 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaMoral" >
+    <apex:form id="frm">
+       
+        <script>
+     function validar(){
+    	var alerts=[];
+    	var nombre = document.getElementById('{!$Component.frm.pb.pbs.pbsi1.kycOrgPartnerOrgLegalName}').value;
+        var nacio =  document.getElementById('{!$Component.frm.pb.pbs.pbsi2.kycOrgPartnerOrgCountry}').value;
+        var rfc = document.getElementById('{!$Component.frm.pb.pbs.pbsi3.kycOrgPartnerOrgRFC}').value; 
+        var percent =  document.getElementById('{!$Component.frm.pb.pbs.pbsi4.kycOrgPartnerOrgPorcent}').value; 
+        
+    	if(nombre ==""){
+        	var validarNombre ='Porfavor Introdusca el Nombre, Razón o Denominación Social\n';
+            alerts.push(validarNombre);
+        }
+         
+       if(nacio==""){
+       		var validarnacio = 'Porfavor Itrodusca la Nacionalidad\n';
+            alerts.push(validarnacio);
+       }
+         
+       if(rfc ==""){
+           var validarRfc= "Porfavor Introdusca el RFC\n";
+           alerts.push(validarRfc);
+       }
+         
+      if(percent ==""){
+      	 var validarPercent = "Porfavor Introdusca El porcentaje de Participación\n";
+          alerts.push(validarPercent);
+      }
+         
+         if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+     } 
+    
+    </script>
+
+        <apex:pageBlock id="pb" title="Accionistas o socios que sean Personas Morales">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection id="pbs">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Nombre, Razón o Denominación Social" for="kycOrgPartnerOrgLegalName"/>
+                    <apex:inputText id="kycOrgPartnerOrgLegalName" value="{!accpm.pOutKYCOrgPartnerOrgLegalName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Nacionalidad / Lugar de constitución"/>
+                    <apex:inputText id="kycOrgPartnerOrgCountry" value="{!accpm.pOutKYCOrgPartnerOrgCountry}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="RFC (para mexicanos) o Número de identificación Fiscal (para extranjeros)" for="kycOrgPartnerOrgRFC"/>
+                    <apex:inputText id="kycOrgPartnerOrgRFC" value="{!accpm.pOutKYCOrgPartnerOrgRFC}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi4">
+                    <apex:outputLabel value="Porcentaje de Participación" for="kycOrgPartnerOrgPorcent"/>
+                    <apex:inputText id="kycOrgPartnerOrgPorcent" value="{!accpm.pOutKYCOrgPartnerOrgPorcent}"/>
+                </apex:pageBlockSectionItem>
+        	</apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel style="float:center" >
+                <apex:commandButton value="Save" action="{!saveACcMral}" onclick="return validar();"  style="float:center; width:120px"  /> 
+            	<apex:commandButton value="Cancel" action="{!CancelTable}" style="float:center; width:120px"/>
+                </apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

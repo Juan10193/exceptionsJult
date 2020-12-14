@@ -1,0 +1,17 @@
+<apex:page lightningStylesheets="true" setup="true" controller="EIV_EntitySelectTypeClass" >
+    <apex:form >
+        <apex:pageBlock title="Select Entity Type"> 
+            <apex:pageBlockSection columns="1" title="Create Entity  {!sAccountName}" collapsible="false">
+                
+                <apex:selectList id="chooseCustomerType" value="{!string}" size="1">
+                    <apex:selectOption itemValue="EIV_EntityEditPageIndividual" itemLabel="Individual"/>
+                    <apex:selectOption itemValue="EIV_EntityEditPageOrganization" itemLabel="Organization"/>
+                    <apex:selectOption itemValue="EIV_EntityEditPageEconomicGroup" itemLabel="Economic Group"/>
+                </apex:selectList> 
+                
+                <apex:commandButton value="Create Entity" action="{!NewEntity}" /> 
+                <apex:commandButton value="Cancel" action="{!Cancel}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

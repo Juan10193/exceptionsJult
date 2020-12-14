@@ -1,0 +1,905 @@
+<!--
+  @Component Name     : takedownTableABForm.html
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 10-20-2020
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    29/8/2019 16:10:23   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<template>
+    <template if:false={openModalDeleteAsset}>
+        <div style="height:840px">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="standard:first_non_empty" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Asset breakdown</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_none" id="modal-content-id-1">
+                        <div class="slds-p-around_none">
+                            <div slot="actions" class="slds-p-around_small slds-m-bottom_x-small">
+                                <div class="c-container">
+                                    <template if:true={_takedownInvoiceData.data}>
+                                        <lightning-layout multiple-rows="true">
+                                            <lightning-layout-item padding="around-small" size="12" class="slds-box ">
+                                                <div class="page-section page-header">
+                                                    <div class="slds-m-top_x-small slds-m-bottom_x-large">
+                                                        <div class="slds-p-around_medium lgc-bg">
+                                                            <lightning-layout>
+                                                                <lightning-layout-item size="6">
+                                                                    <lightning-tile type="media">
+                                                                        <h2 class="field-title slds-p-bottom_small"
+                                                                            title="Takedown Invoice">Takedown Invoice
+                                                                        </h2>
+                                                                        <a
+                                                                            href={openRecord}>{_takedownInvoiceData.data.fields.Name.value}</a>
+                                                                        <lightning-icon slot="media"
+                                                                            icon-name="standard:shipment">
+                                                                        </lightning-icon>
+                                                                    </lightning-tile>
+                                                                </lightning-layout-item>
+                                                                <lightning-layout-item size="6">
+                                                                    <div style="float: right;">
+                                                                        <lightning-file-upload
+                                                                            label="Attach Invoice, New version"
+                                                                            name="FactureUploader"
+                                                                            accept={acceptedFormats}
+                                                                            record-id={takedownid}
+                                                                            onuploadfinished={handleUploadFinished}
+                                                                            disabled={disableUploadFieldNewVersion}>
+                                                                        </lightning-file-upload>
+                                                                    </div>
+                                                                </lightning-layout-item>
+                                                            </lightning-layout>
+                                                        </div>
+                                                    </div>
+                                                    <lightning-layout>
+                                                        <lightning-layout-item>
+                                                            <div class="header-column slds-p-horizontal_small">
+                                                                <p class="field-title slds-p-bottom_small"
+                                                                    title="SAT status">SAT status</p>
+                                                                <p>
+                                                                    <lightning-icon size="small"
+                                                                        icon-name={_takedownInvoiceData.data.fields.TKD_ls_SAT_Status__c.value}>
+                                                                    </lightning-icon>
+                                                                </p>
+                                                            </div>
+                                                        </lightning-layout-item>
+                                                        <lightning-layout-item>
+                                                            <div class="header-column slds-p-horizontal_small">
+                                                                <p class="field-title slds-p-bottom_small"
+                                                                    title="Engenium status">Engenium
+                                                                    status</p>
+                                                                <p>
+                                                                    <lightning-icon size="small"
+                                                                        icon-name={_takedownInvoiceData.data.fields.TKD_ls_Eng_Status__c.value}>
+                                                                    </lightning-icon>
+                                                                </p>
+                                                            </div>
+                                                        </lightning-layout-item>
+                                                        <lightning-layout-item>
+                                                            <div class="header-column slds-p-horizontal_small">
+                                                                <p class="field-title slds-p-bottom_small"
+                                                                    title="SAT message">SAT message</p>
+                                                                <p>{_takedownInvoiceData.data.fields.TKD_tl_SAT_message__c.value}
+                                                                </p>
+                                                            </div>
+                                                        </lightning-layout-item>
+                                                        <lightning-layout-item>
+                                                            <div class="header-column slds-p-horizontal_small">
+                                                                <p class="field-title slds-p-bottom_small"
+                                                                    title="Engenium message">Engenium
+                                                                    message</p>
+                                                                <p>{_takedownInvoiceData.data.fields.TKD_tl_Eng_message__c.value}
+                                                                </p>
+                                                            </div>
+                                                        </lightning-layout-item>
+                                                    </lightning-layout>
+                                                </div>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item padding="slds-p-around_xxx-small" size="12"
+                                                class="slds-box ">
+                                                <lightning-layout>
+                                                    <lightning-layout-item padding="around-small" size="3">
+                                                        <div class="page-section page-right">
+                                                            <div class="lgc-bg">
+                                                                <lightning-vertical-navigation onselect={handleSelect}
+                                                                    compact shaded>
+                                                                    <lightning-vertical-navigation-section
+                                                                        key={navigationData.label}
+                                                                        label={navigationData.label}>
+                                                                        <template for:each={navigationData.items}
+                                                                            for:item="item">
+                                                                            <template if:true={item.icon}>
+                                                                                <lightning-vertical-navigation-item-icon
+                                                                                    key={item.name} label={item.label}
+                                                                                    name={item.name}
+                                                                                    icon-name={item.icon}>
+                                                                                </lightning-vertical-navigation-item-icon>
+                                                                            </template>
+                                                                            <template if:false={item.icon}>
+                                                                                <lightning-vertical-navigation-item
+                                                                                    key={item.name} label={item.label}
+                                                                                    name={item.name}>
+                                                                                </lightning-vertical-navigation-item>
+                                                                            </template>
+                                                                        </template>
+
+                                                                    </lightning-vertical-navigation-section>
+                                                                </lightning-vertical-navigation>
+                                                            </div>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item padding="around-small" size="9">
+                                                        <div class="page-section page-main">
+                                                            <div class="slds-p-around_x-small lgc-bg">
+                                                                <lightning-button-group>
+                                                                    <lightning-button label="New"
+                                                                        icon-name="utility:new"
+                                                                        onclick={handleNewAsset}></lightning-button>
+                                                                    <lightning-button label="Delete"
+                                                                        icon-name="utility:delete"
+                                                                        onclick={handleOpenModalDeleteAsset}
+                                                                        disabled={disableDelete}></lightning-button>
+                                                                </lightning-button-group>
+                                                            </div>
+                                                            <div class="slds-p-top_x-small">
+                                                                <template if:false={isNewAsset}>
+                                                                    <template if:true={selectedValue}>
+                                                                        <lightning-record-form record-id={selectedValue}
+                                                                            object-api-name={objectApiName} fields={fields}
+                                                                            columns="3" mode={formMode}
+                                                                            onsuccess={handleSuccess}>
+                                                                        </lightning-record-form>
+                                                                    </template>
+                                                                    <template if:false={selectedValue}>
+                                                                        <lightning-record-form record-id={selectedValue}
+                                                                            object-api-name={objectApiName} fields={fields}
+                                                                            columns="3" mode="readonly"
+                                                                            onsuccess={handleSuccess}>
+                                                                        </lightning-record-form>
+                                                                    </template>
+                                                                </template>                                                                
+                                                                <template if:true={isNewAsset}>
+                                                                    <lightning-record-edit-form
+                                                                        object-api-name={objectApiName}
+                                                                        onsuccess={handleSuccess}>
+                                                                        <lightning-messages>
+                                                                        </lightning-messages>
+                                                                        <lightning-layout-item padding="around-small"
+                                                                            size="12">
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="Name">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_Model__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="SerialNumber">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="Description">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_model_year__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tl_engine_number__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_brand__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="Status">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ck_active__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_Insurance_policy__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tl_ec_policy__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_Insurance_company__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_inciso_insurance__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_insurance_expiration_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_aseguradora__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_annex_a_number__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_annex_a_created_Date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_annex_a_approved_Date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_quote_number__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ls_annex_a_status__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_quote_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ls_ec_or_customer_supplier__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_nu_unit_availability_days__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_supplier_name__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ls_purchase_Status__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ls_delivery_status__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_customer_agreed_delivery_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_real_delivery_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ca_welcome_kit_sent__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_forcasted_delivery_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_welcome_kit_sent_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ls_annex_b_status__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_annex_b_sent_date__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_dv_payment_amount__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_payment_type__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TDK_dv_Unit_cost__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="Quantity">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_payment_order__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_dv_soft_cost__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="CurrencyIsoCode">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_dv_total_cost__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TDK_tx_pediment__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_Category__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_arrears__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_ls_stage__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_Sub_Category__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tl_imported_by__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_fecha_de_importacion__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_tx_period__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_fh_imported_on__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_rb_collateral__c">
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="AccountId"
+                                                                                        value={formAccountID}>
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_rb_Takedown_CP__c"
+                                                                                        value={formTakedownID}
+                                                                                        readonly={readOnly}>
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="4">
+                                                                                    <lightning-input-field
+                                                                                        field-name="TKD_rb_takedown_Invoice__c"
+                                                                                        value={formInvoiceID}
+                                                                                        readonly={readOnly}>
+                                                                                    </lightning-input-field>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <lightning-layout>
+                                                                                <lightning-layout-item size="12">
+                                                                                    <div class="page-section page-main">
+                                                                                        <lightning-button
+                                                                                            class="slds-m-top_small slds-m-left_x-small"
+                                                                                            label="Create new"
+                                                                                            type="submit" name="save"
+                                                                                            variant="brand">
+                                                                                        </lightning-button>
+                                                                                        <lightning-button
+                                                                                            class="slds-m-top_small slds-m-left_x-small"
+                                                                                            label="Cancel"
+                                                                                            onclick={handleCancel}>
+                                                                                        </lightning-button>
+                                                                                    </div>
+                                                                                </lightning-layout-item>
+
+                                                                            </lightning-layout>
+                                                                        </lightning-layout-item>
+                                                                    </lightning-record-edit-form>
+                                                                </template>
+                                                                <!-- <template if:true={isNewAsset}>
+                                                                <lightning-record-edit-form
+                                                                    object-api-name={objectApiName}
+                                                                    onsuccess={handleSuccess}>
+                                                                    <lightning-messages>
+                                                                    </lightning-messages>
+                                                                    <lightning-layout-item padding="around-small"
+                                                                        size="12">
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="Name">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_Model__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="SerialNumber">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="Description">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_model_year__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tl_engine_number__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_brand__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="Status">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ck_active__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_Insurance_policy__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tl_ec_policy__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_Insurance_company__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_inciso_insurance__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_insurance_expiration_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_aseguradora__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_annex_a_number__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_annex_a_created_Date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_annex_a_approved_Date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_quote_number__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ls_annex_a_status__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_quote_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ls_ec_or_customer_supplier__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_nu_unit_availability_days__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_supplier_name__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ls_purchase_Status__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ls_delivery_status__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_customer_agreed_delivery_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_real_delivery_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ca_welcome_kit_sent__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_forcasted_delivery_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_welcome_kit_sent_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ls_annex_b_status__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_annex_b_sent_date__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_dv_payment_amount__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_payment_type__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TDK_dv_Unit_cost__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="Quantity">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_payment_order__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_dv_soft_cost__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="CurrencyIsoCode">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_dv_total_cost__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TDK_tx_pediment__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_Category__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_arrears__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_ls_stage__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_Sub_Category__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tl_imported_by__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_fecha_de_importacion__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_tx_period__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_fh_imported_on__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_rb_collateral__c">
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="AccountId"
+                                                                                    value={formAccountID} readonly={readOnly}>
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="6">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_rb_Takedown_CP__c"
+                                                                                    value={formTakedownID} readonly={readOnly}>
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="12">
+                                                                                <lightning-input-field
+                                                                                    field-name="TKD_rb_takedown_Invoice__c"
+                                                                                    value={formInvoiceID} readonly={readOnly}>
+                                                                                </lightning-input-field>
+                                                                            </lightning-layout-item>
+                                                                        </lightning-layout>
+                                                                        <lightning-layout>
+                                                                            <lightning-layout-item size="12">
+                                                                                <lightning-button
+                                                                                    class="slds-m-top_small slds-m-left_x-small"
+                                                                                    label="Create new"
+                                                                                    type="submit" 
+                                                                                    name="save"
+                                                                                    variant="brand" 
+                                                                                    >
+                                                                                </lightning-button>
+                                                                                <lightning-button
+                                                                                    class="slds-m-top_small slds-m-left_x-small"
+                                                                                    label="Cancel"
+                                                                                    onclick={handleCancel}>
+                                                                                </lightning-button>
+                                                                            </lightning-layout-item>
+
+                                                                        </lightning-layout>
+                                                                    </lightning-layout-item>
+                                                                </lightning-record-edit-form>
+                                                            </template>-->
+                                                            </div>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                </lightning-layout>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+    <template if:true={openModalDeleteAsset}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleDeleteAsset} close-button-name="cancel"
+            accept-button-name="Delete" title="Do you
+        want to delete this data?">
+        </c-modal-question>
+    </template>
+</template>

@@ -1,0 +1,730 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-24-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   07-13-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+    <template if:true={openModalContact}>
+        <c-lmm-modal-contact-types contac-type={contactype} contact-id={contactId}></c-lmm-modal-contact-types>
+    </template>
+    <template if:true={openAvalmodal}>
+       <c-lmm-modal-avales-r-p-v-p-y-m-e opp-id={recordId}></c-lmm-modal-avales-r-p-v-p-y-m-e>
+    </template>
+    <lightning-record-view-form object-api-name="Reporte_de_visita_PYME__c" record-id={reporteId}>
+        <lightning-messages></lightning-messages>
+        <h1 class="slds-section-title--divider"
+            style="color: white; background-color: #004877; border-style: solid; text-align: center;">Reporte de Visita
+            PYME</h1>
+            <div style="text-align: center;">
+                <lightning-button variant="brand" label="Edit" onclick={handleEditRepo}></lightning-button>
+            </div>
+        <h3><strong>1 Generales de la Visita</strong></h3>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-6 slds-medium-size_1-of-6 slds-large-size_1-of-6"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Fecha_de_Visita__c"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-6 slds-medium-size_1-of-6 slds-large-size_1-of-6"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Fecha elaboración de reporte</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="CreatedDate" label-hidden></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Nombre del Cliente</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+
+                                    <!-- <lightning-input type="text" label="Nombre de la empresa:" value="" onchange={handleChangeEmpresa}  placeholder="type here..." required></lightning-input> -->
+                                
+                                        <!-- <lightning-output-field field-name="LMM_Nombre_del_cliente__c"></lightning-output-field> -->
+                                        <lightning-formatted-url value={clientId}  label={clientN} target="_blank" ></lightning-formatted-url>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <br/>
+                    <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                        <br>
+                        <br>
+                        <label>Avales</label>
+                        
+        
+                        <lightning-datatable  key-field="Id" data={avals} column-widths-mode="auto"
+                            columns={AVALES} onrowaction={handleRowAction}  hide-checkbox-column>
+                        </lightning-datatable>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Depositario Legal</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+
+                                    <!-- <lightning-input type="text" label="Nombre de la empresa:" value="" onchange={handleChangeEmpresa}  placeholder="type here..." required></lightning-input> -->
+                                    <lightning-formatted-url value={dlId}  label={dlName} target="_blank" ></lightning-formatted-url>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Tipo_de_Cliente_para_EC__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1  slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Visita_realizada_por__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form__item slds-size_1-of-1  slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Puesto__c" label="Puesto">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Tipo_de_reporte__c"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Especificar_Otro__c"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <h3><strong>Ubicación del Domicilio Visitado</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Ubicaci_n_del_Domicilio_Fiscal__c" onchange={handlechange}>
+                                    </lightning-output-field >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Calle Dom.v</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Calle_DV__c" variant="label-hidden" data-name="domvicita">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Calle Dom.f</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Calle_DF__c" variant="label-hidden">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Numero Dom.v</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Numero_DV__c" variant="label-hidden" data-name="numdomv">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Numero Dom.f</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Numero_DF__c" variant="label-hidden">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Colonia Dom.v</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Colonia_DV__c" variant="label-hidden" data-name="coldmv">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Colonia Dom.f</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Colonia_DF__c" variant="label-hidden">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Ciudad Dom.v</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Ciudad_DV__c" variant="label-hidden" data-name="ciudv">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Ciudad Dom.f</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Ciudad_DF__c" variant="label-hidden">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Estado Dom.v</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Estado_DV__c" variant="label-hidden" data-name="estadodv">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Estado Dom.f</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Estado_DF__c" variant="label-hidden">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Tiempo de Arraigo Dom.v (Años)</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Tiempo_de_Arraigo_DV__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Tiempo de Arraigo Dom.f (Años)</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Tiempo_de_Arraigo_DF__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Se Anexan Fotos? Dom.v</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Se_Anexan_Fotos_DV__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Se Anexan Fotos? Dom.f</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Se_Anexan_Fotos_DF__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Desc_n_de_las_Instalaciones_Visitad__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3><strong>2 Descripción del Cliente</strong></h3>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Antecedentes, Principales Actividades, años de
+                                servicio, datos relevantes</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_AntePrActividAnioservDatos__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_descdelEquipoobservadodurante_visita__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Pagina_web__c"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-3"
+                        role="listitem">
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-3"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_N_de_Empleados__c"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Empresas_Filiales_o_Relacionadas__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                <label>Principales Funcionarios</label>
+                <lightning-datatable hide-checkbox-column key-field="LMM_Nombre_del_Contacto__c" data={pf} column-widths-mode="auto"
+                    columns={COLUMNSFUNCIPv}>
+                </lightning-datatable>
+                <br />
+                <br />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                <label>Lista de Principales Clientes</label>
+                <lightning-datatable hide-checkbox-column key-field="LMM_RPYME_Name__c" data={pc} column-widths-mode="auto"
+                    columns={COLUMNSPCLIENTEV} >
+                </lightning-datatable>
+                <br />
+                <br />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                <label>Lista de Principales Proveedores</label>
+                <lightning-datatable hide-checkbox-column key-field="LMM_RPYME_Name__c" data={ppv} column-widths-mode="auto"
+                    columns={COLUMNSPCLIENTEV} >
+                </lightning-datatable>
+                <br />
+                <br />
+            </div>
+            <div class="slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                <label>Lista de Principales Acreedores Financieros</label>
+                <lightning-datatable hide-checkbox-column key-field="LMM_RPYME_Name__c" data={pac} column-widths-mode="auto"
+                    columns={COLUMNSPCLIENTEV} >
+                </lightning-datatable>
+                <br />
+                <br />
+            </div>
+
+        </div>
+        <h3><strong>3 Experiencia de Crédito Previa</strong></h3>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                        role="listitem"></div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Experiencia_de_cr_dito_previa__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_8-of-12 slds-medium-size_8-of-12 slds-large-size_8-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Nombre de entidades que han otorgando
+                                financiamiento? (incluir distribuidores en su caso)</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Nomdeentidadesquehan_otorgandofinan__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_CuentaconFinanciamiento_Vigente__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Monto_del_Cr_dito_M_ximo_Recibido__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3><strong>4 Información de la Oportunidad</strong></h3>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Motivo_de_la_Solicitud__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Tipo_de_Equipo__c"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_El_cliente_cuenta_con_equipo_similar__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Descripci_n_de_Equipo__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Descripción de la Solicitud y la estructura</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Descripci_nde_laSolicitud_y_estruct__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Justificación de la Estructura</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Justificaci_n_de_la_Estructura__c"
+                                        variant="label-hidden"></lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3><strong>5 Comentarios de Ventas</strong></h3>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Por_qu_apoyas_la_solicitud__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Fortalezas_Detectadas__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form__item slds-size_1-of-2 slds-medium-size_5-of-12 slds-large-size_5-of-12"
+                        role="listitem">
+                        <div
+                            class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-output-field field-name="LMM_Debilidades_Detectadas__c">
+                                    </lightning-output-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <lightning-button variant="brand" label="Edit" onclick={handleEditRepo}></lightning-button>
+        </div>
+        
+    </lightning-record-view-form>
+</template>

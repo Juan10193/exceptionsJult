@@ -1,0 +1,24 @@
+Dear {!TBO014_Credit_Approval__c.OwnerFullName} ,
+
+The following credit approval has been {!TBO014_Credit_Approval__c.TBO014_tx_Status__c}
+
+Account details:
+{!TBO014_Credit_Approval__c.TBO014_rb_Account__c}
+
+
+Approval details:
+Credit approval: {!TBO014_Credit_Approval__c.Name}
+Approval category: {!TBO014_Credit_Approval__c.TBO014_ls_Approval_Category__c}
+Amount MXN: {!TBO014_Credit_Approval__c.TBO014_un_Amount_MXN__c}
+Amount USD: {!TBO014_Credit_Approval__c.TBO014_un_Amount_USD__c}
+Total Amount USD Converted: {!TBO014_Credit_Approval__c.TBO014_un_Total_Amount_USD_Converted__c}
+
+
+{!TBO014_Credit_Approval__c.Link}
+
+System information:
+{!TBO014_Credit_Approval__c.CreatedBy}
+
+Thank you,
+
+Digital Marketing – Engenium Capital.

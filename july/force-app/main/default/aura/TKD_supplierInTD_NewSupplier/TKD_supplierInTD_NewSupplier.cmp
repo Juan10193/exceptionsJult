@@ -1,0 +1,677 @@
+<!--
+  @File Name          : TKD_supplierInTD_NewSupplier.cmp
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 16/6/2020 15:15:27
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    27/11/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<aura:component controller="TKD_supplierInTD_NewSupplierController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId"
+    access="global">
+    <aura:registerEvent name="TKD_SaveNewSupplier" type="c:TKD_SaveNewSupplier" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="scopeRecord" type="String" />
+    <aura:attribute name="scopeRecordByTableHits" type="String" default="null" />
+    <aura:attribute name="operationUnit" type="String" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="supplierData" type="Object" />
+    <!-- Valores boleanos para muestreo de modals -->
+    <aura:attribute name="isOpenSite" type="Boolean" default="false" />
+    <aura:attribute name="isOpenContact" type="Boolean" default="false" />
+    <aura:attribute name="isOpenAccount" type="Boolean" default="false" />
+    <!--Permisos para editar -->
+    <aura:attribute name="isEditSite" type="Boolean" default="false" />
+    <aura:attribute name="isEditContact" type="Boolean" default="false" />
+    <aura:attribute name="isEditAccount" type="Boolean" default="false" />
+
+    <!--index del registro a editar-->
+
+    <aura:attribute name="indexEditRecord" type="Integer" default="null" />
+
+    <!-- Valores que inicializan los picklist del formulario -->
+    <aura:attribute name="pickListVatCode" type="List" />
+    <aura:attribute name="pickCurrencyISOCode" type="List" />
+    <aura:attribute name="pickListState" type="List" />
+    <aura:attribute name="pickListCountry" type="List" />
+    <!--BankAccount-->
+    <aura:attribute name="pickListBankAccount" type="List" />
+    <aura:attribute name="pickListBankAccountCurrency" type="List" />
+    <aura:attribute name="pickTipoBIC" type="List" />
+    <aura:attribute name="pickTipo" type="List" />
+    <aura:attribute name="pickpagoacuentaconcentradora" type="List" />
+
+    <!-- Valores de configuración para datatableSites -->
+    <aura:attribute name="siteColumns" type="List" />
+    <!-- Valores de configuración para datatableAccount -->
+    <aura:attribute name="accountColumns" type="List" />
+    <aura:attribute name="accountData" type="List" />
+    <!-- Valores de configuración para datatableContact -->
+    <aura:attribute name="contactColumns" type="List" />
+    <aura:attribute name="contactData" type="List" />
+
+    <!--  Valores iniciales para los datatable  -->
+    <aura:attribute name="addSite" type="Object" default="null" />
+    <aura:attribute name="addAccount" type="Object" default="null" />
+    <aura:attribute name="addContact" type="Object" default="null" />
+
+    <aura:attribute name="Pay_Site_Flag" type="Boolean" default="true" />
+    <aura:attribute name="primaryPaySiteFlag" type="Boolean" default="true" />
+
+
+
+
+    <!--Sipner de carga-->
+    <aura:attribute name="spinner" type="Boolean" default="false" />
+
+   <!--Metadata de swift--> 
+   <aura:attribute name="metadataSwiftDesition" type="Object" default="null" />
+
+    <aura:if isTrue="{!v.spinner}">
+        <div class="demo-only" style="height:6rem">
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+
+    <div class="c-container">
+        <lightning:card variant="Narrow" title="Supplier" iconName="custom:custom98">
+        </lightning:card>
+        <form class="slds-form--stacked">
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem padding="around-small" size="12">
+                    <h3 class="slds-section-title--divider">Supplier</h3>
+                    <lightning:layoutItem padding="around-small" size="12">
+                        <lightning:layout>
+                            <lightning:layoutItem padding="around-small" size="4">
+                                <div class="page-section page-main">
+                                    <lightning:input aura:id="supplierField" name="suppliervendorname"
+                                        label="Vendor Name" value="{!v.supplierData.Name}" onblur="{!c.onBlur}"
+                                        required="true" />
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem padding="around-small" size="4">
+                                <div class="page-section page-right">
+                                    <lightning:input aura:id="supplierField" name="suppliervendornamealt"
+                                        label="Vendor Name Alt" value="{!v.supplierData.TKD_tx_Vendor_name_alternative}"
+                                        required="true" />
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem padding="around-small" size="4">
+                                <div class="page-section page-right">
+                                    <lightning:input aura:id="supplierField" name="suppliervatregistrationnum"
+                                        label="Vat Registration Num"
+                                        value="{!v.supplierData.TKD_tx_Vat_Registration_Num}" required="true" />
+                                </div>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </lightning:layoutItem>
+                    <!-- Sección de adición de sites -->
+                    <lightning:layout>
+                        <lightning:layoutItem padding="around-small" size="12">
+                            <h3 class="slds-section-title--divider">Sites</h3>
+                            <div class="page-section page-right">
+                                <article class="slds-card">
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <article class="slds-card slds-card_boundary">
+                                            <div class="slds-card__header slds-grid">
+                                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                    <div class="slds-media__figure">
+                                                        <lightning:icon iconName="custom:custom98" size="small"
+                                                            variant="bare" />
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h2 class="slds-card__header-title">
+                                                            <strong>Site Information</strong>
+                                                        </h2>
+                                                    </div>
+                                                    <div class="slds-no-flex">
+                                                        <lightning:button label="Add New" iconName="utility:add"
+                                                            iconPosition="left" onclick="{! c.newSite }" />
+                                                    </div>
+                                                </header>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <lightning:datatable keyField="Id" data="{! v.supplierData.sites }"
+                                                    columns="{! v.siteColumns }" hideCheckboxColumn="true"
+                                                    onrowaction="{! c.handleRowAction }" />
+                                            </div>
+                                        </article>
+                                    </div>
+                                </article>
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:layoutItem>
+
+
+                <!--Modal  Site-->
+                <div class="slds-m-around_xxx-small">
+                    <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+                    <aura:if isTrue="{! v.isOpenSite}">
+                        <!--###### MODAL BOX Start######-->
+                        <section role="dialog" tabindex="-2" class="slds-modal slds-fade-in-open slds-modal_medium"
+                            aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                            <div class="slds-modal__container">
+                                <!-- ###### MODAL BOX HEADER Start ######-->
+                                <header class="slds-modal__header card-header">
+                                    <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModalSite}"
+                                        alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                        <strong>Site</strong>
+                                    </h2>
+                                </header>
+                                <!--###### MODAL BOX BODY Part Start######-->
+                                <div class="slds-modal__content slds-p-around_xxx-small" id="modal-content-id-1">
+                                    <!-- Sección de adición de sites -->
+                                    <lightning:layoutItem padding="around-small" size="12">
+                                        <h3 class="slds-section-title--divider">Site</h3>
+                                        <lightning:layoutItem padding="around-small" size="12">
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <div class="slds-p-around_xx-small container lgc-bg">Information
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="siteField" required="true"
+                                                            name="siteorgname" label="Org Name"
+                                                            value="{!v.addSite.Tkd_ls_Org_Name}"
+                                                            default="{!v.operationUnit}" disabled="true" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="siteField" required="true"
+                                                            value="{!v.addSite.TKD_Vat_code}" label="Tax Code"
+                                                            messageWhenValueMissing="Choose one!">
+                                                            <option value="">Choose one...</option>
+                                                            <!--<option value="choose">Choose one...</option>-->
+                                                            <aura:iteration items="{!v.pickListVatCode}" var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="siteField" required="true"
+                                                            value="{!v.addSite.currencyIso}" label="Currency"
+                                                            messageWhenValueMissing="Choose one!">
+                                                            <option value="">Choose one...</option>
+                                                            <!--<option value="choose">Choose one...</option>-->
+                                                            <aura:iteration items="{!v.pickCurrencyISOCode}"
+                                                                var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <div class="slds-p-around_xx-small container lgc-bg">Location
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-main">
+                                                        <lightning:input aura:id="siteField" required="true"
+                                                            name="sitephone" label="Phone"
+                                                            value="{!v.addSite.tkd_tf_phone}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:textarea aura:id="siteField" required="true"
+                                                            name="siteaddressline1" label="Address Line 1"
+                                                            value="{!v.addSite.Tkd_at_Address_line_1}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-main">
+                                                        <lightning:textarea aura:id="siteField" name="siteaddressline2"
+                                                            required="true" label="Address Line 2"
+                                                            value="{!v.addSite.Tkd_at_Address_line_2}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-main">
+                                                        <lightning:input aura:id="siteField" name="sitezip" label="ZIP"
+                                                            required="true" value="{!v.addSite.Tkd_tx_Zip}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="siteField" name="sitecity"
+                                                            required="true" label="City"
+                                                            value="{!v.addSite.Tkd_tx_City}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="siteField" required="true"
+                                                            value="{!v.addSite.TKD_ls_State}" label="State"
+                                                            messageWhenValueMissing="Choose one!">
+                                                            <option value="">Choose one...</option>
+                                                            <!--<option value="choose">Choose one...</option>-->
+                                                            <aura:iteration items="{!v.pickListState}" var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                    <!--<div class="page-section page-right">
+                                                        <lightning:input aura:id="siteField" name="sitestate"
+                                                            required="true" label="State"
+                                                            value="{!v.addSite.Tkd_tx_State}" />
+                                                    </div>-->
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="siteField" required="true"
+                                                            value="{!v.addSite.Tkd_tx_Country}" label="Country"
+                                                            messageWhenValueMissing="Choose one!">
+                                                            <option value="">Choose one...</option>
+                                                            <!--<option value="choose">Choose one...</option>-->
+                                                            <aura:iteration items="{!v.pickListCountry}" var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layout>
+
+                                                </lightning:layout>
+                                            </lightning:layout>
+                                            <!-- Sección de adición de Accounts -->
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <h3 class="slds-section-title--divider">Bank account</h3>
+                                                    <div class="page-section page-right">
+                                                        <article class="slds-card">
+                                                            <div class="slds-card__body slds-card__body_inner">
+                                                                <article class="slds-card slds-card_boundary">
+                                                                    <div class="slds-card__header slds-grid">
+                                                                        <header
+                                                                            class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                                            <div class="slds-media__figure">
+                                                                                <lightning:icon
+                                                                                    iconName="custom:custom16"
+                                                                                    size="small" variant="bare" />
+                                                                            </div>
+                                                                            <div class="slds-media__body">
+                                                                                <h2 class="slds-card__header-title">
+                                                                                    <strong>Information Bank
+                                                                                        account</strong>
+                                                                                </h2>
+                                                                            </div>
+                                                                            <div class="slds-no-flex">
+                                                                                <lightning:button label="Add New"
+                                                                                    iconName="utility:add"
+                                                                                    iconPosition="left"
+                                                                                    onclick="{! c.newAccount }" />
+                                                                            </div>
+                                                                        </header>
+                                                                    </div>
+                                                                    <div class="slds-card__body slds-card__body_inner">
+                                                                        <lightning:datatable keyField="Id"
+                                                                            data="{! v.accountData }"
+                                                                            columns="{! v.accountColumns }"
+                                                                            hideCheckboxColumn="true"
+                                                                            onrowaction="{! c.handleRowAction }" />
+                                                                    </div>
+                                                                </article>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <!-- Sección de adición de contacts -->
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <h3 class="slds-section-title--divider">Contacts</h3>
+                                                    <div class="page-section page-right">
+                                                        <article class="slds-card">
+                                                            <div class="slds-card__body slds-card__body_inner">
+                                                                <article class="slds-card slds-card_boundary">
+                                                                    <div class="slds-card__header slds-grid">
+                                                                        <header
+                                                                            class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                                            <div class="slds-media__figure">
+                                                                                <lightning:icon
+                                                                                    iconName="standard:contact"
+                                                                                    size="small" variant="bare" />
+                                                                            </div>
+                                                                            <div class="slds-media__body">
+                                                                                <h2 class="slds-card__header-title">
+                                                                                    <strong>Information
+                                                                                        Contacts</strong>
+                                                                                </h2>
+                                                                            </div>
+                                                                            <div class="slds-no-flex">
+                                                                                <lightning:button label="Add New"
+                                                                                    iconName="utility:add"
+                                                                                    iconPosition="left"
+                                                                                    onclick="{! c.newContact }" />
+                                                                            </div>
+                                                                        </header>
+                                                                    </div>
+                                                                    <div class="slds-card__body slds-card__body_inner">
+                                                                        <lightning:datatable data="{! v.contactData }"
+                                                                            keyField="Id"
+                                                                            columns="{! v.contactColumns }"
+                                                                            hideCheckboxColumn="true"
+                                                                            onrowaction="{! c.handleRowAction }" />
+                                                                    </div>
+                                                                </article>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                        </lightning:layoutItem>
+                                    </lightning:layoutItem>
+                                </div>
+                                <!--###### MODAL BOX FOOTER Part Start ######-->
+                                <footer class="slds-modal__footer">
+                                    <lightning:button variant="neutral" label="Cancel" title="Cancel"
+                                        onclick="{!c.closeModalSite}" />
+                                    <aura:if isTrue="{!v.isEditSite}">
+                                        <lightning:button variant="brand" label="Add" title="Cancel"
+                                            onclick="{!c.saveSiteOnTable}" />
+                                        <aura:set attribute="else">
+                                            <lightning:button variant="brand" label="Add" title="Cancel"
+                                                onclick="{!c.addSiteOnTable}" />
+                                        </aura:set>
+                                    </aura:if>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                        <!--###### MODAL BOX Part END Here ######-->
+                    </aura:if>
+                </div>
+                <!--Modal  Contacto-->
+                <div class="slds-m-around_xx-large">
+                    <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+                    <aura:if isTrue="{! v.isOpenContact}">
+                        <!--###### MODAL BOX Start######-->
+                        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open"
+                            aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                            <div class="slds-modal__container">
+                                <!-- ###### MODAL BOX HEADER Start ######-->
+                                <header class="slds-modal__header card-header">
+                                    <lightning:buttonIcon iconName="utility:close"
+                                        onclick="{! c.closeModalAccountAndContact}" alternativeText="close"
+                                        variant="bare-inverse" class="slds-modal__close" />
+                                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                        <strong>Contact</strong>
+                                    </h2>
+                                </header>
+                                <!--###### MODAL BOX BODY Part Start######-->
+                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                    <lightning:layout multipleRows="true">
+                                        <lightning:layoutItem padding="around-small" size="12">
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="contactField"
+                                                            name="suppliervendornamealt" label="Department"
+                                                            value="{!v.addContact.department}" required="true" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="contactField"
+                                                            name="suppliervendornamealt" label="First name"
+                                                            value="{!v.addContact.firstName}" required="true" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="contactField"
+                                                            name="suppliervendornamealt" label="Last name"
+                                                            value="{!v.addContact.lastName}" required="true" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="contactField"
+                                                            name="suppliervendornamealt" label="Phone"
+                                                            value="{!v.addContact.Phone}" required="true" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="contactField"
+                                                            name="suppliervendornamealt" label="Email address"
+                                                            value="{!v.addContact.emailAddress}" type="email"
+                                                            required="true" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                </div>
+                                <!--###### MODAL BOX FOOTER Part Start ######-->
+                                <footer class="slds-modal__footer">
+                                    <lightning:button variant="neutral" label="Cancel" title="Cancel"
+                                        onclick="{!c.closeModalAccountAndContact}" />
+                                    <aura:if isTrue="{! v.isEditContact}">
+                                        <lightning:button variant="brand" label="Save" title="Add"
+                                            onclick="{!c.saveContactOnTable}" />
+                                        <!--</aura:if>
+                                    <aura:if isFalse="{! v.isEditAccount}">-->
+                                        <aura:set attribute="else">
+                                            <lightning:button variant="brand" label="Add" title="Add"
+                                                onclick="{!c.addContactOnTable}" />
+                                        </aura:set>
+                                    </aura:if>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                        <!--###### MODAL BOX Part END Here ######-->
+                    </aura:if>
+                </div>
+                <!--Modal  BankAccount-->
+                <div class="slds-m-around_xx-large">
+                    <aura:if isTrue="{! v.isOpenAccount}">
+                        <!--###### MODAL BOX Start######-->
+                        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open"
+                            aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                            <!--<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open card-info"> -->
+                            <div class="slds-modal__container">
+                                <!-- ###### MODAL BOX HEADER Start ######-->
+                                <header class="slds-modal__header card-header">
+                                    <lightning:buttonIcon iconName="utility:close"
+                                        onclick="{! c.closeModalAccountAndContact}" alternativeText="close"
+                                        variant="bare-inverse" class="slds-modal__close" />
+                                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                        <strong>Bank Account</strong>
+                                    </h2>
+                                </header>
+                                <!--###### MODAL BOX BODY Part Start######-->
+                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                    <lightning:layout multipleRows="true">
+                                        <lightning:layoutItem padding="around-small" size="12">
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <div class="slds-p-around_xx-small container lgc-bg">Information
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="accountField" required="true"
+                                                            name="suppliervendornamealt"
+                                                            label="Bank Account Number (CLABE/Account/IBAN)"
+                                                            value="{!v.addAccount.Name}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>                                                
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="accountField" required="true"
+                                                            value="{!v.addAccount.Bank_Name}" label="Bank Name"
+                                                            messageWhenValueMissing="Choose one!" onchange="{!c.changeSwift}">
+                                                            <option value="">Choose one...</option>
+                                                            <aura:iteration items="{!v.pickListBankAccount}"
+                                                                var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>                                                
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="accountField" required="true"
+                                                            value="{!v.addAccount.Bank_Account_Currency}"
+                                                            label="Bank Account Currency"
+                                                            messageWhenValueMissing="Choose one!" 
+                                                            onchange="{!c.changeSwift}">
+                                                            <option value="">Choose one...</option>
+                                                            <aura:iteration items="{!v.pickListBankAccountCurrency}"
+                                                                var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <!--
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="accountField" required="true"
+                                                            name="suppliervendornamealt" label="Bank Account Name"
+                                                            value="{!v.addAccount.Bank_Account_Name}" />
+                                                    </div>
+                                                </lightning:layoutItem>-->
+                                                
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="12">
+                                                    <div class="slds-p-around_xx-small container lgc-bg">Aditional
+                                                        Information
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <!-- <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="accountField" name="context"
+                                                            label="Context" value="{!v.addAccount.Contexto}" />
+                                                    </div>
+                                                </lightning:layoutItem>-->
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="accountField" required="true"
+                                                            value="{!v.addAccount.Tipo_BIC}" label="SWIFT/ABA/IBAN TYPE"
+                                                            messageWhenValueMissing="Choose one!" onchange="{!c.changeSwift}">
+                                                            <option value="">Choose one...</option>
+                                                            <aura:iteration items="{!v.pickTipoBIC}" var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="6">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="accountField" name="biccode"
+                                                            label="SWIFT/ABA/IBAN Value"
+                                                            value="{!v.addAccount.Codigo_BIC}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            <lightning:layout>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="accountField"
+                                                            name="intermediarybankname" label="Intermediary Bank Name"
+                                                            value="{!v.addAccount.Nombre_Banco_intermediadio}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:select aura:id="accountField" 
+                                                            value="{!v.addAccount.Tipo}" label="Intermediary Bank Type"
+                                                            messageWhenValueMissing="Choose one!">
+                                                            <option value="">Choose one...</option>
+                                                            <aura:iteration items="{!v.pickTipo}" var="value">
+                                                                <option value="{!value}">{!value}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                    </div>
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" size="4">
+                                                    <div class="page-section page-right">
+                                                        <lightning:input aura:id="accountField"
+                                                            name="IntermediaryBankCode" label="Intermediary Bank Code"
+                                                            value="{!v.addAccount.Codigo}" />
+                                                    </div>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+
+                                </div>
+                                <!--###### MODAL BOX FOOTER Part Start ######-->
+                                <footer class="slds-modal__footer">
+                                    <lightning:button variant="neutral" label="Cancel" title="Cancel"
+                                        onclick="{!c.closeModalAccountAndContact}" />
+                                    <aura:if isTrue="{! v.isEditAccount}">
+                                        <lightning:button variant="brand" label="Save" title="Add"
+                                            onclick="{!c.saveAccountOnTable}" />
+                                        <!--</aura:if>
+                                    <aura:if isFalse="{! v.isEditAccount}">-->
+                                        <aura:set attribute="else">
+                                            <lightning:button variant="brand" label="Add" title="Add"
+                                                onclick="{!c.addAccountOnTable}" />
+                                        </aura:set>
+                                    </aura:if>
+
+
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                        <!--###### MODAL BOX Part END Here ######-->
+                    </aura:if>
+                </div>
+                <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+                    <div class="page-footer page-section">
+                        <lightning:button label="Save" onclick="{!c.clickCreate}" />
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </form>
+    </div>
+</aura:component>

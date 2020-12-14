@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Credit Approval Submitted - HTML</name>
+    <style>freeForm</style>
+    <subject>The credit approval {!TBO014_Credit_Approval__c.Name} has been submitted to risk</subject>
+    <textOnly>Dear {!TBO014_Credit_Approval__c.OwnerFullName},
+
+The following credit approval has been submitted to risk.
+
+Account details:
+
+Account name: {!TBO014_Credit_Approval__c.TBO014_fm_Account_Name__c}
+
+
+Approval details:
+
+Created by: {!TBO014_Credit_Approval__c.CreatedBy}
+Credit approval: {!TBO014_Credit_Approval__c.Name}
+Approval category:
+{!TBO014_Credit_Approval__c.TBO014_ls_Approval_Category__c}
+Amount MXN: {!TBO014_Credit_Approval__c.TBO014_un_Amount_MXN__c}
+Amount USD: {!TBO014_Credit_Approval__c.TBO014_un_Amount_USD__c}
+Total Amount USD Converted:
+{!TBO014_Credit_Approval__c.TBO014_un_Total_Amount_USD_Converted__c}
+
+To review this record, you can access to it in the following link:{!TBO014_Credit_Approval__c.Link}
+
+
+Thank you,
+
+Digital Marketing – Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

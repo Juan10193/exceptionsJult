@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CPL_pl_notificacionDocumentParaDocumentar</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>MembreteCreditApproval</letterhead>
+    <name>CPL_pl_notificacionDocumentParaDocumentar</name>
+    <style>freeForm</style>
+    <subject>Notificación de TakeDown a Documentar</subject>
+    <textOnly>Hola, buenas tardes:
+
+Se le notifica que  el siguiente Takedown:
+
+
+Nombre: {!Takedowns_Contingency_plan__c.Name}
+Oportunidad:{!Takedowns_Contingency_plan__c.CPL_rb_Opp__c}
+Nombre del Cliente: {!Takedowns_Contingency_plan__c.CPL_rb_Entity_Name_CP__c}
+Monto del Takedown: {!Takedowns_Contingency_plan__c.TDAmount__c}
+Tipo de Cambio del Takedown: {!Takedowns_Contingency_plan__c.CPL_nu_TD_Echange_Rate__c}
+Unidad de Operación: {!Takedowns_Contingency_plan__c.CPL_ls_Operation_Unit__c}
+Producto: {!Takedowns_Contingency_plan__c.CPL_ls_Product__c}
+Creado por:{!Takedowns_Contingency_plan__c.CreatedBy}
+
+Ha sido fondeado, por lo que se le solicita realizar la documentación del mismo.
+
+De clic AQUI para ingresar al registro y pueda así revisar la documentación anexa.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

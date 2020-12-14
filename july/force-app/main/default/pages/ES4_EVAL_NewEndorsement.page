@@ -1,0 +1,135 @@
+<apex:page lightningStylesheets="true"  controller="ES4_Controller_EVAL">
+    <apex:form >
+        <apex:PageBlock title="Return Conditions">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <apex:pageBlockSection columns="2" title="General Information">
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutStartDate,'T',' '),'.000-05:00','')}" /> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Id" for="Oportunity_Id"/>
+                    <apex:outputText id="Oportunity_Id" value="{!req.pOutSourceOpId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Id" for="Account_Id"/>
+                    <apex:outputText id="Account_Id" value="{!req.pOutSourceAccountId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Name" for="Account_Name"/>
+                    <apex:outputText id="Account_Name" value="{!req.pOutSourceAccountName}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutEndDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (SSO)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By User Name" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameAssignedTo}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset Id" for="Asset_Id"/>
+                    <apex:outputText id="Asset_Id" value="{!ENDO.pOutEVEndAssetId}"/> 
+                </apex:pageBlockSectionItem> 
+
+            </apex:pageBlockSection>
+
+            <!--------------------------------------------------------------------------------------------------------------------->
+
+            <apex:pageBlockSection columns="2" title="Endorsement">
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Condition Name" for="Attribute_Type"/>
+                    <apex:inputText id="Attribute_Type" value="{!ENDO.pOutEVEndAttributeType}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Condition Value" for="Value_Other"/>
+                    <apex:inputText id="Value_Other" value="{!ENDO.pOutEVEndValueOther}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Uom" for="Uom_Type"/>
+                    <apex:inputText id="Uom_Type" value="{!ENDO.pOutEVEndUomType}"/> 
+                </apex:pageBlockSectionItem>
+
+
+                <apex:pageBlockSectionItem >
+                   <!-- <apex:outputLabel value="Value Type" for="Value_Type"/>-->
+                    <apex:inputText id="Value_Type" value="{!ENDO.pOutEVEndValueType}" disabled="true" style="display:none"/> 
+                </apex:pageBlockSectionItem>
+                
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Condition Description" for="Comment"/>
+                    <apex:inputText id="Comment" value="{!ENDO.pOutEVEndComment}"/> 
+                </apex:pageBlockSectionItem>  
+
+            </apex:pageBlockSection>
+
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            <div style="width: 230px;margin-left: AUTO;margin-right: AUTO;">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!NewEndodorsement}"/>
+                <apex:commandButton style="width: 120px;" value="Back" action="{!backAsset}"/>
+            </div>
+
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

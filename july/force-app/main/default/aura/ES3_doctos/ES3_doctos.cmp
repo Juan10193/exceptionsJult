@@ -1,0 +1,42 @@
+<aura:component>
+    <!--use boolean attribute for Store true/false value,
+    make default to "false" so modal box are not display on the load of component. 
+    --> 
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
+    
+    <!--Use "slds-m-around_xx-large" class to add standard X-Large padding to the component--> 
+    <div class="slds-m-around_xx-large">
+        
+        <lightning:button variant="brand"
+                          label="Modal"
+                          title="Modal"
+                          onclick="{! c.openModel }" />
+        <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->   
+        <aura:if isTrue="{!v.isOpen}">
+            
+            <!--###### MODAL BOX Start######--> 
+          
+            <div role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal--large" aria-labelledby="header43">
+  <div class="slds-modal__container">
+    <div class="slds-modal__header">
+      <button class="slds-button slds-button--icon-inverse slds-modal__close">
+        
+        <span class="slds-assistive-text">Close</span>
+      </button>
+      <h2 id="header43" class="slds-text-heading--medium">DOCUMENTS</h2>
+    </div>
+    <div class="slds-modal__content slds-p-around--medium">
+      <div>
+          <c:ES3_TablaDocC/>
+      </div>
+    </div>
+    <div class="slds-modal__footer">
+      
+      <button class="slds-button slds-button--neutral slds-button--brand" onclick="{!c.Close}">Exit</button>
+    </div>
+  </div>
+</div>
+<div class="slds-backdrop slds-backdrop--open"></div>
+        </aura:if>
+    </div>
+</aura:component>

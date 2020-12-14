@@ -1,0 +1,26 @@
+<!--
+  @File Name          : approvalProccessInstanceStepComment.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 4/6/2020 17:21:53
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/6/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <template if:true={wireGetRecord.data}>
+        <lightning-record-view-form record-id={wireGetRecord.data.Id} object-api-name="ProcessInstanceStepComment__c">
+            <div class="slds-box slds-theme_default">
+                <lightning-output-field field-name="Actual_Approver__c">
+                </lightning-output-field>
+                <lightning-output-field field-name="Long_Comments__c">
+                </lightning-output-field>
+            </div>
+        </lightning-record-view-form>
+    </template>
+    <template if:false={wireGetRecord.data}>
+        No long comments
+    </template>
+</template>

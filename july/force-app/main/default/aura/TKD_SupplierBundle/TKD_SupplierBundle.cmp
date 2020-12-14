@@ -1,0 +1,37 @@
+<!--
+  @File Name          : TKD_SupplierBundle.cmp
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 09-02-2020
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    11/12/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<aura:component
+  implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes"
+  access="global">
+
+  <aura:handler event="c:TKD_SupplierBundle_Event" action="{!c.handleAddsupplier}" />
+  <aura:handler event="c:TKD_SaveNewSupplier" action="{!c.handleSaveNewSupplier}" />
+  <aura:attribute name="addisopen" type="Boolean" default="false" />
+
+  <c:TKD_Supplier_ApprovalProcess recordId="{! v.recordId}"></c:TKD_Supplier_ApprovalProcess>
+  <aura:if isTrue="{!v.addisopen}">
+      <lightning:tabset selectedTabId="new">
+          <lightning:tab label="New Supplier" id="new">
+            <!--<c:TKD_supplierInTD_NewSupplier recordId="{! v.recordId}"></c:TKD_supplierInTD_NewSupplier>-->
+            <c:tkdManageSupplier aura:id="tkdmanagesupplier" takedownId="{!v.recordId}" supplierWithoutModal="true"></c:tkdManageSupplier>
+          </lightning:tab>
+          <lightning:tab label="Known Supplier" id="known">
+              <c:TKD_knownSupplier recordId="{! v.recordId}"></c:TKD_knownSupplier>
+          </lightning:tab>
+      </lightning:tabset>
+    <aura:set attribute="else">
+      <!--<c:TKD_Supplier_TableAMLHits recordId="{! v.recordId}"></c:TKD_Supplier_TableAMLHits>-->
+      <c:TDK_supplierInTD_tableAmlHits recordId="{! v.recordId}"></c:TDK_supplierInTD_tableAmlHits>
+    </aura:set>
+  </aura:if>
+
+</aura:component>

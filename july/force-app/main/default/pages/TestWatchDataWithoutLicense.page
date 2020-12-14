@@ -1,0 +1,14 @@
+<apex:page controller="TestWatchDataWithoutLicense">
+    <apex:pageBlock title="SuperTrumpPQ">
+      <apex:pageBlockTable value="{!PricinPQ}" var="pq">
+         <apex:column value="{!pq.ids}"/>
+         <apex:column value="{!pq.name}"/>
+          <apex:column value="{!pq.Of_Payments}"/>
+         <apex:column value="{!pq.Cost}"/>
+          <apex:column value="{!pq.EBO}"/>
+          <apex:column value="{!pq.QuoteToGo_Use_Count}"/>
+          <apex:column value="{!pq.BookYield}"/>
+          <apex:column value="{!pq.Delivery_Date}"/>
+      </apex:pageBlockTable>
+   </apex:pageBlock>
+</apex:page>

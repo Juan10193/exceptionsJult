@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Cambio de Domicilio fiscal documentos completos</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Cambio_de_Domicilio_fiscal_documentos_completos</name>
+    <style>formalLetter</style>
+    <subject>Cambio de Domicilio fiscal documentos completos</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+Confirmamos de haber recibido su documentación para cambio de domicilio fiscal, mismo que se verá reflejado en el siguiente corte de facturación.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

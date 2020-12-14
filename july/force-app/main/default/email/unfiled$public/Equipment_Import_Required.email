@@ -1,0 +1,23 @@
+Dear Import Services Manager,
+
+You’re receiving this notification because {!Opportunity.OwnerFullName}, has created an opportunity that requires import services. Please refer the following details for your review:
+
+Account details:
+{!Account.Name}
+{!Account.ACC_fm_Target_Market__c}
+
+Required import services:
+{!Opportunity.OPP_ls_Import_Type__c}
+
+Opportunity details:
+{!Opportunity.Name}
+{!Opportunity.OPP_ls_Line_of_Business__c}
+{!Opportunity.Amount}
+{!Opportunity.CurrencyIsoCode}
+{!Opportunity.OPP_ls_Collateral__c}
+{!Opportunity.CloseDate}
+
+
+Thank you,
+
+Digital Marketing – Engenium Capital.

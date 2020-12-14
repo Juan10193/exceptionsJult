@@ -1,0 +1,502 @@
+<apex:page lightningStylesheets="true"  controller="ES2_Controller_CREDIT_BUREAU">
+    <apex:includeLightning />
+    <apex:slds />
+    <apex:form id="frm">
+        <script>
+        window.addEventListener("load", function() {  
+            doctipp();
+            
+        });
+        
+        function openDocum(docId) {
+            console.log('idee----' + docId);
+            var requestId ='{!req.pOutRequestId}' //document.getElementById('{!$Component.frm.j_id3.j_id41.j_id63.Request_Id}').innerHTML;
+            console.log('requestId' +  requestId);
+            
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ES2_Controller_CREDIT_BUREAU.downloadDoctos}',
+                docId, requestId, 
+                function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+            
+        }
+        
+        function subirDoc(DocTypesObj, requestId, partyId, pOutEGPartyName, sso){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ES2_Controller_CREDIT_BUREAU.newdocument}',
+                DocTypesObj, requestId, partyId, pOutEGPartyName, sso,
+                function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+        }
+        
+        function borrardoc(requestIdDoc,oraId,docUrl,docType,docId,nameDoc,requestId) {
+            var confirma = confirm('Are you sure to delete this document?');
+            if(confirma==true){
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ES2_Controller_CREDIT_BUREAU.deleteDocument}',
+                    requestIdDoc,oraId,docUrl,docType,docId,nameDoc,requestId,
+                    function(result, event){
+                        if (event.status) {
+                            if(result!='Error'){
+                                refresh();
+                            }
+                        }
+                    },{escape: true}
+                );
+            }
+        }
+        
+        </script>
+        <apex:actionFunction name="doctipp" action="{!doctypesList}" rerender="{!doctiposString}">
+        </apex:actionFunction>
+        <apex:actionFunction name="refresh" action="{!recarga}">
+        </apex:actionFunction>
+        <apex:pageBlock title="Credit Bureau">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <!-------------------------------------------------------------------------------------------------------------------->    
+            <div style="width: 1250px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Send" action="{!send}" rendered="{!sendbtn}"/>
+                <apex:commandButton style="width: 120px;" value="Send to Bureau" action="{!sendToCreditBureau}"  rendered="{!sendtoCBbtn}" />
+                <!--<apex:commandButton style="width: 120px;" value="Send to Bureau" action="{!sendToCreditBureau}"   />-->
+                <apex:commandButton style="width: 100px;" value="Accept" action="{!accept}" rendered="{!aceptbtn}"/>
+                <apex:commandButton style="width: 100px;" value="On Hold" action="{!onHold}" rendered="{!onhdbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Rework" action="{!rework}" rendered="{!reworkbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Reject" action="{!reject}" rendered="{!rejbtn}"/>
+                <!--<apex:commandButton style="width: 115px;" value="Pre Appruve" rendered="{!rejbtn}"/>-->
+                <apex:commandButton style="width: 150px;" value="Approve" action="{!approve}" rendered="{!aprbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Withdrawn" action="{!cancel}" rendered="{!cancelbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Edit" action="{!editCB}" rendered="{!editbtn}"/>                
+                <apex:commandButton style="width: 115px;" value="Back to Entity" action="{!backToEntity}" />
+            </div>
+            <br/>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutStartDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutsourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutEndDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (SSO)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By User Name" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameAssignedTo}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="Credit Bureau">  <!--AQUI EMPIEZA EL AREA CREDIT BUREAU --> 
+                
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Type" for="cbCustomer_Type"/>
+                    <apex:outputText id="cbCustomer_Type" value="{!req.CreditBureauObj.cbCustomerType}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name" for="Name"/>
+                    <apex:outputText id="Name" value="{!req.CreditBureauObj.cbName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- --> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Current Authorization Letter" for="CAutorization_Letter"/>
+                    <apex:outputText id="CAutorization_Letter" value="{!req.CreditBureauObj.AutorizationLetter}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Second Name" for="SecondName"/>
+                    <apex:outputText id="SecondName" value="{!req.CreditBureauObj.cbSecondName}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- 
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="Requestor SSO" for="APIRequestor"/>
+<apex:outputText id="APIRequestor" value="{!req.CreditBureauObj.cbAPIRequestor}"/> 
+</apex:pageBlockSectionItem>
+-->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Name" for="LastName"/>
+                    <apex:outputText id="LastName" value="{!req.CreditBureauObj.cbLastName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC*" for="RFC"/>
+                    <apex:outputText id="RFC" value="{!req.CreditBureauObj.RFC}"/> 
+                </apex:pageBlockSectionItem>
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Second Last Name" for="SecondLastName"/>
+                    <apex:outputText id="SecondLastName" value="{!req.CreditBureauObj.cbSecondLastName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Company Name" for="CompanyName"/>
+                    <apex:outputText id="CompanyName" value="{!req.CreditBureauObj.CompanyName}"/> 
+                </apex:pageBlockSectionItem>
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name of legal and / or administrative legal representative*" for="administrative_legal_representative"/>
+                    <apex:outputText id="administrative_legal_representative" value="{!req.CreditBureauObj.CBLegalPartyAlias}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Credit Bureau Address" for="Credit_Bureau_Address"/>
+                    <apex:outputText id="Credit_Bureau_Address" value="{!req.CreditBureauObj.Address}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Street" for="Street"/>
+                    <apex:outputText id="Street" value="{!req.CreditBureauObj.Street}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Engenium Capital Entity" for="Engenium_Capital_Entity"/>
+                    <apex:outputText id="Engenium_Capital_Entity" value="{!req.CreditBureauObj.ECEntity}"/> 
+                </apex:pageBlockSectionItem>  
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Outdoor Number" for="OutNum"/>
+                    <apex:outputText id="OutNum" value="{!req.CreditBureauObj.outnum}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- --> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Letter Signing Date*" for="Letter_signing_date"/>
+                    
+                    <apex:outputText id="Letter_signing_date" value="{0, date, dd'/'MM'/'yyyy}">
+                        <apex:param value="{!req.CreditBureauObj.LetterSigningDate}" /> 
+                    </apex:outputText>                    
+                    
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Interior Number" for="intnum"/>
+                    <apex:outputText id="intnum" value="{!req.CreditBureauObj.intnum}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Letter Signing Place*" for="Letter_signing_place"/>
+                    <apex:outputText id="Letter_signing_place" value="{!req.CreditBureauObj.LetterSigningPlace}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="County" for="County"/>
+                    <apex:outputText id="County" value="{!req.CreditBureauObj.Suburb}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Credit Bureau Alias" for="Credit_Bureau_Alias"/>
+                    <apex:outputText id="Credit_Bureau_Alias" value="{!req.CreditBureauObj.Alias}"/> 
+                </apex:pageBlockSectionItem>  
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="City" for="City"/>
+                    <apex:outputText id="City" value="{!req.CreditBureauObj.City}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Reject Reason" for="Reject_Reason"/>
+                    <apex:outputText id="Country" value="{!req.CreditBureauObj.CBRejectReason}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="State" for="State"/>
+                    <apex:outputText id="State" value="{!req.CreditBureauObj.State}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""/>
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Country" for="Country"/>
+                    <apex:outputText id="Country" value="{!req.CreditBureauObj.Country}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""/>
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Zip Code" for="Zipcode"/>
+                    <apex:outputText id="Zipcode" value="{!req.CreditBureauObj.ZipCode}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""/>
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Municipality" for="muni"/>
+                    <apex:outputText id="muni" value="{!req.CreditBureauObj.municipality}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+            </apex:pageBlockSection> 
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            
+            <apex:pageBlockSection columns="2" title="System Information">
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created By" for="Created_By"/>
+                    <apex:outputText id="Created_By" value="{!req.nameCreatedBy}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created Date" for="Created_Date"/>
+                    <apex:outputText id="Created_Date" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutCreationDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Uptate By" for="Update_By"/>
+                    <apex:outputText id="Update_By" value="{!req.nameUpdatedBy}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Update Date" for="Last_Update_Date"/>
+                    <apex:outputText id="Last_Update_Date" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutLastUpdateDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Credit Bureau link">
+            <apex:pageBlockSection >
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Transaction ID" for="cbTransaction_Id"/>
+                    <apex:outputText id="cbTransaction_Id" value="{!req.CreditBureauObj.cbTransactionId}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+                <div style="width:115px;margin-left: auto;margin-right: auto;">
+                    <apex:outputLink value="https://bcdev.engeniumcapital.com/Credit/" > Abrir Herramienta Externa</apex:outputLink>
+                </div>
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+        
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Comments" >
+            
+            <div style="width:150px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New Comment" action="{!newcoment}" rendered="{!Ncombtn}"/>
+            </div>
+            <apex:pageBlockTable value="{!req.comentarios}" var="add" align="center" >                 
+                <apex:column value="{!add.pOutComCreationDate}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Date Time"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutComCreatedBy}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="User"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.comNameCreatedBy}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="User Name"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.pOutComComment}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Comment"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable>   
+        </apex:pageBlock>
+        
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Documents" rendered="{!visual}">
+            
+            
+            <div id ="mazacuata" style="width:150px;margin-left: auto;margin-right: auto;">  
+                <apex:commandButton value="New Document" onclick="subirDoc('{!doctiposString}','{!req.pOutRequestId}','{!req.pOutPartyId}','{!req.pOutPartyName}','{!sSSO}');return false;" />
+            </div>
+            <div id="mazacuata2">
+                <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+                    <apex:pageBlockTable value="{!req.documentos}" var="add" align="center">
+                        <apex:column >
+                            <apex:facet name="header">Delete</apex:facet>
+                            
+                            <span onclick="borrardoc('{!add.requestId}','{!add.oraId}','{!add.pOutDocURL}','{!add.pOutDocType}','{!add.pOutDocId}','{!add.pOutDocName}','{!req.pOutRequestId}')"  class="slds-icon_container slds-icon_container_circle slds-icon-action-delete" title="Delete" rendered="{!IF(Ndocbtn && add.pOutCreatedBy == sSSo,true,false )}">
+                                <svg class="slds-icon" aria-hidden="true">
+                                    <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#delete')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Click to Delete Document</span>
+                            </span>
+                            
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Download</apex:facet>
+                            <span  class="slds-icon_container slds-icon_container_circle slds-icon-action-download" title="Download" onclick="openDocum('{!add.pOutDocId}');">
+                                <svg class="slds-icon" aria-hidden="true">
+                                    <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#download')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Click to Download Document</span>
+                            </span>
+                            
+                        </apex:column>      
+                        
+                        <apex:column value="{!add.pOutDocId}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="DocId"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>         
+                        <apex:column value="{!add.requestId}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="requestId"></apex:outputText>
+                            </apex:facet>
+                        </apex:column> 
+                        <apex:column value="{!add.partyId}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="partyId"></apex:outputText>
+                            </apex:facet>
+                        </apex:column> 
+                        
+                        
+                        <apex:column value="{!add.pOutCreationDate}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Creation Date"></apex:outputText>
+                                
+                            </apex:facet>
+                        </apex:column>
+                        
+                        <apex:column value="{!add.pOutDocName}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Name"></apex:outputText>
+                            </apex:facet>	
+                        </apex:column>
+                        <apex:column value="{!add.pOutDocType}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document Type"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!add.pOutDocURL}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document Url"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        
+                        <apex:column value="{!add.pOutDocStatus}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document Status"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!add.pOutDocEndDate}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document End Date"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </html>
+            </div>
+        </apex:pageBlock>
+        <div id="lightningdocs"></div>
+        <script>
+        var aplicable = {!lightn};
+        if (aplicable == true){
+            var entityType = "{!req.CreditBureauObj.cbCustomerType}";
+            console.log('eltipo de entidad: ' + entityType);
+            var proceso;
+            if(entityType ==='ORGANIZATION'){
+                proceso = 'BURO_CREDITO_PERSONA_MORAL';
+            }else if(entityType ==='INDIVIDUAL'){
+                proceso = 'BURO_CREDITO_PERSONA_FISICA';
+            }
+            
+            $Lightning.use("c:documentsEval", function() {
+                $Lightning.createComponent("c:docummentsEntityMaster",
+                                           { 
+                                               requestId:'{!req.pOutRequestId}', 
+                                               process: proceso
+                                           },
+                                           "lightningdocs",
+                                           function(cmp) {
+                                               console.log('LWC Componenet added in VF page');
+                                           });
+            });
+        }           
+        </script>
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Change Log" >
+            <apex:pageBlockTable value="{!req.audits}" var="add" align="center" >                     
+                <apex:column value="{!add.pOutAuditLastUpdateDate}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Date Time"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutAuditUpdatedBy}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="User"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.auditNameUpdatedBy}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="User Name"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.pOutAuditComment}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Action"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable>   
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

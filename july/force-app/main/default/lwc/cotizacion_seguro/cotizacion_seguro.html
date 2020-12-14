@@ -1,0 +1,270 @@
+<template>
+    <header class="slds-modal__header slds-modal__header_empty">
+    </header>
+    <div class="slds-modal__content slds-p-horizontal_medium" id="modal-content-id-1">
+        {displayMessage}
+        <lightning-tabset>
+            <lightning-tab label="Interesse">
+                
+                <lightning-card title="Cotización con Interesse" icon-name="standard:currency">
+                    <div class="slds-p-around_xx-small">
+                        <!-- Razón social select field-->
+                        <lightning-layout multiple-rows="true" vertical-align="end">
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox title="Selecciona..." 
+                                                            label="Razón social"
+                                                            value={fromRazonValue}
+                                                            placeholder="-Select-"
+                                                            options={optionRazon}
+                                                            onchange={handleFromRazonChange}
+                                                            disabled={disableOption}
+                                                            required>
+                                        </lightning-combobox>
+                                    </div>
+                                </div> 
+                            </lightning-layout-item>
+                            <!-- Currency select field -->
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox title="Seleccion..." 
+                                                            label="Moneda"
+                                                            value={fromCurrencyValue}
+                                                            placeholder="-Select-"
+                                                            options={options}
+                                                            onchange={handleFromCurrencyChange}
+                                                            disabled>
+                                        </lightning-combobox>
+                                    </div>
+                                </div> 
+                            </lightning-layout-item>
+                            <!-- Periodo field -->
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox title="Seleccion..."
+                                                        label="Plazo"
+                                                        value={fromPeriodoValue}
+                                                        placeholder="-Select-"
+                                                        options={optionsMeses}
+                                                        onchange ={handleFromPeriodoChange}
+                                                        disabled={disableOption}
+                                                        required>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                            <!-- Boton de cotizar -->
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-layout-item padding="around-small">
+                                            <lightning-button title="Cotizar" 
+                                                            label="Cotizar"
+                                                            icon-name="utility:events" 
+                                                            variant="brand" 
+                                                            onclick={handleCurrencyConversion}>
+                                            </lightning-button>
+                                        </lightning-layout-item>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>    
+                        <lightning-layout multiple-rows="true" vertical-align="end">
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox title="Seleccion..." 
+                                                            label="Producto:"
+                                                            value={fromProducto}
+                                                            placeholder="-Select-"
+                                                            options={columsProducto}
+                                                            onchange={handleFromProducto}
+                                                            disabled>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                            <!-- Id Bien Riesgo field -->
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox title="Seleccion..." 
+                                                            label="Tipo:"
+                                                            value={fromBienValue}
+                                                            placeholder="-Select-"
+                                                            options={optionBien}
+                                                            onchange={handleFromBienChange}
+                                                            onfocus={showStartPop} onfocusout={closeStartPop}
+                                                            required>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                            <!-- Suma Asegurada field -->
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="number"
+                                                        label="Suma Asegurada"
+                                                        value={fromSumaValue}
+                                                        onchange ={handleFromSumaChange}
+                                                        required>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                            <!-- Cotiazdor button -->
+
+                            <lightning-layout-item size="12" small-device-size="4" medium-device-size="3" large-device-size="3" padding="horizontal-medium">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-layout-item padding="around-small">
+                                            <template if:true={loaded}>
+                                                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                                            </template>
+                                            <template if:true={hidetable}>
+                                                <lightning-button title="Añadir" 
+                                                            label="Añadir"
+                                                            icon-name="utility:record_create" 
+                                                            variant="brand-outline" 
+                                                            onclick={handleSaveQuote}>
+                                                </lightning-button>
+                                            </template>
+                                        </lightning-layout-item>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <template if:true={showStartPopOver}>
+                            
+                                <section aria-describedby="dialog-body-id-98" aria-label="Dialog Title"
+                                    class="slds-popover slds-popover_full-width" role="dialog">
+                                    <div class="slds-popover__body">
+                                        <b>Equipo Electrónico Fijo</b>
+                                        <p>
+                                            1) Médico: Ultrasonido, monitores médicos, equipo de diagnóstico y soporte vital, entre otros.<br/>
+                                            2) Tecnología: Servidores/equipo de almacenamiento de datos, equipo de comunicación (voz y datos), cajeros automáticos, video vigilancia, computadoras de escritorio, equipo de impresión, pantallas, entre otros.
+                                        </p>
+ 
+                                        <b>Equipo Electrónico Móvil</b>
+                                        <p>
+                                            1) Laptops y tablets, móviles (equipos ""handhelds"" / PDA), proyectores y cámaras digitales, entre otros.
+                                        </p>
+
+                                        <b>Equipo de Contratistas</b>
+                                        <p>
+                                            Maquinaria Pesada Móvil: Todo tipo de maquinaria o vehículos que no cuenten con placas o permiso de circulación en vía pública, mientras se encuentren en cualquier parte dentro de la República Mexicana, tales como:<br/>
+                                            1) Construcción (Montacargas, Grúas, Pavimentadoras, aplanadoras, Plantas y bombas de concreto, Cargadores, retroexcavadoras, tractores y excavadoras)<br/>
+                                            2) Minería(Equipo no subterráneo para extracción, transporte y carga)<br/>
+                                            3) Agrícola( Tractores, Sembradoras y cosechadoras)
+                                        </p>
+               
+                                        <b>Rotura de Maquinaria</b>
+                                        <p>
+                                            Todo tipo de maquinarias sin importar su uso, características o mecanismos; ya sean eléctricos, mecánicos, hidráulicos o una combinación de éstos, instalaciones y equipos mecánicos.
+                                        </p>
+ 
+
+                                        <b>Contenidos</b>
+                                        <p>
+                                            1) Mobiliario e instalaciones, útiles, enseres y herramientas de trabajo que sean propias y necesarias al giro del negocio asegurado.</br>
+                                            2) Mejoras y adaptaciones consistentes en marquesinas, terrazas cubiertas, techos falsos, tapices, lambrines, madera adherida en techo o pared y demás mejoras y reformas para acondicionar, aislar, decorar y, en general, adecuar edificios, locales y anexos para su explosión industrial.</br>
+                                            3) Existencias. Conjunto de materias primas, productos en proceso de fabricación y terminados. Empaques, refacciones, accesorios y materiales auxiliares que sean propios y necesarios para el desarrollo de su actividad.</br>
+                                            4) Moldes, modelos, matrices, archivos, planos y otros objetos de naturaleza similar que no puedan ser considerados como útiles y enseres.
+                                        </p>
+                                    </div>
+                                </section>
+                           
+                        </template>
+                        <template if:true={hidetable}>
+                            <br/>
+                            <lightning-datatable key-field="Id"  
+                                                data={cotizaciones}  
+                                                columns={columns}
+                                                onrowselection={getSelectInsert}>  
+                            </lightning-datatable>
+                            <br/>
+                        </template>
+                    </div>  
+                    <div class="slds-p-around_xx-small">
+                        <br/>
+                        <div style="height:150px">
+                            <lightning-datatable key-field="Id"  
+                                                data={cotizacionesOpportunidad}  
+                                                columns={columsRecords}
+                                                enable-infinite-loading
+                                                onrowselection={getSelectRecord}>  
+                            </lightning-datatable>
+                        </div>
+                    </div>
+                    <lightning-layout-item size="12" small-device-size="3" medium-device-size="3" large-device-size="3" padding="around-small" horizontal-align="space">
+                        <template if:true={hideButton}>
+                            <br/>
+                            <lightning-layout-item padding="around-small">
+                                <lightning-button title="Quitar cotización" 
+                                                label="Quitar cotización"
+                                                icon-name="utility:delete" 
+                                                variant="destructive" 
+                                                onclick={deleteSeguroCotizacion}>
+                                </lightning-button>
+                            </lightning-layout-item>
+                            <br/>
+                        </template>  
+                        <lightning-layout-item padding="around-small">
+                            <template if:true={loaded}>
+                                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                            </template>
+                        </lightning-layout-item>
+                    </lightning-layout-item>
+
+                    <div class="slds-box slds-theme_shade">
+                        <lightning-layout multiple-rows="true" vertical-align="end">
+                            <lightning-layout-item size="12" small-device-size="3" medium-device-size="3" large-device-size="3" >
+                                <div class="slds-form-element slds-align_absolute-center">
+                                    <div class="slds-form-element__control">
+                                        <p>Prima Neta</p>
+                                        <p>{sumPrimaNeta}</p>
+                                    </div>
+                                </div> 
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="3" medium-device-size="3" large-device-size="3" >
+                                <div class="slds-form-element slds-align_absolute-center">
+                                    <div class="slds-form-element__control">
+                                        <p>Gastos Exp</p>
+                                        <p>{sumGasto}</p>
+                                    </div>
+                                </div> 
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="3" medium-device-size="3" large-device-size="3" >
+                                <div class="slds-form-element slds-align_absolute-center">
+                                    <div class="slds-form-element__control">
+                                        <p>IVA</p>
+                                        <p>{sumIVA}</p>
+                                    </div>
+                                </div> 
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="3" medium-device-size="3" large-device-size="3" >
+                                <div class="slds-form-element slds-align_absolute-center">
+                                    <div class="slds-form-element__control">
+                                        <p>Total</p>
+                                        <p>{sumTotal}</p>
+                                    </div>
+                                </div> 
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+                </lightning-card>
+
+            </lightning-tab>
+            <lightning-tab label="Transporte" title="Transporte">
+                In deployement
+            </lightning-tab>
+        </lightning-tabset>
+    </div>
+    <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_brand" onclick={pdf}>Ver PDF</button>
+    </footer>
+</template>

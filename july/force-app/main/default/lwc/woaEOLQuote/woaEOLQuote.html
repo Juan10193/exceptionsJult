@@ -1,0 +1,74 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 11-13-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   10-30-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    <lightning-datatable key-field="id" data={dataQuotes} columns={columsQuotes} class="slds-p-around_medium"
+        hide-checkbox-column onrowaction={callRowAction}>
+    </lightning-datatable>
+    <template if:true={dataFromSelectedContract}>
+        <div class="c-container animated fadeInLeft">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Selected NBV">Selected NBV</p>
+                        <p>
+                            <lightning-formatted-number value={calculateNBV} format-style="currency"
+                                currency-code="USD">
+                            </lightning-formatted-number>
+                        </p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Selected OEC">Selected OEC</p>
+                        <p>
+                            <lightning-formatted-number value={calculateEOC} format-style="currency"
+                                currency-code="USD">
+                            </lightning-formatted-number>
+                        </p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Selected Contract OI">Selected Contract OI
+                        </p>
+                        <p>
+                            <lightning-formatted-number value={calculateOI} format-style="currency" currency-code="USD">
+                            </lightning-formatted-number>
+                        </p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Estatus de aprobación">Estatus de aprobación
+                        </p>
+                        <p>
+                            <lightning-formatted-number value={calculateOI} format-style="currency" currency-code="USD">
+                            </lightning-formatted-number>
+                        </p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div class="animated slideInDown">
+            <lightning-card variant="Narrow" title={WOA_ls_Stage} icon-name="standard:price_books">
+                <lightning-button variant="base" label="Enviar a aprobación" title="Enviar a aprobación" icon-name="standard:send" class="slds-m-left_x-small" slot="actions"
+                onclick={handleSubmitForApproval}></lightning-button>
+                
+                <p class="slds-p-horizontal_small">
+                    <lightning-datatable key-field="id" data={dataFromSelectedContract}
+                        columns={columnsFromSelectedContract} hide-checkbox-column>
+                    </lightning-datatable>
+                </p>
+            </lightning-card>
+
+        </div>
+    </template>
+</template>

@@ -1,0 +1,79 @@
+      
+    .gfg { 
+            width:auto; 
+            text-align:center; 
+         }	 
+		 
+    .gfg img 
+		 { 
+            max-width:100%; 
+            width:100%; 
+            height:auto; 
+         } 
+
+	.align 
+	     {
+           text-align: justify;
+           text-align: center;
+         }
+
+	.title
+		 {
+		    background-color:#dae3f3;
+			color:#003764;
+			text-align: justify;
+			text-align: center; 
+         }
+		 
+    .col1{
+			width:350px; 
+			text-align:justify;
+			border="1";
+			cellpadding="5px";
+			cellspacing="5px";
+			font-family:Arial;
+			font-size: 10pt;
+         }
+
+	.rotar 
+		 {
+			-webkit-transform: rotate(-90deg); 
+			-moz-transform: rotate(-90deg);
+			-o-transform: rotate(-90deg);
+			transform: rotate(-90deg);
+			filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1)
+		 }
+
+    .titleVerify
+		 {
+			color:#000000;
+		 }
+    
+	.table-bordered 
+	     {
+			border: 1px solid #dae3f3;
+			border-collapse : collapse;
+			font-size : .7em;
+         }
+
+    td 
+	     {
+			vertical-align: bottom;
+			border: #dae3f3 1px solid;
+			border-spacing: 0;
+			border-collapse: collapse;
+			text-align:center;
+			font-family:Verdana;
+         }
+
+    thead>tr>th 
+	     {
+			vertical-align: bottom;
+			border: #dae3f3 1px solid;
+			border-spacing: 0;
+			text-align:justify;
+			font-family:Verdana;
+			border-collapse: collapse;
+         }
+
+

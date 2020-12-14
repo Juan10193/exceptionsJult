@@ -1,0 +1,431 @@
+<apex:page lightningStylesheets="true" controller="EIV_EntityExtendClassBis" >
+    <apex:slds />
+    <apex:form >
+        <script>
+        window.addEventListener("load", function() {  
+            doctipp();
+
+        });
+
+        function openDocum(docId) {
+            console.log('idee----' + docId);
+            var PartyId ='{!sPartyId}' //document.getElementById('{!$Component.frm.j_id3.j_id41.j_id63.Request_Id}').innerHTML;
+            var AccountId='{!sAccountId}'
+            var AccountName='{!sAccountName}'
+            var topParentId='{!sTopParentId}'
+            var topParentName='{!sTopParentName}'
+            
+            Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.EIV_EntityExtendClassBis.downloadDoctos}',
+            docId, PartyId,AccountId,AccountName,topParentId,topParentName, 
+            function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+
+        }
+
+       
+
+        </script>
+        <apex:pageBlock title="Individual">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>                     
+             <div style="width: 150px;margin-left: auto;margin-right: auto;">
+                
+                 <apex:commandButton style="width: 100px;" value="Edit" rendered="{!entityPrivileges.bUpdate }" action="{!EditEntity}"/>
+               
+            </div>
+            <apex:pageBlockSection columns="2" title="General information">
+                
+                <!--<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Status Detail" id="Status_Detail"/>
+                    <apex:outputText value="{!detail.description}" />
+                </apex:pageBlockSectionItem>-->
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                
+                 <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Type" id="Customer_type"/>
+                    <apex:outputText value="{!entity.Customer_Type}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Number" id="oracle_account_number"/>
+                    <apex:outputText value="{!entity.Oracle_Account_Number}" />
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Limited Information Entity" id="Limited_information" />
+                    <apex:inputCheckbox value="{!Entity.Limited_information_entity}" />
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Active" id="Customer_Status"/>
+                    <apex:outputText value="{!Entity.Customer_Status}" />
+                </apex:pageBlockSectionItem> 
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Prefix" id="Prefix" />
+                    <apex:outputText value="{!Entity.Prefix}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" id="Oracle_Account_Name"/>
+                    <apex:outputText value="{!Entity.Oracle_Account_Name}" />
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Name" id="First_Name"/>
+                    <apex:outputText value="{!Entity.First_Name}" />
+                </apex:pageBlockSectionItem>
+                
+                   <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Sales Representative" id="Sales_Representative"/>
+                    <apex:outputText value="{!Entity.Sales_Representative}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Middle Name" id="Middle_Name"/>
+                    <apex:outputText value="{!Entity.Middle_Name}" />
+                </apex:pageBlockSectionItem>
+                
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Supplier Flag" id="Supplier_Flag"/>
+                    <apex:outputText value="{!UPPER(Entity.Supplier_Flag)}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Last Name" id="First_Last_Name"/>
+                   <apex:outputText value="{!Entity.First_Last_Name}" />
+                </apex:pageBlockSectionItem>
+                                
+                <apex:pageBlockSectionItem >                    
+                    <apex:outputLabel value="Top Parent Name" id="Top_Parent_Name"/>
+                    <apex:outputLink value="/{!Entity.Top_Parent_ID}" id="linkaccountId">{!Entity.Top_Parent_Name}</apex:outputLink>                    
+                </apex:pageBlockSectionItem>    
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Second Last Name" id="Second_Last_Name"/>
+                   <apex:outputText value="{!Entity.Second_Last_Name}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Tax Regime*" id="Tax_Regime"/>
+                    <apex:outputText value="{!Entity.Tax_Regime}" />
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Foreign Entity*" id="Foreign_Entity"/>
+                    <apex:outputText value="{!Entity.Foreign_Entity}" />
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic Group Name" id="Economic_Group_Name"/>
+                    <apex:outputText value="{!Entity.Economic_Group_Name}" />
+                </apex:pageBlockSectionItem>
+                
+                
+                
+                
+                <!---<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Status_ErrorCode" id="Status_ErrorCode"/>
+                    <apex:outputText value="{!detail.errorCode}" />
+                </apex:pageBlockSectionItem>-->
+           
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nationality*" id="Nationality" />
+                    <apex:outputText value="{!Entity.Nationality}" />
+                </apex:pageBlockSectionItem> 
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC*" id="RFC"/>
+                    <apex:outputText value="{!Entity.RFC}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="TIN*" id="TIN"/>
+                    <apex:outputText value="{!Entity.TIN}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CURP*" id="CURP"/>
+                   <apex:outputText value="{!Entity.CURP}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <!--fin de General Information-->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="AML Information">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR" id="CRR"/>
+                    <apex:outputText value="{!Entity.CRR}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                <!--<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Entity Type" id="Entity_Type"/>
+                    <apex:outputText value="{!Entity.Entity_Type}" />
+                </apex:pageBlockSectionItem> -->
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR Override" id="CRR_Override"/>
+                    <apex:outputText value="{!Entity.CRR_Override}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Target Market/ Jurisdiction" id="Target_Market_Jurisdiction" />
+                    <apex:outputText value="{!Entity.Target_Market_Jurisdiction}" />
+                </apex:pageBlockSectionItem>    
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="SIC Code">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SIC Code" id="SIC_Code"/>
+                    <apex:outputLink value="/{!Entity.SIC_CodeId}" id="linkSicCodeId">{!Entity.SIC_Code}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SIC Description" id="SIC_Description"/>
+                    <apex:outputText value="{!SicCodeDescriptionEntitie}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic Group SIC Code" id="Economic_Group_SIC_Code"/>
+                    <apex:outputLink value="/{!Entity.Economic_Group_SIC_CodeId}" id="linkSicCodeId">{!Entity.Economic_Group_SIC_Code} </apex:outputLink>                     
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic Group SIC Description" id="Economic_Group_SIC_Description" />
+                    <apex:outputText value="{!SicCodeDescriptionEG}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Ratings ID Assignation">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="HNWI" id="HNWI"/>
+                    <apex:outputText value="{!Entity.HNWI_ID}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Or Rating" id="orrating"/>
+                    <apex:outputText value="{!Entity.orRating}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!--Aqui empiezan las solicitudes --> 
+        <apex:pageBlock title="Requests">
+            <div style="width: 600px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New AML" action="{!newAML}"  />
+                <apex:commandButton value="New NDA" action="{!newNDA}"  />
+                <apex:commandButton value="New EVAL" action="{!newEVAL}"/>
+                <!--<apex:commandButton value="New Legal Assessment" action="{!newLA}"/>-->
+                <apex:commandButton value="New LA" action="{!NewLAPF}"/>
+                <!--<apex:commandButton value="New KYC Persona Moral" action="{!newKYCPM}"  />-->
+                <apex:commandButton value="New KYC Persona Física" action="{!newKYCPF}"  />
+                <!--<apex:commandButton value="New Credit Bureau" action="{!newCreditBureau}"  />-->
+            </div>
+            <apex:pageBlockTable value="{!requestList}" var="add" id="requestListId">
+                 
+               
+                <apex:column >
+                    <apex:facet name="header">View</apex:facet>
+                    <apex:commandLink action="{!viewRequest}" value="View" styleClass="btn" style="color:black;text-decoration:none;font:black">                        
+                        <apex:param name="sIdChild"  value="{!add.pOutRequestId}" assignTo="{!sIdChild}"/>  
+                        <apex:param name="sIdTypeRequest"  value="{!add.pOutRequestType}" assignTo="{!sIdTypeRequest}"/>  
+                    </apex:commandLink>                
+                </apex:column>
+                <apex:column headerValue="Request Type" value="{!add.pOutRequestType}"/>
+                <apex:column headerValue="Request Status" value="{!add.pOutRequestStatus}"/>    
+                <apex:column headerValue="Creation Date">
+                    <apex:outputText id="CreationDateReq" value="{!SUBSTITUTE(SUBSTITUTE(add.pOutCreationDate,'T',' '),'.000-05:00','')}"/>
+                </apex:column>
+                
+                
+                <apex:column headerValue="Created By" value="{!add.pOutCreatedBy}"/>
+                <apex:column headerValue="Created By Name" value="{!add.nameCreatedBy}"/>
+                <apex:column headerValue="Request ID" value="{!add.pOutRequestId}"/>
+                
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>  
+        
+       <apex:pageBlock title="Documents" >
+            
+
+          
+                <div id="mazacuata2">
+                 <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+            <apex:pageBlockTable value="{!DocumentListForEntity}" var="add" align="center">
+                <apex:column >
+                    <apex:facet name="header">Download</apex:facet>
+                   <span  class="slds-icon_container slds-icon_container_circle slds-icon-action-download" title="Download" onclick="openDocum('{!add.pOutDocId}');">
+                        <svg class="slds-icon" aria-hidden="true">
+                            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#download')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Click to Download Document</span>
+                        </span>
+                                
+                </apex:column>      
+               
+                <apex:column value="{!add.pOutDocId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="DocId"></apex:outputText>
+                    </apex:facet>
+                </apex:column>         
+                <apex:column value="{!add.requestId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="requestId"></apex:outputText>
+                    </apex:facet>
+                </apex:column> 
+                <apex:column value="{!add.partyId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="partyId"></apex:outputText>
+                    </apex:facet>
+                </apex:column> 
+                
+                     
+                <apex:column value="{!add.pOutCreationDate}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Creation Date"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutDocName}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Name"></apex:outputText>
+                    </apex:facet>   
+                </apex:column>
+                <apex:column value="{!add.pOutDocType}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document Type"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!add.pOutDocURL}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document Url"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+               
+                <apex:column value="{!add.pOutDocStatus}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document Status"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!add.pOutDocEndDate}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document End Date"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable>
+             </html>
+                </div>
+        </apex:pageBlock>
+        
+        
+        
+        
+        <apex:pageBlock title="Addresess">
+            <div style="width: 130px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New address" rendered="{!addressPrivileges.bCreate}" action="{!newAddress}" />
+            </div>
+            <apex:pageBlockTable value="{!addressList}" var="add">        
+                
+                <apex:column >
+                    <apex:facet name="header">View</apex:facet>
+                    <apex:commandLink action="{!viewAddress}" value="View" styleClass="btn" style="color:black;text-decoration:none;font:black">                        
+                        <apex:param name="sIdChild"  value="{!add.Location_ID}" assignTo="{!sIdChild}"/>                        
+                    </apex:commandLink>  
+                    <apex:commandLink rendered="{!IF(add.Purpose == 'CREDIT_CONTACT',true,false)}" action="{!newCreditBureau}" value="New Credit Bureau" styleClass="btn" style="color:black;text-decoration:none;font:black">                        
+                        <apex:param name="sIdChild"  value="{!add.Location_ID}" assignTo="{!sIdChild}"/>  
+                    </apex:commandLink>                      
+                    
+                </apex:column>                
+                
+                <apex:column headerValue="Purpose" value="{!add.Purpose}"/>
+                <apex:column headerValue="Street" value="{!add.Street}"/>
+                <apex:column headerValue="Outdoor Number" value="{!add.Outdoor_Number}"/>
+                <apex:column headerValue="Interior Number" value="{!add.Interior_Number}"/>
+                <apex:column headerValue="City" value="{!add.City}"/>
+                <apex:column headerValue="Municipality" value="{!add.Municipality}"/>
+                <apex:column headerValue="State" value="{!add.State}"/>
+                <apex:column headerValue="Active" value="{!add.Status}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Invoicing">
+           <!-- <div style="width: 130px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New Invoicing" rendered="{!invoicingPrivileges.bCreate}" action="{!newInvoicing}"/>
+            </div>--> 
+            <apex:pageBlockTable value="{!InvoicingList}" var="add">
+                <apex:column >
+                    <apex:facet name="header">View</apex:facet>
+                    <apex:commandLink action="{!viewInvoicing}" value="View" styleClass="btn" style="color:black;text-decoration:none;font:black">                        
+                        <apex:param name="sIdChild"  value="{!add.p_cust_acct_site_id}" assignTo="{!sIdChild}"/>                        
+                    </apex:commandLink>                
+                </apex:column>           
+                <apex:column headerValue="EC Operating Unit Name" value="{!add.EC_Operating_Unit_Name}"/>
+                <apex:column headerValue="Payment Method" value="{!add.Payment_Method}"/>
+                <!--<apex:column headerValue="party Site Id" value="{!add.partySiteId}"/>-->
+                <apex:column headerValue="EC Payment Account" value="{!add.EC_Payment_Account }"/>
+                <apex:column headerValue="EC CLABE" value="{!add.EC_CLABE}"/>
+                <apex:column headerValue="Billing Mails" value="{!add.Billing_Mails}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Contacts">
+            <div style="width: 130px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New contact" rendered="{!contactPrivileges.bCreate}" action="{!newContact}"/>
+            </div>
+            <apex:pageBlockTable value="{!ContactList}" var="add">
+                <apex:column >
+                    <apex:facet name="header">View</apex:facet>
+                    <apex:commandLink action="{!viewContact}" value="View" styleClass="btn" style="color:black;text-decoration:none;font:black">                        
+                        <apex:param name="sIdChild"  value="{!add.Contact_id}" assignTo="{!sIdChild}"/>                        
+                    </apex:commandLink>                
+                </apex:column>                                 
+                <apex:column headerValue="Type" value="{!add.TypeContact}"/>
+                <apex:column headerValue="First Name" value="{!add.First_name}"/>
+                <apex:column headerValue="First Last Name" value="{!add.First_Last_Name}"/>
+                <apex:column headerValue="Email" value="{!add.Email}"/>
+                <apex:column headerValue="Phone" value="{!add.Phone}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Credits Approvals">
+            <apex:pageBlockTable value="{!CAsInEntity}" var="add">
+                                  
+                <apex:column headerValue="Name" value="{!add.ES2_rb_Credit_approval__c}"/>
+                <apex:column headerValue="Role" value="{!add.ES2_ms_Role__c}"/>
+                <apex:column headerValue="Top Parent Name" value="{!add.ES2_tx_TopParetName__c}"/>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>     
+        
+      <apex:pageBlock title="Change Log" >
+            
+            <apex:pageBlockTable value="{!AuditListForEntity}" var="add" align="center" > 
+
+                <apex:column headerValue="Date Time" value="{!add.pOutAuditLastUpdateDate}"/>
+                <apex:column headerValue="User" value="{!add.pOutAuditUpdatedBy}"/>
+                <apex:column headerValue="Action" value="{!add.pOutAuditComment}"/>
+                
+            </apex:pageBlockTable>   
+        </apex:pageBlock>        
+ 
+        
+        
+    </apex:form>
+</apex:page>

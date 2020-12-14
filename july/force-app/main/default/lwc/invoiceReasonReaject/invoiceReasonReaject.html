@@ -1,0 +1,48 @@
+<template>
+    <div class="slds-form-element">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-1">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Invoice name">Invoice name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Invoice name">Reason for reject</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Action">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={listInvoice} for:item="invoice" for:index="index">
+                            <tr key={keyIndex}>
+                                <td>
+                                    <c-select-invoice-for-reject record-id={recordId} data-target-id={index} onselected={myLookupHandle}></c-select-invoice-for-reject>
+                                    
+                                </td>
+                                <td>
+                                    <c-invoice-reason-for-reaject record-id={recordId} data-target-id={index} onselectedinvoice = {myLookupHandleInvoice}></c-invoice-reason-for-reaject>
+                                </td>
+                                <td> 
+                                    <lightning-button variant="destructive" label="Remove" title="Remove" icon-name="action:delete" icon-position="right" class="slds-m-left_x-small" access-key={index} id={index} onclick={removeRow}>
+                                    </lightning-button>    
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                </br>
+                <div class="slds-clearfix">
+                    <div class="slds-float_right">
+                        <lightning-button variant="brand" label="Add" title="Add" icon-name="action:new" icon-position="right" class="slds-m-left_x-small" access-key={index} id={index} onclick={addRow}>
+                        </lightning-button>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

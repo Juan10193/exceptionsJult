@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>No Insurance Alert</name>
+    <style>freeForm</style>
+    <subject>A new quote/ proposal without insurance has been created</subject>
+    <textOnly>Dear, Jonathan:
+
+You&apos;re receiving this notification because, {!IST__SuperTRUMP_Pricing_Quote__c.OwnerFullName}, generated a Quote/ Proposal without insurance. Please refer to the following details of the deal:
+
+Collateral: {!IST__SuperTRUMP_Pricing_Quote__c.Opportunity_Collateral__c}
+Opportunity name: {!IST__SuperTRUMP_Pricing_Quote__c.IST__Opportunity__c}
+Amount: {!IST__SuperTRUMP_Pricing_Quote__c.IST__Cost__c}
+Pricing Quote ID: {!IST__SuperTRUMP_Pricing_Quote__c.Name}
+
+Dear, {!IST__SuperTRUMP_Pricing_Quote__c.OwnerFullName}:
+
+As per, Engenium Capital commercial rules, all Quotes and Proposals must include the insurance financed. This is an automatic alert generated to our, Insurance team &amp; Partner (Interesse), to understand why the insurance hasn&apos;t been included.
+
+Please note that all of this information it&apos;s been recorded for further analysis of the, Senior Management Team.
+
+
+Regards,
+
+Digital Marketing.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

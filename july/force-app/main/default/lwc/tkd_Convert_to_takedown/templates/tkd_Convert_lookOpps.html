@@ -1,0 +1,8 @@
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable key-field="Id" data={oppLookData}
+                columns={COLUMNS} hide-checkbox-column="true"
+                onrowaction={addopp}>
+        </lightning-datatable>
+    </div>
+</template>

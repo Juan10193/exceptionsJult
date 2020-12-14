@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Se utiliza en el proceso de invoices</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Pre book AppPro Notify to ISC</name>
+    <style>formalLetter</style>
+    <subject>{!Takedowns_Contingency_plan__c.Name} with approval process status: {!Takedowns_Contingency_plan__c.TKD_ls_Invoices_approval_status__c}</subject>
+    <textOnly>Dear User
+You are receiving this notification because  the takedown  {!Takedowns_Contingency_plan__c.Name} has changes with the Asset Breakdown approval process:
+
+Approval process status: {!Takedowns_Contingency_plan__c.TKD_ls_Invoices_approval_status__c}
+Approval process comments: {!Takedowns_Contingency_plan__c.TKD_tl_Invoices_approval_comments__c}
+
+Note: If the status is rework or rejected, you can add new records to asset or invoices and also edit or delete them.
+
+If you want to see the record in Salesforce, click here.
+
+Regards,</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

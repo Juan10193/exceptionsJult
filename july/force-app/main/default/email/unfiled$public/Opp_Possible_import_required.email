@@ -1,0 +1,211 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div style="font-family: arial; font-size: 12pt; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font color="#000066"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;"><b style="">Dear&nbsp;</b></span></font></span></font><font face="Verdana, sans-serif, serif, EmojiFont" style=""><span style="font-size: 13.3333px;"><b>{!Opportunity.OwnerFirstName}</b></span></font><b style="font-family: Verdana, sans-serif, serif, EmojiFont; font-size: 10pt;">,</b></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="font-family: arial; font-size: 12pt; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font color="#000066"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">You’re receiving this notification because the opportunity </span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;"><b>{!Opportunity.Name}&nbsp;</b></span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">from&nbsp;</span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;"><b>{!Account.ACC_fm_Company_Legal_Name__c}</b></span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">&nbsp;changed status to proposal awarded, with an equipment from a foreign country (</span></font></span></font><font face="Verdana, sans-serif, serif, EmojiFont"><span style="font-size: 13.3333px;">{!Opportunity.OPP_ls_Origin_of_equipment__c}</span></font><span style="font-family: Verdana, sans-serif, serif, EmojiFont; font-size: 10pt;">) and no import services requirement was selected in the opportunity record.</span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">Although, this may be correct because it will be acquired to a supplier that already imported the equipment, please make sure the equipment will not need to be imported to Mexico. Despite the customer decides to do the paperwork by itself, it’s important that the proper procedure is followed to assure the equipment can legally stay in Mexico.&nbsp;</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;"><br></span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">Don't forget to offer our import services to the customer.</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><br></font></span></font></div><div style="text-align: center; font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;"><b><a href="https://c.na30.content.force.com/sfc/servlet.shepherd/version/download/06836000005WQMD?asPdf=false&amp;operationContext=CHATTER">Download the brochure of our import services here</a></b></span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">If the customer will do the import by itself, please update the opportunity record in Salesforce and make sure the following documentation is delivered by the customer:</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); text-indent: -18pt; margin: 0px 0px 0px 71.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;" color="#000066"><span style="font-size: 11pt;"><font size="2" style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">·</span></font><font style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">International supplier invoice</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); text-indent: -18pt; margin: 0px 0px 0px 71.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;" color="#000066"><span style="font-size: 11pt;"><font size="2" style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">·</span></font><font style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">Equipment data sheet</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); text-indent: -18pt; margin: 0px 0px 0px 71.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;" color="#000066"><span style="font-size: 11pt;"><font size="2" style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">·</span></font><font style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">Origin certificate</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); text-indent: -18pt; margin: 0px 0px 0px 71.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;" color="#000066"><span style="font-size: 11pt;"><font size="2" style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">·</span></font><font style="font-family: Symbol, serif, EmojiFont;"><span lang="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;"><span lang="en-US" style="font-size: 10pt;">Import request &amp; duty</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font color="#000066"><font face="Verdana, sans-serif, serif, EmojiFont"><span style="font-size: 13.3333px;">Also, please remember that an import fee will be also charged despite the customer does the import with their own customers agent, that fee needs the&nbsp;</span></font><b style="font-family: Verdana, sans-serif; font-size: 10pt;">approval from Pricing</b><span style="font-family: Verdana, sans-serif; font-size: 10pt;"> (Pablo Zamora
+or Montserrat Ibarra) </span><b style="font-family: Verdana, sans-serif; font-size: 10pt;">and Import Services</b><span style="font-family: Verdana, sans-serif; font-size: 10pt;"> (Fabiola Arellano), please contact them.</span></font></div><div style="background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;">
+
+<p class="MsoNormal"><span style="font-family: Arial, sans-serif;"><font color="#000066">&nbsp;</font></span></p>
+
+<p class="MsoNormal"><font color="#000066"><span style="font-size: 10pt; font-family: Verdana, sans-serif;">The correct way to charge import services fees is including the
+"Income Fee" and "Expense Fee" in the pricing. <b>This fees
+can't be included in the rent payments</b>, unless approval from Pricing &amp;
+Import Services.</span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></font></p>
+
+<p class="MsoNormal"><span style="font-family: Arial, sans-serif;"><font color="#000066">&nbsp;</font></span></p>
+
+<p class="MsoNormal"><font color="#000066"><span style="font-size: 10pt; font-family: Verdana, sans-serif;">The import services fees are&nbsp;</span><span style="font-family: Verdana, sans-serif; font-size: 10pt;">(please note this prices are plus VAT):</span></font></p><p class="MsoNormal"><span style="font-family: Arial, sans-serif;"><font color="#000066"><o:p></o:p></font></span></p><p class="MsoNormal"><span style="font-family: Arial, sans-serif; font-size: 12pt;"><font color="#000066">&nbsp;</font></span></p>
+
+<table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="444" style="width:332.9pt;border-collapse:collapse;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 0cm 0cm 0cm">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-bottom:none;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:
+  15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">Road</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-top:
+  solid windowtext 1.0pt;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">USD</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;
+  background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">MXP</span></b><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">With
+  Engenium customs agent</span><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  1,250.00 </span><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border:none;
+  border-right:solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  27,500.00 </span><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">Using
+  own customs agent**</span><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-bottom:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">$&nbsp;&nbsp;&nbsp;&nbsp;
+  500.00 </span><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  11,000.00 </span><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">Maritime</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;background:#47D7AC;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">USD</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border:none;
+  border-right:solid windowtext 1.0pt;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">MXP</span></b><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">With
+  Engenium customs agent</span><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-top:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  1,000.00 </span><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  22,000.00 </span><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">Using
+  own customs agent**</span><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-bottom:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">$&nbsp;&nbsp;&nbsp;&nbsp;
+  500.00 </span><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  11,000.00 </span><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">Airway</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;background:#47D7AC;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">USD</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border:none;
+  border-right:solid windowtext 1.0pt;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal" align="center" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">MXP</span></b><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:7;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">With
+  Engenium customs agent</span><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-top:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  1,000.00 </span><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  22,000.00 </span><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:8;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">Using
+  own customs agent**</span><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-bottom:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">$&nbsp;&nbsp;&nbsp;&nbsp;
+  500.00 </span><o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">&nbsp;$&nbsp;
+  11,000.00 </span><o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:9;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+ </tr>
+ <tr style="mso-yfti-irow:10;mso-yfti-lastrow:yes;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal"><font color="#000066"><b><span style="font-size: 7.5pt; font-family: Verdana, sans-serif;">**With
+  prior Risk approval</span></b><o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+ </tr>
+</tbody></table></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;"><br></span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">Please contact Fabiola Arellano (fabiola.arellano@engeniumcapital.com), Import Services Manager, for any doubt.</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">Regards,</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">&nbsp;</span></font></span></font></div><div style="font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 15px; background-color: rgb(255, 255, 255); margin: 0px 0px 0px 35.4pt;"><font size="2" style="font-family: Calibri, sans-serif, serif, EmojiFont;"><span style="font-size: 11pt;"><font size="2" style="font-family: Verdana, sans-serif, serif, EmojiFont;" color="#000066"><span lang="en-US" style="font-size: 10pt;">Digital Marketing – Engenium Capital</span></font></span></font></div>
+
+<p class="MsoNormal" style="font-family: arial; font-size: 12pt; margin-left: 35.4pt;"><span lang="EN-US" style="font-size: 10pt; font-family: Verdana, sans-serif;"><font color="#000066">&nbsp;</font></span></p>]]></td>
+</tr>
+</table>

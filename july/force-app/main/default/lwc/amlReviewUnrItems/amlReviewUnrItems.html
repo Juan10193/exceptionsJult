@@ -1,0 +1,56 @@
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-layout>
+                <lightning-icon icon-name="utility:alert" size="small"></lightning-icon>
+                &nbsp;
+                <p><b>Unresolved Items ({unresolvedCount})</b></p>
+                </br></br></br>
+            </lightning-layout>
+        </h3>
+        <div class="slds-scrollable_y slds-scrollable_x" style="height: 18rem; width: auto;">
+            <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-align_right" scope="col" style="width:3.25rem">
+                            <div class="slds-truncate" title="Number">
+                                #
+                            </div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Problem">Problem</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Type">Type</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={unresolvedEnts} for:item=item for:index="index">
+                        <tr key={item.id}>
+                            <td data-label="Number" class="slds-text-align_right" style="width:3.25rem">
+                                <div class="slds-truncate" title={index}>{index}</div>
+                            </td>
+                            <td data-label="Problem">
+                                <lightning-formatted-rich-text class="slds-truncate" title="Entity" value={item.Name}>
+                                </lightning-formatted-rich-text>
+                            </td>
+                            <td data-label="Type">
+                                <div class="slds-truncate" title="Prueba">{item.hitDescription}</div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align: center">
+            <lightning-button variant="brand" label="Resolve" title="Resolve" onclick={openmodal} icon-name="utility:copy_to_clipboard"
+                class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+        <template if:true={openmodel}>
+            <c-aml-review-unrl-item-modal unresolveditemsids={unresolvedItemsIds} oncloseur={closeModal}></c-aml-review-unrl-item-modal>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>AML LMM PENDING  OPP</name>
+    <style>freeForm</style>
+    <subject>Credit Approval LMM {!Opportunity.Name} has been Submitted to AML</subject>
+    <textOnly>Dear ,
+
+The following credit approval LMM has been submitted to AML.
+
+Account details:
+{!Opportunity.Account}
+
+Approval details:
+Credit approval Opportunity LMM: {!Opportunity.Name}
+
+Credit Type:
+{!Opportunity.LMM_Tipo_de_credito__c}
+Amount: {!Opportunity.Amount}
+Link
+
+System information:
+{!Opportunity.CreatedBy}
+
+Thank you,
+
+Digital Marketing – Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,26 @@
+Dear,
+
+You’re receiving this notification because {!TBO018_Pricing__c.Opportunity_Owner__c}, submitted a pricing that requires your approval. Please refer the following details for your review:
+
+Account details:
+{!TBO018_Pricing__c.Account_Name__c}
+
+Opportunity details:
+ID:{!TBO018_Pricing__c.TPO018_fm_Opportunity_SFOP__c}
+Amount: {!TBO018_Pricing__c.TBO018_dv_Amount__c}
+
+Deal parameters:
+Product: {!TBO018_Pricing__c.TBO018_tx_Product__c}
+ROI %:  {!TBO018_Pricing__c.TBO018_pr_Economic_ROI__c}
+Book yield: {!TBO018_Pricing__c.TBO018_pr_Book_Yield__c}
+
+Pricing information:
+Pricing ID: {!TBO018_Pricing__c.Name}
+Description: {!TBO018_Pricing__c.TBO018_tx_Description__c}
+
+
+To approve this pricing, please click in the following link: {!TBO018_Pricing__c.Link}
+
+Thank you,
+
+Digital Marketing – Engenium Capital.

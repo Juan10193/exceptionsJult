@@ -1,0 +1,18 @@
+<!--
+  @Component Name     : takedownTableDocumentsCMP.cmp
+  @Description        : 
+  @Author             : jvillegas@freewayconsulting.com
+  @Group              : 
+  @Last Modified By   : jhernandez@anivia.mx
+  @Last Modified On   : 15/7/2019 12:05:03
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    12/7/2019 11:07:49   jvillegas@freewayconsulting.com     Initial Version
+-->
+<aura:component implements ="flexipage:availableForRecordHome,force:hasRecordId" >
+    <aura:attribute name="recordId" type="string" />
+    <c:takedownTableDocuments  recordId="{!v.recordId}" ></c:takedownTableDocuments>
+
+</aura:component>

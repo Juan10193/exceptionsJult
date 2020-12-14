@@ -1,0 +1,66 @@
+<apex:page showHeader="true" title="SuperTRUMP Clone" standardController="IST__SuperTRUMP_Pricing_Quote__c" extensions="Eng_SuperTRUMPPQCloneController">
+<apex:sectionHeader title="New Pricing Quote" />
+
+    <apex:form title="Clone Pricing Quote"  id="ClonePricingQuote">
+          
+          <apex:pageBlock title="Clone Pricing Quote" id="pq" mode="insert" dir="">
+              <apex:pageMessages id="editPageMessages"/>
+              <apex:outputText >Are you sure you want to clone {!recordName}?</apex:outputText>
+              <apex:actionFunction name="execute_ST_JS" action="{!executeST}" rerender="editPageMessages" onComplete="actionComplete('{!actionNavigate}', '{!actionView}','{!actionURL}' );"/>
+              <apex:pageBlockButtons location="both">
+                  <apex:commandButton onclick="if (!doSave()) return false;"
+                    action="{!cloneRecord}"
+                    rerender="editPageMessages"
+                    oncomplete="execute_ST_JS();"
+                    value="Clone"
+                  />
+                  <apex:commandButton onclick="if (!doSave()) return false;"
+                    action="{!cancel}" 
+                    id="cancelButton" 
+                    accesskey=""
+                    oncomplete="actionComplete('{!actionNavigate}', '{!actionView}','{!actionURL}' );"
+                    value="Cancel"
+                  />
+
+              </apex:pageBlockButtons>
+          </apex:pageBlock>
+    </apex:form>
+
+    <script type="text/javascript">               
+        var isSaving = false;
+        
+        function doSave (date) {
+            if (!isSaving){
+                isSaving = true;
+                return true;
+            }
+            return false;
+        };
+
+        function actionComplete (nav, view, url) {
+            isSaving = false;
+            var isSF1 = ((typeof sforce != 'undefined') && sforce && sforce.one);
+            
+            if (isSF1) {
+                //alert('made it '+nav+';'+view+';'+url);
+                if (nav && nav == 'back') {
+                    //window.history.go(-2);    //avoid a blank page
+                    sforce.one.back(true);
+                    //Sfdc.canvas.publisher.publish({name: "publisher.close", payload:{ refresh:"true"}});
+
+                    return null;   
+                } else if (nav) {
+                    //alert('going to '+nav);
+                    if (view) {
+                        sforce.one.navigateToSObject(nav, view);
+                    } else {
+                        sforce.one.navigateToSObject(nav);
+                    }
+                } else if (url) {
+                    sforce.one.navigateToURL(url, true);
+                }
+            }        
+        };
+    </script> 
+        
+</apex:page>

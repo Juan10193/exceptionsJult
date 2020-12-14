@@ -1,0 +1,68 @@
+<!--
+  @File Name          : customMultipickList.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 21/5/2020 23:53:00
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    24/4/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <div style="width: 200px;">
+        <div style="float:left;width: 135px;">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="12">
+                    <div class="slds-text-align_left">
+                        <ul>
+                            <template for:each={selected} for:item="item">
+                                <li key={item}>
+                                    {item}
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div style="float:right;width: 50px;">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="12">
+                    <div class="slds-text-align_right">
+                        <lightning-button-icon icon-name="utility:record_create" alternative-text="Manage Rol"
+                            title="Manage Rol" onclick={handleOpenModal}>
+                        </lightning-button-icon>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+        </div>
+    </div>
+    <lightning-layout multiple-rows>
+    </lightning-layout>
+    <template if:true={openModal}>
+        <lightning-layout vertical-align="center" class="x-large">
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box">
+                    <c-modal-question onclose={handleCloseModal} onaccept={handleUpdateRoles}
+                        close-button-name={cancelButtonName} accept-button-name={acceptButtonName} title={titleModal}
+                        init-modal-class={sizeModal}>
+                        <div slot="body">
+                            <template if:true={RolValues.data}>
+                                <div style="display:block;margin-left:auto;margin-right:auto;max-width: 36rem;">
+                                    <lightning-dual-listbox name="languages" label={headLabel} source-label="Available"
+                                        selected-label="Selected" field-level-help={helpLabel}
+                                        options={RolValues.data.values} value={selected} onchange={handleChange}>
+                                    </lightning-dual-listbox>
+                                </div>
+                            </template>
+
+                        </div>
+                    </c-modal-question>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+    </template>
+</template>

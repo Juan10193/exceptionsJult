@@ -1,0 +1,39 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<table style="border-collapse:
+ collapse;width:621pt" width="828" cellspacing="0" cellpadding="0" border="0">
+ <colgroup><col style="mso-width-source:userset;mso-width-alt:30281;width:621pt" width="828">
+ </colgroup><tbody><tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl65" style="height:12.0pt;width:621pt" width="828" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font face="Arial, sans-serif" color="#000066"><b>Dear User,<br><br></b></font></blockquote></td>
+ </tr>
+ 
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl66" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font face="Arial, sans-serif" color="#000066">You are receiving this
+  notification because the Credit Approval&nbsp;</font></blockquote></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl66" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font face="Arial, sans-serif" color="#000066">{!Credit_approval_CP__c.Name},
+  has been approved.<br><ul><li>Customer: {!Credit_approval_CP__c.CPL_rb_account__c}</li><li>Type of credit approval: {!Credit_approval_CP__c.Type_of_credit_approval__c}</li><li>Exposure: {!Credit_approval_CP__c.Exposure__c}</li><li>Exposure + Approval Amount:{!Credit_approval_CP__c.CPL_fm_Opportunities_Exposure__c}</li></ul></font></blockquote><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><table style="border-collapse: collapse; width: 621pt;" width="828" cellspacing="0" cellpadding="0" border="0"><tbody><tr style="height: 12pt;" height="16"><td class="xl68" style="height: 12pt; width: 621pt;" width="828" height="16"><font face="Arial, sans-serif" color="#000066">If you want to see the record in Salesforce,&nbsp;<b><font class="font5"><a href="{!Credit_approval_CP__c.ES3_fm_CurrentURL__c}{!Credit_approval_CP__c.Id}">click here</a></font><font class="font6"><a href="{!Credit_approval_CP__c.ES3_fm_CurrentURL__c}{!Credit_approval_CP__c.Id}">.</a><br><br></font></b></font></td></tr><tr style="height: 12pt;" height="16"><td class="xl69" style="height: 12pt;" height="16"><blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px;"></blockquote><b style="color: rgb(0, 0, 102); font-family: Arial, sans-serif;">Regards,</b><br><font face="Arial, sans-serif" color="#000066"><b>Engenium Capital</b></font></td></tr></tbody></table><span style="color: rgb(0, 0, 102); font-family: Arial, sans-serif;"><br></span></blockquote></td>
+ </tr>
+ 
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl67" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><br></blockquote></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl67" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><br></blockquote></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl67" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><br></blockquote></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl67" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><br></blockquote></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl67" style="height:12.0pt" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><br></blockquote></td>
+ </tr>
+ 
+ <tr style="mso-height-source:userset;height:12.0pt" height="16">
+  <td class="xl68" style="height:12.0pt;width:621pt" width="828" height="16"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><br></blockquote></td></tr></tbody></table>]]></td>
+</tr>
+</table>

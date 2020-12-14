@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notificación a Servicio a Clientes de Cierre de Caso</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_CierreDeCaso</name>
+    <style>formalLetter</style>
+    <subject>El caso  {!Case.CaseNumber} ha sido Cerrado</subject>
+    <textOnly>Notificación de Cierre de Caso.
+
+
+Como usted es parte del equipo de Servicio a Clientes le informamos que el caso Número: {!Case.CaseNumber} ha sido Cerrado con la siguiente comentario del Cierre:
+
+
+
+
+
+{!Case.CAS029_rb_Comentarios_delcierre__c}
+
+
+
+
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

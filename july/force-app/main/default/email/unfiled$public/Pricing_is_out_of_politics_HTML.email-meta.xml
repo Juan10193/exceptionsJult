@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Pricing is out of politics - HTML</name>
+    <style>freeForm</style>
+    <subject>The pricing of the opportunity {!Opportunity.Name} is out of politics</subject>
+    <textOnly>Dear user,
+
+You are receiving this notification because the opportunity {!Opportunity.Name} has a pricing out of policy
+
+To view the Opportunity record, please visit the following link:
+{!Opportunity.Link}
+
+Thank you,
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

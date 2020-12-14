@@ -1,0 +1,378 @@
+<!--
+  @File Name          : customCreditBureau.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 27/5/2020 17:30:06
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    18/5/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <lightning-layout multiple-rows>
+        <lightning-layout-item size="6" padding="around-small">
+            <div class="slds-p-around_medium slds-text-align_center divButton" onclick={handleOpenModal}>
+                <lightning-icon icon-name={validationIcon} alternative-text={validationDescriptionIcon}
+                    title={validationDescriptionIcon} size="xx-small">
+                </lightning-icon>
+            </div>
+
+        </lightning-layout-item>
+    </lightning-layout>
+    <template if:true={openModal}>
+        <lightning-layout vertical-align="center" class="x-large">
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box">
+                    <c-modal-question onclose={handleCloseModal} onaccept={handleUpdateCreditBureau}
+                        close-button-name='Close' disable-close-button='true' title='CreditBureau'
+                        init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_large'>
+                        <div slot="body" class="slds-scrollable_y" style="height:400px">
+                            <lightning-accordion active-section-name="B">
+                                <lightning-accordion-section name="Select a Request"
+                                    label="Select a Request Credit Bureau">
+
+                                    <lightning-layout multiple-rows>
+                                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                                            large-device-size="3" padding="around-small">
+                                            <div class="slds-m-bottom_xx-small">
+                                                <lightning-combobox name="Request" label="Request ID"
+                                                    data-field="Request" value={valueRequest}
+                                                    placeholder="Select a Request ID" options={valueRequestOptions}
+                                                    onchange={handleComboBoxRequestChange}>
+                                                </lightning-combobox>
+                                            </div>
+
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                                            large-device-size="9" padding="around-small">
+                                            <!--<lightning-button variant="brand" label="Create CreditBureau"
+                                                    title="Create CreditBureau" onclick={handleCreateNewCB}></lightning-button> -->
+                                            <div class="slds-m-bottom_xx-small">
+                                                <template if:false={disabledSelectedRequest}>
+                                                    <lightning-button-stateful label-when-off="Select for approval"
+                                                        label-when-on={varianLabelSelectedButton}
+                                                        label-when-hover="Deselect for approval"
+                                                        icon-name-when-off="utility:add"
+                                                        icon-name-when-on="utility:check"
+                                                        icon-name-when-hover="utility:close"
+                                                        selected={selectedForApprovalProcess}
+                                                        variant={variantSelectedRequest}
+                                                        onclick={handleSelectForApproval}>
+                                                    </lightning-button-stateful>
+                                                </template>
+                                                <template if:true={disabledSelectedRequest}>
+                                                    <lightning-button-group>
+                                                        <lightning-button variant="success" label="Approved"
+                                                            title="Approved" icon-name="utility:check"
+                                                            disabled={disabledSelectedRequest}>
+                                                        </lightning-button>
+                                                        <lightning-button label="Search Result" title="Search Result"
+                                                            onclick={handleSearchResult} class="slds-m-left_x-small">
+                                                        </lightning-button>
+                                                    </lightning-button-group>
+
+                                                </template>
+                                            </div>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                    <template if:true={disabledSelectedRequest}>
+                                        <lightning-card variant="Narrow" title="Credit Bureau"
+                                            icon-name="standard:timesheet_entry"
+                                            class="slds-p-left_small slds-p-top_small">
+                                            <lightning-button label="Show documents" title="Show documents"
+                                                onclick={handleShowDocuments} class="slds-m-left_x-small"
+                                                slot="actions" disabled={showDocumentsButtonDisable}>
+                                            </lightning-button>
+                                            <div slot="footer">
+                                                <table class="slds-table slds-table_cell-buffer">
+                                                    <thead>
+                                                        <tr class="slds-line-height_reset">
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="Type">Type</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="Message">Message
+                                                                </div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="Alert">Alert</div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <template for:each={alerts} for:item="alert">
+                                                            <tr key={alert.locationId} class="slds-hint-parent">
+                                                                <td data-column="Type">
+                                                                    <div class="slds-truncate" title={alert.type}>
+                                                                        {alert.type}</div>
+                                                                </td>
+                                                                <td data-column="Message">
+                                                                    <div class="slds-truncate" title={alert.message}>
+                                                                        {alert.message}</div>
+                                                                </td>
+                                                                <td data-column="Alert">
+                                                                    <div class="slds-truncate">
+                                                                        <img style="width:25px;height:25px;"
+                                                                            src={alert.color}> </div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </lightning-card>
+                                    </template>
+                                    <template if:false={disabledSelectedRequest}>
+                                        <lightning-card variant="Narrow" title="Adress" icon-name="standard:merge"
+                                            class="slds-p-left_small slds-p-top_small">
+                                            <div slot="footer">
+                                                <table class="slds-table slds-table_cell-buffer">
+                                                    <thead>
+                                                        <tr class="slds-line-height_reset">
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="ACTIONS">ACTIONS</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="LOCATION ID">LOCATION
+                                                                    ID
+                                                                </div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="PURPOSE">PURPOSE</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="STREET">STREET</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="OUTDOOR NUMBER">
+                                                                    OUTDOOR
+                                                                    NUMBER</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="INTERIOR NUMBER">
+                                                                    INTERIOR
+                                                                    NUMBER</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="CITY">CITY</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="MUNICIPALITY">
+                                                                    MUNICIPALITY
+                                                                </div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="STATE">STATE</div>
+                                                            </th>
+                                                            <th class="" scope="col">
+                                                                <div class="slds-truncate" title="ACTIVE">ACTIVE</div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <template for:each={dataTableAddressData} for:item="Address">
+                                                            <tr key={Address.locationId} class="slds-hint-parent">
+                                                                <td data-column="ACTIONS">
+                                                                    <div class="slds-truncate" title="ACTIONS"><a
+                                                                            href="#" title="New Credit Bureau"
+                                                                            onclick={createCB}
+                                                                            data-requestid={Address.locationId}>New
+                                                                            Credit
+                                                                            Bureau</a></div>
+                                                                </td>
+                                                                <td data-column="LOCATION ID">
+                                                                    <div class="slds-truncate"
+                                                                        title={Address.locationId}>
+                                                                        {Address.locationId}</div>
+                                                                </td>
+                                                                <td data-column="PURPOSE">
+                                                                    <div class="slds-truncate" title={Address.purpose}>
+                                                                        {Address.purpose}</div>
+                                                                </td>
+                                                                <td data-column="STREET">
+                                                                    <div class="slds-truncate" title={Address.street}>
+                                                                        {Address.street}</div>
+                                                                </td>
+                                                                <td data-column="OUTDOOR NUMBER">
+                                                                    <div class="slds-truncate"
+                                                                        title={Address.outdoorNumber}>
+                                                                        {Address.outdoorNumber}</div>
+                                                                </td>
+                                                                <td data-column="INTERIOR NUMBER">
+                                                                    <div class="slds-truncate"
+                                                                        title={Address.interiorNumber}>
+                                                                        {Address.interiorNumber}</div>
+                                                                </td>
+                                                                <td data-column="CITY">
+                                                                    <div class="slds-truncate" title={Address.city}>
+                                                                        {Address.city}</div>
+                                                                </td>
+                                                                <td data-column="MUNICIPALITY">
+                                                                    <div class="slds-truncate"
+                                                                        title={Address.municipality}>
+                                                                        {Address.municipality}</div>
+                                                                </td>
+                                                                <td data-column="STATE">
+                                                                    <div class="slds-truncate" title={Address.state}>
+                                                                        {Address.state}</div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </lightning-card>
+                                        <lightning-card variant="Narrow" title="Create CreditBureau"
+                                            icon-name="standard:partner_fund_claim"
+                                            class="slds-p-left_small slds-p-top_small">
+                                            <div slot="footer">
+                                                <lightning-layout multiple-rows>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="RFC" label="RFC" placeholder="RFC"
+                                                            disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="Name" label="Name" placeholder="Name"
+                                                            disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="SecondName" label="Second Name"
+                                                            placeholder="Second Name" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="LastName" label="Last Name"
+                                                            placeholder="Last Name" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="SecondLastName" label="Second Last Name"
+                                                            placeholder="Second Last Name" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="Municipality" label="Municipality"
+                                                            placeholder="Municipality" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="OutNum" label="Out Num"
+                                                            placeholder="Out Num" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-combobox name="ECEntity" label="EC Entity"
+                                                            value={valueECEntity} placeholder="Select an EC Entity"
+                                                            options={valueECEntityOptions} required>
+                                                        </lightning-combobox>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="StreetAndNumber"
+                                                            label="Street and Number" placeholder="Street and Number"
+                                                            disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="SubUrb" label="Sub Urb"
+                                                            placeholder="Sub Urb" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="ZipCode" label="Zip Code"
+                                                            placeholder="Zip Code" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="City" label="City" placeholder="City"
+                                                            disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="State" label="State" placeholder="State"
+                                                            disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="Country" label="Country"
+                                                            placeholder="Country" disabled>
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-combobox name="AutorizationLetter"
+                                                            label="Autorization Letter" value={autorizationLetter}
+                                                            placeholder="Autorization Letter"
+                                                            options={autorizationLetterOptions}
+                                                            onchange={handleComboBoxAutorizationLetter} required>
+                                                        </lightning-combobox>
+                                                        <!--<lightning-input name="AutorizationLetter"
+                                                        label="Autorization Letter" placeholder="Autorization Letter"
+                                                        disabled={disableFields} required>
+                                                    </lightning-input>-->
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input type="date" name="LetterSigningDate"
+                                                            data-field="LetterSigningDate" label="Letter Signing Date"
+                                                            disabled={disabledLetterSigningDate}
+                                                            required={requitedLetterSigningDate} autocomplete="ss"></lightning-input>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="6"
+                                                        medium-device-size="4" large-device-size="3"
+                                                        padding="around-small">
+                                                        <lightning-input name="CompanyName" label="Company Name"
+                                                            placeholder="Company Name" autocomplete="ss">
+                                                        </lightning-input>
+                                                    </lightning-layout-item>
+                                                </lightning-layout>
+                                            </div>
+                                        </lightning-card>
+                                        <lightning-button variant="brand" label="Save CB" title="Save CB"
+                                            onclick={handleCreateCreditBureau} class="slds-m-left_x-small"
+                                            disabled={disableCreateButton}>
+                                        </lightning-button>
+                                    </template>
+
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+                        </div>
+                    </c-modal-question>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+    </template>
+</template>

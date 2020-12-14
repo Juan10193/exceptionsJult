@@ -1,0 +1,1696 @@
+<apex:page controller="LMM_Controller_Closingmemo_PDF" renderAs="pdf" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false">
+	<apex:stylesheet value="{!$Resource.stylePDFLMM}" />    
+    <apex:form >
+        										<!--Encabezado de los titulos del pdf-->
+        <div>
+            <p style="float: left; width: 30%"><img src="{!$Resource.logoEngen}" width="100%" /></p><br/><br/>
+            <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c	 == 'Parametrico', true , false)}">
+            	<p style="float: right; width: 70%; text-align:center; font-size: 12pt ; font-family:Verdana" class="title"><b>LMM-Resumen de Paramétrico</b></p><br/><br/>
+            </apex:outputText>
+            <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c	 == 'Estudio corto', true , false)}">
+            	<p style="float: right; width: 70%; text-align:center; font-size: 12pt ; font-family:Verdana" class="title"><b>LMM-Estudio Corto</b></p><br/><br/><br/><br/>
+            </apex:outputText>
+        </div><br/><br/>
+
+											<!--Tabla de entidades y roles-->
+        
+        <div>
+			<table width="100%" class="table-bordered">
+				<thead>
+                    
+                     <tr>
+                        <th class="title" style="font-family:Verdana ; width=50%;text-align: center">ENTIDAD:</th>
+                        <th class="title" style="font-family:Verdana ; width=50%;text-align: center;">ROL:</th>                            
+                    </tr>
+                  
+                    <apex:repeat value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp">
+
+                    <tr>
+                        <td style="font-family:Verdana ; width=50%">{!EntOpp.LMM_tx_Entity_Name__c}</td>                            
+                        <td style="font-family:Verdana ; width=50%">{!EntOpp.LMM_lm_Rol__c}</td>
+                    </tr>
+                    </apex:repeat>     
+                </thead> 
+            </table>
+        
+        </div><br/><br/>
+        												
+                                                       <!--Tabla 1-->    
+
+		<div style="float: left; width: 33%">
+			<table width="95%" class="table-bordered">
+				<thead>
+                    <tr>
+                        <th style="font-family:Verdana; width=50%">Fecha de visita:</th>
+                        <td style="font-family:Verdana; width=50%">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Opparent.LMM_Fecha_de_visita__c}"></apex:param>
+                        </apex:outputtext>
+                        </td>                      
+                    </tr>
+                   <tr>
+                        <th style="font-family:Verdana; width=50%">Grupo Economico:</th>
+                            
+                             <apex:repeat value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp4">
+                        <td style="font-family:Verdana ; width=50%">
+								<!--<apex:outputPanel rendered="{!IF(EntOpp.LMM_lm_Rol__c=='Credit Decision Entity', true ,false)}">-->
+                                {!EntOpp.LMM_pd_Entity_CP__r.EM_Economic_Group_ID__c}
+                   				<!--</apex:outputPanel>-->
+                        </td>
+                            </apex:repeat>
+                            <!--<apex:dataTable value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp2">   
+                            	<apex:column style="text-align: center;border:0px solid #000;font-size:9pt" value="{!EntOpp.LMM_pd_Entity_CP__r.EM_Economic_Group_ID__c}"/>
+                            </apex:dataTable>-->
+                       
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Sic Code:</th>
+                        <td style="font-family:Verdana ; width=50%">
+                            {!Opparent.SIC_code__r.Name}
+                         </td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Sic Code Description:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_Sic_Code_Description__c}</td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Underwriter:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Uw}</td>
+                    </tr>          
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Vertical:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.Opp_ls_Vertical_Focus__c}</td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Tipo de cliente EC:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_ls_Tipo_de_cliente__c}</td>
+                    </tr>
+                </thead>
+            </table>        
+        </div>        
+        
+                                                               <!--Tabla 2-->   
+        
+         <div style="float: left; width: 33%">
+            <table width="99%" class="table-bordered">
+	            <thead>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">OR Original Decision Entity:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_OR_RDE__c}</td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">OR Final Decision Entity:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_OR_FDE__c}</td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Cliente desde:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_Cliente_desde__c}</td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Risk Class:</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_Risk_Class__c}</td>
+                    </tr>                
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Originador</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.Owner.Name}</td>
+                    </tr>
+                    <tr>
+                        <th style="font-family:Verdana ; width=50%">Origen del cliente</th>
+                        <td style="font-family:Verdana ; width=50%">{!Opparent.LMM_ls_Origen_del_cliente__c}</td>
+                    </tr>                         
+                </thead>                                
+            </table>
+
+        </div>
+        <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c	 == 'Parametrico', true , false)}">
+        <div style="float: right; width: 33%">
+            <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                        <th class="title" style="width: 100px ; font-family:Verdana">RESULTADOS</th>
+                        <th class="title" style="width: 100px ; font-family:Verdana">DE</th>
+                        <th class="title" style="width: 100px ; font-family:Verdana">PARAMÉTRICO</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana;text-align:center">RAC Point</th>
+                        <th style="width: 50px; font-family:Verdana;text-align:center">LMM Point</th>
+                        <th style="width: 50px; font-family:Verdana;text-align:center">Class</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana">{!sumaRAC}</td>
+                        <td style="width: 50px; font-family:Verdana">{!TotalLMM}</td>
+                        <td style="width: 50px; font-family:Verdana">
+                        <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                        <apex:outputPanel rendered="{!if(TotalLMM < 85, true ,false)}">
+                                C
+                         </apex:outputPanel>    
+                        </apex:outputText>
+                        <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                        <apex:outputPanel rendered="{!if(TotalLMM >= 85, true ,false)}">
+                            <apex:outputPanel rendered="{!if(TotalLMM < 90, true ,false)}">
+                                C
+                             </apex:outputPanel>
+                         </apex:outputPanel> 
+                        </apex:outputText>
+                         <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                          <apex:outputPanel rendered="{!if(TotalLMM >= 90, true ,false)}">
+                            <apex:outputPanel rendered="{!if(TotalLMM < 100, true ,false)}">
+                                B
+                             </apex:outputPanel>
+                         </apex:outputPanel>
+                            </apex:outputText>
+                        <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                         <apex:outputPanel rendered="{!if(TotalLMM >= 110, true ,false)}">
+                                A
+                         </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </thead>
+            </table> 
+        
+        </div>
+        </apex:outputText>        
+        <div style="float: right; width: 33%">
+            <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Nivel de autorización:</th>
+                        <td style="width: 50px; font-family:Verdana">{!Opparent.Approval_Level__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c	 == 'Parametrico', true , false)}">
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Override?:</th>
+                        <td style="width: 50px; font-family:Verdana">{!Opparent.LMM_ls_Override__c}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Motivo del override:</th>
+                        <td style="width: 50px; font-family:Verdana">{!Opparent.LMM_Motivo_del_override__c}</td>
+                    </tr>
+                    </apex:outputText>
+                </thead>
+            </table>        
+        
+        </div> <br/><br/><br/>   <br/> <br/>   <br/><br/>   <br/> 
+          <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c	 == 'Parametrico', true , false)}">
+		<br/>   <br/>   <br/>   <br/>    <br/>   <br/>      
+        </apex:outputText>    
+        <div class="title"><b>Deal Information</b></div>
+        <br/>
+        
+            <table width="100%" class="table-bordered content">
+            <thead>
+
+                <apex:repeat value="{!EcQuotesOpp}" var="EcQuotes" id="Quotes">
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana" class="title">EC Quote</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Producto Financiero</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">SLB</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Progress</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Meses de progress</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Plazo en Meses</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Período de Gracia</th>
+
+                        </tr>
+                      <tr>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Name}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Tipo_de_Financiamiento__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_SL_B__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Progress__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Meses_en_progress__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Plazo__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Periodo_de_gracia__c}</td>
+
+                        </tr>
+                                                       
+                       <tr>
+                        	<td style="height:15px; border: none;"></td>
+                       </tr>
+                    
+                     <tr>
+                            <th style="width: 50px; font-family:Verdana" class="title">EC Quote</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Tipo de Gracia</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Tipo de pago</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Low-High</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Equipo a financiar</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Nuevo/Usado</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">% Comisión</th>
+                        </tr>
+                      <tr>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Name}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Tipo_de_gracia__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Tipo_de_pago__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Low_High__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Tipo_de_activo__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Nuevo_Usado__c}</td>
+                          	<td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Comision__c}</td>
+                      </tr>
+                                                       
+                       <tr>
+                        	<td style="height:15px; border: none;"></td>
+                       </tr>
+                    
+                       <tr>
+                            <th style="width: 50px; font-family:Verdana" class="title">EC Quote</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">% RV/PO</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">% Balloon</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">% Anticipo a Cap.l</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">% Depósito en Gtía</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">ROI (Sin Seguro)</th>
+                            <th style="width: 50px; font-family:Verdana" class="title">Book Yield</th>
+                        </tr>
+                      <tr>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Name}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_RV_PO__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Ballon__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Anticipo_a_capital__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Deposito_en_gtia__c}</td>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_ROI_Sin_seguro__c}</td>
+                          	<td style="width: 50px; font-family:Verdana">
+                             <apex:outputText value="{0,number,0.00}%">
+                                  <apex:param value="{!EcQuotes.Book_Yield__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                      </tr>
+                                   
+                       <tr>
+                        	<td style="height:15px; border: none;"></td>
+                       </tr>
+                    
+                </apex:repeat>
+
+            </thead>
+        </table>
+        
+        <div style="float: left; width: 33%">
+            <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Domiciliación:</th>
+                        <td style="width: 50px; font-family:Verdana">{!Opparent.LMM_Domiciliacion__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                 </thead>
+            </table>        
+        </div>
+        
+        <div style="float: right; width: 33%">
+            <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Concepto</th>
+                        <th style="width: 50px; font-family:Verdana">K USD</th>
+                        <th style="width: 50px; font-family:Verdana">K MXN</th>
+                    </tr>
+                    
+                    <tr>
+						<td style="width: 50px; font-family:Verdana">Nueva Oport.</td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(nuevaOppUSD == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="nuevaOppUSD" value="{!nuevaOppUSD}" />
+                                </apex:outputText>      
+                            </apex:outputText>   
+                        </td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(nuevaOppMXN == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="nuevaOppMXN" value="{!nuevaOppMXN}" />
+                                </apex:outputText>   
+                            </apex:outputText>   
+                        </td>
+                    </tr>
+					<tr>
+						<td style="width: 50px; font-family:Verdana">Exposure actual</td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(exposureOppUSD == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="exposureOppUSD" value="{!exposureOppUSD}" />
+                                </apex:outputText>
+                            </apex:outputText>   
+                        </td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(exposureOppMXN == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="exposureOppMXN" value="{!exposureOppMXN}" />
+                                </apex:outputText>       
+                            </apex:outputText>    
+                        </td>						
+                    </tr>
+                    
+					<tr>
+						<td style="width: 50px; font-family:Verdana">Backlog</td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(backlogOppUSD == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="backlogOppUSD" value="{!backlogOppUSD}" />
+                                </apex:outputText>    
+                            </apex:outputText>   
+                        </td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(backlogOppMXN == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="backlogOppMXN" value="{!backlogOppMXN}" />
+                                </apex:outputText>    
+                            </apex:outputText>   
+                        </td>						
+                    </tr>
+                    
+					<tr>
+						<td style="width: 50px; font-family:Verdana">Riesgo total</td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(riesgoOppUSD == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="riesgoOppUSD" value="{!riesgoOppUSD}" />
+                                </apex:outputText>    
+                            </apex:outputText>    
+                        </td>
+						<td style="width: 50px; font-family:Verdana">
+                            <apex:outputText rendered="{!IF(riesgoOppMXN == null, false , true)}"> 
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="riesgoOppMXN" value="{!riesgoOppMXN}" />
+                                </apex:outputText>    
+                            </apex:outputText>    
+                        </td>	
+                    </tr>
+                 </thead>
+            </table>        
+        </div>
+        <br/><br/><br/><br/><br/><br/>
+         <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Otras condiciones</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Otras_condiciones__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Justificación de la solicitud</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Justificaci_n_de_la_solicitud__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                                        <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Antecedentes del cliente</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Antecedentes_del_cliente__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Información del aval</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Informacion_del_aval__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                                        <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Resultado de Validaciones de Información Financiera</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Resultado_de_validaciones__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Resultado de Principales Razones Financieras ARGASA</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Resultado_AGARSA__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    <!-- <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Resultado de Principales Razones Financieras LPR</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Resultado_LPR__c}</td>
+                    </tr>-->
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                                        <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Resúmen de Buró de Crédito y Buró Legal</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Resumen_Buro_credito_y_legal__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Findings: Quien es Quien, Fiscal Status, Google Searches </th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Findigs__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                                        <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Referencias Incluir Comentarios de EC</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Referencias_EC__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Análisis de Colateral</th>
+                    </tr>
+                    <tr>
+                      <th style="border: none"><div class="gfg"><apex:outputText value="{!Opparent.LMM_Imagen_11__c}" escape="false"> </apex:outputText></div></th>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+					<tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Recomendación</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Recomendacion__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">Condiciones Pre y Post Fondeo</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px; font-family:Verdana;text-align: justify">{!Opparent.LMM_Condiciones_pre_y_post__c}</td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                 </thead>
+            </table>      
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        
+             <table width="70%" class="table-bordered content" style="margin: 0 auto;">
+                <thead>
+                    <tr>
+                        <th class="title" style="width: 50px; font-family:Verdana;text-align:left;font-size: 10pt">Cliente</th>
+                        <td style="width: 50px; font-family:Verdana" COLSPAN="2">
+                     <apex:repeat value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp5">
+                              <apex:outputPanel rendered="{!if(or(EntOpp.LMM_lm_Rol__c =='Obligor', EntOpp.LMM_lm_Rol__c =='Credit Decision Entity'), true ,false)}">
+                            {!EntOpp.LMM_tx_Entity_Name__c}
+                            </apex:outputPanel>
+                    </apex:repeat>   
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana;background-color:#dae3f3;color:#003764;">       </th>
+                        <th style="width: 50px; font-family:Verdana;text-align:center;background-color:#dae3f3;color:#003764;font-size: 11pt">RAC LMM</th>
+                        <th style="width: 50px; font-family:Verdana;background-color:#dae3f3;color:#003764;">       </th>
+                    </tr> 
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana;text-align:center;background-color:#dae3f3;color:#003764;font-size: 9pt">Concepto</th>
+                        <th style="width: 50px; font-family:Verdana; text-align:center;background-color:#dae3f3;color:#003764;font-size: 9pt">Resultado</th>
+                        <th style="width: 50px; font-family:Verdana;text-align:center;background-color:#dae3f3;color:#003764;font-size: 9pt">Pass/Fail</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Buro Representativo *</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Buro_Representativo__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                           <apex:outputPanel rendered="{!if(Opparent.LMM_Buro_Representativo__c =='Positivo', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b> 
+                             </p>	                            
+                            </apex:outputPanel>
+                             <apex:outputPanel rendered="{!if(Opparent.LMM_Buro_Representativo__c =='Sin experiencia', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b> 
+                             </p>	                            
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Buro_Representativo__c =='Negativo', true ,false)}">
+                               
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                                
+                            </apex:outputPanel>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Años de experiencia en el sector</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Anos_de_experiencia_en_el_sector__c}</td>
+                        <td style="width: 50px; font-family:Verdana">
+                           <apex:outputText rendered="{!IF(Opparent.LMM_Anos_de_experiencia_en_el_sector__c == null, false , true)}">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Anos_de_experiencia_en_el_sector__c >=5, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF(Opparent.LMM_Anos_de_experiencia_en_el_sector__c == null, false , true)}">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Anos_de_experiencia_en_el_sector__c < 5, true ,false)}">
+                              <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <th style="width: 50px; font-family:Verdana">OR15 o mejor</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_OR15_o_mejor__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                            <apex:outputText rendered="{!IF(Opparent.LMM_OR15_o_mejor__c == null, false , true)}">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_OR15_o_mejor__c <= 15, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                            </apex:outputText>
+                             <apex:outputText rendered="{!IF(Opparent.LMM_OR15_o_mejor__c == null, false , true)}">
+                                <apex:outputPanel rendered="{!if(Opparent.LMM_OR15_o_mejor__c > 15, true ,false)}">
+                              <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                       	</td>
+                    </tr>  
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Años de experiencia con clientes principales </th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Anos_experiencia_cliente_p__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                         <apex:outputText rendered="{!IF(Opparent.LMM_Anos_experiencia_cliente_p__c == null, false , true)}">
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_Anos_experiencia_cliente_p__c >= 5, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                            </apex:outputText>
+                         <apex:outputText rendered="{!IF(Opparent.LMM_Anos_experiencia_cliente_p__c == null, false , true)}">                            
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Anos_experiencia_cliente_p__c < 5, true ,false)}">
+                              <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr> 
+					<tr>
+                        <th style="width: 50px; font-family:Verdana">Maxima Concentración en 2 clientes</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Maxima_concentracion__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                        <apex:outputText rendered="{!IF(Opparent.LMM_Maxima_concentracion__c == null, false , true)}">
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_Maxima_concentracion__c <= 60, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b> 
+                             </p>	                            
+                            </apex:outputPanel>
+                        </apex:outputText>
+                          <apex:outputText rendered="{!IF(Opparent.LMM_Maxima_concentracion__c == null, false , true)}">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Maxima_concentracion__c > 60, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">FCCR</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_FCCR__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                        <apex:outputText rendered="{!IF(Opparent.LMM_FCCR__c == null, false , true)}">
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_FCCR__c >= 0.75, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                         </apex:outputText>
+                         <apex:outputText rendered="{!IF(Opparent.LMM_FCCR__c == null, false , true)}">                                                       
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_FCCR__c < 0.75, true ,false)}">
+                              <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Endeudamiento (Debt/EBITDA)</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Apalancamiento__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                        <apex:outputText rendered="{!IF(Opparent.LMM_Apalancamiento__c == null, false , true)}">                            
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_Apalancamiento__c <= 4, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                         </apex:outputText>
+                          <apex:outputText rendered="{!IF(Opparent.LMM_Apalancamiento__c == null, false , true)}">                            
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Apalancamiento__c > 4, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b> 
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Ratio. Línea de Crédito/ Activo Fijo</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Ratio__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                        <apex:outputText rendered="{!IF(Opparent.LMM_Ratio__c == null, false , true)}">                            
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_Ratio__c <= 0.5, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                         </apex:outputText>
+                            <apex:outputText rendered="{!IF(Opparent.LMM_Ratio__c == null, false , true)}"> 
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Ratio__c > 0.5, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                           <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">% de Accionesde PG</th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Acciones_PG__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                        <apex:outputText rendered="{!IF(Opparent.LMM_Acciones_PG__c == null, false , true)}"> 
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_Acciones_PG__c > 60, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                            </apex:outputText>
+                         <apex:outputText rendered="{!IF(Opparent.LMM_Acciones_PG__c == null, false , true)}"> 
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Acciones_PG__c <= 60, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b>  
+                             </p>	        
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <th style="width: 50px; font-family:Verdana">Calificación del Buró del Aval Principal (PF) </th>
+                        <td style="width: 50px; font-family:Verdana;background-color:#ffff9e">{!Opparent.LMM_Calificacion_Aval_Principal__c}</td>
+                        <td style="width: 50px; font-family:Verdana;background-color:#25852d;color:#0a0a0a">
+                        <apex:outputText rendered="{!IF(Opparent.LMM_Calificacion_Aval_Principal__c == null, false , true)}"> 
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_Calificacion_Aval_Principal__c >= 690, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+	                            <b>Pass</b>  
+                             </p>	                            
+                            </apex:outputPanel>
+                         </apex:outputText>
+                        <apex:outputText rendered="{!IF(Opparent.LMM_Calificacion_Aval_Principal__c == null, false , true)}"> 
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_Calificacion_Aval_Principal__c < 690, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+	                            <b>Fail</b> 
+                             </p>	        
+                            </apex:outputPanel>
+                         </apex:outputText>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td class="title" style="width: 50px; font-family:Verdana;color:#0a0a0;font-size: 11pt" COLSPAN="2"><b>Total:</b></td>
+                        <td style="width: 50px; font-family:Verdana">
+                          <b>{!sumaRAC}</b> 
+                        </td>
+                    </tr> 
+                    
+                     <tr>
+                        <td  style="width: 50px; font-family:Verdana">
+                        </td>
+                        <td style="width: 50px" COLSPAN="2">
+                         	<apex:outputText rendered="{!if(resultadoRAC== 'Continuar', true ,false)}">
+                               <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF;margin: 0 auto">
+                                 <b>{!resultadoRAC}</b>  
+                                </p> 
+                            </apex:outputText>    
+                           	<apex:outputText rendered="{!IF(resultadoRAC == 'Rechazado', true , false)}">
+                               <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF;margin: 0 auto">
+                                  <b>{!resultadoRAC}</b> 
+                                </p> 
+                            </apex:outputText>   
+                        </td>
+                    </tr> 
+                 </thead>
+            </table>  
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c=='Parametrico', true , false)}">
+            <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                     <th COLSPAN="6" style="width: 100%; font-family:Verdana">
+                         <p style="float: left; width: 20%"><img src="{!$Resource.logoEngen}" width="100%" /></p><br/>
+                        <p style="float: right; width: 80%; text-align:center; font-size: 12pt ; font-family:Verdana"><b>LMM-Resumen de Paramétrico</b></p>
+                      </th>
+                    </tr>
+                   <tr>
+                    <th COLSPAN="3" class="title" style="width: 100%; font-family:Verdana;text-align:left;font-size: 10pt ">Cliente:</th>
+					<td COLSPAN="3" style="width: 100px; font-family:Verdana;font-size: 10pt ">
+                     <apex:repeat value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp6">
+                              <apex:outputPanel rendered="{!if(or(EntOpp.LMM_lm_Rol__c =='Obligor', EntOpp.LMM_lm_Rol__c =='Credit Decision Entity'), true ,false)}">
+                            {!EntOpp.LMM_tx_Entity_Name__c}
+                            </apex:outputPanel>
+                    </apex:repeat>
+                       </td>
+                    </tr>
+                    
+					<tr>
+                    <th COLSPAN="4" style="width: 100%; font-family:Verdana;text-align:center;font-size: 10pt;color:#FFFFFF;background-color:#0a0a0a">Concepto</th>
+                    <th COLSPAN="1" style="width: 100%; font-family:Verdana;text-align:center;font-size: 10pt ;color:#FFFFFF;background-color:#0a0a0a">Valor</th>
+                    <th COLSPAN="1" style="width: 100%; font-family:Verdana;text-align:center;font-size: 10pt ;color:#FFFFFF;background-color:#0a0a0a">Puntos</th>
+                    </tr>
+                    
+                     <tr>
+                        <th Class="rotar" ROWSPAN="4" style="width: 50px; font-family:Verdana;text-align:center;background-color:#dfe6f2">Carácter</th>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">1</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Buró Representativo (Sólo calificaciones 1 2 principalmente) </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+							<apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurodeCrditoRepresentativo__c=='15', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Al menos un Crédito otorgado con valor a => 1 veces la nueva línea de crédito solicitada
+                                </p>	                            
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurodeCrditoRepresentativo__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Al menos un Crédito otorgado con valor a => 0.5 veces la nueva línea de crédito solicitada
+                                </p>	                            
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurodeCrditoRepresentativo__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Créditos con valor a menor o igual 0.5 veces la nueva línea de crédito solicitada o sin experiencia	
+                                </p>	                            
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurodeCrditoRepresentativo__c=='-15', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Mala experiencia de Crédito
+                                </p>	                            
+                            </apex:outputPanel>
+                      </td>
+                        <td ROWSPAN="1" style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin: 0 auto;border-style: none;background-color:#dfe6f2" >
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">5</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">10</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">(5)</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">(15)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_BurodeCrditoRepresentativo__c}</td>
+
+                    </tr> 
+                    
+                                        
+                     <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">2</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Buró Legal 
+                         <p>Limpio o con Eventos Resueltos</p>
+                         <p>Con eventos sin resolver</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Bur_Legal__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Limpio o con Eventos Resueltos
+                                </p>	     
+                            </apex:outputPanel>
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Bur_Legal__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Con eventos sin resolver
+                                </p>	                            
+                            </apex:outputPanel> 
+                         
+                         </td>
+                        <td ROWSPAN="1" style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin: 0 auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">(5)</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">(15)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_Bur_Legal__c}</td>
+
+                    </tr> 
+                    
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">2</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Record de Pago del Aval
+                         <p>CB score >690</p>
+                         <p>CB score >=650</p>
+                         <p>CB score 650 o Sin Información</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurdeCrditoAval__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 CB score >690
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurdeCrditoAval__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 CB score >=650
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_BurdeCrditoAval__c=='-10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 CB score 650 o Sin Información
+                                </p>	                            
+                            </apex:outputPanel> 
+                        </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">10</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">5</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none">(10)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_BurdeCrditoAval__c}</td>
+
+                    </tr> 
+                    
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">3</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Experiencia con clientes principales
+                         <p>+7 años</p>
+                         <p>+5 años</p>
+                         <p>5 años o menos</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                           <apex:outputPanel rendered="{!if(Opparent.LMM_ls_ExpConClientesPrinc__c=='15', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 +7 años
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_ExpConClientesPrinc__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 +5 años
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_ExpConClientesPrinc__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 5 años o menos
+                                </p>	                            
+                            </apex:outputPanel> 
+                           </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">15</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_ExpConClientesPrinc__c}</td>
+
+                    </tr> 
+<!--seccion 2-->
+                     <tr>
+                        <th Class="rotar" ROWSPAN="3" style="width: 50px; font-family:Verdana;text-align:center;background-color:#dfe6f2">Continuidad de Negocio</th>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">4</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">4 Años en el negocio, (Incluyendo experiencia como PF u otras empresas)
+                        <p>>=7 años </p>
+                        <p>>=4 años </p>
+                        <p> Menor 4 años </p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_ExpConClientesPrinc__c=='15', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 >=7 años
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_ExpConClientesPrinc__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 >=4 años
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_ExpConClientesPrinc__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor 4 años
+                                </p>	                            
+                            </apex:outputPanel>
+						</td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin: 0 auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">15</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">(5)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_Anosenelnegocio__c}</td>
+
+                    </tr> 
+                    
+                                        
+                     <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">5</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Concentración en Clientes 
+                         <p> Menor o igual 30% en un cliente</p>
+                         <p>Menor o igual 60% en un cliente</p>
+                         <p>>60% en un cliente</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                           <apex:outputPanel rendered="{!if(Opparent.LMM_ConcentracinenClientes__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual 30% en un cliente
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ConcentracinenClientes__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual 60% en un cliente
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ConcentracinenClientes__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 >60% en un cliente
+                                </p>	                            
+                            </apex:outputPanel>
+                           </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">(5)</th>
+                                </tr>                                
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle"> {!Opparent.LMM_ConcentracinenClientes__c}</td>
+
+                    </tr> 
+                    
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">6</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Industria (IRR)
+                         <p>Riesgo Bajo y Muy Bajo</p>
+                         <p>Riesgo Moderado</p>
+                         <p>Riesgo Alto y Muy Alto</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                        <apex:outputPanel rendered="{!if(Opparent.LMM_ls_Industria__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Riesgo Bajo y Muy Bajo
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Industria__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Riesgo Moderado
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Industria__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Riesgo Alto y Muy Alto
+                                </p>	                            
+                            </apex:outputPanel>
+                        </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">(5)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_Industria__c}</td>
+                    </tr> 
+                    
+<!--Seccion3-->
+                     <tr>
+                        <th Class="rotar" ROWSPAN="4" style="width: 50px; font-family:Verdana;text-align:center;background-color:#dfe6f2">Desempeño Financiero</th>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">7</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Días de AR
+                         <p>Menor o igual 60</p>
+                         <p>Menor o igual 75</p>
+                         <p>>=75</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+							<apex:outputPanel rendered="{!if(Opparent.LM_ls_D_as_de_AR__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual 60
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LM_ls_D_as_de_AR__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual 75
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LM_ls_D_as_de_AR__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 >=75
+                                </p>	                            
+                            </apex:outputPanel>
+                            </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin: 0 auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">(5)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LM_ls_D_as_de_AR__c}</td>
+
+                    </tr> 
+                    
+                                        
+                     <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">8</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">Tamaño del deal (Monto a finaciar/activos fijos) 
+                         <p>Menor o igual 0.5</p>
+                         <p>>0.5</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_Tama_o_del_Deal__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual 0.5
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Tama_o_del_Deal__c=='-10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 >0.5
+                                </p>	                            
+                            </apex:outputPanel> 
+                           </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">(10)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle"> {!Opparent.LMM_ls_Tama_o_del_Deal__c}</td>
+
+                    </tr> 
+                    
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">9</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">FLUJO
+                         <p>GREATHER THAN 1.2 TIMES</p>
+                         <p>BETWEEN 0.75 y 1.2 TIMES</p>
+                         <p>LESS THAN 0.75 TIMES</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_FCCR__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                GREATHER THAN 1.2 TIMES
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_FCCR__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 BETWEEN 0.75 y 1.2 TIMES
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_FCCR__c=='0', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 LESS THAN 0.75 TIMES
+                                </p>	                            
+                            </apex:outputPanel>
+                        </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle"> {!Opparent.LMM_ls_FCCR__c}</td>
+
+                    </tr>   
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">10</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">TOTAL Debt/EBITDA
+                         <p>Menor o igual 2x</p>
+                         <p>Menor o igual 2.5x</p>
+                         <p>>2.5x</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_TotaldebtVSEBITDA__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                Menor o igual 2x
+                                </p>	                            
+                            </apex:outputPanel>
+
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_TotaldebtVSEBITDA__c=='0', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual 2.5x
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_TotaldebtVSEBITDA__c=='-5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                >2.5x
+                                </p>	                            
+                            </apex:outputPanel>
+                            </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">(5)</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_TotaldebtVSEBITDA__c}</td>
+
+                    </tr> 
+                    
+<!--Seccion4-->
+                     <tr>
+                        <th Class="rotar" ROWSPAN="4" style="width: 50px; font-family:Verdana;text-align:center;background-color:#dfe6f2">Estructura</th>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">11</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">LTV ADVANCE PAYMENT o DEPÓSITO DE SEGURIDAD
+                         <p>Menor 85%</p>
+                         <p>>=85%</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_LTVAdvancePaymentSD__c=='10', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor 85%
+                                </p>	                            
+                            </apex:outputPanel> 
+           
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_LTVAdvancePaymentSD__c=='0', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                >=85%
+                                </p>	                            
+                            </apex:outputPanel>
+                           </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin: 0 auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">10</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle"> {!Opparent.LMM_ls_LTVAdvancePaymentSD__c}</td>
+
+                    </tr> 
+                    
+                                        
+                     <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">12</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">ACTIVO ALTAMENTE MONETIZABLE*
+                         <p>SI</p>
+                         <p>NO</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LM_ls_Activaltamentemonetiz__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 SI
+                                </p>	                            
+                            </apex:outputPanel>
+                         	<apex:outputPanel rendered="{!if(Opparent.LM_ls_Activaltamentemonetiz__c=='0', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                NO
+                                </p>	                            
+                            </apex:outputPanel>
+                           </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle"> {!Opparent.LM_ls_Activaltamentemonetiz__c}</td>
+
+                    </tr> 
+                    
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">13</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">COLLATERAL GAP
+                         <p>Menor o igual a 18 Meses</p>
+                         <p>>18 Meses</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_Collateral_Gap__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 Menor o igual a 18 Meses
+                                </p>	                            
+                            </apex:outputPanel>
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Collateral_Gap__c=='0', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                >18 Meses
+                                </p>	                            
+                            </apex:outputPanel>
+                           </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle"> {!Opparent.LMM_ls_Collateral_Gap__c}</td>
+
+                    </tr>   
+                    <tr>
+                        <th ROWSPAN="1" style="width: 10px; font-family:Verdana;vertical-align:middle">14</th>
+                        <th ROWSPAN="1" style="width: 100px; font-family:Verdana;vertical-align:middle">GARANTÍAS ADICIONALES (Fideicomiso,Boot,Real Estate)
+                         <p>SI</p>
+                         <p>NO</p>
+                         </th>
+						<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">
+                            <apex:outputPanel rendered="{!if(Opparent.LMM_ls_Garant_as_Adicionales__c=='5', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                 SI
+                                </p>	                            
+                            </apex:outputPanel>
+                         	<apex:outputPanel rendered="{!if(Opparent.LMM_ls_Garant_as_Adicionales__c=='0', true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle">
+                                NO
+                                </p>	                            
+                            </apex:outputPanel>
+                            </td>
+                        <td ROWSPAN="1" Style="background-color:#dfe6f2" >
+                            <table width="60%" class="table-bordered content" style="margin:auto;border-style: none;background-color:#dfe6f2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">5</th>
+                                </tr>
+                                 <tr>
+                                    <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center;border-style: none;background-color:#dfe6f2">0</th>
+                                </tr>
+                            </thead>
+                           </table> 
+                         </td>
+								<td ROWSPAN="1" style="width: 100px; font-family:Verdana;font-size: 10pt;vertical-align:middle">{!Opparent.LMM_ls_Garant_as_Adicionales__c}</td>
+
+                    </tr> 
+                    <td  COLSPAN="6">
+                    <div style="float: right; width: 45%">
+                        <br/>
+            <table width="100%" class="table-bordered content">
+                <thead>
+                    <tr>
+                        <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center">PRIMARIOS:</th>
+                        <td style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center">{!Primarios}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center">ENHACER:</th>
+                        <td style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center">{!PuntosEstructura}</td>
+                    </tr>
+                     <tr>
+                        <th style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center">TOTAL:</th>
+                        <td style="width: 100px; font-family:Verdana;font-size: 9pt;text-align:center">{!TotalLMM}</td>
+                    </tr>
+                     <tr>
+                        <td COLSPAN="2" style="width: 50px; font-family:Verdana;font-size: 9pt;text-align:center">
+                        <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                         <apex:outputPanel rendered="{!if(TotalLMM < 85, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#000000;color:#FFFFFF">
+                                Rechazada
+                             </p>	                            
+                         </apex:outputPanel>   
+                            </apex:outputText>
+                         <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+
+                        <apex:outputPanel rendered="{!if(TotalLMM >= 85, true ,false)}">
+                            <apex:outputPanel rendered="{!if(TotalLMM < 90, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#000000;color:#FFFFFF">
+                                Aprobada
+                                </p>	
+                             </apex:outputPanel>
+                         </apex:outputPanel>  
+                            </apex:outputText>
+         					 <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+
+                          <apex:outputPanel rendered="{!if(TotalLMM >= 90, true ,false)}">
+                            <apex:outputPanel rendered="{!if(TotalLMM < 100, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#000000;color:#FFFFFF">
+                                Aprobada
+                                </p>	
+                             </apex:outputPanel>
+                         </apex:outputPanel> 
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                            <apex:outputPanel rendered="{!if(TotalLMM >= 90, true ,false)}">
+                         <apex:outputPanel rendered="{!if(TotalLMM >= 110, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#000000;color:#FFFFFF">
+                                Aprobada
+                                </p>	                            
+                         </apex:outputPanel>  
+                            </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                   	<tr>
+                    	<td style="height:10px; border: none;"></td>
+                	</tr>
+                    <tr>
+                        <td COLSPAN="2" style="width: 50px; font-family:Verdana;font-size: 9pt;text-align:center">
+                        <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                        <apex:outputPanel rendered="{!if(TotalLMM < 85, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#ff0000;color:#FFFFFF">
+                                Riesgo C
+                                </p>	                            
+                         </apex:outputPanel>
+                        </apex:outputText>
+                        <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                        <apex:outputPanel rendered="{!if(TotalLMM >= 85, true ,false)}">
+                            <apex:outputPanel rendered="{!if(TotalLMM < 90, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF">
+                                Riesgo C
+                                </p>	
+                             </apex:outputPanel>
+                         </apex:outputPanel> 
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                          <apex:outputPanel rendered="{!if(TotalLMM >= 90, true ,false)}">
+                            <apex:outputPanel rendered="{!if(TotalLMM < 100, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF">
+                                Riesgo B
+                                </p>	
+                             </apex:outputPanel>
+                         </apex:outputPanel> 
+                            </apex:outputText>
+                           <apex:outputText rendered="{!IF(TotalLMM == null, false , true)}"> 
+                         <apex:outputPanel rendered="{!if(TotalLMM >= 110, true ,false)}">
+                             <p style="font-family:Verdana;vertical-align:middle;background-color:#25852d;color:#FFFFFF">
+                                Riesgo A
+                                </p>	                            
+                         </apex:outputPanel>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+
+                </thead>
+            </table>        
+                        <br/>
+        </div>
+                    </td>
+                 </thead>
+            </table>
+          
+                  </apex:outputText>
+
+          <br/><br/>
+                   <table width="100%" class="table-bordered content">
+                <thead>
+
+                    <!--<tr>
+                        <th class="title" style="width: 50px; font-family:Verdana">2° Sección de Imagenes</th>
+                    </tr>
+                    <tr>
+                      <th style="border: none"><div class="gfg">
+                          <apex:outputText value="{!Opparent.LMM_Imagen_12__c}" escape="false"> </apex:outputText></div>
+                        </th>
+                    </tr>-->
+                    <tr>
+                    	<td style="height:18px; border: none;"></td>
+                	</tr>
+                       </thead>
+          </table>
+          <br/><br/><br/><br/><br/><br/>
+ <apex:outputText rendered="{!IF(Opparent.LMM_Tipo_de_credito__c=='Estudio corto', true , false)}">       
+        <!--Tabla de Pricing-->
+
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="title"><b>Pricing</b></div>
+        <br/>
+
+        <table width="60%" class="table-bordered content" style="margin: 0 auto;">
+            <thead>
+
+              <!--  <apex:repeat value="" var="" id="priceTable">
+
+                    <apex:repeat value="" var="" id="priceTable2">-->
+
+                        <tr>
+                            <th class="title" style="width: 50px ; font-family:Verdana">Cliente</th>
+                            <th class="title" style="width: 50px ; font-family:Verdana">                  
+                                <apex:repeat value="{!EntitiesOpp}" var="EntOpp" id="EntidadesOpp7">
+                              <apex:outputPanel rendered="{!if(or(EntOpp.LMM_lm_Rol__c =='Obligor', EntOpp.LMM_lm_Rol__c =='Credit Decision Entity'), true ,false)}">
+                            {!EntOpp.LMM_tx_Entity_Name__c}
+                            </apex:outputPanel>
+                    </apex:repeat></th>
+                        </tr>
+                <apex:repeat value="{!EcQuotesOpp}" var="EcQuotes" id="Quotes2">
+
+                        <tr>
+                            <th class="title" style="width: 50px ; font-family:Verdana">Vertical</th>
+                            <th class="title" style="width: 50px ; font-family:Verdana">{!Opparent.OPP_ls_Vertical__c}</th>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Monto (K USD)</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                 <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param value="{!EcQuotes.Monto_Total__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Moneda</th>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.CurrencyIsoCode}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Plazo (meses)</th>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Plazo__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Product</th>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.Tipo_de_Financiamiento__c}</td>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Segmento de Mercado</th>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Segmento_de_Mercado__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Book Yield</th>
+                            <td style="width: 50px; font-family:Verdana">
+                                <apex:outputText value="{0,number,0.00}%">
+                                  <apex:param value="{!EcQuotes.Book_Yield__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Tasa Activa</th>
+                            <td style="width:50px; font-family:Verdana">
+                             <apex:outputText value="{0, number, 0.00}%">
+                                  <apex:param value="{!EcQuotes.Tasa_Activa__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                        </tr>
+
+                            <tr>
+                            <th style="width: 50px; font-family:Verdana">Gross Margin</th>
+                                <td style="width: 50px; font-family:Verdana">
+                             <apex:outputText value="{0, number, 0.00}%">
+                                  <apex:param value="{!EcQuotes.LMM_Gross_Margin__c}"></apex:param>
+                             </apex:outputText>                                    
+                                </td>
+                            </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Seguro EC/Financiado</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                {!EcQuotes.LMM_Seguro_EC_Financiado__c}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Periodo de pagos progresivos</th>
+                            <td style="width:50px ; font-family:Verdana">
+								{!EcQuotes.LMM_Periodo_de_pagos_progresivos__c}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Comisión por Apertura</th>
+                            <td style="width: 50px; font-family:Verdana">
+                              <apex:outputText value="{0, number, 0.00}">
+                                  <apex:param value="{!EcQuotes.LMM_Comision__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Deposito de seguridad</th>
+                            <td style="width: 50px; font-family:Verdana">
+                               <apex:outputText value="{0, number, 0.00}">
+                                  <apex:param value="{!EcQuotes.LMM_Deposito_en_gtia__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Renta Anticipada</th>
+                            <td style="width: 50px; font-family:Verdana">
+                              <apex:outputText value="{0, number, 0.00}">
+                                  <apex:param value="{!EcQuotes.LMM_Anticipo_a_capital__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Residual/Opción C./ Ballon</th>
+                            <td style="width: 50px; font-family:Verdana">
+                               <apex:outputText value="{0, number, 0.00}">
+                                  <apex:param value="{!EcQuotes.LMM_Ballon__c}"></apex:param>
+                             </apex:outputText>
+                            </td>
+                        </tr>
+
+                                            <tr>
+                            <th style="width: 50px; font-family:Verdana">Solo AP: Final de arrendamiento</th>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Solo_AP_Final_de_arrendamiento__c}</td>
+                        </tr>
+
+                                            <tr>
+                            <th style="width: 50px; font-family:Verdana">Periodo de gracia</th>
+                            <td style="width: 50px; font-family:Verdana">{!EcQuotes.LMM_Periodo_de_gracia__c}</td>
+                        </tr>
+
+
+                </apex:repeat>
+
+            </thead>
+        </table>
+        </apex:outputText>
+
+    </apex:form>
+</apex:page>

@@ -1,0 +1,36 @@
+<apex:page >  
+
+<apex:tabPanel >
+    <apex:tab label="Prospector">
+      <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=65c3c3b1-fd27-4525-b86c-9d0e92860891&sheet=UALmyG&select=clearall" width="100%" ></apex:iframe>
+      <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=65c3c3b1-fd27-4525-b86c-9d0e92860891&sheet=VPrutUv&select=clearall"></apex:iframe>
+      <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=65c3c3b1-fd27-4525-b86c-9d0e92860891&sheet=qxVed&select=clearall"></apex:iframe>
+    </apex:tab>
+    
+    <apex:tab label="Pool Selector">
+      <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=4a894bf8-ecde-440e-b428-a159d4b91a4a&sheet=8f1212cd-402a-4f59-b372-4236fde65a61&select=clearall"></apex:iframe>
+      <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=4a894bf8-ecde-440e-b428-a159d4b91a4a&sheet=d6612441-81ab-48b3-9878-d9e052d53a46&select=clearall"></apex:iframe>
+      <a href='https://ecqsprd01.engeniumcapital.mx/sense/app/4a894bf8-ecde-440e-b428-a159d4b91a4a/sheet/d6612441-81ab-48b3-9878-d9e052d53a46/state/analysis'>Download Details</a>
+    </apex:tab>   
+
+    <apex:tab label="Write Up's">    
+      <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=d9731f5b-582a-47b4-8a28-3f21e6f1e21a&sheet=wCJPa&select=clearall"></apex:iframe>
+    </apex:tab>
+    
+   <!-- <apex:tab label="Sector Information">
+    
+        <apex:outputLink value="https://c.na30.content.force.com/servlet/servlet.FileDownload?file=015360000025hKo">
+          <apex:image url="https://c.na30.visual.force.com/resource/1501194664000/Autopartes" width="500" height="280"></apex:image>
+        </apex:outputLink>
+        
+        <apex:outputLink value="https://c.na30.content.force.com/servlet/servlet.FileDownload?file=015360000025hKy">
+          <apex:image url="https://c.na30.visual.force.com/resource/1501195226000/Petroleo" width="500" height="280"></apex:image>
+        </apex:outputLink>
+        
+        <apex:outputLink value="https://c.na30.content.force.com/servlet/servlet.FileDownload?file=015360000025hL3">
+          <apex:image url="https://c.na30.visual.force.com/resource/1501195261000/Vehiculos" width="500" height="280"></apex:image>
+        </apex:outputLink>
+    </apex:tab>-->
+    
+</apex:tabPanel>
+</apex:page>

@@ -1,0 +1,43 @@
+<!--
+  @File Name          : customLookUp.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 1/3/2020 19:54:39
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/3/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <lightning-layout>
+        <lightning-layout-item>
+            <div class="slds-p-around_xxx-small">Takedown invoice: {invoiceTakedown}</div>
+        </lightning-layout-item>
+    </lightning-layout>
+    <!--<lightning-layout>
+        <lightning-layout-item>
+            <div class="slds-p-around_xxx-small">Collateral Description: {collateralDescription}</div>
+        </lightning-layout-item>
+    </lightning-layout>-->
+    <lightning-layout>
+        <lightning-layout-item>
+            <c-lookup selection={initialSelection} errors={errors} onsearch={handleSearch}
+                onselectionchange={handleSelectionChange} label={lookUpLabel} placeholder={lookUpPlaceholder}
+                is-multi-entry={isMultiEntry}>
+            </c-lookup>
+        </lightning-layout-item>
+        <lightning-layout-item class="slds-p-left_xx-small">
+            <lightning-button variant="brand" label="Save" onclick={handleSubmit}>
+            </lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
+    <!--
+    <c-lookup selection={initialSelection} errors={errors} onsearch={handleSearch}
+        onselectionchange={handleSelectionChange} label={lookUpLabel} placeholder={lookUpPlaceholder}
+        is-multi-entry={isMultiEntry}>
+    </c-lookup>
+    <lightning-button variant="brand" label="Save" onclick={handleSubmit}>
+    </lightning-button>
+-->
+</template>

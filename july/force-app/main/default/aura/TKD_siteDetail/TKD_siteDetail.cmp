@@ -1,0 +1,325 @@
+<aura:component controller="Takedown_Controller_SupplierInCA"
+    implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes"
+    access="global">
+    <ltng:require styles="{!$Resource.Animate}" />
+
+    <aura:html tag="style">
+        .slds-modal__container{ width: 90% ; max-width: 100%;
+        height: 100%  }
+        .slds-section-title--divider {
+            color: white ;
+            background: #004877;
+            border-style: solid;
+        }
+    </aura:html>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler event="c:detailsitesEvent" action="{!c.handledetailsitesEvent}" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    <aura:attribute name="site" type="Object" />
+    <aura:attribute name="columns" type="Object" />
+    <aura:if isTrue="{!v.isOpen}">
+        <!--###### MODAL BOX Start######-->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- ###### MODAL BOX HEADER Start ######-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModel }" alternativeText="close"
+                        variant="bare-inverse" class="slds-modal__close" />
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">SITE
+                        {!v.site.vendorSiteCode} DETAIL</h2>
+                </header>
+                <!--###### MODAL BOX BODY Part Start######-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:card>
+                        <h3 slot="title" class="animated fadeInDown">
+                            <lightning:icon iconName="standard:address" size="small"></lightning:icon>
+                            <strong style="padding-left: 1em;">Site: {!v.site.vendorSiteCode}</strong>
+                        </h3>
+                        <br></br>
+                        <h3 class="slds-section-title--divider animated slideInLeft">General Information</h3>
+
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>organizationName</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.organizationName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>vendorSiteId:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.vendorSiteId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>vendorId:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.vendorId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>vatCode:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.vatCode}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>termsDateBasis:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.termsDateBasis}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>termName:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.termName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>termId:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.termId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>activeFlag:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.activeFlag}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>allowAwtFlag:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.allowAwtFlag}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>autoTaxCalcFlag:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.autoTaxCalcFlag}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>offsetTaxFlag:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.offsetTaxFlag}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>partySiteId:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.partySiteId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>payDateBasisLookupCode:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.payDateBasisLookupCode}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>payGroupLookupCode:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.payGroupLookupCode}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>paySiteFlag:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.paySiteFlag}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>paymentCurrencyCode:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.paymentCurrencyCode}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>paymentPriority:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.paymentPriority}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>prepayCodeCombination:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.prepayCodeCombination}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>primaryPaySiteFlag:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.primaryPaySiteFlag}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>prepayCodeCombinationId:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.prepayCodeCombinationId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <h3 class="slds-section-title--divider animated slideInLeft">Address</h3>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>addressLine1:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.addressLine1}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>addressLine2:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.addressLine2}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>zip:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.zip}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>country:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.country}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>state:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.state}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>province:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.province}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>city:</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{!v.site.city}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <aura:if isTrue="{!v.site.accounts.account != null}">
+                            <h3 class="slds-section-title--divider animated slideInLeft">BANK ACCOUNTS</h3>
+                            <div style="height: 300px">
+                                <lightning:datatable
+                                        keyField="bankAccountId"
+                                        data="{! v.site.accounts.account }"
+                                        columns="{! v.columns }"
+                                        hideCheckboxColumn="true"/>
+                            </div>
+                        </aura:if>
+                    </lightning:card>
+                </div>
+                <!--###### MODAL BOX FOOTER Part Start ######-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand" label="Close" title="Close" onclick="{! c.closeModel }" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <!--###### MODAL BOX Part END Here ######-->
+    </aura:if>
+</aura:component>

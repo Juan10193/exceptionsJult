@@ -1,0 +1,19 @@
+<apex:page lightningStylesheets="true" controller="ES2_controller_coments" >
+    <apex:form >
+        <apex:pageBlock title="Comments">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <apex:pageBlockSection columns="1" title="Comment">
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Comment*" for="ComComment"/>
+                    <apex:inputTextarea rows="3" style="width: 530px;" id="ComComment" value="{!sComment}"/>
+                </apex:pageBlockSectionItem> 
+                <!---->
+            </apex:pageBlockSection>
+            <div style="width: 230px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="Save" style="width: 100px;" action="{!saveComents}" />
+                <apex:commandButton value="Back" style="width: 100px;" action="{!BackComents}" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

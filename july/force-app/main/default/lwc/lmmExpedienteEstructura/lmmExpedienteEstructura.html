@@ -1,0 +1,87 @@
+<!--
+  @File Name          : lmmExpedienteEstructura.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 20/5/2020 16:25:23
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    14/4/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <c-lwc_streaming_api channel="/topic/lmmEntidadDeOportunidad" api-version="45.0" debug=true
+        onmessage={handleMessage} onerror={handleError} class="lwc_streaming_api-1">
+    </c-lwc_streaming_api>
+    <div class="slds-p-around_large lgc-bg">
+        <div class="customButtons">
+            <lightning-button-group>
+                <lightning-button label="Proceso de aprobación CB" onclick={handleAPCB}></lightning-button>
+                <lightning-button label="Añadir Entidades" onclick={handleOpenModalAddEntities}></lightning-button>
+                <lightning-button label="Validar Hits" onclick={handleValidateHits}
+                    disabled={disableValidateHitsButton}></lightning-button>
+            </lightning-button-group>
+        </div>
+    </div>
+    <br>
+    <div style="height: 350px;">
+        <template if:true={dataEntidadesDeOportunidad}>
+            <c-custom-datatable key-field="Id" data={dataEntidadesDeOportunidad.data} columns={columnsSelectedEntities}
+                onrowaction={handleRowAction} hide-checkbox-column>
+            </c-custom-datatable>
+        </template>
+    </div>
+    <template if:true={showModalAddEntities}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleAddEntities} close-button-name="Cancel"
+            accept-button-name="Add Entities" title="Search Entities"
+            init-modal-class="slds-modal slds-fade-in-open slds-modal_large" height="height:840px">
+            <div slot="subTitle">
+                <div>
+                    <lightning-card variant="Narrow" title="Entities by Account" icon-name="standard:account">
+                        <lightning-combobox name="EntityType" label="Search" value={valueEntityType}
+                            placeholder="Select type of search" options={valueEntityTypeOptions}
+                            onchange={handleChangeEntityType} slot="actions">
+                        </lightning-combobox>
+                    </lightning-card>
+                </div>
+            </div>
+            <div slot="body">
+                <div>
+                    <lightning-layout multiple-rows>
+                        <template if:false={showSearchTable}>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <h3 class="slds-section-title--divider">Select an economic group</h3>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" padding="around-small" style='overflow: initial;'>
+                                <lightning-combobox name="EconomicGroup" label="Search" value={valueEconomicGroup}
+                                    placeholder="Select an economic Group" options={valueEconomicGroupOption}
+                                    onchange={handleChangeEconomicGroup}>
+                                </lightning-combobox>
+                            </lightning-layout-item>
+                        </template>
+                        <lightning-layout-item size="12" padding="around-small">
+                            <h3 class="slds-section-title--divider">Select entities</h3>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" padding="around-small">
+                            <div class="slds-scrollable_x" style="height: 250px; width: auto;">
+                                <lightning-datatable key-field="oracleAccountNumber" data={dataEntidadesEntityMasterWS}
+                                    columns={columnsSelectEntity} onrowselection={getSelectedRows}>
+                                </lightning-datatable>
+                            </div>
+
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </div>
+        </c-modal-question>
+
+    </template>
+    <template if:true={deleteEntidadOportunidad}>
+        <c-modal-question onclose={handleCloseModals} onaccept={rowActionDelete} close-button-name="Cancel"
+            accept-button-name="Delete" title="Do you want to delete this record?">
+            <span slot="subTitle">Are you sure you want to delete this Entidad de oportunidad?</span>
+        </c-modal-question>
+    </template>
+
+
+</template>

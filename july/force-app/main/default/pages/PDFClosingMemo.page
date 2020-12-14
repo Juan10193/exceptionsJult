@@ -1,0 +1,491 @@
+<apex:page standardcontroller="Opportunity" extensions="WS_ClosingMemoREST_OppHelper" renderAs="pdf" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false">
+	<html>
+		<head>
+    		<style type="text/css" media="print">
+              /* @font-face {
+                font-family: "Garamond";
+                src: url('{!URLFOR($Resource.FontEngenRubik, 'Rubik/Rubik-Regular.ttf')}');
+                src: local(custom_font),
+                url('{!URLFOR($Resource.FontEngenRubik)}') format('truetype');
+              }*/
+        
+              @font-face {
+                font-family: myFont;
+                src: url({!URLFOR($Resource.FontEngenRubik, 'Rubik/Rubik-Regular.ttf')
+              }
+        
+              );
+              }
+        
+              @page {
+                size: letter;
+                margin-top: 2.5cm;
+                margin-right: 0cm;
+                margin-left: 0cm;
+                margin-bottom: 2.5cm;
+                @top-right {
+                  content: element(header);
+                  margin-right: 2cm;
+                }
+                @bottom-center {
+                  content: element(fotter);
+                }
+                background-image: url("{!$Resource.LogoG}");
+                background-repeat: no-repeat;
+              }
+        
+              div.header {
+                position: running(header);
+              }
+        
+              div.fotter {
+                position: running(fotter);
+                font-size: 8px;
+                margin-right: 2cm;
+                margin-left: 2cm;
+                text-align: justify;
+              }
+        
+              .page-break {
+                display: block;
+                page-break-after: always;
+              }
+        
+              .bodyFirstPage {
+                margin-bottom: 2.5cm;
+                margin-top: 2.5cm;
+                margin-right: 2.3cm;
+                margin-left: 2.3cm;
+              }
+        
+              .dateDocument {
+                padding: 10px;
+                display: block;
+                text-align: left;
+              }
+        
+              .notifyText {
+                display: block;
+                padding: 10px;
+              }
+        
+              .fields {
+                display: block;
+                padding: 10px;
+              }
+        
+              .tableHead {
+                font-weight: bold;
+                padding: 3px;
+                text-align: center;
+                border-top: solid #1E3A61;
+                border-bottom: solid #1E3A61;
+                color: #1E3A61;
+              }
+        
+              .tableRow {
+                color: #1E3A61;
+                text-align: left;
+              }
+        
+              .fieldSection {}
+        
+              .fieldLabel {
+                color: #45C9A8;
+              }
+        
+              p {
+                font-family: myFont;
+              }
+              
+              .pSize {
+                font-size : 14px;
+              }
+        
+              .firma {
+                width: 30%;
+                background-color: black;
+              }
+        
+              .afterTable {
+                text-align: center;
+              }
+                
+              .widget-title {
+                background-color: #3e5062;
+                background-repeat: no-repeat;
+	            background-position: center center;
+	            margin-left: -20px;
+	            margin-right: -20px;
+	            padding: 10px 30px 10px 24px;
+                color: #ffffff;
+              }
+                
+              .widget-sub-title {
+                background-color: #526981;
+                background-repeat: no-repeat;
+	            background-position: center center;
+	            margin-left: -20px;
+	            margin-right: -20px;
+	            padding: 10px 30px 10px 24px;
+                color: #ffffff;
+              }
+                
+              table.blueTable {
+                width: 100%;
+                border-spacing: 0; 
+              }
+                
+              tr.border_bottom td  {
+                border-bottom:1pt solid #32d4ab;
+    		  }
+                
+              table thead {
+                color: #fff;
+                background-color: #32d4ab;
+                text-align: center;
+              }
+    		</style>
+			<body>
+				<div class="header">
+					<center>
+						<img src="{!$Resource.logoEngen}" width="100%" />
+					</center>
+				</div>
+				<div class="fotter">
+      				<center>
+                        <p> NOTA: Esta es una cotización indicativa basada en una variedad de suposiciones, incluyendo promedios de la industria,
+                          datos históricos y pronósticos. Se proporciona únicamente con fines informativos. Si bien se ha hecho todo lo posible
+                          para asegurar la razonabilidad de los diversos supuestos, al aceptar la estimación adjunta usted reconoce y acepta
+                          que la cotización no es una garantía de ningún tipo y Engen Capital no asume ninguna responsabilidad, ya sea expresa
+                          o implícita, a la integridad o exactitud de esta estimación. Engen Capital no proporciona asesoría tributraria,
+                          contable o legal. Los clientes deben buscar la guía de sus propios profesionales de impuestos, contabilidad y legales.
+                          *Los cálculos de esta cotización están indexados a la tasa de referencia SWAP, moneda y plazos indicados en esta
+                          cotización. Los montos definitivos serán calculados en función al cambio de la tasa de referencia a la fecha de
+                          firma del anexo. 
+                        </p>
+					</center>
+				</div>
+        		<div class="bodyFirstPage">
+            		<div class="notifyText">                		
+                        <section>
+							<p class="widget-title">GENERAL INFORMATION</p>
+							<table class="blueTable">
+								<tbody>
+									<tr class="border_bottom">
+										<td class="line_button">
+                                            <b>Nombre de la Oportunidad:</b><br/>
+                                            {!Data.informacionGeneral.nombreDeLaOpportunidad}                                       
+                                        </td>
+										<td></td>
+                                        <td>
+                                            <b>Estatus Oportunidad:</b><br/>
+                                            {!Data.informacionGeneral.estatusOportunidad}
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <b>Vertical:</b><br/>
+                                            {!Data.informacionGeneral.vertical}
+                                        </td>
+                                    </tr>
+                                    <tr class="border_bottom">
+                                        <td>
+                                            <b>Grupo Económico:</b><br/>
+                                                
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <b>Tipo de aprobación de crédito:</b><br/>
+                                            {!Data.informacionGeneral.tipoDeAprobacionDeCredito}
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <b>Tipo de negocio:</b><br/>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+							</table>
+                        </section>
+                        
+                        <section>
+                              <p class="widget-title">NIVEL DE APROBACIÓN</p>
+                              <p>F</p>
+                        </section>
+                        
+                        <section>
+							<p class="widget-title">ESTRUCTURA DE ENTIDADES</p>
+							<table class="blueTable">
+								<tbody>
+                                    <apex:repeat value="{!Data.estructuraDeEntidades.entidades}" var="entidad">
+										<tr class="border_bottom">
+											<td>
+                                               	<b>Entidad:</b><br/>
+                                                {!entidad.nombre}
+                                        	</td>
+                                        	<td></td>
+                                        	<td>
+                                                <b>Rol:</b><br/>
+                                                <apex:repeat value="{!entidad.roles}" var="rol">
+                                                       {!rol}
+                                                </apex:repeat>
+                                        	</td>
+                                    	</tr>
+                                    </apex:repeat>
+								</tbody>
+							</table>
+                        </section>
+                        
+                        <section>
+							<p class="widget-title">COTIZACIONES</p>
+                            <apex:repeat value="{!Data.cotizaciones}" var="cotizacion">
+                                <div key="{!cotizacion.id}">
+                                    <p class="widget-sub-title">COTIZACIÓN: {!cotizacion.nombre}</p>
+                                    <table class="blueTable">
+                                        <thead>
+                                            <tr class="border_bottom">
+                                                <th>STRUCTURE</th>
+                                                <th></th>
+                                                <th>STRUCTURE</th>
+                                                <th></th>
+                                                <th>ECONOMICS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Producto: </b>{!cotizacion.product}
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>EBO: </b> 
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Expense ANI: </b>
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Currency: </b>{!cotizacion.currencyISOCode}
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>EBO Description: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>ROI(with Insurance)%: </b>
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Amount to Finance K: </b>$ {!cotizacion.amountToFinanceK}
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Equipment to Finance: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>ROI (no insurance) %: </b>
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Frequency (Monthly/Quartely): </b>{!cotizacion.frequency}
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Asset description: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Opening Fee %: </b>
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>ARR/ADV: </b>{!cotizacion.aRRADV}
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Return Condition: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>SD: </b>
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Term in Months(Including PP): </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Remarketing Fee %: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>SD %: </b>
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Term in Months Without PP: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Split Trac %: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>SD Comment: </b> {!cotizacion.ratePercentage}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Progress Payments(M): </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Lock Fee %: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Rate (fixed-floating): </b>{!cotizacion.rV}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Progress Description: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Boot Collateral Type: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Rate %: </b>$ {!cotizacion.balloonBulletPayment}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Grace Period (M): </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>EOL Option: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>RV %: </b>$ {!cotizacion.balloonBulletPayment}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Type of Grace Period: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Prom Note: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Balloon/Bullet Payment: </b>$ {!cotizacion.balloonBulletPayment}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Low-High/High-Low: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Carga Peligrosa: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>P option %: </b>$ {!cotizacion.balloonBulletPayment}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>L-H Description: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Cash Collateral: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Last Update: </b>$ {!cotizacion.balloonBulletPayment}
+                                                </td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Advance Payment %: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Collection Rights: </b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>EFA: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Cross Collateral: </b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>Used/New: </b>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <b>Direct Debit: </b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="border_bottom">
+                                                <td>
+                                                    <b>SL&amp;B: </b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+								</div>
+							</apex:repeat>
+                        </section>
+                         
+                        <section>
+                              <p class="widget-title">SPECIAL CONDITION AND COVENANT</p>
+							<table class="blueTable">
+								<thead>
+									<tr class="border_bottom">
+										<th>SPECIAL CONDITION</th>
+                                        <th></th>
+										<th>COVENANT CUALITATIVO</th>
+                                        <th></th>
+										<th>COVENANT CUANTITATIVO</th>
+									</tr>
+								</thead>
+                            </table>
+                        </section>
+            		</div>
+        		</div>
+			</body>
+		</head>
+	</html>   
+</apex:page>

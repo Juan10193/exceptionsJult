@@ -1,0 +1,150 @@
+<apex:page >
+
+<apex:tabPanel selectedTab="Pipeline">
+        
+        <apex:tab label="MBO's">
+            <!--Coverage-->
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=d7528098-c0ef-4a8e-9210-0db3d174da4d&sheet=zRKjcm&select=clearall" width="100%"></apex:iframe>
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/d7528098-c0ef-4a8e-9210-0db3d174da4d/sheet/fNdGS/state/analysis">Download details</a>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=d7528098-c0ef-4a8e-9210-0db3d174da4d&sheet=fNdGS&select=clearall" width="100%"></apex:iframe>  
+            
+            
+            <!--Relevant Interactions-->
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=72ffa805-7d3d-4fb5-9025-24cb5c19aa96&sheet=3fcea0ea-7be6-46d3-8740-946ae401d5dd&select=clearall"></apex:iframe>  
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/72ffa805-7d3d-4fb5-9025-24cb5c19aa96/sheet/22d7636b-ba40-471e-a43c-f521252405f3/state/analysis">Download details</a>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=72ffa805-7d3d-4fb5-9025-24cb5c19aa96&sheet=22d7636b-ba40-471e-a43c-f521252405f3&select=clearall"></apex:iframe>       
+            
+            <!--Unique meetings-->
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=dec606ec-7192-466f-afc6-e98f7a672dbc&sheet=bpKHz&select=clearall"></apex:iframe>
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/dec606ec-7192-466f-afc6-e98f7a672dbc/sheet/28b9f656-b981-40c7-b1de-991ebdcc2ec0/state/analysis">Download details</a>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=dec606ec-7192-466f-afc6-e98f7a672dbc&sheet=28b9f656-b981-40c7-b1de-991ebdcc2ec0&select=clearall"></apex:iframe>
+            
+            <!--All Accounts-->
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=d7528098-c0ef-4a8e-9210-0db3d174da4d&sheet=9bf1e2e3-c3d2-45cb-9a3b-0806df8216d8&select=clearall" width="100%"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Pipeline" name="Pipeline">
+           <!--Pipeline-->
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=7ceb7b13-941e-4756-a1ac-a4013530f1c7&sheet=XZfgWZD&select=clearall"></apex:iframe>
+
+           <!--Comparison Charts-->
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=7ceb7b13-941e-4756-a1ac-a4013530f1c7&sheet=MFB&select=clearall"></apex:iframe>
+           
+           <!--Pipeline Shared-->
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=8b83a50f-b6e7-41a7-b9e4-fc580963d861&sheet=XZfgWZD&select=clearall"></apex:iframe>
+           
+           <!--
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=f23218a9-e0c1-49ac-a35c-6c6a75bdfcc9&sheet=srcgeF&select=clearall"></apex:iframe>
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=f23218a9-e0c1-49ac-a35c-6c6a75bdfcc9&sheet=2035de2e-3ae3-496b-be0c-48c0586c3985&select=clearall"></apex:iframe>
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=f23218a9-e0c1-49ac-a35c-6c6a75bdfcc9&sheet=JFere&select=clearall"></apex:iframe>-->
+
+           <!--Created Pipeline ($)-->
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=07f7112b-bab1-47bd-907f-7c8d189c0c5d&select=clearall"></apex:iframe>
+
+           <!--Created Pipeline (#)-->
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=fd9db23f-1d4b-451a-a010-f9a413962c3b&select=clearall"></apex:iframe>
+           
+           <!--Created Pipeline (Avg)-->
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=82272f95-f679-4121-92e0-7b32724764ed&select=clearall"></apex:iframe>
+           
+           <!--12 month trend-->           
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=7700c758-f020-4bbf-9bfd-1cf9743847f8&select=clearall"></apex:iframe>
+           
+           <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/7ceb7b13-941e-4756-a1ac-a4013530f1c7/sheet/FrgP/state/analysis">Download Pipeline</a>
+        </apex:tab>
+        
+        <apex:tab label="Lost Deals">
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=7faf6db1-ba8d-4904-9c6b-28ed2715d71b&select=clearall"></apex:iframe>
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=df7c94d4-1ca7-4004-8b8e-68f7ce526039&select=clearall"></apex:iframe>
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=c9f0abf0-f264-4ab8-8db2-49934a6be9e4&select=clearall"></apex:iframe>
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=763f837c-783f-4ed6-95e8-0f50f51ba644&select=clearall"></apex:iframe>
+           <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e069733d-886d-4837-8d00-5488de60b090&sheet=49f0ec98-f162-40fd-b60b-2bc8f2939c60&select=clearall"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Weekly Rythm" name="Weekly">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=543f3956-226d-41bb-9e3f-318b07bedc4b&sheet=a0171b27-2785-43fe-b52a-05c16473d1c7&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=543f3956-226d-41bb-9e3f-318b07bedc4b&sheet=1636b42d-30d6-4298-93f0-6429af1700ee&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=543f3956-226d-41bb-9e3f-318b07bedc4b&sheet=68b0ba4b-316d-454c-8b52-3d1e041b9a41&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=543f3956-226d-41bb-9e3f-318b07bedc4b&sheet=7cf30570-c032-4099-bcb2-186c1a1b98fa&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=543f3956-226d-41bb-9e3f-318b07bedc4b&sheet=77deecf5-5ae9-4ad2-9481-41e0dc9394fc&select=clearall"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Profitability">
+
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=d9491f75-b525-4563-880d-9c2bb40616a7&sheet=ZbHSPab&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=d9491f75-b525-4563-880d-9c2bb40616a7&sheet=mJBZLG&select=clearall" width="100%"></apex:iframe> 
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=485bae9e-42e3-402a-bfaa-8b49ba7f4855&sheet=HpaUJDe&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=485bae9e-42e3-402a-bfaa-8b49ba7f4855&sheet=BsjauU&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=485bae9e-42e3-402a-bfaa-8b49ba7f4855&sheet=dc9d4cee-d6e4-4265-aa1a-cef354687df9&select=clearall" width="100%"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Funded Achievement">
+            <!--Gauges-->
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=hSJYp&select=clearall" width="20%"></apex:iframe>
+            <!--apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=3248315f-ef02-42c1-bf1c-2e1a4fab80fb&sheet=hSJYp&select=clearall" width="80%"></apex:iframe-->
+            
+            <!--Targets-->
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=yuzjPN&select=clearall"></apex:iframe>       
+            <!--<apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=8cb600aa-4ae5-4e49-ae3d-577a0defd781&sheet=jzsJna&select=clearall&opt=nointeraction"></apex:iframe>-->
+
+        </apex:tab>
+        
+        <apex:tab label="Volume Deep Dive (1/2)">
+            
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=bvbPA&select=clearall"></apex:iframe> 
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=4eef622e-d1cc-4496-a24d-c4d9b0532f81&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=83a96e2e-47e0-46e5-9825-56f554d0d84e&select=clearall"></apex:iframe>
+                        
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=b1d33912-fc16-40c5-9599-d9b9387bf6eb&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=a02d5f28-acb0-4922-9a7c-9d25ada9f9f8&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=542d950b-1d10-4f37-bffe-89ea81918b72&select=clearall"></apex:iframe>
+            
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=45b39723-4a63-424d-8673-b2eb9413fd71&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=92afe60d-2125-4c16-bf3f-dc396a32f7ce&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=68b60605-e2b8-4905-96cf-42b8efede2ff&select=clearall"></apex:iframe>           
+               
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/e3199252-8f62-417d-be7c-23e9abb2d564/sheet/ZmbpULA/state/analysis">Download Volume Detail</a>    
+        </apex:tab>
+        
+        <apex:tab label="Volume Deep dive (2/2)">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=1e6b882b-a391-49f5-bf06-b18782b71583&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=8660c8e1-871b-4206-b8a8-7f8e9b7c91fa&select=clearall"></apex:iframe>
+            
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=72137f69-278e-4acb-a1f9-298308e5826a&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=bf591cb9-3406-4990-8d25-100a814554cf&select=clearall"></apex:iframe>
+            
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=950803ec-c6fd-45a5-8ab1-f2ac6800ea97&select=clearall"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e3199252-8f62-417d-be7c-23e9abb2d564&sheet=85919c7f-209b-49b6-aa67-48b0355af896&select=clearall"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Hit Rates">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=e52be12b-6645-4ee4-b8bf-0b14d964f9be&sheet=fUJuEwG&select=clearall"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Win Rates">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=44836528-496b-4ec3-b411-1d41f48b76b1&sheet=FsmXhc&select=clearall"></apex:iframe>
+        </apex:tab>
+        
+        <apex:tab label="Conversion Rates ($)">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=0adee866-b39e-4abb-8a86-b8ed8dab6213&sheet=fUJuEwG&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=0adee866-b39e-4abb-8a86-b8ed8dab6213&sheet=vqRqTh&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=0adee866-b39e-4abb-8a86-b8ed8dab6213&sheet=60e4da82-fce6-47d0-ad35-0a07b354a939&select=clearall" width="100%"></apex:iframe>
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/0adee866-b39e-4abb-8a86-b8ed8dab6213/sheet/f4151e46-6a81-4894-925f-c441c4bcdad2/state/analysis">Download Details</a>    
+        </apex:tab>   
+        
+        <apex:tab label="Conversion Rates (#)">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=0adee866-b39e-4abb-8a86-b8ed8dab6213&sheet=a5024ce5-053e-471b-9aba-572ef6fdd13f&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=0adee866-b39e-4abb-8a86-b8ed8dab6213&sheet=f90d0838-a1bc-4ce1-b73d-444028c7d2c3&select=clearall" width="100%"></apex:iframe>
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=0adee866-b39e-4abb-8a86-b8ed8dab6213&sheet=f4151e46-6a81-4894-925f-c441c4bcdad2&select=clearall" width="100%"></apex:iframe>
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/0adee866-b39e-4abb-8a86-b8ed8dab6213/sheet/60e4da82-fce6-47d0-ad35-0a07b354a939/state/analysis">Download Details</a>    
+        </apex:tab>   
+        
+        <apex:tab label="Eval Requests">
+            <apex:iframe src="https://ecqsprd01.engeniumcapital.mx/single/?appid=1b8a48da-ce97-4d41-a0c4-f4f188bd0723&sheet=af45ad61-ae82-4222-b00a-c7291492a03b&select=clearall" width="100%"></apex:iframe>
+            
+            <a href="https://ecqsprd01.engeniumcapital.mx/sense/app/6bebcad4-d7ea-4f26-95d0-de62a888925c/sheet/af45ad61-ae82-4222-b00a-c7291492a03b/state/analysis"> Download Details </a>
+        </apex:tab>
+
+</apex:tabPanel>
+
+</apex:page>

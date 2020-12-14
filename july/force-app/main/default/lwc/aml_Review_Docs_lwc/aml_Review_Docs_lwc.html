@@ -1,0 +1,102 @@
+<template>
+    <br>
+    
+        
+            <lightning-card >
+                <h3 slot="title">
+                    <lightning-layout>
+                        <lightning-icon icon-name="utility:description" size="small"></lightning-icon>
+                        &nbsp;
+                        <p><b>Documents</b></p>
+                        </br></br></br>
+                    </lightning-layout>
+                    <template if:true={istruerror}>
+                        <c-error_panel errors={error} istruerror={istruerror}></c-error_panel>
+                    </template>
+                    
+                </h3>
+                <lightning-layout>
+                        <div class="slds-size_2-of-12">
+                            <h3><a class="slds-text-link_reset" style="color: #53C3B9" onclick={addDocumment}><strong>+ Add Files</strong></a></h3>
+                        </div>
+                        <div class="slds-size_4-of-12">
+                        <lightning-combobox class="slds-m-left_x-small" name="opportunity" label="Select an Oportunity" value={sourceOpId} placeholder="Select Opportunity"
+                        options={options} onchange={handleOpchange}></lightning-combobox>
+                        </div>
+                </lightning-layout>
+            </br></br></br>
+                <div class="slds-scrollable_y slds-scrollable_x" style="height: 27rem; width: auto;">
+                <table
+                    class="slds-table slds-table_cell-buffer slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="File Name">
+                                    File Name
+                                </div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Url">Url</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Type">Type</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Creation Date">Creation Date</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Uploaded by">Uploaded by</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Download">Download</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Remove">Remove</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={listaAttachments} for:item=docto>
+                            <tr key={docto.id} class="slds-hint-parent tabla">
+                            <td key={docto.id} data-label="File Name">
+                                <div class="slds-truncate" title="File Name">{docto.name}</div>
+                            </td>
+                            <td key={docto.id} data-label="Url">
+                                <div class="slds-truncate" title="Url">
+                                    {docto.name}
+                                </div>
+                            </td>
+                            <td key={docto.id} data-label="Type">
+                                <div class="slds-truncate" title="Type">
+                                    {docto.type}
+                                </div>
+                            </td>
+                            <td key={docto.id} data-label="Creation Date">
+                                <div class="slds-truncate" title="Creation Date">
+                                    {docto.creationDate}
+                                </div>
+                            </td>
+                            <td key={docto.id} data-label="Uploaded by">
+                                <div class="slds-truncate" title="Uploaded by">
+                                    {docto.nameCreatedBy}
+                                </div>
+                            </td>
+                            <td key={docto.id} data-label="Download">
+                                <div class="slds-truncate" title={docto.contentDocId}  onclick={downloadDocumment}>
+                                    Download
+                                </div>
+                            </td>
+                            <td key={docto.id} data-label="Remove">
+                                <div class="slds-truncate" title="Remove" data-oraid={docto.id} data-contentdocid={docto.contentDocId} data-doctype={docto.type} 
+                                data-name={docto.name} data-url={docto.url} onclick={deleteDocumment}>
+                                  Remove                
+                                </div>
+                            </td>
+                        </tr>  
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            </lightning-card>
+    
+</template>

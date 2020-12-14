@@ -1,0 +1,65 @@
+<template>
+    <div class="demo-only" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container" style="height: auto;">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Unresolved Items
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-scrollable_y" style="height:400px; max-height: 400px;" id="modal-content-id-1">
+                <template if:true={unresolvedOn}>
+                    <template for:each={unreList} for:item=wiredUnresolved>
+                        <lightning-layout key={wiredUnresolved.id} multiple-rows="true">
+                            <lightning-layout-item class="slds-large-size_12-of-12 slds-size_12-of-12">
+                                <h3>
+                                    <lightning-icon icon-name={wiredUnresolved.Status_Color__c} size="xx-small"></lightning-icon>
+                                    <div class="slds-border_bottom"><p><b>{wiredUnresolved.ES3_tx_Entity_Name__c}</b></p></div>
+                                </h3>
+                            </lightning-layout-item>
+                            <lightning-record-edit-form object-api-name="ES2_Obj_EntityMasterInCreditApproval__c"  onsubmit={onRecordSubmit} onsuccess={handleSuccess} record-id={wiredUnresolved.Id} class="slds-size_12-of-12 slds-border_bottom" data-id={wiredUnresolved.Id}>
+                                    <lightning-messages>
+                                    </lightning-messages>
+                                    <lightning-input-field field-name="RecordID__c" value={wiredUnresolved.Id} class="slds-hidden"></lightning-input-field>
+                                    <div class="slds-grid">
+                                    <div class="slds-col slds-size_4-of-12">
+                                    <lightning-output-field field-name="ES2_txt_Hit_Description__c">
+                                    </lightning-output-field>
+                                    </div>
+                                    <div class="slds-col slds-size_3-of-12" title={tabClass}>
+                                    <lightning-input-field field-name="ES2_Unresolved_Items__c" value={wiredUnresolved.ES2_Unresolved_Items__c}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_4-of-12">
+                                    <lightning-input-field field-name="ES2_Resolve_Comment__c" value={wiredUnresolved.ES2_Resolve_Comment__c}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12">
+                                        <lightning-button
+                                        class="slds-m-top_small"
+                                        variant="brand"
+                                        type="submit"
+                                        name="update"
+                                        label="Save">
+                                        </lightning-button>
+                                    </div>
+                                    </div>
+                                </lightning-record-edit-form>
+                                
+                        </lightning-layout>
+                        <br key={wiredUnresolved.id}>                
+                    </template>
+                </template>
+                </div>
+                <footer class="slds-modal__footer" style="display: inline">
+                    <lightning-button label="Close" variant="neutral" onclick={closeModal}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

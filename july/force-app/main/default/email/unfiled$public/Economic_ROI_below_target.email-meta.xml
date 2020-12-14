@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Economic ROI below target - HTML</name>
+    <style>freeForm</style>
+    <subject>Your pricing is in status {!TBO018_Pricing__c.TBO018_tx_Pricing_Status__c}</subject>
+    <textOnly>Dear user,
+
+You’re receiving this notification because your pricing {!TBO018_Pricing__c.TBO018_rb_SuperTRUMP_Pricing_Quote__c},has been {!TBO018_Pricing__c.TBO018_tx_Pricing_Status__c} status Please refer the following details for your review: 
+
+Account details: 
+Account Name: {!TBO018_Pricing__c.Account_Name__c}
+Target Market: {!Account.ACC_fm_Target_Market__c}
+
+Opportunity details: 
+ID:{!TBO018_Pricing__c.TPO018_fm_Opportunity_SFOP__c}
+Amount: {!TBO018_Pricing__c.TBO018_dv_Amount__c}
+Product: {!TBO018_Pricing__c.TBO018_tx_Product__c}
+Term: {!TBO018_Pricing__c.TBO018_un_Term__c}  
+
+Deal parameters:  
+Full Term Rate: {!TBO018_Pricing__c.TBO018_pr_Full_Term_Rate__c}
+Full Term Rate: {!TBO018_Pricing__c.TBO018_pr_Full_Term_Rate_w_Resid__c}
+Book Yield: {!TBO018_Pricing__c.TBO018_pr_Book_Yield__c}% 
+
+Economic Yield: {!TBO018_Pricing__c.TBO018_pr_Economic_Yield__c}%
+Cost of Funds (Unlevered): {!TBO018_Pricing__c.TBO018_pr_Cost_of_Funds_Unlevered__c}%
+Money Cost Date: {!TBO018_Pricing__c.TBO018_fh_Money_Cost_Date__c}
+Finance Margin: {!TBO018_Pricing__c.TBO018_pr_Finance_Margin__c}%
+
+ROI: {!TBO018_Pricing__c.TBO018_pr_Economic_ROI__c}%
+ROE: {!TBO018_Pricing__c.TBO018_pr_Economic_ROE__c}%
+
+Contributed Value: {!TBO018_Pricing__c.TBO018_un_Contributed_Value__c}
+Net Income: {!TBO018_Pricing__c.TBO018_un_Net_Income__c}
+
+Rationale:
+Rationale Comment: {!TBO018_Pricing__c.BKL_tx_Rationale_Comment__c}
+
+Pricing information: 
+Supertrump Quote: {!TBO018_Pricing__c.TBO018_rb_SuperTRUMP_Pricing_Quote__c} 
+Description: {!TBO018_Pricing__c.TBO018_tx_Description__c} 
+To view this pricing, please click in the following link: Click here
+
+Thank you,
+
+
+Digital Marketing - Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

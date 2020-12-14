@@ -1,0 +1,234 @@
+<apex:page lightningStylesheets="true"  docType="HTML-5.0"  controller="ES2_Controller_CREDIT_BUREAU">
+    
+    <script>
+    
+        function camps(prm){
+            var leterd=document.getElementById('{!$Component.frm.pb.CB.CAMl2}');
+            var namel=document.getElementById('{!$Component.frm.pb.CB.CALS3.CAMl4}');
+            var leterp=document.getElementById('{!$Component.frm.pb.CB.CALS2.CAMl3}');
+            
+            
+            if(prm=='NO'){
+                leterd.disabled=true;
+                namel.disabled=true;
+                leterp.disabled=true;
+                }else{
+                    leterd.disabled=false;
+                    namel.disabled=false;
+                    leterp.disabled=false;
+                    }
+        }
+    
+        </script>
+    
+    <apex:form id="frm">
+        <apex:pageBlock id="pb">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection columns="2" title="General Information" id="GI"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:inputText disabled="true" id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:inputText disabled="true" id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:inputText disabled="true" id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:inputText disabled="true" id="Top_Parent_Name" value="{!req.pOutsourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:inputText disabled="true" id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:inputText disabled="true" id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:inputText disabled="true" id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:inputText disabled="true" id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                   <apex:pageBlockSectionItem >
+                    
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem> 
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="Credit Bureau" id="CB">  <!--AQUI EMPIEZA EL AREA CREDIT BUREAU --> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Type *" for="Customer_Type"/>
+                    <apex:inputText disabled="true" id="Customer_Type" value="{!req.CreditBureauObj.cbCustomerType}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Name" for="CBName"/>
+                    <apex:inputText disabled="true" id="CBName" value="{!req.CreditBureauObj.cbName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem id="CALS">
+                    <apex:outputLabel value="Current Authorization Letter *" for="Autorization_Letter"/>
+                    <apex:selectList size="1" style="width: 173px" value="{!req.CreditBureauObj.AutorizationLetter}" id="CALsl" onchange="camps(this.value);">
+                         <apex:selectOption itemLabel="YES" itemValue="YES"> </apex:selectOption>
+                         <apex:selectOption itemLabel="NO" itemValue="NO"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Middle Name" for="CBMiddleName"/>
+                    <apex:inputText disabled="true" id="CBMiddleName" value="{!req.CreditBureauObj.cbSecondName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requestor SSO" for="CBAPIRequestor"/>
+                    <apex:inputText disabled="true" id="CBAPIRequestor" value="{!req.CreditBureauObj.cbAPIRequestor}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Last Name" for="CBLastName"/>
+                    <apex:inputText disabled="true" id="CBLastName" value="{!req.CreditBureauObj.cbLastName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC*" for="CBrfc"/>
+                    <apex:inputText disabled="true" id="CBrfc" value="{!req.CreditBureauObj.RFC}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Second Last Name" for="CBSecondLastName"/>
+                    <apex:inputText disabled="true" id="CBSecondLastName" value="{!req.CreditBureauObj.cbSecondLastName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Company Name" for="CompanyName"/>
+                    <apex:inputText disabled="true" id="CompanyName" value="{!req.CreditBureauObj.CompanyName}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="CALS3">
+                    <apex:outputLabel value="Name of legal and / or administrative legal representative*" for="administrative_legal_representative" />
+                    <apex:inputText id="CAMl4" disabled="false" value="{!req.CreditBureauObj.CBLegalPartyAlias}"/>
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Credit Bureau Address" for="Credit_Bureau_Address"/>
+                    <apex:inputText disabled="true" id="Credit_Bureau_Address" value="{!req.CreditBureauObj.Address}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Zip Code*" for="Zipcode"/>
+                    <apex:inputText disabled="true" id="Zipcode"  value="{!req.CreditBureauObj.ZipCode}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Engenium Capital Entity *" for="Engenium_Capital_Entity"/>
+                    <apex:selectList size="1" id="Engenium_Capital_Entity" style="width: 173px" value="{!req.CreditBureauObj.ECEntity}">
+                        <apex:selectOption itemLabel="798" itemValue="798"> </apex:selectOption>
+                        <apex:selectOption itemLabel="397" itemValue="397"> </apex:selectOption>
+                        <apex:selectOption itemLabel="XA7" itemValue="XA7"> </apex:selectOption>                        
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Country*" for="Country"/>
+                    <apex:inputText disabled="true" id="Country" value="{!req.CreditBureauObj.Country}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->    
+               
+
+                      <apex:input type="date" label="Letter Signing Date*"   value="{!req.CreditBureauObj.LetterSigningDate}" id="CAMl2" /> 
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="State*" for="State"/>
+                    <apex:inputText disabled="true" id="State" value="{!req.CreditBureauObj.State}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="CALS2">
+                    <apex:outputLabel value="Letter Signing Place*" for="Letter_signing_place" />
+                    <apex:inputText id="CAMl3" value="{!req.CreditBureauObj.LetterSigningPlace}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="City*" for="City"/>
+                    <apex:inputText disabled="true" id="City" value="{!req.CreditBureauObj.City}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Credit Bureau Alias" for="Credit_Bureau_Alias"/>
+                    <apex:inputText disabled="true" id="Credit_Bureau_Alias" value="{!req.CreditBureauObj.Alias}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Municipality*" for="Municipality"/>
+                    <apex:inputText disabled="true" id="Municipality" value="{!req.CreditBureauObj.municipality}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Reject Reason" for="Reject_Reason"/>
+                    <apex:selectList size="1" id="Reject_Reason" style="width: 173px" disabled="{!txtrjectr}" value="{!req.CreditBureauObj.CBRejectReason}">
+                        <apex:selectOption itemLabel="SELECTION" itemValue="SELECTION"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Sin carta de Autorización (Se requiere Carta de Autorización Autógrafa en Original obligatorio)" itemValue="Sin carta de Autorización (Se requiere Carta de Autorización Autógrafa en Original obligatorio)"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Sin ID del Representante Legal" itemValue="Sin ID del Representante Legal"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Sin Poderes o Legal Assessment" itemValue="Sin Poderes o Legal Assessment"> </apex:selectOption>
+                        <apex:selectOption itemLabel="No existe información crediticia para esta consulta (Expediente en Blanco)" itemValue="No existe información crediticia para esta consulta (Expediente en Blanco)"> </apex:selectOption>
+                        <apex:selectOption itemLabel="RFC erróneo (incompleto o no corresponde)" itemValue="RFC erróneo (incompleto o no corresponde)"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Firma no corresponde al ID" itemValue="Firma no corresponde al ID"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Representante Legal no tiene poderes para firmar" itemValue="Representante Legal no tiene poderes para firmar"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Error del nombre del solicitante Vs. Poderes o ID" itemValue="Error del nombre del solicitante Vs. Poderes o ID"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Otros Errores" itemValue="Otros Errores"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="County*" for="County"/>
+                    <apex:inputText disabled="true" id="County" value="{!req.CreditBureauObj.Country}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Street*" for="Street"/>
+                    <apex:inputText disabled="true" id="Street" value="{!req.CreditBureauObj.Street}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Outdoor Number*" for="OutNum"/>
+                    <apex:inputText id="OutNum" disabled="true" value="{!req.CreditBureauObj.outnum}"/> 
+                </apex:pageBlockSectionItem>
+                 <!-- --> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Interior Number" for="intnum"/>
+                    <apex:inputText id="intnum" disabled="true" value="{!req.CreditBureauObj.intnum}"/> 
+                </apex:pageBlockSectionItem>
+                 <!-- -->
+            </apex:pageBlockSection>    
+            
+            <div style="width: 230px;margin-left: AUTO;margin-right: AUTO;">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!saveCB}"/>
+                <apex:commandButton style="width: 120px;" value="Back to Entity" disabled="false" action="{!backToEntity}"/>
+            </div>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

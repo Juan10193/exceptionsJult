@@ -1,0 +1,64 @@
+            .gfg { 
+                width:auto; 
+                text-align:center; 
+                
+            } 
+            .gfg img { 
+                max-width:100%; 
+                 width:100%; 
+                        height:auto; 
+            } 
+
+.align {
+    text-align: justify;
+    text-align: center;
+}
+
+.title{
+    
+    background-color:#0c4976;
+    color:#FFFFFF;
+    text-align: justify;
+    text-align: center;
+    
+    
+}
+ .col1 {
+    width:350px; 
+    text-align:justify;
+    border="1";
+    cellpadding="5px";
+    cellspacing="5px";
+     font-family:Verdana;
+    font-size: 10pt;
+}
+
+.titleVerify{
+   color:#000000;
+}
+    
+ .table-bordered {
+                border: 1px solid #000;
+                border-collapse : collapse;
+                font-size : .7em;
+            }
+
+            td {
+                vertical-align: bottom;
+                border: #0c4976 1px solid;
+                border-spacing: 0;
+                border-collapse: collapse;
+                text-align:center;
+                font-family:Verdana;
+            }
+
+  thead>tr>th {
+                vertical-align: bottom;
+                border: #0c4976 1px solid;
+                border-spacing: 0;
+    text-align:justify;
+     font-family:Verdana;
+                  
+                border-collapse: collapse;
+               }
+           

@@ -1,0 +1,788 @@
+<apex:page lightningStylesheets="true" controller="EIV_EntityExtendClassBis">
+    <apex:form id="frm">
+        <script>
+        window.addEventListener("load", function() {
+            if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value == "SELECTION"){
+               
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value ="NO";                       
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').value="MEX";
+               
+        }
+            if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value == "YES"){
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').disabled = true;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs21.TIN}').disabled = false;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').disabled=true;
+              }
+            
+             if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value == "NO"){
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs21.TIN}').disabled = true;
+             
+             }
+        })
+        
+        
+        
+        //window.addEventListener("load", function() { document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').disabled= true; });
+        //window.addEventListener("load", function() { document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value = "NO"; });
+        //window.addEventListener("load", function() {if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value == "YES")
+        //{ document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').disabled = true
+        //document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').value=" "}})
+        
+        
+        function ltrM(id){
+            var tecla=document.getElementById(id).value;
+            var tecla2=tecla.toUpperCase();
+            document.getElementById(id).value=tecla2;
+        }
+       
+        
+        function disableTin(){
+            if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value == "NO"){
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').disabled=false;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs21.TIN}').disabled = true;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs21.TIN}').value ="";
+                 document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').value = "MEX";
+                //document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').disabled = true;
+                 document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').disabled = false;
+                
+              }
+            if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value == "YES"){
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').disabled=true;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value="";
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs21.TIN}').disabled = false;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').value = "SELECTION"
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').disabled = false;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').disabled = true;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').value="SELECTION";
+                
+            }
+            
+        }
+        
+        function tt(input,txt){
+            if(input.checked){
+                document.getElementById(txt).checked=true;
+            }else{
+                document.getElementById(txt).checked=false;
+            }
+        }
+        function validateFunction(){
+            var chbox = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs4.limitedCHbx}').checked;
+            var alerts=[]
+            var validarFirstName = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs8.First_Name}').value;
+            
+            if(document.getElementsByClassName('select2-chosen')[0].innerHTML =='No value selected'){
+                    var validarTopParent ='Please select a Top Parent\n';
+                    alerts.push(validarTopParent);
+                }
+            
+            if(validarFirstName == ""){
+                //alert('Frist_Name is required');
+                var validarFirstNameAlrt= 'First Name is Required\n'
+                alerts.push(validarFirstNameAlrt)
+            }
+            
+            var validarFristLastName =document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs12.First_Last_Name}').value;
+            if(validarFristLastName ==""){
+                var validarFristLastNameAlrt='First Last Name is Required\n'
+                alerts.push(validarFristLastNameAlrt)
+            } 
+            
+            
+            // var validarSecondLasName = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs14.Second_Last_Name}').value;
+            //if(validarSecondLasName == "" ){
+            //    var validarSecondLasNameAlrt='Second Last Name is Required\n';
+            //   alerts.push(validarSecondLasNameAlrt)
+                
+            //  }
+            
+            
+            
+            
+            var validarCustomerType = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs2.Customer_type}').value;
+            if(validarCustomerType == "" && chbox == false){
+                var validarCustomerTypeAlrt='CustomerType is Required\n';
+                alerts.push(validarCustomerTypeAlrt)
+                
+            }
+            
+            /*var validarSuperFlag = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs11.Supplier_Flag}').value;
+            if(validarSuperFlag =="SELECTION"){
+                var validarSuperFlagAlrt = 'Select Suppiler Flag\n'
+                alerts.push(validarSuperFlagAlrt)
+            }*/
+            
+          
+            
+             var validarForeign_Entity = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value;
+            if (validarForeign_Entity == "SELECTION" && chbox == false){
+                var validarForeign_EntityAlrt='Select a Foreign Entity\n'
+                alerts.push(validarForeign_EntityAlrt)
+                
+            }
+            
+            var validarRFC =document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value;
+            if (validarRFC == "" && validarForeign_Entity !=="YES" ){
+                var validarRFCAlrt='RFC is Required\n';
+                alerts.push(validarRFCAlrt)
+                
+            }
+            
+            var validarTIN = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs21.TIN}').value;
+            if(validarTIN == "" && chbox == false && validarForeign_Entity=="YES" ){
+                var validarTINAlrt='TIN is Required\n';
+                alerts.push(validarTINAlrt)
+                
+            }
+            
+           
+            
+            var validarNationality = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').value;
+            if (validarForeign_Entity == "YES" && validarNationality =="SELECTION"){
+                var validarForeign_EntityAlrt='Select Nationality\n'
+                alerts.push(validarForeign_EntityAlrt)
+                
+            }
+            if (validarForeign_Entity == "NO" && validarNationality !="MEX"){
+                var validarForeign_EntityAlrt='Please Select México on Local Entities\n'
+                alerts.push(validarForeign_EntityAlrt)
+                
+            }
+            
+            if (validarForeign_Entity == "YES" && validarNationality =="MEX"){
+                var validarForeign_EntityAlrt='Can´t Select Mexico as a Foreign entity, choose another country\n'
+                alerts.push(validarForeign_EntityAlrt)
+                
+            }
+            
+            
+            var validarTax_Regime = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').value;
+            if (validarNationality =="MEX" && validarTax_Regime == "SELECTION"){
+                var validarTax_RegimeAlrt='Select a Tax Regime\n';
+                alerts.push(validarTax_RegimeAlrt)
+                
+            }
+            
+            var strCorrecta;
+           rfcStr=document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value;
+            strCorrecta = rfcStr;   
+            if (rfcStr.length == 10){
+                var valid = '^(([A-Z]|[a-z]){4})([0-9]{6})';
+            }
+            else{
+                if (rfcStr.length == 13){
+                    var valid = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                }
+                else{
+                    var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){1})([0-9]{6})';
+                }
+            }
+            
+            
+            var validRfc=new RegExp(valid);
+            var matchArray=strCorrecta.match(validRfc);
+            if (matchArray==null) {
+                if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value!="YES"){
+                var errorrfc="Please input a valid RFC\n"
+                alerts.push( errorrfc)
+               }
+            }
+            
+           
+            
+            
+            if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+        
+        function activateTaxRegime(){
+            var validarNationality = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs19.Nationality}').value;
+            var habilitarTaxRegime = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}');
+            if(validarNationality == "MEX"){
+                habilitarTaxRegime.disabled = false;
+            }else{
+                habilitarTaxRegime.disabled = true;
+                document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs15.Tax_Regime}').value = "SELECTION"
+            }
+        }
+        
+        function ValidaRfc(rfcStr) {
+            
+            var strCorrecta;
+            strCorrecta = rfcStr;   
+            if (rfcStr.length == 10){
+                var valid = '^(([A-Z]|[a-z]){4})([0-9]{6})';
+            }
+            else{
+                if (rfcStr.length == 13){
+                    var valid = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                }
+                else{
+                    var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){1})([0-9]{6})';
+                }
+            }
+            var validRfc=new RegExp(valid);
+            var matchArray=strCorrecta.match(validRfc);
+            if (matchArray==null) {
+                //alert('"The RFC is invalid"');
+                
+                //return false;
+            }
+            else
+            {
+                //alert('"The RFC is valid"\n' + strCorrecta);
+                //return true;
+            }
+        }
+        
+        
+        function ValidaCurp(rfcStr) {
+            if(rfcStr !=""){
+                var strCorrecta;
+                strCorrecta = rfcStr;   
+                if (rfcStr.length == 18){
+                    
+                    var valid = '^(([A-Z]|[a-z]){4})([0-9]{6})(([A-Z]|[a-z]){6})([0-9]{2})';
+                }else{
+                    var valid = '^(([A-Z]|[a-z]|\s){2})(([A-Z]|[a-z]){1})([0-9]{6})(([A-Z]|[a-z]){6})([0-9]{2})';
+                }
+                var validRfc=new RegExp(valid);
+                var matchArray=strCorrecta.match(validRfc);
+                if (matchArray==null) {
+                    if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value !="YES"){
+                    alert('"The CURP is Invalid"');
+                    
+                    return false;
+                    }
+                }
+                else
+                {
+                    // alert('"The CURP is valid"\n' + strCorrecta);
+                    return true; 
+                }
+            }
+            
+        }
+        function sin_rfc(){
+            if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs22.CURP}').value !=""){
+                var texto_1 = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value;
+                var texto_2 = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs22.CURP}').value;
+                if (texto_1<=0 == texto_2>=18) {
+                   
+                } else {
+                    if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value !="YES"){
+                    document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value;
+                    document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs22.CURP}').value="";
+                    alert('Please Fill in the RFC field');
+                    }
+                    
+                }
+            }
+        }
+        
+        
+        function comparar_textos() {
+            if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs22.CURP}').value !=""){
+                var texto_1 = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value;
+                var texto_2 = document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs22.CURP}').value;
+                if (texto_1.substring(0,10) == texto_2.substring(0,10)) {
+                    
+                } else {
+                    if(document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs18.Foreign_Entity}').value !="YES"){
+                    document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs20.RFC}').value;
+                    document.getElementById('{!$Component.frm.pbIndividual.pbs.pbs22.CURP}').value="";
+                    alert('The RFC and CURP don´t match');
+                    }
+                }
+            }
+        }
+        
+        
+        </script>
+        
+       <apex:pageBlock title="Individual" id="pbIndividual">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>                     
+            <apex:pageBlockSection columns="2" title="General information" id="pbs">
+                
+                <apex:pageBlockSectionItem id="pbs2" >
+                    <apex:outputLabel value="Customer Type" />
+                    <apex:inputText id="Customer_type" value="{!entity.Customer_Type}" disabled="true" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbs3" >
+                    <apex:outputLabel value="Oracle Account Number" />
+                    <apex:inputText id="oracle_account_number" value="{!entity.Oracle_Account_Number}" disabled="true" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbs4" >
+                    <apex:outputLabel id="Limited_information" value="Limited Information Entity" />
+                    <apex:inputCheckbox id="limitedCHbx" value="{!Entity.Limited_information_entity}" onclick="tt(this,'{!$Component.frm.pbIndividual.pbs.pbs4.limitedCHbx}')" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs5" >
+                    <apex:outputLabel value="Active"/>
+                    <apex:inputText id="Customer_Status" onkeyup="ltrM(this.id);" disabled="true" value="{!Entity.Customer_Status}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs6">
+                    <apex:outputLabel value="Prefix"/>
+                    <apex:selectList id="Prefix" size="1" style="width: 173px" value="{!Entity.Prefix}" >
+                        <apex:selectoption itemLabel="SELECTION" itemValue="SELECTION"></apex:selectoption>
+                        <apex:selectoption itemLabel="MR." itemValue="MR."></apex:selectoption>
+                        <apex:selectoption itemLabel="MS." itemValue="MS."></apex:selectoption>
+                        <apex:selectoption itemLabel="MRS." itemValue="MRS."></apex:selectoption>
+                        <apex:selectoption itemLabel="DR." itemValue="DR."></apex:selectoption>
+                        <apex:selectoption itemLabel="PROF." itemValue="PROF."></apex:selectoption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs7" >
+                    <apex:outputLabel value="Oracle Account Name"/>
+                    <apex:inputText id="Oracle_Account_Name" value="{!Entity.Oracle_Account_Name}" onkeyup="ltrM(this.id);" disabled="true"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs8">
+                    <apex:outputLabel value="First Name*"/>
+                    <apex:inputText id="First_Name" value="{!Entity.First_Name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs9" >
+                    <apex:outputLabel value="Sales Representative"/>
+                    <apex:inputText value="{!Entity.Sales_Representative}" id="Sales_Representative" disabled="true" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs10" >
+                    <apex:outputLabel value="Middle Name"/>
+                    <apex:inputText id="Middle_Name" value="{!Entity.Middle_name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs11">
+                    <!--<apex:outputLabel value="Supplier Flag"/>
+                    <apex:selectList size="1" id="Supplier_Flag" disabled="false" value="{!Entity.Supplier_Flag}">
+                     <apex:selectOption itemLabel="SELECTION" itemValue="SELECTION"></apex:selectOption>
+                     <apex:selectOption itemLabel="YES" itemValue="YES"></apex:selectOption>
+                     <apex:selectOption itemLabel="NO" itemValue="NO"></apex:selectOption>
+                    </apex:selectList> -->
+                    <apex:outputLabel value="Supplier Flag"/>
+                    <apex:inputText disabled="true" value="{!Entity.Supplier_Flag}"></apex:inputText>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs12" >
+                    <apex:outputLabel value="First Last Name*"/>
+                    <apex:inputText id="First_Last_Name" value="{!Entity.First_Last_Name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbs13">
+                        <apex:outputLabel value="Top Parent Name"/>
+                        <c:AutoCompleteV2 allowClear="true" 
+                                          importJquery="true"
+                                          syncManualEntry="false"
+                                          labelField="Name" 
+                                          SObject="Account" 
+                                          valueField="Id" 
+                                          targetField="{!topParentSelected}" 
+                                          style="width:321px;"
+                                          /> 
+                    </apex:pageBlockSectionItem>
+               <!-- <apex:pageBlockSectionItem id="pbs13">
+                    <apex:outputLabel value="Top Parent Name"/>
+                    <apex:inputText id="Top_Parent_Name" disabled="true" value="{!Entity.Top_Parent_Name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem> -->
+                
+                <apex:pageBlockSectionItem id="pbs14">
+                    <apex:outputLabel value="Second Last Name"/>
+                    <apex:inputText id="Second_Last_Name" value="{!Entity.Second_Last_Name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs15">
+                    <apex:outputLabel value="Tax Regime*" />
+                    <apex:selectList size="1" id="Tax_Regime" disabled="false" style="width: 173px" value="{!Entity.Tax_Regime}">
+                        <apex:selectoption itemLabel="SELECTION" itemValue="SELECTION"></apex:selectoption>
+                        <apex:selectoption itemLabel="PERSONA FISICA" itemValue="PERSONA FISICA"></apex:selectoption>
+                        <apex:selectoption itemLabel="PERSONA FISICA CON ACTIVIDAD EMPRESARIAL" itemValue="PERSONA FISICA CON ACTIVIDAD EMPRESARIAL"></apex:selectoption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem id="pbs18" >
+                    <apex:outputLabel value="Foreign Entity*"/>
+                    <apex:selectList size="1" id="Foreign_Entity" style="width: 173px" onchange="disableTin()" value="{!Entity.Foreign_Entity}">
+                        <apex:selectoption itemLabel="SELECTION" itemValue="SELECTION"></apex:selectoption>
+                        <apex:selectoption itemLabel="YES" itemValue="YES"></apex:selectoption>
+                        <apex:selectoption itemLabel="NO" itemValue="NO"></apex:selectoption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="EconomicGroupId">
+                    <apex:outputLabel value="Economic Group Name" for="Economic_Group_Name" />
+                    <apex:selectList value="{!sEconomicGroupIdSelected}" size="1" style="width: 173px">
+                        <apex:selectOptions value="{!EGOptions}"/>
+                    </apex:selectList>  
+                </apex:pageBlockSectionItem> 
+                
+               
+                
+                <apex:pageBlockSectionItem id="pbs19">
+                    <apex:outputLabel value="Nationality*"/>
+                    <apex:selectList size="1" id="Nationality" onchange="activateTaxRegime()" style="width: 173px" value="{!Entity.Nationality}" >
+                        <apex:selectoption itemLabel="SELECTION" itemValue="SELECTION"></apex:selectoption>
+                        <apex:selectOption itemValue="MEX" itemLabel="MÉXICO"> </apex:selectOption>
+                        <apex:selectOption itemValue="AFG" itemLabel="AFGANISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="ALA" itemLabel="ISLAS ÅLAND"> </apex:selectOption>
+                        <apex:selectOption itemValue="ALB" itemLabel="ALBANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="DEU" itemLabel="ALEMANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AND" itemLabel="ANDORRA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AGO" itemLabel="ANGOLA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AIA" itemLabel="ANGUILA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ATA" itemLabel="ANTÁRTIDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ATG" itemLabel="ANTIGUA Y BARBUDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SAU" itemLabel="ARABIA SAUDITA"> </apex:selectOption>
+                        <apex:selectOption itemValue="DZA" itemLabel="ARGELIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ARG" itemLabel="ARGENTINA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ARM" itemLabel="ARMENIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ABW" itemLabel="ARUBA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AUS" itemLabel="AUSTRALIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AUT" itemLabel="AUSTRIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="AZE" itemLabel="AZERBAIYÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="BHS" itemLabel="BAHAMAS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="BGD" itemLabel="BANGLADÉS"> </apex:selectOption>
+                        <apex:selectOption itemValue="BRB" itemLabel="BARBADOS"> </apex:selectOption>
+                        <apex:selectOption itemValue="BHR" itemLabel="BARÉIN"> </apex:selectOption>
+                        <apex:selectOption itemValue="BEL" itemLabel="BÉLGICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BLZ" itemLabel="BELICE"> </apex:selectOption>
+                        <apex:selectOption itemValue="BEN" itemLabel="BENÍN"> </apex:selectOption>
+                        <apex:selectOption itemValue="BMU" itemLabel="BERMUDAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="BLR" itemLabel="BIELORRUSIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MMR" itemLabel="MYANMAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="BOL" itemLabel="BOLIVIA, ESTADO PLURINACIONAL DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="BIH" itemLabel="BOSNIA Y HERZEGOVINA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BWA" itemLabel="BOTSUANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BRA" itemLabel="BRASIL"> </apex:selectOption>
+                        <apex:selectOption itemValue="BRN" itemLabel="BRUNÉI DARUSSALAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="BGR" itemLabel="BULGARIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BFA" itemLabel="BURKINA FASO"> </apex:selectOption>
+                        <apex:selectOption itemValue="BDI" itemLabel="BURUNDI"> </apex:selectOption>
+                        <apex:selectOption itemValue="BTN" itemLabel="BUTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="CPV" itemLabel="CABO VERDE"> </apex:selectOption>
+                        <apex:selectOption itemValue="KHM" itemLabel="CAMBOYA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CMR" itemLabel="CAMERÚN"> </apex:selectOption>
+                        <apex:selectOption itemValue="CAN" itemLabel="CANADÁ"> </apex:selectOption>
+                        <apex:selectOption itemValue="QAT" itemLabel="CATAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="BES" itemLabel="BONAIRE, SAN EUSTAQUIO Y SABA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TCD" itemLabel="CHAD"> </apex:selectOption>
+                        <apex:selectOption itemValue="CHL" itemLabel="CHILE"> </apex:selectOption>
+                        <apex:selectOption itemValue="CHN" itemLabel="CHINA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CYP" itemLabel="CHIPRE"> </apex:selectOption>
+                        <apex:selectOption itemValue="COL" itemLabel="COLOMBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="COM" itemLabel="COMORAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRK" itemLabel="COREA (LA REPÚBLICA DEMOCRÁTICA POPULAR DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="KOR" itemLabel="COREA (LA REPÚBLICA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CIV" itemLabel="CÔTE D'IVOIRE"> </apex:selectOption>
+                        <apex:selectOption itemValue="CRI" itemLabel="COSTA RICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="HRV" itemLabel="CROACIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CUB" itemLabel="CUBA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CUW" itemLabel="CURAÇAO"> </apex:selectOption>
+                        <apex:selectOption itemValue="DNK" itemLabel="DINAMARCA"> </apex:selectOption>
+                        <apex:selectOption itemValue="DMA" itemLabel="DOMINICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ECU" itemLabel="ECUADOR"> </apex:selectOption>
+                        <apex:selectOption itemValue="EGY" itemLabel="EGIPTO"> </apex:selectOption>
+                        <apex:selectOption itemValue="SLV" itemLabel="EL SALVADOR"> </apex:selectOption>
+                        <apex:selectOption itemValue="ARE" itemLabel="EMIRATOS ÁRABES UNIDOS (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="ERI" itemLabel="ERITREA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SVK" itemLabel="ESLOVAQUIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SVN" itemLabel="ESLOVENIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ESP" itemLabel="ESPAÑA"> </apex:selectOption>
+                        <apex:selectOption itemValue="USA" itemLabel="ESTADOS UNIDOS (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="EST" itemLabel="ESTONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ETH" itemLabel="ETIOPÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="PHL" itemLabel="FILIPINAS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="FIN" itemLabel="FINLANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="FJI" itemLabel="FIYI"> </apex:selectOption>
+                        <apex:selectOption itemValue="FRA" itemLabel="FRANCIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GAB" itemLabel="GABÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="GMB" itemLabel="GAMBIA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="GEO" itemLabel="GEORGIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GHA" itemLabel="GHANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GIB" itemLabel="GIBRALTAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="GRD" itemLabel="GRANADA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GRC" itemLabel="GRECIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GRL" itemLabel="GROENLANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GLP" itemLabel="GUADALUPE"> </apex:selectOption>
+                        <apex:selectOption itemValue="GUM" itemLabel="GUAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="GTM" itemLabel="GUATEMALA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GUF" itemLabel="GUAYANA FRANCESA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GGY" itemLabel="GUERNSEY"> </apex:selectOption>
+                        <apex:selectOption itemValue="GIN" itemLabel="GUINEA"> </apex:selectOption>
+                        <apex:selectOption itemValue="GNB" itemLabel="GUINEA-BISÁU"> </apex:selectOption>
+                        <apex:selectOption itemValue="GNQ" itemLabel="GUINEA ECUATORIAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="GUY" itemLabel="GUYANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="HTI" itemLabel="HAITÍ"> </apex:selectOption>
+                        <apex:selectOption itemValue="HND" itemLabel="HONDURAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="HKG" itemLabel="HONG KONG"> </apex:selectOption>
+                        <apex:selectOption itemValue="HUN" itemLabel="HUNGRÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="IND" itemLabel="INDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="IDN" itemLabel="INDONESIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="IRQ" itemLabel="IRAK"> </apex:selectOption>
+                        <apex:selectOption itemValue="IRN" itemLabel="IRÁN (LA REPÚBLICA ISLÁMICA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="IRL" itemLabel="IRLANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BVT" itemLabel="ISLA BOUVET"> </apex:selectOption>
+                        <apex:selectOption itemValue="IMN" itemLabel="ISLA DE MAN"> </apex:selectOption>
+                        <apex:selectOption itemValue="CXR" itemLabel="ISLA DE NAVIDAD"> </apex:selectOption>
+                        <apex:selectOption itemValue="NFK" itemLabel="ISLA NORFOLK"> </apex:selectOption>
+                        <apex:selectOption itemValue="ISL" itemLabel="ISLANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CYM" itemLabel="ISLAS CAIMÁN (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CCK" itemLabel="ISLAS COCOS (KEELING)"> </apex:selectOption>
+                        <apex:selectOption itemValue="COK" itemLabel="ISLAS COOK (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="FRO" itemLabel="ISLAS FEROE (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SGS" itemLabel="GEORGIA DEL SUR Y LAS ISLAS SANDWICH DEL SUR"> </apex:selectOption>
+                        <apex:selectOption itemValue="HMD" itemLabel="ISLA HEARD E ISLAS MCDONALD"> </apex:selectOption>
+                        <apex:selectOption itemValue="FLK" itemLabel="ISLAS MALVINAS [FALKLAND] (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MNP" itemLabel="ISLAS MARIANAS DEL NORTE (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MHL" itemLabel="ISLAS MARSHALL (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="PCN" itemLabel="PITCAIRN"> </apex:selectOption>
+                        <apex:selectOption itemValue="SLB" itemLabel="ISLAS SALOMÓN (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="TCA" itemLabel="ISLAS TURCAS Y CAICOS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="UMI" itemLabel="ISLAS DE ULTRAMAR MENORES DE ESTADOS UNIDOS (LAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="VGB" itemLabel="ISLAS VÍRGENES (BRITÁNICAS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="VIR" itemLabel="ISLAS VÍRGENES (EE.UU.)"> </apex:selectOption>
+                        <apex:selectOption itemValue="ISR" itemLabel="ISRAEL"> </apex:selectOption>
+                        <apex:selectOption itemValue="ITA" itemLabel="ITALIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="JAM" itemLabel="JAMAICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="JPN" itemLabel="JAPÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="JEY" itemLabel="JERSEY"> </apex:selectOption>
+                        <apex:selectOption itemValue="JOR" itemLabel="JORDANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="KAZ" itemLabel="KAZAJISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="KEN" itemLabel="KENIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="KGZ" itemLabel="KIRGUISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="KIR" itemLabel="KIRIBATI"> </apex:selectOption>
+                        <apex:selectOption itemValue="KWT" itemLabel="KUWAIT"> </apex:selectOption>
+                        <apex:selectOption itemValue="LAO" itemLabel="LAO, (LA) REPÚBLICA DEMOCRÁTICA POPULAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="LSO" itemLabel="LESOTO"> </apex:selectOption>
+                        <apex:selectOption itemValue="LVA" itemLabel="LETONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LBN" itemLabel="LÍBANO"> </apex:selectOption>
+                        <apex:selectOption itemValue="LBR" itemLabel="LIBERIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LBY" itemLabel="LIBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LIE" itemLabel="LIECHTENSTEIN"> </apex:selectOption>
+                        <apex:selectOption itemValue="LTU" itemLabel="LITUANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LUX" itemLabel="LUXEMBURGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MAC" itemLabel="MACAO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MDG" itemLabel="MADAGASCAR"> </apex:selectOption>
+                        <apex:selectOption itemValue="MYS" itemLabel="MALASIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MWI" itemLabel="MALAUI"> </apex:selectOption>
+                        <apex:selectOption itemValue="MDV" itemLabel="MALDIVAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="MLI" itemLabel="MALÍ"> </apex:selectOption>
+                        <apex:selectOption itemValue="MLT" itemLabel="MALTA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MAR" itemLabel="MARRUECOS"> </apex:selectOption>
+                        <apex:selectOption itemValue="MTQ" itemLabel="MARTINICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MUS" itemLabel="MAURICIO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MRT" itemLabel="MAURITANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MYT" itemLabel="MAYOTTE"> </apex:selectOption>
+                        <apex:selectOption itemValue="FSM" itemLabel="MICRONESIA (LOS ESTADOS FEDERADOS DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MDA" itemLabel="MOLDAVIA (LA REPÚBLICA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MCO" itemLabel="MÓNACO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MNG" itemLabel="MONGOLIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="MNE" itemLabel="MONTENEGRO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MSR" itemLabel="MONTSERRAT"> </apex:selectOption>
+                        <apex:selectOption itemValue="MOZ" itemLabel="MOZAMBIQUE"> </apex:selectOption>
+                        <apex:selectOption itemValue="NAM" itemLabel="NAMIBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NRU" itemLabel="NAURU"> </apex:selectOption>
+                        <apex:selectOption itemValue="NPL" itemLabel="NEPAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="NIC" itemLabel="NICARAGUA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NER" itemLabel="NÍGER (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="NGA" itemLabel="NIGERIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NIU" itemLabel="NIUE"> </apex:selectOption>
+                        <apex:selectOption itemValue="NOR" itemLabel="NORUEGA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NCL" itemLabel="NUEVA CALEDONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="NZL" itemLabel="NUEVA ZELANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="OMN" itemLabel="OMÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="NLD" itemLabel="PAÍSES BAJOS (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="PAK" itemLabel="PAKISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="PLW" itemLabel="PALAOS"> </apex:selectOption>
+                        <apex:selectOption itemValue="PSE" itemLabel="PALESTINA, ESTADO DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="PAN" itemLabel="PANAMÁ"> </apex:selectOption>
+                        <apex:selectOption itemValue="PNG" itemLabel="PAPÚA NUEVA GUINEA"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRY" itemLabel="PARAGUAY"> </apex:selectOption>
+                        <apex:selectOption itemValue="PER" itemLabel="PERÚ"> </apex:selectOption>
+                        <apex:selectOption itemValue="PYF" itemLabel="POLINESIA FRANCESA"> </apex:selectOption>
+                        <apex:selectOption itemValue="POL" itemLabel="POLONIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRT" itemLabel="PORTUGAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="PRI" itemLabel="PUERTO RICO"> </apex:selectOption>
+                        <apex:selectOption itemValue="GBR" itemLabel="REINO UNIDO (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CAF" itemLabel="REPÚBLICA CENTROAFRICANA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="CZE" itemLabel="REPÚBLICA CHECA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="MKD" itemLabel="MACEDONIA (LA ANTIGUA REPÚBLICA YUGOSLAVA DE)"> </apex:selectOption>
+                        <apex:selectOption itemValue="COG" itemLabel="CONGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="COD" itemLabel="CONGO (LA REPÚBLICA DEMOCRÁTICA DEL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="DOM" itemLabel="REPÚBLICA DOMINICANA (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="REU" itemLabel="REUNIÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="RWA" itemLabel="RUANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ROU" itemLabel="RUMANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="RUS" itemLabel="RUSIA, (LA) FEDERACIÓN DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="ESH" itemLabel="SAHARA OCCIDENTAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="WSM" itemLabel="SAMOA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ASM" itemLabel="SAMOA AMERICANA"> </apex:selectOption>
+                        <apex:selectOption itemValue="BLM" itemLabel="SAN BARTOLOMÉ"> </apex:selectOption>
+                        <apex:selectOption itemValue="KNA" itemLabel="SAN CRISTÓBAL Y NIEVES"> </apex:selectOption>
+                        <apex:selectOption itemValue="SMR" itemLabel="SAN MARINO"> </apex:selectOption>
+                        <apex:selectOption itemValue="MAF" itemLabel="SAN MARTÍN (PARTE FRANCESA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SPM" itemLabel="SAN PEDRO Y MIQUELÓN"> </apex:selectOption>
+                        <apex:selectOption itemValue="VCT" itemLabel="SAN VICENTE Y LAS GRANADINAS"> </apex:selectOption>
+                        <apex:selectOption itemValue="SHN" itemLabel="SANTA HELENA, ASCENSIÓN Y TRISTÁN DE ACUÑA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LCA" itemLabel="SANTA LUCÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="STP" itemLabel="SANTO TOMÉ Y PRÍNCIPE"> </apex:selectOption>
+                        <apex:selectOption itemValue="SEN" itemLabel="SENEGAL"> </apex:selectOption>
+                        <apex:selectOption itemValue="SRB" itemLabel="SERBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SYC" itemLabel="SEYCHELLES"> </apex:selectOption>
+                        <apex:selectOption itemValue="SLE" itemLabel="SIERRA LEONA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SGP" itemLabel="SINGAPUR"> </apex:selectOption>
+                        <apex:selectOption itemValue="SXM" itemLabel="SINT MAARTEN (PARTE HOLANDESA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SYR" itemLabel="SIRIA, (LA) REPÚBLICA ÁRABE"> </apex:selectOption>
+                        <apex:selectOption itemValue="SOM" itemLabel="SOMALIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="LKA" itemLabel="SRI LANKA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SWZ" itemLabel="SUAZILANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZAF" itemLabel="SUDÁFRICA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SDN" itemLabel="SUDÁN (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="SSD" itemLabel="SUDÁN DEL SUR"> </apex:selectOption>
+                        <apex:selectOption itemValue="SWE" itemLabel="SUECIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="CHE" itemLabel="SUIZA"> </apex:selectOption>
+                        <apex:selectOption itemValue="SUR" itemLabel="SURINAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="SJM" itemLabel="SVALBARD Y JAN MAYEN"> </apex:selectOption>
+                        <apex:selectOption itemValue="THA" itemLabel="TAILANDIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TWN" itemLabel="TAIWÁN (PROVINCIA DE CHINA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="TZA" itemLabel="TANZANIA, REPÚBLICA UNIDA DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="TJK" itemLabel="TAYIKISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="IOT" itemLabel="TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO (EL)"> </apex:selectOption>
+                        <apex:selectOption itemValue="ATF" itemLabel="TERRITORIOS AUSTRALES FRANCESES (LOS)"> </apex:selectOption>
+                        <apex:selectOption itemValue="TLS" itemLabel="TIMOR-LESTE"> </apex:selectOption>
+                        <apex:selectOption itemValue="TGO" itemLabel="TOGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="TKL" itemLabel="TOKELAU"> </apex:selectOption>
+                        <apex:selectOption itemValue="TON" itemLabel="TONGA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TTO" itemLabel="TRINIDAD Y TOBAGO"> </apex:selectOption>
+                        <apex:selectOption itemValue="TUN" itemLabel="TÚNEZ"> </apex:selectOption>
+                        <apex:selectOption itemValue="TKM" itemLabel="TURKMENISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="TUR" itemLabel="TURQUÍA"> </apex:selectOption>
+                        <apex:selectOption itemValue="TUV" itemLabel="TUVALU"> </apex:selectOption>
+                        <apex:selectOption itemValue="UKR" itemLabel="UCRANIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="UGA" itemLabel="UGANDA"> </apex:selectOption>
+                        <apex:selectOption itemValue="URY" itemLabel="URUGUAY"> </apex:selectOption>
+                        <apex:selectOption itemValue="UZB" itemLabel="UZBEKISTÁN"> </apex:selectOption>
+                        <apex:selectOption itemValue="VUT" itemLabel="VANUATU"> </apex:selectOption>
+                        <apex:selectOption itemValue="VAT" itemLabel="SANTA SEDE[ESTADO DE LA CIUDAD DEL VATICANO] (LA)"> </apex:selectOption>
+                        <apex:selectOption itemValue="VEN" itemLabel="VENEZUELA, REPÚBLICA BOLIVARIANA DE"> </apex:selectOption>
+                        <apex:selectOption itemValue="VNM" itemLabel="VIET NAM"> </apex:selectOption>
+                        <apex:selectOption itemValue="WLF" itemLabel="WALLIS Y FUTUNA"> </apex:selectOption>
+                        <apex:selectOption itemValue="YEM" itemLabel="YEMEN"> </apex:selectOption>
+                        <apex:selectOption itemValue="DJI" itemLabel="YIBUTI"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZMB" itemLabel="ZAMBIA"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZWE" itemLabel="ZIMBABUE"> </apex:selectOption>
+                        <apex:selectOption itemValue="ZZZ" itemLabel="PAÍSES NO DECLARADOS"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <apex:pageBlockSectionItem id="pbs20">
+                    <apex:outputLabel value="RFC*"/>
+                    <apex:inputText id="RFC" value="{!Entity.RFC}" onblur="ValidaRfc(this.value)" onkeyup="ltrM(this.id);" size="20" maxlength="13" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <apex:pageBlockSectionItem id="pbs21">
+                    <apex:outputLabel value="TIN*"/>
+                    <apex:inputText id="TIN" value="{!Entity.TIN}" onkeyup="ltrM(this.id);" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <apex:pageBlockSectionItem id="pbs22">
+                    <apex:outputLabel value="CURP"/>
+                    <apex:inputText id="CURP" value="{!Entity.CURP}" onkeyup="ltrM(this.id);" onblur="sin_rfc(this.value), ValidaCurp(this.value), comparar_textos(this.value);" size="20" maxlength="18"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputLabel > </apex:outputLabel>
+                
+                <!--fin de General Information-->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="AML Information">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR"/>
+                    <apex:selectList id="CRR" size="1" style="width: 173px" value="{!Entity.CRR}">
+                        <apex:selectoption itemLabel="SELECTION" itemValue=""></apex:selectoption>
+                        <apex:selectoption itemLabel="HIGH" itemValue="HIGH"></apex:selectoption>
+                        <apex:selectoption itemLabel="MEDIUM" itemValue="MEDIUM"></apex:selectoption>
+                        <apex:selectoption itemLabel="LOW" itemValue="LOW"></apex:selectoption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:outputLabel > </apex:outputLabel>
+                <!--<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Entity Type"/>
+                    <apex:inputText id="Entity_Type" disabled="true" onkeyup="ltrM(this.id);" value="{!Entity.Entity_Type}"/>
+                </apex:pageBlockSectionItem>-->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR Override"/>
+                    <apex:selectList id="CRR_Override" size="1" style="width: 173px" value="{!Entity.CRR_Override}">
+                        <apex:selectoption itemLabel="SELECTION" itemValue=""></apex:selectoption>
+                        <apex:selectoption itemLabel="HIGH" itemValue="HIGH"></apex:selectoption>
+                        <apex:selectoption itemLabel="MEDIUM" itemValue="MEDIUM"></apex:selectoption>
+                        <apex:selectoption itemLabel="LOW" itemValue="LOW"></apex:selectoption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Target Market/ Jurisdiction" />
+                    <apex:inputText id="Target_Market_Jurisdiction" disabled="true" onkeyup="ltrM(this.id);" value="{!Entity.Target_Market_Jurisdiction}"/>
+                </apex:pageBlockSectionItem>    
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="SIC Code">
+                    <apex:pageBlockSectionItem id="ec">
+                        <apex:outputLabel value="SIC Code" />
+                        <c:AutoCompleteV2 allowClear="false" 
+                                          importJquery="true"
+                                          syncManualEntry="false"
+                                          labelField="EIV_fm_Sic_Code_Complete__c" 
+                                          SObject="TBO002_SIC_code__c" 
+                                          valueField="Id" 
+                                          targetField="{!CodeId}" 
+                                          style="width:400px"/> 
+                        
+                    </apex:pageBlockSectionItem>
+
+                
+                <apex:pageBlockSection ></apex:pageBlockSection>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic Group SIC Code"/>
+                    <apex:inputText id="Economic_Group_SIC_Code" disabled="true" value="{!Entity.Economic_Group_SIC_Code}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic Group SIC Description" />
+                    <apex:inputText id="Economic_Group_SIC_Description" disabled="true" value="{!Entity.Economic_Group_SIC_Description}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Ratings ID Assignation">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="HNWI"/>
+                    <apex:inputText id="HNWI" value="{!Entity.HNWI_ID}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                
+            </apex:pageBlockSection>
+            <div style="width: 230px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Save" onClick="return validateFunction();"   action="{!SaveEntity}"/>
+                <apex:commandButton style="width: 120px;" value="Back to Entity"  action="{!backToEntity}"/>
+                
+            </div>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

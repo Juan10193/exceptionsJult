@@ -1,0 +1,82 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="color: rgb(0, 0, 0); font-family: arial;"><span style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);"><b>Hola&nbsp;</b></span></span><font color="#003764" face="Arial, sans-serif" style="font-weight: bold;">{!Contact.FirstName}:</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif;"><b>&nbsp;</b></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">Agradezco mucho la atención a mi
+llamada y la oportunidad de recibirnos en tus instalaciones ubicadas en:</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span lang="EN-US" style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">{!Account.BillingAddress}</span><span lang="EN-US" style="font-family: Arial, sans-serif;"><o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">Teléfono:{!Contact.Phone}</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><b><span lang="EN-US" style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);"><br></span></b></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span lang="EN-US" style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">El próximo:{!DATETIMEVALUE(Event.StartDateTime)}</span><span lang="EN-US" style="font-family: Arial, sans-serif;"><o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span lang="EN-US" style="font-family: Arial, sans-serif;">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">{!Contact.FirstName},copio en este
+correo a nuestro subdirector de negocio {!Event.OwnerName__c}, quién asistirá a
+la cita.</span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif;">&nbsp;</span><span style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">Nuevamente muchas gracias por tu
+atención.</span><span style="font-weight: bold; font-family: Arial, sans-serif;"><o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span style="font-family: Arial, sans-serif;"><b>&nbsp;</b></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span lang="EN-US" style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">{!Event.CreatedBy}</span><span lang="EN-US" style="font-family: Arial, sans-serif; color: rgb(0, 55, 100);">&nbsp;&nbsp;&nbsp;&nbsp;<b>&nbsp; </b></span><span lang="EN-US" style="font-weight: bold; font-family: Arial, sans-serif;"><o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><span lang="EN-US" style="font-family: Arial, sans-serif;"><b>&nbsp;</b></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; text-align: center; margin-bottom: 0.0001pt; line-height: normal; background: white;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal; background: white;"><font color="#000099"><span lang="EN-US" style="font-family: Arial, sans-serif;"></span></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); margin-bottom: 0.0001pt; font-size: 12pt; line-height: normal; background: white;"><br></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; text-align: left; margin-bottom: 0.0001pt; line-height: normal; background: white;"><p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal;background:white"><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;
+color:#2F5597;mso-themecolor:accent1;mso-themeshade:191;mso-style-textfill-fill-color:
+#2F5597;mso-style-textfill-fill-themecolor:accent1;mso-style-textfill-fill-alpha:
+100.0%;mso-style-textfill-fill-colortransforms:lumm=75000;mso-ansi-language:
+EN-US;mso-fareast-language:ES-MX">{!User.Name}</span><span style="font-size:
+12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;
+color:#2F5597;mso-themecolor:accent1;mso-themeshade:191;mso-style-textfill-fill-color:
+#2F5597;mso-style-textfill-fill-themecolor:accent1;mso-style-textfill-fill-alpha:
+100.0%;mso-style-textfill-fill-colortransforms:lumm=75000;mso-fareast-language:
+ES-MX"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal;background:white"><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;
+color:#2F5597;mso-themecolor:accent1;mso-themeshade:191;mso-style-textfill-fill-color:
+#2F5597;mso-style-textfill-fill-themecolor:accent1;mso-style-textfill-fill-alpha:
+100.0%;mso-style-textfill-fill-colortransforms:lumm=75000;mso-ansi-language:
+EN-US;mso-fareast-language:ES-MX">{!User.Phone}</span><span style="font-size:
+12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;
+color:#2F5597;mso-themecolor:accent1;mso-themeshade:191;mso-style-textfill-fill-color:
+#2F5597;mso-style-textfill-fill-themecolor:accent1;mso-style-textfill-fill-alpha:
+100.0%;mso-style-textfill-fill-colortransforms:lumm=75000;mso-fareast-language:
+ES-MX"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal;background:white"><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;;
+color:#2F5597;mso-themecolor:accent1;mso-themeshade:191;mso-style-textfill-fill-color:
+#2F5597;mso-style-textfill-fill-themecolor:accent1;mso-style-textfill-fill-alpha:
+100.0%;mso-style-textfill-fill-colortransforms:lumm=75000;mso-ansi-language:
+EN-US;mso-fareast-language:ES-MX">www.engen.com.mx</span><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:#2F5597;mso-themecolor:accent1;mso-themeshade:191;
+mso-style-textfill-fill-color:#2F5597;mso-style-textfill-fill-themecolor:accent1;
+mso-style-textfill-fill-alpha:100.0%;mso-style-textfill-fill-colortransforms:
+lumm=75000;mso-fareast-language:ES-MX"><o:p></o:p></span></p><br></p>]]></td>
+</tr>
+</table>

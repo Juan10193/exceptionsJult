@@ -1,0 +1,13 @@
+<template>
+    <template if:true={typeAttributes.alternativeText}>
+        <lightning-icon icon-name={value} alternative-text={typeAttributes.alternativeText} title={typeAttributes.title}
+                    size={typeAttributes.size}>
+                </lightning-icon>
+    </template>
+    <template if:false={typeAttributes.alternativeText}>
+        <lightning-icon icon-name={value}
+                    size={typeAttributes.size}>
+                </lightning-icon>
+    </template>
+    
+</template>

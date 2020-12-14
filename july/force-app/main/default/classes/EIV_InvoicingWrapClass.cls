@@ -1,0 +1,21 @@
+public class EIV_InvoicingWrapClass {
+    public string partySiteId                 {get;set;}
+    public string party_Id    	              {get;set;}
+    public string p_cust_acct_site_id         {get;set;}
+    public string EC_Operating_Unit_Name      {get;set;}
+    public string EC_Operating_Unit_ID        {get;set;}
+    public string EC_CLABE                    {get;set;}
+    public string EC_Payment_Account          {get;set;}
+    public string Payment_Method              {get;set;}
+    public string Billing_Mails               {get;set;}
+    public string Source_Created_by           {get;set;}
+    public string Source_Updated_by           {get;set;}
+    public string Source_Application_ID       {get;set;}
+    public Datetime Source_Create_Date        {get;set;}
+    public Datetime Source_Last_Update_Date   {get;set;}
+    public string Oracle_Created_by           {get;set;}
+    public string Oracle_Updated_by           {get;set;}
+    public Datetime Oracle_Create_Date        {get;set;}
+    public Datetime Oracle_Last_Update_Date   {get;set;}
+    public string invoiceId                   {get;set;}
+}

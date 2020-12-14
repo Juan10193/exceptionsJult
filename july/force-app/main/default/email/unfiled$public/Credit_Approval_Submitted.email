@@ -1,0 +1,25 @@
+Dear ,
+
+The following credit approval has been submitted to risk.
+
+Account details:
+{!TBO014_Credit_Approval__c.TBO014_fm_Account_Name__c}
+
+Approval details:
+Credit approval: {!TBO014_Credit_Approval__c.Name}
+Approval category:
+ {!TBO014_Credit_Approval__c.TBO014_ls_Approval_Category__c}
+Amount MXN: {!TBO014_Credit_Approval__c.TBO014_un_Amount_MXN__c}
+Amount USD: {!TBO014_Credit_Approval__c.TBO014_un_Amount_USD__c}
+Total Amount USD Converted:
+ {!TBO014_Credit_Approval__c.TBO014_un_Total_Amount_USD_Converted__c}
+
+
+{!TBO014_Credit_Approval__c.Link}
+
+System information:
+{!TBO014_Credit_Approval__c.CreatedBy}
+
+Thank you,
+
+Digital Marketing – Engenium Capital.

@@ -1,0 +1,7 @@
+.THIS .hide {
+    display: none !important;
+}
+
+.THIS .toggle {
+    display: block;
+}

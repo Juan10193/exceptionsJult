@@ -1,0 +1,10 @@
+<apex:page controller="ACC_cvf_CalculateCustomerSince" docType="html-5.0">
+    <apex:form id="calculateCustomerSinceForm">
+    	<apex:pageBlock mode="maindetail" >
+            <apex:pageMessages />
+            <center>
+                <apex:commandButton value="Calcular Customer Since" action="{!doCalculate}" />
+            </center>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

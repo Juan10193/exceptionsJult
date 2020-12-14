@@ -1,0 +1,108 @@
+<aura:component controller="ES4_EvalsInOps_Callout" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes"  access="global">
+    <aura:attribute name="response" type="Map" />
+    <aura:attribute name="urlServer" type="string" />
+    <aura:attribute name="ListaEvals" type="string[]" />
+    <aura:attribute name ="instanceUri" type="string"/>
+    <aura:attribute name ="sso" type="string"/>
+    
+     <aura:handler name="init" value="{!this}" action="{!c.gurlServ}" />
+    <aura:handler name="init" value="{!this}" action="{!c.gInstanceUrl}" />
+    <aura:handler name="init" value="{!this}" action="{!c.gSSO}" />
+    
+    <aura:attribute name="recordId" type="String" />
+    
+    
+     <div class="slds-m-around--medium">
+        <!--header-->
+        <div class="slds-page-header" role="banner">
+            <div class="slds-media__body">
+                <p class="slds-page-header__title slds-truncate" title="Lista Evals">Evals in Opportunity</p>
+                <lightning:button variant="brand" label="View Evals" onclick="{!c.toggle}" />
+                 <!--<lightning:button variant="brand" label="View Docs Ops in CP" onclick="{!c.toggle2}" />-->
+            </div>
+        </div>
+        <!--Header part close-->
+
+        <div class="slds-scrollable_x" style="height: auto; width: auto;">
+            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <thead aura:id="tabla" class="hide">
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Actions">Actions</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Request Id">Request Id</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Request Type">Request Type</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Request Status">Request Status</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="source Account Id">source Account Id</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Created By">Created By</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Requested By">Requested By</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Assigned Group">Assigned Group</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Assigned To">Assigned To</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Creation Date">Creation Date</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <aura:iteration aura:id="Juan" items="{!v.ListaEvals}" var="evList" indexVar="idx">
+                        <tr class="slds-hint-parent tabla">
+                            <th data-label="Actions" scope="row">
+                                <div class="slds-truncate" title="View">
+                                    <lightning:icon size="small" iconName="action:view_relationship" title="View" alternativeText="{!evList.header.requestId}" onclick="{!c.viewEval}" class="manito"/>
+                                    <!--<lightning:input value="{!'sourceAccountName' + idx}"/>-->
+                                </div>
+                            </th>
+                            <th data-label="Request Id" scope="row">
+                                <div class="slds-truncate" title="{!evList.header.requestId}">{!evList.header.requestId}</div>
+                            </th>
+                            <th data-label="Request Type" scope="row">
+                                <div class="slds-truncate" title="{!evList.header.requestType}">{!evList.header.requestType}</div>
+                            </th>
+                            <td data-label="Request Status">
+                                <div class="slds-truncate" title="{!evList.header.requestStatus}">{!evList.header.requestStatus}</div>
+                            </td>
+                            <td data-label="source Account Id">
+                                <div class="slds-truncate" title="{!evList.header.sourceAccountId}">{!evList.header.sourceAccountId}</div>
+                            </td>
+                            <td data-label="Created By">
+                                <div class="slds-truncate" title="{!evList.header.nameCreatedBy}">{!evList.header.nameCreatedBy}</div>
+                            </td>
+                            <td data-label="Requested By">
+                                <div class="slds-truncate" title="{!evList.header.nameRequestedBy}">{!evList.header.nameRequestedBy}</div>
+                            </td>
+                            <td data-label="Assigned Group">
+                                <div class="slds-truncate" title="{!evList.header.assignedGroup}">{!evList.header.assignedGroup}</div>
+                            </td>
+                            <td data-label="Assigned To">
+                                <div class="slds-truncate" title="{!evList.header.nameAssignedTo}">{!evList.header.nameAssignedTo}</div>
+                            </td>
+                            <td data-label="Creation Date">
+                                <div class="slds-truncate" title="{!evList.header.creationDate}">{!evList.header.creationDate}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    
+</aura:component>

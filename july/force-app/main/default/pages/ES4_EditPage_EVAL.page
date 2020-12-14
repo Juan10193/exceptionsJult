@@ -1,0 +1,262 @@
+<apex:page lightningStylesheets="true" docType="HTML-5.0" controller="ES4_Controller_EVAL">
+    <apex:form id="frm1">
+    <script>
+        
+        window.addEventListener('load', function() {
+            inhabilitaPgptm();
+        });
+        
+        function inhabilitaPgptm() {
+            var ppflg =  document.getElementById('{!$Component.frm1.pb1.pbs2.pbsi6.Progress_Pay_Flag}').value;
+            //alert(ppflg);
+            if (ppflg == "N"){
+                document.getElementById('{!$Component.frm1.pb1.pbs2.pbsi8.Progress_Pay_Term_Months}').disabled=true;
+                document.getElementById('{!$Component.frm1.pb1.pbs2.pbsi8.Progress_Pay_Term_Months}').value="";
+                
+            }else{
+                document.getElementById('{!$Component.frm1.pb1.pbs2.pbsi8.Progress_Pay_Term_Months}').disabled=false;
+            }
+        }
+        
+        //function traeprm(prm) {
+        //    var lAcc =  document.getElementById('{!$Component.frm1.pb1.pbs1.entitySelectId.entitySelect}');
+        //    var accname = document.getElementById('{!$Component.frm1.pb1.pbs1.Oracle_Account_Name_Id.Oracle_Account_Name}');
+
+        //    var accidval = lAcc.options[lAcc.selectedIndex].text;
+            
+        //    accid=prm;
+            
+        //    accname.value =  accidval;
+        //    console.log('mame ' + accname.value + ' Id '+accid)
+            
+        //    setacc(accname.value,accid)
+            
+        //}
+        function remplazar(valor){
+            
+            document.getElementById(valor).value = document.getElementById(valor).value.replace(/[^0-9-.-\s]/,'');
+        }
+    </script>
+        
+        <apex:actionfunction name="setacc" rerender="dummy">
+            
+              <apex:param name="id" value="" assignto="{!accid}"/>
+            <apex:param name="Name" value="" assignto="{!accname}"/>
+       </apex:actionfunction>
+
+        <apex:pageBlock title="EVAL" id="pb1">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information" id="pbs1"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <apex:pageBlockSectionItem id="entitySelectId">
+                    <apex:outputLabel value="Oracle Account Name" for="entitySelect"/>
+                    <apex:selectList size="1" id="entitySelect" style="width: 173px"   value="{!sEntityMasterIdSelected}" onchange="traeprm(this.value)">
+                        <apex:selectOptions value="{!EntitiesOptions}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:inputText disabled="true" id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:inputText disabled="true" id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Id" for="Oportunity_Id"/>
+                    <apex:outputText id="Oportunity_Id" value="{!req.pOutSourceOpId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Id" for="Account_Id"/>
+                    <apex:outputText id="Account_Id" value="{!req.pOutSourceAccountId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Name" for="Account_Name"/>
+                    <apex:outputText id="Account_Name" value="{!req.pOutSourceAccountName}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:inputText disabled="true" id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbsi30">
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:inputText disabled="true" id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:inputText disabled="true" id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:inputText disabled="true" id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested Id" for="RequestedId"/>
+                    <apex:inputText disabled="true" id="Requeste_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:inputText disabled="true" id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            
+            <apex:pageBlockSection columns="2" title="EVAL" id="pbs2">  <!--AQUI EMPIEZA EL AREA NDA --> 
+                
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="EVAL Type*" for="EVAL_Type"/>
+                    <apex:selectList size="1" id="EVAL_Type" style="width: 173px" value="{!req.EVALOBJ.pOutEVEVALType}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="Proposal" itemValue="Proposal"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Booking" itemValue="Booking"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Insurance Req Flag*" for="Insurance_Req_Flag"/>
+                    <apex:selectList size="1" id="Insurance_Req_Flag" style="width: 173px" value="{!req.EVALOBJ.pOutEVInsuranceReqFlag}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem id="pbsi3" rendered="{!EFA}">
+                    <apex:outputLabel value="EFA Req Flag*" for="EFA_Req_Flag"/>
+                    <apex:selectList size="1" id="EFA_Req_Flag" style="width: 173px" value="{!req.EVALOBJ.pOutEVEFAReqFlag}">
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="pbsi4">
+                    <apex:outputLabel value="Sale & Lease Back*" for="SLB_Flag"/>
+                    <apex:selectList size="1" id="SLB_Flag" style="width: 173px" value="{!req.EVALOBJ.pOutEVSLBFlag}">
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                        
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="pbsi5">
+                    <apex:outputLabel value="Imports Req Flag*" for="Imports_Req_Flag"/>
+                    <apex:selectList size="1" id="Imports_Req_Flag" style="width: 173px" disabled="true" value="{!req.EVALOBJ.pOutEVImportsReqFlag}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="pbsi6">
+                    <apex:outputLabel value="Progress Pay Flag*" for="Progress_Pay_Flag"/>
+                    <apex:selectList size="1" onchange="inhabilitaPgptm()" id="Progress_Pay_Flag" style="width: 173px" value="{!req.EVALOBJ.pOutEVProgressPayFlag}">
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem rendered="{!FMV}" id="pbsi7">
+                    <apex:outputLabel value="Show FMV Flag*" for="Show_FMV_Flag"/>
+                    <apex:selectList size="1" id="Show_FMV_Flag" style="width: 173px" value="{!req.EVALOBJ.pOutEVShowFMVFlag}">
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <!--<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Freeze Eval Flag" for="Freeze_Eval_Flag"/>
+                    <apex:selectList size="1" id="Freeze_Eval_Flag" style="width: 173px" value="{!req.EVALOBJ.pOutEVFreezeEvalFlag}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="YES" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:input type="date" label="Freeze Start Date"   value="{!req.EVALOBJ.pOutEVFreezeStartDate}" id="Freeze_Start_Date" /> 
+             
+                <apex:input type="date" label="Freeze End Date"   value="{!req.EVALOBJ.OutEVFreezeEndDate}" id="Freeze_End_Date" /> 
+             -->
+                <apex:pageBlockSectionItem id="pbsi8">
+                    <apex:outputLabel value="Progress Pay Term Months*" for="Progress_Pay_Term_Months"/>
+                    <apex:selectList size="1" id="Progress_Pay_Term_Months" style="width: 173px" value="{!req.EVALOBJ.pOutEVProgressPayTermMonths}">
+                        <apex:selectOptions value="{!option_Term_Months}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="pbsi9">
+                    <apex:outputLabel value="Currency Type*" for="Currency_Type"/>
+                    <apex:selectList size="1" id="Currency_Type" style="width: 173px" value="{!req.EVALOBJ.pOutEVCurrencyType}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="MXN" itemValue="MXN"> </apex:selectOption>
+                        <apex:selectOption itemLabel="USD" itemValue="USD"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+
+
+                <apex:pageBlockSectionItem id="pbsi10">
+                    <apex:outputLabel value="Product Type*" for="Product_Type"/>
+                    <apex:selectList size="1" id="Product_Type" style="width: 173px" value="{!req.EVALOBJ.pOutEVProductType}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="True Lease" itemValue="True Lease"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Quasi lease" itemValue="Quasi Lease"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Term Loan" itemValue="Term Loan"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="pbsi11">
+                    <apex:outputLabel value="Residual Max Term Months*" for="Residual_Max_Term_Months"/>
+                    <apex:selectList size="1" id="Residual_Max_Term_Months" style="width: 173px" value="{!req.EVALOBJ.pOutEVResidualMaxTermMonths}">
+                        <apex:selectOptions value="{!option_Max_Months}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi12">
+                    <apex:outputLabel value="Special Term Months 01*" for="Special_Term_Months_01"/>
+                    <apex:inputText id="Special_Term_Months_01" maxlength="2" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)"  value="{!req.EVALOBJ.pOutEVSpecialTermMonths01}"/> 
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi13">
+                    <apex:outputLabel value="Special Term Months 02*" for="Special_Term_Months_02"/>
+                    <apex:inputText id="Special_Term_Months_02" maxlength="2" onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!req.EVALOBJ.pOutEVSpecialTermMonths02}"/> 
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi14">
+                    <apex:outputLabel value="Special Term Months 03*" for="Special_Term_Months_03"/>
+                    <apex:inputText id="Special_Term_Months_03" maxlength="2"  onchange="remplazar(this.id)" onkeyup="remplazar(this.id)" value="{!req.EVALOBJ.pOutEVSpecialTermMonths03}"/> 
+                </apex:pageBlockSectionItem> 
+
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="Endorsement comment" id="pbs22">  
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Endorsement Comment" for="Endorsement_Comment"/>
+                        <apex:inputTextarea id="Endorsement_Comment" rendered="{!aprbtn}"  value="{!req.EVALOBJ.pOutEVEndorsementComment}"/> 
+                    </apex:pageBlockSectionItem> 
+                    
+                </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            <div style="width: 400px;margin-left: AUTO;margin-right: AUTO;">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!saveEVAL}"/>
+                <apex:commandButton style="width: 115px;" value="Back to Entity" rendered="{!backToEnBtn}" action="{!backToEntity}" />
+                <apex:commandButton style="width: 150px;" value="Back to opportunity" rendered="{!backToOpbtn}" action="{!backOPP}"/>
+            </div>
+        </apex:pageBlock> 
+        
+    </apex:form>
+</apex:page>

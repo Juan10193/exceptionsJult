@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>TKD_ChangeStageDealCategory</name>
+    <style>freeForm</style>
+    <subject>Takedown &quot;{!Takedowns_Contingency_plan__c.Name}&quot; has been changed</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because the Customer Name {!Takedowns_Contingency_plan__c.CPL_rb_Entity_Name_CP__c} where the Deal Category is equal to {!Takedowns_Contingency_plan__c.CPL_ls_Deal_Category__c} and the Takedown CP
+{!Takedowns_Contingency_plan__c.Name} stage has been changed to {!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c} {!Takedowns_Contingency_plan__c.CPL_rb_Entity_Name_CP__c} by: {!Takedowns_Contingency_plan__c.LastModifiedBy}
+
+If you want to see the record in Salesforce, click here .
+
+Regards,
+Engen Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

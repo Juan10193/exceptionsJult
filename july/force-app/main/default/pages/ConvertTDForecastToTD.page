@@ -1,0 +1,47 @@
+<apex:page standardController="TBO021_Takedowns_forecast__c">
+    <apex:includeScript value="../../soap/ajax/20.0/connection.js"/>
+    <script>
+    //alert("Entre a if porque es:'{!$User.UIThemeDisplayed}'");
+    sforce.connection.sessionId='{!GETSESSIONID()}';
+    var tdf = new sforce.SObject("TBO021_Takedowns_forecast__c"); 
+    tdf.id="{!TBO021_Takedowns_forecast__c.Id}";
+    tdf.ownerId ="{!$User.Id}"; 
+    tdf.TBO021_ls_Status__c="TBO021_Takedowns_forecast__c.TBO021_ls_Status__c";
+    if(tdf.CLI_chb_Converted__c==true)  
+    {
+        alert("This Easy Forecast has been Converted before"); 
+        sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + tdf.id);
+    }
+    else
+    { 
+        if (Modal.confirm && Modal.confirm('\n\nNOTIFICATION\n\n\n¿Do you confirm Convert this Easy Forecast?\n'))
+        { 
+            var fechaDeFondeoDt = new Date("{!TBO021_Takedowns_forecast__c.TBO021_fh_Funding_Date__c}");
+            //var fechaBookingDt = new Date("{!TBO021_Takedowns_forecast__c.CLI_fm_Booking_Date__c}");          
+            var customerNameEntity = new String('{!TBO021_Takedowns_forecast__c.CLI_rb_Customer_Name__r.Id}');
+            //alert(fechaBookingDt);          
+            
+            var defaultsTxt = 		'{"TDAmount__c" : "{!TBO021_Takedowns_forecast__c.TBO021_dv_Amount__c}"' + 
+                                    ',"CurrencyIsoCode" : "{!TBO021_Takedowns_forecast__c.CurrencyIsoCode}"' +
+                                    ',"CLI_txt_Id_TD_Forecast__c" : "{!TBO021_Takedowns_forecast__c.Id}"' +   
+                                    ',"Takedowns_forecast__c" : "{!TBO021_Takedowns_forecast__c.Id}"' + 
+                                    ',"CLI_lsInvoice_Currency__c" : "{!TBO021_Takedowns_forecast__c.TBO021_ls_Invoice_Currency__c}"' +
+                                    ',"CPL_ls_Stage__c" : "New"' +
+                                    ',"CPL_rb_Opp__c" : "{!TBO021_Takedowns_forecast__c.TBO021_rb_Opportunity__c}"' +
+                                    ',"CLI_txt_Inside_Sales_Comments__c" : "{!TBO021_Takedowns_forecast__c.TBO021_tl_CommercialSupportComments__c}"' +  
+                					',"CPL_da_Funding_Date__c" : "' + fechaDeFondeoDt.toJSON() +
+                //',"CPL_dt_booking_date__c" : "' + fechaBookingDt.toJSON() +                
+                					'"}';
+            
+            //alert(defaultsTxt); 
+            var defaults = JSON.parse(defaultsTxt);
+            sforce.one.createRecord('Takedowns_Contingency_plan__c',null,defaults);
+            //sforce.one.navigateToURL("{!'/one/one.app#/sObject/006W000000DjhUPIAZ'}");
+        }
+        else
+        {
+            sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + tdf.id);
+        }
+    }            
+    </script>
+</apex:page>

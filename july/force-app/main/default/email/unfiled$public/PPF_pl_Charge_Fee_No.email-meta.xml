@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>PPF_pl_Charge_Fee_No</name>
+    <style>freeForm</style>
+    <subject>The fee  {!PPF_obj_Progress_Payment_Fee__c.Name} for customer {!PPF_obj_Progress_Payment_Fee__c.PPF_fm_Customer_Name__c} is not going to be charged</subject>
+    <textOnly>Dear {!User.Name},
+
+
+You are receiving this notification because the Progress Payment Fee
+{!PPF_obj_Progress_Payment_Fee__c.Name} is not going to be charged.
+
+Takedown {!Progress_Payment__c.PPF_rb_Original_Takedown_ProgressPayment__c}
+Takedown OEC {!Progress_Payment__c.PPE_TDAmount__c}
+Fee Amount Percentege {!PPF_obj_Progress_Payment_Fee__c.Fee_Amount_Percentege__c}
+Fee Amount {!PPF_obj_Progress_Payment_Fee__c.PPF_Fee_amount__c}
+
+If you want to see record in Salesforce, {!PPF_obj_Progress_Payment_Fee__c.Name}
+Regards,
+Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

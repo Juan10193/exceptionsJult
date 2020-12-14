@@ -1,0 +1,25 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 10-30-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   10-14-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    <lightning-accordion allow-multiple-sections-open 
+        active-section-name={activeSections}>
+        <lightning-accordion-section name="Contratos" label="Contract Selection">
+            
+            <c-woa-contratos-de-entidad record-id={recordId}></c-woa-contratos-de-entidad>
+            
+                
+        </lightning-accordion-section>
+        <lightning-accordion-section name="EOL" label="EOL Quote">
+            <c-woa-e-o-l-quote record-id={recordId}></c-woa-e-o-l-quote>
+        </lightning-accordion-section>
+    </lightning-accordion>
+    
+</template>

@@ -1,0 +1,155 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 08-03-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   07-30-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+  <template if:true={EntitiesWithContacts}>
+    <div class="slds-p-around_large lgc-bg">
+      <div class="customButtons">
+        <lightning-button-group>
+          <lightning-button label="Enviar" onclick={handleSendKYC} disabled={disableButtonEmail}>
+          </lightning-button>
+        </lightning-button-group>
+      </div>
+    </div>
+    <br>
+    <table class="slds-table slds-table_bordered slds-table_col-bordered  slds-table_resizable-cols"
+     data-table="principalesFuncionarios">
+      <thead>
+        <tr class="slds-line-height_reset">
+          <th class="slds-is-resizable" scope="col" rowspan="2">
+            <div class="slds-truncate" title="Nombre, Razón O Denominación Social">Entidad</div>
+          </th>
+          <th class="slds-is-resizable" scope="col" colspan="5">
+            <div class="slds-truncate" title="Nombre, Razón O Denominación Social">Información de contacto</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template for:each={EntitiesWithContacts} for:item="entidad" for:index="indx">
+          <tr key={entidad.Id} id={entidad.Id} class="slds-hint-parent">
+            <td role="gridcell" data-column="Nombre">
+              <div class="slds-truncate" title={entidad.Name}>
+                {entidad.Name}
+              </div>
+            </td>
+            <td role="gridcell" data-column="Contactos">
+              <div class="slds-truncate">
+                <template if:true={entidad.Contactos__r}>
+                  <c-lmm-child-k-y-c contacts={entidad.Contactos__r} onselectedcontacts={handleSendContacts}></c-lmm-child-k-y-c>
+                </template>
+                <c-lmm-k-y-c-details record-id={recordId}></c-lmm-k-y-c-details>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+    <!--<table
+      class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols"
+      role="grid" data-table="principalesFuncionarios">
+      <thead>
+        <tr class="slds-line-height_reset">
+          <th class="slds-is-resizable" scope="col" rowspan="2">
+            <div class="slds-truncate" title="Nombre, Razón O Denominación Social">
+              Entidad</div>
+          </th>
+          <th class="slds-is-resizable" scope="col" colspan="3">
+            <div class="slds-truncate" title="Nombre, Razón O Denominación Social">
+              Contactos</div>
+          </th>
+          <th class="slds-is-resizable" scope="col" rowspan="2">
+            <div class="slds-truncate" title="Acciones">
+              Acciones</div>
+          </th>
+        </tr>
+        <tr class="slds-line-height_reset">
+          <th class="slds-is-resizable" scope="col">
+            <div class="slds-truncate" title="Nombre">
+              Nombre</div>
+          </th>
+          <th class="slds-is-resizable" scope="col">
+            <div class="slds-truncate" title="Correo">
+              Correo</div>
+          </th>
+          <th class="slds-is-resizable" scope="col">
+            <div class="slds-truncate" title="Estatus">
+              Estatus</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template for:each={EntitiesWithContacts} for:item="entidad" for:index="indx">
+          <tr key={entidad.Id} id={entidad.Id} class="slds-hint-parent">
+            <td role="gridcell" data-column="Nombre">
+              <div class="slds-truncate" title={entidad.Name}>
+                {entidad.Name}
+              </div>
+            </td>
+            <td role="gridcell" data-column="Contactos">
+              <template if:true={entidad.Contactos__r}>
+                <table>
+                  <thead>
+                    <tr class="slds-line-height_reset">
+                      <th class="slds-is-resizable" scope="col">
+                        <div class="slds-truncate" title="Nombre">
+                          Nombre</div>
+                      </th>
+                      <th class="slds-is-resizable" scope="col">
+                        <div class="slds-truncate" title="Correo">
+                          Correo</div>
+                      </th>
+                      <th class="slds-is-resizable" scope="col">
+                        <div class="slds-truncate" title="Estatus">
+                          Estatus</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template for:each={entidad.Contactos__r} for:item="contacto" for:index="indx">
+                      <tr key={contacto.Id} id={contacto.Id} class="slds-hint-parent">
+                        <td role="gridcell" data-column="Apellido">
+                          <div class="slds-truncate" title={contacto.LMM_tx_Apellido_paterno__c}>
+                            {contacto.LMM_tx_Apellido_paterno__c}
+                          </div>
+                        </td>
+                        <td role="gridcell" data-column="Correo">
+                          <div class="slds-truncate" title={contacto.LMM_ce_Correo_electronico__c}>
+                            {contacto.LMM_ce_Correo_electronico__c}
+                          </div>
+                        </td>
+                        <td role="gridcell" data-column="Correo">
+                          <div class="slds-truncate" title="Sin KYC">
+                            Sin KYC
+                          </div>
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </template>
+              <template if:false={entidad.Contactos__r}>
+                No se encontraron contactos
+              </template>
+            </td>
+            <td role="gridcell" data-column="Acciones">
+              <div class="slds-truncate">
+                <lightning-button-icon icon-name="utility:delete" alternative-text="Borrar" title="Borrar"
+                  data-id={indx}>
+                </lightning-button-icon>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>-->
+
+  </template>
+
+</template>

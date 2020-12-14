@@ -1,0 +1,230 @@
+<apex:page lightningStylesheets="true" controller="ES5_Controller_LA_Apoderados">
+    <apex:form >
+        <apex:pageBlock title="Apoderados">
+            
+            <div style="width: 320px;margin-left: auto;margin-right: auto;" id="div">
+                <apex:commandButton style="width: 100px;" value="Edit" action="{!redirect_EP_Apoderados}" rendered="{!aprbtn}" />
+                <apex:commandButton style="width: 115px;" value="Back to Legal" action="{!redirect_RP_LA}"/>
+            </div>
+            <br/>
+            
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Entity Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Entidad" for="Entidad"/>
+                    <apex:outputText id="Entidad" value="{!req.LAH.pOutEntidad}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Número de Cuenta" for="no_cuenta"/>
+                    <apex:outputText id="no_cuenta" value="{!req.LAH.pOutNoCuenta}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nacionalidad" for="Nacionalidad"/>
+                    <apex:outputText id="Nacionalidad" value="{!req.LAH.pOutnacionalidad}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Tipo de Entidad" for="EntityTipo"/>
+                    <apex:outputText id="EntityTipo" value="{!req.LAH.pOutEntidadtype}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC/TIN" for="RFC"/>
+                    <apex:outputText id="RFC" value="{!req.LAH.pOutRFC}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Grupo Económico" for="Grupo_Economico"/>
+                    <apex:outputText id="Grupo_Economico" value="{!req.LAH.pOutEConomicgroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            
+            <apex:pageBlockSection columns="2" title="Apoderados">
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Vigencia Id" for="POtros"/>
+                    <apex:outputText id="POtros" value="{!APO.laAPOtros}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Escritura No.*" for="nomfac"/>
+                    <apex:outputText id="nomfac" value="{!APO.laAEscrituraNum}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nombre del facultado*" for="nomfac" />
+                    <apex:outputText id="nomfac" value="{!APO.laANombreFacultado}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha" for="Fecha"/>
+                    <apex:outputText id="Fecha" value="{!APO.laAFecha}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Actos de Dominio" for="actosdomin"/>
+                    <apex:outputText id="actosdomin" value="{!APO.laAActosDominio}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Títulos de Crédito" for="tiposcred"/>
+                    <apex:outputText id="tiposcred" value="{!APO.laATitulosCredito}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Actos de Administración" for="actosadminst"/>
+                    <apex:outputText id="actosadminst" value="{!APO.laAActosAdministrativos}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Pleitos y Cobranza" for="pleitoscobra"/>
+                    <apex:outputText id="pleitoscobra" value="{!APO.laAPleitosCobranza}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="I-M" for="I-M"/>
+                    <apex:outputText id="I-M" value="{!APO.laAIndMan}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fedatario Público" for="FedatarioPublico"/>
+                    <apex:outputText id="FedatarioPublico" value="{!APO.laAFedatarioPublico}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha de Registro*" for="FechaRegistro"/>
+                    <apex:outputText id="FechaRegistro" value="{!APO.laAFechaRegistro}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Lugar Registro" for="LugarRegistro"/>
+                    <apex:outputText id="LugarRegistro" value="{!APO.laALugarRegistro}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Datos Registro" for="DatosRegistro"/>
+                    <apex:outputText id="DatosRegistro" value="{!APO.laADatosRegistro}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Ocupación" for="Ocupacion"/>
+                    <apex:outputText id="Ocupacion" value="{!APO.laAOcupacion}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha Nacimiento" for="FechaNacimiento"/>
+                    <apex:outputText id="FechaNacimiento" value="{!APO.laAFechaNacimiento}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nacionalidad" for="Nacionalidad"/>
+                    <apex:outputText id="Nacionalidad" value="{!APO.laANacionalidad}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Domicilio" for="Domicilio"/>
+                    <apex:outputText id="Domicilio" value="{!APO.laADomicilio}"/> 
+                </apex:pageBlockSectionItem>                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="P. Especial" for="PEspecial"/>
+                    <apex:outputText id="PEspecial" value="{!APO.laAPEspecial}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Observaciones" for="ovs"/>
+                    <apex:outputText id="ovs" value="{!APO.laAObservaciones}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+                
+                <!-- -->
+                
+                
+                <!-- -->
+                
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            
+            <apex:pageBlockSection columns="2" title="Revocados">
+                
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nombre escritura revocada" for="nomrevoca"/>
+                    <apex:outputText id="nomrevoca" value="{!APO.laAEscrituraRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha revocada" for="Fecharevoca"/>
+                    <apex:outputText id="Fecharevoca" value="{!APO.laAFechaRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Lugar revocada" for="lugarrevoca"/>
+                    <apex:outputText id="lugarrevoca" value="{!APO.laALugarRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Datos de registro revocados" for="datosrevoca"/>
+                    <apex:outputText id="datosrevoca" value="{!APO.laADatosRegistroRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Observaciones" for="Observaciones"/>
+                    <apex:outputText id="Observaciones" value="{!APO.laAObservacionesRevoca}"/>
+                    <!--<apex:inputText id="Observaciones" value="{!APO.laAObservaciones}"/> -->
+                </apex:pageBlockSectionItem>
+                
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock> 
+        
+    </apex:form>
+</apex:page>

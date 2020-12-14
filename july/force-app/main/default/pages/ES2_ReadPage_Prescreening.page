@@ -1,0 +1,526 @@
+<apex:page lightningStylesheets="true" standardController="ES2_Obj_Prescreening__c" extensions="ES2_ControllerExt_Prescreening" >
+    <script>
+    window.addEventListener("load", function() {
+        if(document.getElementById('{!$Component.frm.preId.secFinId01.bs01.im01}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId01.bs02.im02}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId01.bs03.im03}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId02.bs04.im04}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId02.bs05.im05}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId02.bs06.im06}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId03.bs07.im07}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId03.bs08.im08}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId03.bs09.im09}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId03.bs10.im10}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId03.bs11.im11}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId04.bs12.im12}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId04.bs13.im13}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId04.bs14.im14}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId05.bs15.im15}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId05.bs16.im16}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId05.bs17.im17}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId05.bs18.im18}') != null ||
+           document.getElementById('{!$Component.frm.preId.secFinId05.bs19.im19}') != null 
+          ){
+            document.getElementById('{!$Component.frm.preId.d2}').style.visibility = "hidden";
+        }else{
+            document.getElementById('{!$Component.frm.preId.d3}').style.visibility = "hidden";
+        }
+    })    
+    </script>
+    <style>
+        .hidden{
+        display:none;
+        }
+    </style>    
+    <div class="hidden">
+        <chatter:feed entityId="{!$User.Id}" id="ChatterFeed"/>
+    </div>    
+    <apex:form id="frm">
+        <apex:pageMessages id="showmsg"></apex:pageMessages> 
+        <apex:pageBlock title="Prescreening" id="preId">            
+            
+            <!---------------------------BOTON EDICION----------------------------------------------------------------------->
+            
+            <div style="width: 800px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton rendered="{!IF(CONTAINS($Profile.Name,'Administra')||((CONTAINS($Profile.Name,'UnderwritingCP') && (ES2_Obj_Prescreening__c.ES2_ls_Status__c != 'Approved' && ES2_Obj_Prescreening__c.ES2_ls_Status__c != 'Declined' && ES2_Obj_Prescreening__c.ES2_ls_Status__c != 'PIC Required' ) )),true,IF(ES2_Obj_Prescreening__c.ES2_ls_Status__c == 'New',true,false))}" style="width: 100px;" value="Edit"  action="{!edit}" />
+                <apex:commandButton id="d2" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_ls_Status__c == 'New',true,false )}" style="width: 150px;" value="Send for Approval"  action="{!approval}" />                
+                <apex:commandButton id="d3" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_ls_Status__c == 'New',true,false )}" style="width: 150px;" value="Send for Approval"  action="{!inProcess}"/>
+                <apex:commandButton rendered="{!IF((CONTAINS($Profile.Name,'Administra')||CONTAINS($Profile.Name,'UnderwritingCP')&&(ES2_Obj_Prescreening__c.ES2_ls_Status__c == 'In Process')),true,false )}" style="width: 120px;" value="PIC Required"  action="{!picRequired}" />
+                <apex:commandButton rendered="{!IF((CONTAINS($Profile.Name,'Administra')||CONTAINS($Profile.Name,'UnderwritingCP')&&(ES2_Obj_Prescreening__c.ES2_ls_Status__c == 'In Process')),true,false )}" style="width: 100px;" value="Approved"  action="{!approved}" />                
+                <apex:commandButton rendered="{!IF((CONTAINS($Profile.Name,'Administra')||CONTAINS($Profile.Name,'UnderwritingCP')&&(ES2_Obj_Prescreening__c.ES2_ls_Status__c == 'In Process')),true,false )}" style="width: 100px;" value="Declined"  action="{!Declined}" />
+                
+            </div> 
+            <!------------------------FINANCIAL INFORMATION------------------------------------------------------------------>   
+            <br/>
+            <apex:pageBlockSection columns="2" title="General Information" id="secFinId01" >
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Name Prescreening
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.Name}" />
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Propietario
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.OwnerId}" />
+                </apex:pageBlockSectionItem> 
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Account Name
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Account_Name__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Rik Classification
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Risk_Classification__c}" />
+                </apex:pageBlockSectionItem> 
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Top Parent
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Top_Parent__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        SIC Industry
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_SIC_Industry__c}" />
+                </apex:pageBlockSectionItem>  
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Existing Customer?  
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_ls_Existing_Customer__c}" >
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        SIC Description
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_SIC_Description__c}" />
+                </apex:pageBlockSectionItem> 
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Exposure  
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Exposure__c}" >
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem id="bs01" >
+                    <apex:outputLabel >
+                        Payment Trend
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_lst_Payment_Trend__c}" id="of01" >
+                        <!--1-->
+                        <apex:image id="im01" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_Payment_Trend__c=='Delinquency > 30',true,false)}" value="/img/msg_icons/warning16.png" />                       
+                    </apex:outputField>
+                    
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Approval Level
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Approval_Level__c}" />
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem id="bs02" >
+                    <apex:outputLabel >
+                        Special Payment Terms 
+                    </apex:outputLabel>
+                    <apex:outputField id="of02" value="{!ES2_Obj_Prescreening__c.ES2_lst_Special_Payment_Terms__c}" >
+                        <!--2-->
+                        <apex:image id="im02" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_Special_Payment_Terms__c=='Yes','true','false')}" value="/img/msg_icons/warning16.png" /> 
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Account Owner
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Account_Owner__c}" />
+                </apex:pageBlockSectionItem>
+                
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Why is customer doing business with EC?
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_tx_Why_is_customer__c}" />
+                </apex:pageBlockSectionItem>            
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+
+                                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Region
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Region__c}" />
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >  
+                    <apex:outputLabel >
+                        Sr UnderWriter
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_rb_Sr_UnderWriter__c}" />                     
+                </apex:pageBlockSectionItem> 
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem id="bs03" >
+                    <apex:outputLabel >
+                        Economic Group
+                    </apex:outputLabel>
+                    <apex:outputField id="of03" value="{!ES2_Obj_Prescreening__c.ES2_fm_Economic_Group__c}" >
+                        <!--3-->
+                        <!--<apex:image id="im03" rendered="{!IF(IsBlank(ES2_Obj_Prescreening__c.ES2_fm_Economic_Group__c),'true','false')}" value="/img/msg_icons/warning16.png" /> -->
+                    </apex:outputField>
+                </apex:pageBlockSectionItem> 
+                
+                
+                <apex:pageBlockSectionItem >  
+                    <apex:outputLabel >
+                        Status
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_ls_Status__c}" />                                       
+                </apex:pageBlockSectionItem>                 
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>
+
+            
+               <apex:pageBlockSectionItem >  
+                    <apex:outputLabel >
+                        Comments UnderWriter
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_tx_Comments_UW__c}" />                                       
+                </apex:pageBlockSectionItem>             
+                
+              <apex:pageBlockSectionItem >  
+                    <apex:outputLabel >
+                        Comments
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_tx_Comments__c}" />                                       
+                </apex:pageBlockSectionItem>                         
+            </apex:pageBlockSection>
+            <!------------------------FINANCIAL INFORMATION------------------------------------------------------------------>   
+            
+            <apex:pageBlockSection columns="2" title="Financial Information"  id="secFinId02">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Sales Annual Revenue ($MXN)
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Sales_Annual_Revenue__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem id="bs04" >
+                    <apex:outputLabel >
+                        EBITDA 
+                    </apex:outputLabel>
+                    <apex:outputField id="of04" value="{!ES2_Obj_Prescreening__c.ES2_nu_EBITDA__c}" >
+                        <!--4-->
+                        <apex:image id="im04" rendered="{!IF(IsBlank(ES2_Obj_Prescreening__c.ES2_nu_EBITDA__c),'true','false')}" value="/img/msg_icons/warning16.png" /> 
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>  
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Target Market
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Target_Market__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem id="bs05">
+                    <apex:outputLabel >
+                        Balance Debt
+                    </apex:outputLabel>
+                    <apex:outputField id="of05" value="{!ES2_Obj_Prescreening__c.ES2_nu_Balance_Debt__c}" >
+                        <!--5-->
+                        <apex:image id="im05" rendered="{!IF(IsBlank(ES2_Obj_Prescreening__c.ES2_nu_Balance_Debt__c),'true','false')}" value="/img/msg_icons/warning16.png" /> 
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Financial Information Source
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_lts_Financial_Information_Source__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem id="bs06">
+                    <apex:outputLabel >
+                        Leverage
+                    </apex:outputLabel>
+                    <apex:outputField id="of06" value="{!ES2_Obj_Prescreening__c.ES2_fm_Leverage__c}" >
+                        <!--6-->
+                        <apex:image id="im06" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_fm_Leverage__c==0 || (ES2_Obj_Prescreening__c.ES2_fm_Leverage__c>2.5 && ES2_Obj_Prescreening__c.ES2_fm_Target_Market__c=='Lower middle market') || ES2_Obj_Prescreening__c.ES2_fm_Leverage__c>3,'true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <!----------------------OPPORTUNITY INFORMATION------------------------------------------------------------------>   
+            
+            <apex:pageBlockSection columns="2" title="Opportunity Information"  id="secFinId03" >
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Opportunity
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_rb_Opportunity__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Collateral
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Collateral__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Amount
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Amount__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        OLV Day 1 %
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_nu_OLV_Day_1__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem id="bs07">
+                    <apex:outputLabel >
+                        Line of Business
+                    </apex:outputLabel>
+                    <apex:outputField id="of07" value="{!ES2_Obj_Prescreening__c.ES2_fm_Line_of_Business__c}" >
+                        <!--7-->
+                        <apex:image id="im07" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_fm_Sales_Annual_Revenue__c<850000000 && ES2_Obj_Prescreening__c.ES2_fm_Line_of_Business__c=='Technology','true','false')}" value="/img/msg_icons/warning16.png" />   
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Enhancers
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_lst_Enhancers__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Product
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Product__c}" />
+                    
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Enhancers OLV %
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_num_Enhancers_OLV__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Financing Need</apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_fm_Financing_Need__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem id="bs08">
+                    <apex:outputLabel >
+                        FINAL OLV GAP %
+                    </apex:outputLabel>
+                    <apex:outputField id="of08" value="{!ES2_Obj_Prescreening__c.ES2_fm_FINAL_OLV_GAP__c}" >
+                        <!--8-->
+                        <apex:image id="im08" rendered="{!IF((ES2_Obj_Prescreening__c.ES2_fm_FINAL_OLV_GAP__c>25 && ES2_Obj_Prescreening__c.ES2_fm_Target_Market__c=='Lower middle market') || ES2_Obj_Prescreening__c.ES2_fm_FINAL_OLV_GAP__c>50,'true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem id="bs09">
+                    <apex:outputLabel >
+                        Deal Category
+                    </apex:outputLabel>
+                    <apex:outputField id="of09" value="{!ES2_Obj_Prescreening__c.ES2_fm_Deal_Category__c}" >
+                        <!--9-->
+                        <apex:image id="im09" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_fm_Deal_Category__c=='Progress Payment','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Customer Expected Date
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.ES2_date_Customer_Expected_Date__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem id="bs10">
+                    <apex:outputLabel >
+                        USD Sales > 50%
+                    </apex:outputLabel>
+                    <apex:outputField id="of10" value="{!ES2_Obj_Prescreening__c.ES2_lst_USD_Sales_50__c}" >
+                        <!--10-->
+                        <apex:image id="im10" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_USD_Sales_50__c=='No','true','false')}" value="/img/msg_icons/warning16.png" />   
+                    </apex:outputField>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="bs11">
+                    <apex:outputLabel >
+                        Personal Guarantee
+                    </apex:outputLabel>
+                    <apex:outputField id="of11" value="{!ES2_Obj_Prescreening__c.Personal_Guarantee__c}" >
+                        <!--11-->
+                        <apex:image id="im11" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_fm_Sales_Annual_Revenue__c<750000000 && ES2_Obj_Prescreening__c.Personal_Guarantee__c=='No','true','false')}" value="/img/msg_icons/warning16.png" />   
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>    
+            </apex:pageBlockSection>
+            
+            <!------------------------CORPORATE STRUCTURE-------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Corporate Structure"  id="secFinId04" >
+                
+                <apex:pageBlockSectionItem id="bs12">
+                    <apex:outputLabel >
+                        # Companies in the Group 
+                    </apex:outputLabel>
+                    <apex:outputField id="of12" value="{!ES2_Obj_Prescreening__c.ES2_lst_Companies_in_the_Group__c}" >
+                        <!--12-->
+                        <apex:image id="im12" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_Companies_in_the_Group__c=='No Info','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem id="bs13">
+                    <apex:outputLabel >
+                        Visibility of all Companies
+                    </apex:outputLabel>
+                    <apex:outputField id="of13" value="{!ES2_Obj_Prescreening__c.ES2_lst_Visibility_of_all_Companies__c}" >
+                        <!--13-->
+                        <apex:image id="im13" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_Visibility_of_all_Companies__c=='No','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>      
+                <apex:pageBlockSectionItem id="bs14">
+                    <apex:outputLabel >
+                        > 10 Years in Business
+                    </apex:outputLabel>
+                    <apex:outputField id="of14" value="{!ES2_Obj_Prescreening__c.ES2_lst_10_Years_in_Business__c}" >
+                        <!--14-->
+                        <apex:image id="im14" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_10_Years_in_Business__c=='No','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>          
+            </apex:pageBlockSection>
+            
+            <!-------------------------------INDUSTRY----------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Industry"  id="secFinId05" >
+                
+                <apex:pageBlockSectionItem id="bs15">
+                    <apex:outputLabel >
+                        Single Customer Concentration Over 20%
+                    </apex:outputLabel>
+                    <apex:outputField id="of15" value="{!ES2_Obj_Prescreening__c.ES2_lts_Single_Customer_Concentration__c}" >
+                        <!--15-->
+                        <apex:image id="im15" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lts_Single_Customer_Concentration__c=='Yes','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="bs16">
+                    <apex:outputLabel >
+                        Industry Concem
+                    </apex:outputLabel>
+                    <apex:outputField id="of16" value="{!ES2_Obj_Prescreening__c.ES2_lts_Industry_Concem__c}" >
+                        <!--16-->
+                        <apex:image id="im16" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lts_Industry_Concem__c=='Yes','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem id="bs17">
+                    <apex:outputLabel >
+                        Commodity Driven
+                    </apex:outputLabel>
+                    <apex:outputField id="of17" value="{!ES2_Obj_Prescreening__c.ES2_lst_Commodity_Driven__c}" >
+                        <!--17-->
+                        <apex:image id="im17" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lst_Commodity_Driven__c=='Yes','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="bs18">
+                    <apex:outputLabel >
+                        Highly Cyclical
+                    </apex:outputLabel>
+                    <apex:outputField id="of18" value="{!ES2_Obj_Prescreening__c.ES2_lts_Highly_Cyclical__c}" >
+                        <!--18-->
+                        <apex:image id="im18" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lts_Highly_Cyclical__c=='Yes','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <!------------------------------------------------------------------------------------------------------------------------------>   
+                <apex:pageBlockSectionItem id="bs19">
+                    <apex:outputLabel >
+                        Government Cust. Concentration Over 50%
+                    </apex:outputLabel>
+                    <apex:outputField id="of19" value="{!ES2_Obj_Prescreening__c.ES2_lts_Government_Cust_Concentration__c}" >
+                        <!--19-->
+                        <apex:image id="im19" rendered="{!IF(ES2_Obj_Prescreening__c.ES2_lts_Government_Cust_Concentration__c=='Yes','true','false')}" value="/img/msg_icons/warning16.png" />      
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <!--------------------------INFORMATION OF SySTEM---------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Information of System">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Creado por
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.CreatedById}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >
+                        Última modificación por
+                    </apex:outputLabel>
+                    <apex:outputField value="{!ES2_Obj_Prescreening__c.LastModifiedById}" />
+                </apex:pageBlockSectionItem>               
+            </apex:pageBlockSection>
+            
+            <!-----------------------------BOTON DE EDITAR-------------------------------------------------------------------> 
+            
+            <div style="width: 340px;margin-left: auto;margin-right: auto;">
+               <!-- <apex:commandButton style="width: 100px;" value="Edit"  action="{!edit}" />-->
+            </div>
+        </apex:pageBlock>        
+    </apex:form>
+    <apex:relatedList list="AttachedContentDocuments" />
+    <apex:relatedList list="AttachedContentNotes" id="noteslist" subject="{!ES2_Obj_Prescreening__c.id}"/>
+    <apex:relatedList list="Histories" />
+</apex:page>

@@ -1,0 +1,137 @@
+<template>
+    <br>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="12">
+            <lightning-card>
+                <h3 slot="title">
+                    <lightning-layout>
+                        <lightning-icon icon-name="utility:description" size="small"></lightning-icon>
+                        &nbsp;
+                        <p><b>Details</b></p>
+                        </br></br></br>
+                    </lightning-layout>
+                </h3>
+                <div class="slds-scrollable_x" style="height: auto; width: auto;">
+                <table
+                    class="slds-table slds-table_cell-buffer slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                                <th class="slds-text-align_right" scope="col" style="width:3.25rem">
+                                    <div class="slds-truncate" title="Problem">
+            
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                        <div class="slds-truncate" title="Search">
+                                            Search
+                                        </div>
+                                    </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Entity">
+                                    Entity
+                                </div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Role">Role</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Country">Country</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="State">State</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Industry">Industry</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Entity Type">Entity Type</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Entity Type">Adverse Media</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Watchlist">Watchlist</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="CRR">CRR</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={entidades} for:item=entidad>
+                        <tr key={entidad.id}>
+                                <template if:false={entidad.hits}>
+                                        <td key={entidad.id} data-label="Prob" class="slds-text-align_right" style="width:3.25rem">
+                                            <div class="slds-truncate" title="Prob">
+                                            <lightning-icon icon-name="utility:success" size="small" variant="success">
+                                            </lightning-icon>
+                                            </div>
+                                        </td>
+                                        </template>
+                                        <template if:true={entidad.hits}>
+                                                <td key={entidad.id} data-label="Prob" class="slds-text-align_right" style="width:3.25rem">
+                                            <div class="slds-truncate" title="Prob">
+                                            <lightning-icon icon-name="utility:ban" size="small" variant="error">
+                                            </lightning-icon>
+                                            </div>
+                                            </td>
+                                        </template>
+                            <td key={entidad.id} data-label="Search">
+                                <lightning-button variant="base" label="Search" data-entity={entidad.Name} onclick={search} title="Base action" class="slds-m-left_x-small"></lightning-button>
+                            </td>        
+                        <td key={entidad.id} data-label="Entity">
+                            <lightning-formatted-rich-text class="slds-truncate" title="Entity" value={entidad.Name}></lightning-formatted-rich-text>
+                        </td>
+                        <td key={entidad.id} data-label="Role">
+                            <div class="slds-truncate" title="Role">
+                                {entidad.Role}
+                            </div>
+                        </td>
+                        <td key={entidad.id} data-label="Country">
+                            <div class="slds-truncate" title="Country">
+                                {entidad.country}
+                            </div>
+                        </td>
+                        <td key={entidad.id} data-label="State">
+                            <div class="slds-truncate" title="State">
+                                {entidad.state}
+                            </div>
+                        </td>
+                        <td key={entidad.id} data-label="Industry">
+                            <div class="slds-truncate" title="Industry">
+                                {entidad.industry}
+                            </div>
+                        </td>
+                        <td key={entidad.id} data-label="Entity Type">
+                            <div class="slds-truncate" title="Entity Type">
+                                {entidad.EntityType}
+                            </div>
+                        </td>
+                        <td key={entidad.id} data-label="Adverse Media">
+                            <template if:false={entidad.AdverseMedia}>
+                            <lightning-input type="toggle"  data-entity={entidad.id} onclick={adverse} name="Adverse"></lightning-input>
+                            <!--<lightning-button variant="base" label="Problem" data-entity={entidad.id} onclick={adverse} title="Base action" class="slds-m-left_x-small"></lightning-button>-->
+                            </template>
+                            <template if:true={entidad.AdverseMedia}>
+                                    <lightning-input type="toggle"  data-entity={entidad.id} checked onclick={adverse} name="Adverse"></lightning-input>
+                            </template>
+                        </td>      
+                        <td key={entidad.id} data-label="Watchlist">
+                            <div class="slds-truncate" title="Watchlist">
+                                {entidad.whachlist}
+                            </div>
+                        </td>
+                        <td key={entidad.id} data-label="CRR">
+                            <div class="slds-truncate" title="CRR">
+                                {entidad.crr}
+                            </div>
+                        </td>
+                    </tr>
+                        </template>
+                    </tbody>
+                </table>
+                </div>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

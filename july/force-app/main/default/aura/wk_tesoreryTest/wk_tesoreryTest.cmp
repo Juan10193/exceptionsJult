@@ -1,0 +1,357 @@
+<aura:component
+  controller="wk_TesorerySurvey_controller_cls"
+  implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes"
+>
+  <aura:attribute
+    name="options"
+    type="List"
+    default="[{'label': 'Yes', 'value': 'option1'}, {'label': 'No', 'value': 'option2'}]"
+  />
+  <aura:attribute name="value" type="String" default="option2" />
+  <aura:attribute name="resp" type="List" default="Compliant,Not Compliant" />
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute name="sObjectName" type="Object" />
+  <aura:attribute name="tesoreryTest" type="wk_TesoreryTest__c" />
+  <aura:attribute
+    name="newTesoreryTest"
+    type="wk_TesoreryTest__c"
+    default="{
+            'SObjectType': 'wk_TesoreryTest__C',
+            'wk_pd_creditApproval__c': '',
+            'wk_ta_Response1__c': '',
+            'wk_ta_Response2__c': '',
+            'wk_ta_Response3__c': '',
+            'wk_ta_Response4__c': '',
+            'wk_ta_Response5__c': '',
+            'wk_ta_Response6__c': '',
+            'wk_ta_Response7__c': '',
+            'wk_ta_Response8__c': ''
+        }"
+  />
+  <aura:attribute name="responses" type="boolean" />
+  <aura:attribute name="isOpen" type="boolean" default="false" />
+  <!-- handlers-->
+  <aura:handler name="init" value="{! this }" action="{! c.init }" />
+
+  <!--Nuevo Rediseño-->
+  <article class="slds-card">
+    <div class="slds-card__body slds-card__body_inner">
+      <article class="slds-card slds-card_boundary">
+        <div
+          class="slds-card__header slds-grid"
+          style="padding:0.5rem;background:#17a2b8;color: #ffffff"
+        >
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__figure">
+              <lightning:icon
+                iconName="utility:note"
+                size="small"
+                variant="bare"
+              />
+            </div>
+            <div class="slds-media__body">
+              <h2 class="slds-card__header-title">
+                <strong>TREASURY TEST</strong>
+              </h2>
+            </div>
+          </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <!--the body -->
+          <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-size_3-of-4">
+              <lightning:radioGroup
+                name="radioGroup"
+                label="Funded Contracts"
+                options="{! v.options }"
+                value="{! v.value }"
+                onchange="{!c.handleChange}"
+                rerender="questionare"
+              />
+            </div>
+            <div class="slds-size_1-of-4">
+              <aura:renderIf isTrue="{!v.responses}">
+                <lightning:icon
+                  iconName="action:close"
+                  variant="error"
+                  size="small"
+                  class="float-right"
+                />
+                <aura:set attribute="else">
+                  <lightning:icon
+                    iconName="action:approval"
+                    alternativeText="Approved"
+                    size="small"
+                    class="float-right"
+                  />
+                </aura:set>
+              </aura:renderIf>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </article>
+  <!--Questionary -->
+  <article class="slds-card">
+    <div
+      class="slds-card__body slds-card__body_inner"
+      id="questionare"
+      style="display:none"
+    >
+      <article class="slds-card slds-card_boundary">
+        <div
+          class="slds-card__header slds-grid"
+          style="padding:0.5rem;background:#17a2b8;color: #ffffff"
+        >
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__body">
+              <h2 class="slds-card__header-title">
+                <strong>QUESTIONARY</strong>
+              </h2>
+            </div>
+          </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+          <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <!--Pregunta 1 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <strong>A. An extension of any payment later than either</strong>
+              <br></br> <strong>i.</strong> Twelve months past the due date for
+              such payment (or the equivalent effect on the weighted average
+              life of the future amortization profile or payment profile (as
+              applicable) pursuant to such amendment or modification) or
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp1"
+                aura:Id="resp1"
+                value="{!v.newTesoreryTest.wk_ta_Response1__c}"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option text="{!respta}" value="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 2 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>ii.</strong> The end of the Monthly Period prior
+              to the Legal Final Maturity Date
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp2"
+                aura:Id="resp2"
+                value="{!v.newTesoreryTest.wk_ta_Response2__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 3 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>B.</strong> Capitalization of more than two
+              scheduled interest payments
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp3"
+                aura:Id="resp3"
+                value="{!v.newTesoreryTest.wk_ta_Response3__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 4 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>C.</strong> Cancellation of past due interest or
+              principal (except for minimums amounts due to clerical errors)
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp4"
+                aura:Id="resp4"
+                value="{!v.newTesoreryTest.wk_ta_Response4__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 5 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>D.</strong> Any reduction in the amount of any
+              scheduled rental payment or scheduled payment of interest or
+              principal under such Contract (except as permitted in clause (a)
+              above)
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp5"
+                aura:Id="resp5"
+                value="{!v.newTesoreryTest.wk_ta_Response5__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 6 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>E.</strong> A change in the amortization profile
+              or payment profile (except as otherwise permitted in clause (a)
+              above)
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp6"
+                aura:Id="resp6"
+                value="{!v.newTesoreryTest.wk_ta_Response6__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 7 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>F.</strong> A change in the collateral or other
+              security interest securing the obligations related to such
+              Contract that would be adverse to the interest of the creditors
+              thereunder or
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp7"
+                aura:Id="resp7"
+                value="{!v.newTesoreryTest.wk_ta_Response7__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+            <!--Pregunta 8 -->
+            <div
+              class="slds-size_3-of-6  slds-m-right_x-large text-align_justify"
+            >
+              <br></br> <strong>G.</strong> A decrease in the Discounted Balance
+              of such Contract. For the avoidance of doubt, any Asset relating
+              to a Contract that is the subject of a refinancing at the end of
+              the scheduled contract term in respect of any amounts then due,
+              the exercise of any equipment purchase options provided under such
+              Contract or the exercise of any early-buyout options provided
+              under such Contract shall not constitute a Restructured Asset
+            </div>
+            <div class="slds-size_2-of-6">
+              <lightning:select
+                name="resp8"
+                aura:Id="resp8"
+                value="{!v.newTesoreryTest.wk_ta_Response8__c}"
+                variant="label-hidden"
+              >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.resp}" var="respta">
+                  <option value="{!respta}" text="{!respta}"></option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </div>
+        <footer class="slds-card__footer">
+          <button
+            type="submit"
+            class="slds-button slds-button_brand"
+            onclick="{!c.createRecord}"
+            >Save</button
+          >
+        </footer>
+      </article>
+    </div>
+  </article>
+
+  <!--Questionary -->
+  <!--./Nuevo Rediseño-->
+
+  <!-- Modal -->
+  <!--Use "slds-m-around_xx-large" class to add standard X-Large padding to the component-->
+  <div class="slds-m-around_xx-large">
+    <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+    <aura:if isTrue="{!v.isOpen}">
+      <!--###### MODAL BOX Start######-->
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <div class="slds-modal__container">
+          <!-- ###### MODAL BOX HEADER Start ######-->
+          <header class="slds-modal__header slds-modal__header_empty">
+            <lightning:buttonIcon
+              iconName="utility:close"
+              onclick="{! c.closeModel }"
+              alternativeText="close"
+              variant="bare-inverse"
+              class="slds-modal__close"
+            />
+          </header>
+          <!--###### MODAL BOX BODY Part Start######-->
+          <div
+            class="slds-modal__content slds-p-around_medium"
+            id="modal-content-id-1"
+          >
+            <div class="slds-text-align_center">
+              <lightning:icon
+                iconName="action:approval"
+                alternativeText="Approved"
+                size="large"
+              /><br></br> <br></br> <h4>Success</h4> Your questionary has been
+              created successfully.<br></br><br></br>
+              <lightning:button
+                variant="brand"
+                label="Ok"
+                onclick="{! c.closeModel }"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+      <!--###### MODAL BOX Part END Here ######-->
+    </aura:if>
+  </div>
+  <!-- ./Modal -->
+</aura:component>

@@ -1,0 +1,61 @@
+<aura:component controller="ContentVersionAlt" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes">
+    <aura:attribute name="ListaDocs" type="string[]"/>
+    <aura:attribute name="recordId" type="String" />
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.initListaCont}"/>
+    
+    
+    
+    <div class="slds-page-header" role="banner">
+        <div class="slds-media__body">
+            <p class="slds-page-header__title slds-truncate" title="Report Documents">Report Documents</p>
+            
+             <!--<lightning:button variant="brand" label="View Docs Ops in CP" onclick="{!c.toggle2}" />-->
+        </div>
+    </div>
+    <aura:if isTrue="{!v.ListaDocs.length >0}">
+    <div class="slds-scrollable_x" style="height: auto; width: auto;">
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+  <thead>
+    <tr class="slds-line-height_reset">
+      
+      <th class="slds-text-title_caps" scope="col">
+        <div class="slds-truncate" title="Title">Title</div>
+      </th>
+      <th class="slds-text-title_caps" scope="col">
+        <div class="slds-truncate" title="FileType">FileType</div>
+      </th>
+      <th class="slds-text-title_caps" scope="col">
+        <div class="slds-truncate" title="CreatedDate">Close Date</div>
+      </th>
+      <th class="slds-text-title_caps" scope="col">
+        <div class="slds-truncate" title="Id">Id</div>
+      </th>
+      
+    </tr>
+  </thead>
+  <tbody>
+      <aura:iteration items="{!v.ListaDocs}" var="docLst">
+    <tr class="slds-hint-parent">
+      
+      <th data-label="Title" scope="row">
+        <div class="slds-truncate" title="{!docLst.Title}"><a href="{!'/' +  docLst.Id}" id="the_link" target="_blank">{!docLst.Title}</a></div>
+      </th>
+      <td data-label="FileType">
+        <div class="slds-truncate" title="{!docLst.FileType}">{!docLst.FileType}</div>
+      </td>
+      <td data-label="CreatedDate">
+        <div class="slds-truncate" title="{!docLst.CreatedDate}">{!docLst.CreatedDate}</div>
+      </td>
+      <td data-label="Id">
+        <div class="slds-truncate" title="{!docLst.Id}">{!docLst.Id}</div>
+      </td>
+    </tr>
+      </aura:iteration>
+    
+  </tbody>
+</table>
+    </div>
+  </aura:if>
+</aura:component>

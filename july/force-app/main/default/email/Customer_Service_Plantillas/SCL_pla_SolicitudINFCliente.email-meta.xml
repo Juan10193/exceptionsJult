@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Solicitud de información faltante al cliente</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_SolicitudINFCliente</name>
+    <style>formalLetter</style>
+    <subject>Seguimiento a su caso {!Case.CaseNumber}</subject>
+    <textOnly>Hola, {!Case.Contact} buena tarde:
+Le informamos que para poder dar seguimiento a su caso  {!Case.CaseNumber} requerimos que nos conteste este correo con la siguiente información:
+
+
+
+
+
+
+
+
+
+
+Atentamente el equipo de Servicio a Clientes de ENGENIUM CAPITAL
+Tel.: +52 (55) 5257.6161 (CDMX o zona metropolitana)
+Tel.: 01-800-714-3227 (Interior)
+
+Por favor, no borre el siguiente texto: {!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

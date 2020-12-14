@@ -1,0 +1,46 @@
+<apex:page standardController="Takedowns_Contingency_plan__c">
+    <apex:includeScript value="../../soap/ajax/20.0/connection.js"/>
+    <script>
+    //alert("Entre a if porque es:'{!$User.UIThemeDisplayed}'");
+    sforce.connection.sessionId='{!GETSESSIONID()}';
+    var tdcp = new sforce.SObject("Takedowns_Contingency_plan__c"); 
+    tdcp.id="{!Takedowns_Contingency_plan__c.Id}";
+    tdcp.CPL_ls_Stage__c = 'Ready to send to the approval of Tollgate 1';
+    
+    
+    var statusCase = '{!Takedowns_Contingency_plan__c.CPL_ls_Stage__c}';
+    
+    if ((statusCase == "In approval of Tollgate 1")|| 
+        (statusCase == "In approval of request of funds to Treasury")||
+        (statusCase == "In waivers approval for Tollgate 2")||
+        (statusCase == "In approval of Tollgate 2")||
+        (statusCase == "In approval of audit Tollgate 2")||
+        (statusCase == "Takedown in treasury approval for funding")||
+        (statusCase == "Takedown Funded (In document management)")||
+        (statusCase == "Takedown Closed"))
+    {
+        alert('\n\nNOTIFICATION\n\n\nThis Takedown can not be put 4.-Ready to send to the approval of Tollgate 1 by:\n\nTakedown is in an approval process');
+    } 
+    else 
+    {
+        if(Modal.confirm && Modal.confirm('\n\nNOTIFICATION\n\n\nDo you confirm Back to stage 4 this Takedown??\n'))
+        {
+            var result = sforce.connection.update([tdcp]);
+            
+            if (result[0].success == 'false') 
+            {
+                alert(result[0].errors.message);
+                sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + tdcp.id);
+            } 
+            else 
+            {
+                sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + tdcp.id);
+            }
+        }
+        else
+        {
+            sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + tdcp.id);
+        }
+    }    
+    </script>
+</apex:page>

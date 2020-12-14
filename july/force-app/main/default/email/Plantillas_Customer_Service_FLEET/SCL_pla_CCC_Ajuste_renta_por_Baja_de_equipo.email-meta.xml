@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CCC Ajuste renta por Baja de equipo</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_CCC_Ajuste_renta_por_Baja_de_equipo</name>
+    <style>formalLetter</style>
+    <subject>Ajuste renta por Baja de equipo</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por comunicarse a la plataforma de Servicio a Clientes de Engenium Capital.
+
+Si usted realizo la compra de un equipo y su facturación aun no refleja la disminución de renta, solicitamos nos haga llegar comprobante del pago de la misma, junto con la Baja de placas de la unidad.
+
+Incluimos en este correo electrónico a su Ejecutivo de Fin de arrendamiento (CCC Ver quien es EoL) para su revisión y de ser necesario, realización de ajuste de sus rentas.
+
+Para futuras referencias su número de caso es: {!Case.CaseNumber}
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

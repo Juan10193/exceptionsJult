@@ -1,0 +1,38 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-01-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-11-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+  <template if:true={isUsingModal}>
+    <c-tkd-supplier-detail takedown-id={takedownId} onopensitemodal={handleOpenSiteModal}>
+    </c-tkd-supplier-detail>
+  </template>
+  <template if:false={isUsingModal}>
+    <template if:true={openModalSupplierDetail}>
+      <c-modal-question onclose={handleCloseSupplierModal} close-button-name='Close' disable-close-button='true'
+        title='Supplier' init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_large'>
+        <div slot="body" class="slds-scrollable_y" style="height:400px">
+          <c-tkd-supplier-detail supplier-id={supplierId} takedown-id={takedownId}
+            onopensitemodal={handleOpenSiteModal}>
+          </c-tkd-supplier-detail>
+        </div>
+      </c-modal-question>
+    </template>
+  </template>
+
+  <template if:true={openModalSiteDetail}>
+    <c-modal-question onclose={handleCloseSiteModal} onaccept={handleSaveSite} close-button-name='Close'
+      accept-button-name="Save" title='Site'
+      init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'>
+      <div slot="body" class="slds-scrollable_y" style="height:400px">
+        <c-tkd-site-detail site-id={siteId} takedown-id={takedownId}></c-tkd-site-detail>
+      </div>
+    </c-modal-question>
+  </template>
+</template>

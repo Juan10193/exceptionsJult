@@ -1,0 +1,18 @@
+<apex:page >
+ <apex:tabPanel >
+  <apex:tab label="Pipeline Health">
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=654ade48-c359-4149-b1ec-9e18a70b9adb&sheet=722e3e6b-0844-4a06-aa20-6c65c5f3233d&select=clearall"></apex:iframe>
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=654ade48-c359-4149-b1ec-9e18a70b9adb&sheet=3468a797-f2f3-4198-b833-784e06fe34e0&select=clearall"></apex:iframe>
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=3248315f-ef02-42c1-bf1c-2e1a4fab80fb&sheet=6bd39f5f-117b-4136-91c4-7a20be4f0126&select=clearall"></apex:iframe> 
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=d74c1ee0-5f7f-4fe8-a351-67584f354a7f&sheet=79d0bfb5-0d33-4a25-9472-acd52e7d9065&select=clearall"></apex:iframe>
+  </apex:tab>
+  
+  <apex:tab label="Challenger Radar">
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=d74c1ee0-5f7f-4fe8-a351-67584f354a7f&sheet=0221fcdc-3407-46a2-9bf2-30e09ed874dd&select=clearall"></apex:iframe>
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=ea371bcd-3060-4de4-946d-5c3f271b1612&sheet=bpKHz&select=clearall"></apex:iframe>
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=654ade48-c359-4149-b1ec-9e18a70b9adb&sheet=c8113a64-1810-4dc5-b19e-33968fe474e9&select=clearall"></apex:iframe>
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=8cb600aa-4ae5-4e49-ae3d-577a0defd781&obj=vjqHDEz&opt=nointeraction&select=clearall" width="50%"></apex:iframe>
+      <apex:iframe src="https://qsprd.engeniumcapital.com/single/?appid=3248315f-ef02-42c1-bf1c-2e1a4fab80fb&obj=rZMqE&opt=nointeraction&select=clearall" width="50%"></apex:iframe>
+  </apex:tab>
+ </apex:tabPanel>
+</apex:page>

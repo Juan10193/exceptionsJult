@@ -1,0 +1,10 @@
+.slds-section-title--divider {
+    color: white !important;
+    background: #004877;
+    border-style: solid;
+}
+
+.slds-th__action{
+    justify-content: center !important;
+    text-align: center !important;
+}

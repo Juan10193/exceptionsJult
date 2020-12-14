@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Aclaración de Fee Legal</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Aclaracion_de_Fee_Legal</name>
+    <style>formalLetter</style>
+    <subject>Aclaración de Fee Legal</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+El concepto en factura: &quot;Gastos relacionados al contrato&quot; es derivado al pago realizado al corredor público por la ratificación de las firmas de los representantes legales del anexo.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

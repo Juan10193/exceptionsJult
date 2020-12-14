@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Opportunity from broker</name>
+    <style>freeForm</style>
+    <subject>An opportunity from broker has been created or updated in {!Opportunity.Account}</subject>
+    <textOnly>Dear Brokers Manager,
+
+You&apos;re receiving this notification because an opportunity from broker has been created or updated, please refer to the following details:
+
+Account name: {!Opportunity.Account}
+Opportunity name: {!Opportunity.Name}
+Amount: {!Opportunity.Amount}
+Current stage: {!Opportunity.StageName}
+Line of business: {!Opportunity.OPP_ls_Line_of_Business__c}
+Broker name: {!Opportunity.OPP_ls_Broker_name__c}
+Broker commission %: {!Opportunity.OPP_pr_Broker_Fee_Commision__c}
+
+Please refer to the record details here
+
+Regards,
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

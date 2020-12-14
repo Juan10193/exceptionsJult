@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Escisión de empresa</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Escision_de_empresa</name>
+    <style>formalLetter</style>
+    <subject>Escisión de empresa</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+Envío a usted los requisitos para realizar el cambio de razón social por motivo de la escisión realizada, mismos que serán enviados a nuestras áreas de Legal, Riesgo y Compliance para su aprobación:
+
+·  Carta en papel membretado de la empresa en la cual indique que es una escisión, explicando la estrategia de llevar a cabo este proceso.
+
+· RFC de la entidad acreditada (escindida)
+
+· Comprobante de domicilio de la entidad acreditada con antigüedad no mayor a 3 meses (escindida)
+
+· Poderes de representantes legales de la entidad acreditada (escindida)
+
+· Acta de Escisión
+
+· Si la Entidad Escindida es un cliente nuevo, se requiere que envíe su Acta Constitutiva y las modificaciones corporativas importantes (Cambio de denominación, ampliación de objeto social, transformaciones que haya efectuado).
+
+· ID´s de los representantes legales de la entidad acreditada (escindida) - (IFE y/o Pasaporte VIGENTES) (FM3 en caso de extranjero)
+
+· KYC ( Original y digital) Anexo 1, 2 y 3
+
+· Correo electrónico de quién va a recibir la facturación
+
+· Estados Financieros de la entidad acreditada (escindida)- (últimos 3 auditados e interinos no más de 3 meses en caso de ser un nuevo acreditado / cliente). Si es cliente existente el último año auditado e interino de no más de 3 meses.
+
+Referente al punto, KYC (Original y digital) Anexo 1, 2 y 3: Es necesario que nos envíe el documento en original, además de que en la sección del desglose de accionistas es necesario realizarlo hasta llegar a empresas públicas o personas físicas. Si usted así lo prefiere, puede adjuntar hojas al documento para realizar el envío de la información completa.
+
+Favor de enviar la documentación original solicitada a mi atención a la siguiente dirección:
+
+Antonio Dovalí Jaime No. 70, Torre C Piso 4
+
+Col. Santa Fe, Del. Alvaro Obregón
+
+Ciudad de México, C.P. 01210
+
+Si derivado de la revisión de la documentación proporcionada, se requiere alguna información adicional, se lo notificaremos de inmediato.
+
+Quedamos en espera de sus comentarios.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,240 @@
+<!--
+  @Page Name          : ES2_EditPage_SelectEntityMasterInCA.page
+  @Description        : 
+  @Author             : jlugo@anivia.mx
+  @Group              : 
+  @Last Modified By   : juandedios.hernandez@engeniumcapital.com
+  @Last Modified On   : 15/10/2019 15:49:54
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    15/8/2019 10:08:23   jlugo@anivia.mx     Initial Version
+-->
+<apex:page lightningStylesheets="true" standardController="ES2_Obj_EntityMasterInCreditApproval__c" extensions="ES2_Controller_EntityMasterInCreditApvl" >
+    <apex:includeLightning />
+    <apex:form id="frm" >
+        
+        <script>
+        function openModal(sIdChild){
+            var myUserContext = "{!$User.UITheme}";
+            var showEdit = {!showEdit};
+            if(showEdit == true){
+            $Lightning.use("c:PageRolApp", function() {
+                $Lightning.createComponent(
+                    "c:PageRol", 
+                    { UserContext: myUserContext, "recordId":sIdChild },
+                    "Modal",
+                    function(cmp) {
+                        $A.eventService.addHandler({
+                            event: 'force:navigateToObjectHome',
+                            handler: function(cmp,event) {
+                                
+                                console.log(cmp.qc.scope);               
+                            }
+                        });
+                    });
+            });
+          }
+        }
+        
+        
+        function disableSelectEG(){
+            
+            document.getElementById('{!$Component.frm.pb01.pbs01.EconomicGroupId.selectEG}').value = "";
+        }
+        
+        
+        function disableSelectEM(){
+            document.getElementById('{!$Component.frm.pb04.pbs04.EntityMaster.selectEM}').value= "";
+        }      
+        
+        
+        </script>
+        <div id="Modal">
+            
+        </div>
+        <apex:pageBlock id="pb01"  title="Economic Group in Credit Approval"   rendered="{!IF(CA.ES3_tx_Risk_Economic_Group_Id__c<>'' || CA.ES3_tx_Risk_Economic_Group_Id__c<> null,false,true)}" >
+            <apex:pageBlockSection id="pbs01" columns="2" title="Select ">
+                
+                <apex:pageBlockSectionItem id="EconomicGroupId">
+                    <apex:outputLabel value="Economic Group Name" for="Economic_Group_Name" />
+                    <apex:selectList id="selectEG" value="{!sEconomicGroupIdSelected}" onchange="disableSelectEM()" size="1" style="width: 173px">
+                        <apex:pageMessages id="showmsg"></apex:pageMessages> 
+                        <apex:selectOptions value="{!EGOptions}"/>
+                    </apex:selectList>  
+                </apex:pageBlockSectionItem>  
+            </apex:pageBlockSection>  
+            <div  style="text-align: center">
+                <apex:commandButton value="Save Economic Group"  action="{!SaveEconomicGroup}" rendered="{!IF(CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined',false,true)}"/>
+                <apex:commandButton value="Back to Credit Approval" action="{!backToCa}"/>
+            </div>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Economic Group in Credit Approval" rendered="{!IF(CA.ES3_tx_Risk_Economic_Group_Id__c<>'' || CA.ES3_tx_Risk_Economic_Group_Id__c<> null,true,false)}">
+            <apex:pageBlockSection columns="2" title="Selected ">
+                
+                <apex:pageBlockSectionItem id="EconomicGroupIName">
+                    <apex:outputLabel value="Economic Group Name" for="Economic_Group_Name" />
+                    <apex:outputText value="{!CA.CPI_tx_Risk_Economic_Group__c}" />
+                </apex:pageBlockSectionItem>  
+                <apex:pageBlockSectionItem id="EconomicGroupId">
+                    <apex:outputLabel value="Economic Group Oracle ID" for="Economic_Group_Name_Id" />
+                    <apex:outputText value="{!CA.ES3_tx_Risk_Economic_Group_Id__c}" />
+                </apex:pageBlockSectionItem>  
+                <apex:pageBlockSectionItem id="EconomicGroupSicCode">
+                    <apex:outputLabel value="Economic Group Sic Code" for="Economic_Group_Sic_Code" />
+                    <apex:outputText value="{!CA.CPI_rb_SIC_code__r.name}" />
+                </apex:pageBlockSectionItem>  
+                <apex:pageBlockSectionItem id="EconomicGroupSicDescription">
+                    <apex:outputLabel value="Economic Group Sic Code Description" for="Economic_Group_SicDescriprtion" />
+                    <apex:outputText value="{!CA.CPI_fm_SIC_Code_Description__c}" />
+                </apex:pageBlockSectionItem>                   
+            </apex:pageBlockSection>    
+            
+            <div style="text-align: center" >
+                <!--<apex:commandButton reRender="frm" rendered="{!IF(CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined',false,true)}" value="Delete EconomicGroup" action="{!DeleteEconomicGroup}" onclick="if(!confirm('Do you want to delete the economic group and all related entities?')){return false};" title="Remove"/>-->
+                <apex:commandButton style="" reRender="frm" rendered="{!IF((CA.CPL_ls_StageName__c=='Submitted for approval'||CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator'  && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,true)}" value="Delete EconomicGroup" action="{!DeleteEconomicGroup}" onclick="if(!confirm('Do you want to delete the economic group and all related entities?')){return false};" title="Remove"/>
+                <apex:commandButton value="Back to Credit Approval" action="{!backToCa}"/>               
+                <apex:commandButton value="Update Economic Group" action="{!refreshEconomicGroup}" rendered="{!IF((CA.CPL_ls_StageName__c=='Submitted for approval'||CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,IF(updtEcg,true,false))}"   />                
+            </div>              
+            
+        </apex:pageBlock>        
+        
+        <apex:pageBlock title="Entities in Credit Approval" >
+            
+            <apex:pageBlockTable value="{!EntitiesInCA}" var="add" align="center" > 
+                <apex:column headerValue="Customer Type" value="{!add.ES2_tx_CostumerType__c}"/>
+                <apex:column headerValue="ORA Account Name" value="{!add.ES2_fm_Entity__c}"/>             
+                <apex:column headerValue="ORA Party Id" value="{!add.ES2_tx_Party_Id__c}"/>
+                <apex:column headerValue="Role">
+                    <div onclick="openModal('{!add.id}');" style="cursor:pointer" title="Edit" >
+                    <apex:outputField value="{!add.ES2_ms_Role__c}" >
+                    </apex:outputField>
+                    </div>
+                </apex:column>
+                
+                <apex:column headerValue="SIC Code Id" value="{!add.ES3_txt_SIC_Code__c}"/>
+                <apex:column headerValue="SIC Description" value="{!add.ES3_txt_SIC_Description__c}"/>
+                <apex:column headerValue="Bloomberg ID" value="{!add.ES3_tx_BloombergID__c}"/>
+                <apex:column headerValue="HNWI ID" value="{!add.ES3_tx_HNWI_ID__c}"/>
+                <apex:column headerValue="MRA ID" value="{!add.ES3_tx_MRAID__c}"/>
+                <apex:column headerValue="OR Rating" value="{!add.ES3_tx_Or_Rating__c}"/>
+                <apex:column headerValue="Transaction Date" value="{!add.ES3_tx_Transaction_Date__c}"/>
+                <apex:column headerValue="Opportunity" value="{!add.ES3_rb_Opportunity__c}"/>
+                
+                
+                <apex:column rendered="{!IF((CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,true)}"  >
+                    <apex:facet name="header">Delete</apex:facet>
+                    <apex:commandLink action="{!DeleteEntity}" value="Delete" styleClass="btn" style="color:black;text-decoration:none;font:black" onclick="if(!confirm('Do you want to delete the Entity from this Credit Approval?')){return false};" rendered="{!IF((CA.CPL_ls_StageName__c=='Submitted for approval'||CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,true)}" >                        
+                        <apex:param name="sIdChild"  value="{!add.id}" assignTo="{!sIdChild}"/>                          
+                    </apex:commandLink>  
+                    
+                </apex:column>
+                <apex:column rendered="{!IF((CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,true)}"  >
+                    <apex:facet name="header">Update</apex:facet>
+                    <apex:commandLink reRender="none" onclick="openModal('{!add.id}');" id="updateButton" value="Update" styleClass="btn" style="color:black;text-decoration:none;font:black" rendered="{!IF((CA.CPL_ls_StageName__c=='Submitted for approval'||CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,true)}" >                        
+                        <apex:param name="sIdChild"  value="{!add.id}" assignTo="{!sIdChild}"/> 
+                        <apex:param name="sRoleChild"  value="{!add.ES2_ms_Role__c}" assignTo="{!sRoleChild}"/>
+                    </apex:commandLink>  
+                    
+                </apex:column>                
+                
+            </apex:pageBlockTable>  
+            <div style="width: 340px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 120px;" value="Update Entities" action="{!refreshEntities}"  rendered="{!IF((CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,IF(updtEntities,true,false))}" />                  
+            </div>               
+            
+        </apex:pageBlock>          
+        
+    <div id="LcDisplayId"></div> 
+
+ <script>
+   /* $Lightning.use("c:PageRolApp", function() {
+    $Lightning.createComponent("c:WK_Com_EinCA_TableExporsure",
+    { 
+      // Set Lightning Component Attributes In Visualforce page 
+        entities: "{!EntitiesInCA}",
+        EGId : "{!CA.ES3_tx_Risk_Economic_Group_Id__c}"
+ 	},
+   "LcDisplayId",
+    function(cmp) {
+                console.log("salio");
+                // do some stuff
+              });
+ });*/
+
+ function loadLWC(){
+    var ecomgId ="{!CA.ES3_tx_Risk_Economic_Group_Id__c}"; //document.getElementById('{!$Component.frm.pb01.pbs01}');
+    var recordType = "{!recordtypeCa}";
+    console.log(recordType);
+    console.log(ecomgId);
+    console.log(ecomgId);
+    if((ecomgId !=='' || ecomgId !== null) && recordType ==='Workout'){
+        console.log('holalaaa');
+        console.log(ecomgId)
+        $Lightning.use("c:PageRolApp", function() {
+            $Lightning.createComponent("c:wk_EntityInCa_TableExposure_lwc",
+            { 
+            // Set Lightning Component Attributes In Visualforce page 
+            creditApprovalId: "{!idCreditApproval}",
+            economicGroupId: "{!CA.ES3_tx_Risk_Economic_Group_Id__c}"
+            },
+        "LcDisplayId",
+            function(cmp) {
+                        console.log("salio");
+                        // do some stuff
+                    });
+        });
+    }else{
+        var divWorkout = Document.getElementById('LcDisplayId');
+        divWorkout.remove();
+    }
+}
+
+window.onload =loadLWC;
+ </script>
+     <apex:pageBlock ></apex:pageBlock>   
+        <!--&&(CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator')-->
+        <apex:pageBlock id="pb04" title="Add Entity Master in Credit Approval" rendered="{!IF(CA.Type_of_credit_approval__c == 'MAC',false,IF((CA.CPL_ls_StageName__c=='Submitted for approval'||CA.CPL_ls_StageName__c=='Approved' || CA.CPL_ls_StageName__c== 'Withdrawn' || CA.CPL_ls_StageName__c== 'Declined')&&($Profile.Name != 'System Administrator' && $Profile.Name !='Administrador del sistema' && Permisions !=true),false,true))}"  >
+            <!-- <apex:pageBlock title="Add Entity Master in Credit Approval" rendered="{!IF(CA.ES3_tx_Risk_Economic_Group_Id__c<>'' || CA.ES3_tx_Risk_Economic_Group_Id__c<> null,true,false)}" >-->
+            
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection id="pbs04" columns="2" title="Select Entity and opportunity">
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Role" id="Role"/>
+                    <apex:inputField value="{!ES2_Obj_EntityMasterInCreditApproval__c.ES2_ms_Role__c}" />
+                </apex:pageBlockSectionItem>   
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Credit Approval" id="CreditApproval"/>
+                    <apex:outputField value="{!ES2_Obj_EntityMasterInCreditApproval__c.ES2_rb_Credit_approval__c}" />
+                </apex:pageBlockSectionItem>                      
+                
+                <apex:pageBlockSectionItem id="EntityMaster">
+                    <apex:outputLabel value="Entity" for="sEntityMasterIdSelected" />
+                    <apex:selectList id="selectEM" value="{!sEntityMasterIdSelected}" onchange="disableSelectEG()"  size="1" style="width: 173px">
+                        
+                        <apex:selectOptions value="{!EMOptions}"/>
+                    </apex:selectList>  
+                </apex:pageBlockSectionItem>     
+                
+                <apex:pageBlockSectionItem id="OppInEM">
+                    <apex:outputLabel value="Opportunity" for="sOpportunityIdSelected" />
+                    <apex:selectList value="{!sOpportunityIdSelected}" size="1" style="width: 173px">
+                        <apex:selectOptions value="{!OpportunitiesInCA}"/>
+                    </apex:selectList>  
+                </apex:pageBlockSectionItem>                        
+                
+                
+            </apex:pageBlockSection>
+            <div style="text-align: center">
+                <apex:commandButton value="Save"  action="{!SaveData}" />
+                <apex:commandButton value="Back to Credit Approval" action="{!backToCa}"/>                
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

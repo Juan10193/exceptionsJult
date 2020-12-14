@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Credit Approval Status</name>
+    <style>none</style>
+    <subject>Credit approval {!Opportunity.OPP_rb_Credit_Approval__c} has been {!TBO014_Credit_Approval__c.TBO014_tx_Status__c}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

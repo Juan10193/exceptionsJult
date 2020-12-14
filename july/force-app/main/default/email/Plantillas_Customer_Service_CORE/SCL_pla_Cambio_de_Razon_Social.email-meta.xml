@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Cambio de Razón Social</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Cambio_de_Razon_Social</name>
+    <style>formalLetter</style>
+    <subject>Cambio de Razón Social</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+Envío a usted los requisitos para realizar el cambio de razón social, mismos que serán enviados a nuestras áreas de Legal, Riesgo y Compliance para su aprobación:
+
+·  RFC (R2) / Aviso a Hacienda
+
+· Acta de cambio de razón social
+
+· Comprobante de domicilio con antigüedad no mayor a 3 meses
+
+· KYC (original)
+
+· Correo electrónico de quién va a recibir la facturación (confirmación)
+
+Referente al punto, KYC (Original y digital) Anexo 1, 2 y 3: Es necesario que nos envíe el documento en original, además de que en la sección del desglose de accionistas es necesario realizarlo hasta llegar a empresas públicas o personas físicas. Si usted así lo prefiere, puede adjuntar hojas al documento para realizar el envío de la información completa.
+
+Favor de enviar la documentación original solicitada en mi atención a:
+
+Antonio Dovalí Jaime No. 70, Torre C Piso 4
+
+Col. Santa Fe, Del. Alvaro Obregón
+
+Ciudad de México, C.P. 01210
+
+Si derivado de la revisión de la documentación proporcionada, se requiere alguna información adicional, se lo notificaremos de inmediato.
+
+Quedamos en espera de sus comentarios.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

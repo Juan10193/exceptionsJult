@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>ES3_pl_covenant_Update_cuali</name>
+    <style>freeForm</style>
+    <subject>{!ES3_obj_Condition_Service_covenant__c.RecordType}.</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because there is a change in covenants for the credit approval {!ES3_obj_Condition_Service_covenant__c.ES3_rb_Credit_approval_CP__c}.
+
+{!ES3_obj_Condition_Service_covenant__c.RecordType}: {!ES3_obj_Condition_Service_covenant__c.Name}
+Opportunity: {!ES3_obj_Condition_Service_covenant__c.ES3_rb_Oportunidad__c}
+Credit Approval: {!ES3_obj_Condition_Service_covenant__c.ES3_rb_Credit_approval_CP__c}
+Coments: {!ES3_obj_Condition_Service_covenant__c.ES3_tx_Coments__c}
+
+If you want to see the record in Salesforce, click here.
+
+
+Regards, Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,91 @@
+<apex:page lightningStylesheets="true" standardController="Opportunity_in_Credit_approval_CP__c" extensions="ES3_ExtensionControllerOpCa">
+    <apex:form > 
+        <apex:pageBlock title="New Opp in CA"  rendered="{!activaPag}"> 
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection columns="2" title="Selected ">
+                
+                <apex:pageBlockSectionItem id="CreditApprobalId">
+                    <apex:outputLabel value="Credit Approval" />
+                    <apex:inputField value="{!Opportunity_in_Credit_approval_CP__c.CP_rb_Credit_approval_CP__c}" />
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem id="ES3_ck_ItmaybeprovidedinanothercurrencyId" rendered="{!IF(TipoDetalleMac==true,false,true)}">
+                    <apex:outputLabel value="It may be provided in another currency" />
+                    <apex:inputField value="{!Opportunity_in_Credit_approval_CP__c.ES3_ck_Itmaybeprovidedinanothercurrency__c}" />
+                </apex:pageBlockSectionItem>         
+                
+                
+                
+                <apex:pageBlockSectionItem id="OpportunityId" rendered="{!TipoDetalleCA}">
+                         <apex:outputLabel value="*Opportunity" />
+                        <apex:selectList size="1" style="width: 173px" value="{!Opportunity_in_Credit_approval_CP__c.CP_rb_Oportunidad__c}">
+                            <apex:selectOption itemLabel="Select" itemValue=""></apex:selectOption>
+                            <apex:selectOptions value="{!ListOpInCa}"></apex:selectOptions>
+                        </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="OpportunityIdMac" rendered="{!TipoDetalleMac}">
+                         <apex:outputLabel value="*Opportunity" />
+                        <apex:selectList size="1" style="width: 173px" value="{!Opportunity_in_Credit_approval_CP__c.CP_rb_Oportunidad__c}">
+                            <apex:selectOption itemLabel="Select" itemValue=""></apex:selectOption>
+                            <apex:selectOptions value="{!ListOpInCaMac}"></apex:selectOptions>
+                        </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+               <apex:pageBlockSectionItem id="OpportunityIdMOD" rendered="{!TipoDetalleMOD}">
+                         <apex:outputLabel value="*Opportunity" />
+                        <apex:selectList size="1" style="width: 173px" value="{!Opportunity_in_Credit_approval_CP__c.CP_rb_Oportunidad__c}">
+                            <apex:selectOption itemLabel="Select" itemValue=""></apex:selectOption>
+                            <apex:selectOptions value="{!ListOpInMOD}"></apex:selectOptions>
+                        </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="OpportunityIdWK" rendered="{!TipoDetalleWK}">
+                        <apex:outputLabel value="Opportunity *" />
+                        <apex:selectList required="true" size="1" style="width: 173px" value="{!Opportunity_in_Credit_approval_CP__c.CP_rb_Oportunidad__c}">
+                            <apex:selectOption itemLabel="Select" itemValue=""></apex:selectOption>
+                            <apex:selectOptions value="{!ListOpInCaWK}"></apex:selectOptions>
+                        </apex:selectList>
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem id="ProductsId" rendered="{!IF(TipoDetalleMac==true,false,true)}">
+                    <apex:outputLabel value="Products" />
+                    <apex:inputField value="{!Opportunity_in_Credit_approval_CP__c.Products__c}" />
+                </apex:pageBlockSectionItem> 
+
+                
+               <apex:pageBlockSectionItem id="TypeMOD" rendered="{!TipoDetalleMOD}">
+                    <apex:outputLabel value="Type Of Mod:"/>
+                    <apex:inputField value="{!Opportunity_in_Credit_approval_CP__c.MD_ls_Type_Credit_MOD__c}" />
+                </apex:pageBlockSectionItem>               
+                   
+                <apex:pageBlockSectionItem id="AmountAddOn" rendered="{!TipoDetalleMOD}">
+                     <apex:outputLabel value="Amount Add On:"/>
+                  <apex:inputField value="{!Opportunity_in_Credit_approval_CP__c.MD_div_Amount_Increment__c}" />                
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem id="Currency" rendered="{!TipoDetalleMOD}">
+                     <apex:outputLabel value="Currency:"/>
+                  <apex:inputField value="{!Opportunity_in_Credit_approval_CP__c.CurrencyIsoCode}"  />                
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                
+                  <apex:commandButton style="width: 100px;margin-left: 300px;margin-right: auto;" value="Save"  action="{!save}" />
+                
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    
+                    <apex:commandButton style="width: 100px;margin-left: 50px;margin-right: auto;" value="Cancel"  action="{!Cancel}" />
+                    
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="You can´t Add more Opportunities" rendered="{!IF(activaPag ==false,true,false)}">
+            <div align="center">
+                <apex:commandButton value="OK" action="{!NewRecord}" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

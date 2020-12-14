@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template para cuando se rechaza un TKD en cualquier stage.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>TKD_Approval_Generic_Process_Template_Rejected</name>
+    <style>freeForm</style>
+    <subject>Takedown &quot;{!Takedowns_Contingency_plan__c.Name}&quot; has been changed to {!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c} stage</subject>
+    <textOnly>Dear User
+
+You are receiving this notification because the Takedown CP {!Takedowns_Contingency_plan__c.Name} has been Rejected and this record will changed to {!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c} stage.
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+Engen Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

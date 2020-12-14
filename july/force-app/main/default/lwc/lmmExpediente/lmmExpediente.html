@@ -1,0 +1,38 @@
+<!--
+  @File Name          : lmmExpediente.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 11-12-2020
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    1/6/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+  <!-- juand -->
+    <lightning-accordion allow-multiple-sections-open 
+        active-section-name={activeSections}>
+        <lightning-accordion-section name="Estructura" label="Estructura">
+          <c-lmm-expediente-estructura record-id={recordId}></c-lmm-expediente-estructura>
+        </lightning-accordion-section>
+
+        <lightning-accordion-section name="Expediente" label="Expediente">
+          <c-cms record-id={recordId} object-api-name ={objectApiName} query-estructure="Select LMM_tx_Entity_Name__c,LMM_tx_RFC__c,LMM_ls_Entity_Type__c FROM LMM_Entidad_de_oportunidad__c WHERE LMM_pd_Oportunidad__c =" fields-process="RecordType_Name__c,OPP_ls_Vertical__c,OPP_ls_Product__c,StageName" process-name="LOWER_MIDDLERT_MARKET" is-unic="true" 
+          estructura='{
+           "name":"LMM_tx_Entity_Name__c",
+           "rfc":"LMM_tx_RFC__c",
+           "person":"LMM_ls_Entity_Type__c",
+           "parent":"LMM_Entidad_de_oportunidad__c",
+           "ralatedto":"Opportunity",
+           "relationfield":"LMM_pd_Oportunidad__c"
+          }'
+          validations="" is-join-query="false" join-field=""></c-cms>
+        </lightning-accordion-section>
+        
+        <!--<lightning-accordion-section if:true={showKYC} name="KYC" label="Conoce a tu cliente">
+          <c-lmm-k-y-c record-id={recordId}></c-lmm-k-y-c>
+        </lightning-accordion-section>-->
+
+    </lightning-accordion>
+</template>

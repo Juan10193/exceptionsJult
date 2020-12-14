@@ -1,0 +1,15 @@
+<apex:page id="DragNDrop_Credit_approval_CP" showHeader="false" sideBar="false" tabStyle="Credit_approval_CP__c" standardController="Credit_approval_CP__c">
+	<apex:includeLightning />
+	<div id='DragNDrop_Div'></div>
+	<script>
+		var recordId1 = '{!$CurrentPage.parameters.id}';
+		$Lightning.use('CADragNDrop:DragNDropApp', function () {
+			$Lightning.createComponent('CADragNDrop:DragNDropMain',
+				{'recordId': recordId1},
+				'DragNDrop_Div',
+				function (cmp) {
+				}
+			);
+		});
+	</script>
+</apex:page>

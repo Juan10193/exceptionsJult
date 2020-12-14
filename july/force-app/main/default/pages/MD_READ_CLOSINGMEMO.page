@@ -1,0 +1,583 @@
+<apex:page renderAs="pdf" controller="MD_Controller_PDF_MODMAC"  sidebar="false" showHeader="false" applyBodyTag="false">
+    <apex:stylesheet value="{!$Resource.stylePDF}" />
+    <apex:form >
+        
+        <!--Encabezado de los titulos del pdf-->
+     
+        <div style="text-align:center; font-size: 15pt ; font.family:Verdana"><b>TYPE OF CREDIT APPROVAL</b></div><br/>
+               <div style="text-align:center; font-size: 13pt ; font.family:Verdana"><b>MOD
+        
+            <apex:outputPanel rendered="{!if(Incremental , true ,false)}"> 
+             <b>/INCREMENTAL</b>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!if(Add_On, true ,false)}">
+                <b>/ADD ON</b>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!if(Carveouts , true ,false)}">
+                <b>/CARVEOUT</b>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!if(MAC_MOD, true ,false)}">
+                <b>/MAC MOD</b>
+            </apex:outputPanel>
+          </b>
+         </div>
+        <br/>
+        
+        <!--Tabla de los tipos de credito-->
+        
+                <table width="100%" class="table-bordered content">
+            <thead>
+                <tr>
+
+                    <th style="vertical-align: inherit; width:50px ; font.family:Verdana"> 1) Incremental:</th>
+                    <td style="width:50px">
+                        <apex:outputPanel rendered="{!if(Incremental , true ,false)}">
+                            <img src="/img/checkbox_checked.gif" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(Incremental==false , true ,false)}">
+                            <img src="/img/close.gif" />
+                        </apex:outputPanel>
+                    </td>
+                    <th style="vertical-align: inherit; width:50px ; font.family:Verdana"> 2) Add_On:</th>
+                    <td style="width:50px">
+                        <apex:outputPanel rendered="{!if(Add_On, true ,false)}">
+                            <img src="/img/checkbox_checked.gif" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(Add_On==false , true ,false)}">
+                            <img src="/img/close.gif" />
+                        </apex:outputPanel>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="vertical-align: inherit; width:50px ; font.family:Verdana"> 3) Carveout:</th>
+                    <td>
+                        <apex:outputPanel rendered="{!if(Carveouts, true ,false)}">
+                            <img src="/img/checkbox_checked.gif" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(Carveouts==false , true ,false)}">
+                            <img src="/img/close.gif" />
+                        </apex:outputPanel>
+
+                    </td>
+                    <th style="vertical-align: inherit; width:50px ; font.family:Verdana"> 4) Mac-Mod:</th>
+                    <td>
+                        <apex:outputPanel rendered="{!if(MAC_MOD, true ,false)}">
+                            <img src="/img/checkbox_checked.gif" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(MAC_MOD==false , true ,false)}">
+                            <img src="/img/close.gif" />
+                        </apex:outputPanel>
+
+                    </td>
+                </tr>
+            </thead>
+        </table>
+
+        
+        <!--Tabla de Credit Approval Summary-->
+        
+        
+        <br/>
+        <div class="title"><b>Credit Approval Summary</b></div>
+        <br/>
+
+        <table width="100%" class="table-bordered">
+            <thead>
+                <tr>
+                    <th style="font.family:Verdana">CA:</th>
+                    <td style="font-family:Verdana">{!CA}</td>
+                    <th style="font-family:Verdana">Originador:</th>
+                    <td style="font-family:Verdana">{!Originador}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Risk Economic Group:</th>
+                    <td style="font-family:Verdana">{!Economic_Group}</td>
+                    <th style="font-family:Verdana">Inside Sales:</th>
+                    <td style="font-family:Verdana">{!Inside_sales}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Custom Name:</th>
+                    <td style="font-family:Verdana">{!Account_Name}</td>
+                    <th style="font-family:Verdana">Underwriter:</th>
+                    <td style="font-family:Verdana">{!UW}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Obligor:</th>
+                    <td style="font-family:Verdana">{!Obligor_Ca}</td>
+                    <th style="font-family:Verdana">Sr. Underwriter:</th>
+                    <td style="font-family:Verdana">{!SUW}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Risk Dec Entity:</th>
+                    <td style="font-family:Verdana">{!Risk_Dec_Entity}</td>
+                    <th style="font-family:Verdana">Approval Level:</th>
+                    <td style="font-family:Verdana">{!Approval_Level}</td>
+                </tr>
+                <tr>
+                    <th style="font-family:Verdana">Sic Code:</th>
+                    <td style="font-family:Verdana">{!Sic_Code}</td>
+                    <th style="font-family:Verdana">Risk Review Status:</th>
+                    <td style="font-family:Verdana">{!Risk}</td>
+                </tr>
+                <tr>
+
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Risk Classification:</th>
+                    <td style="font-family:Verdana">{!Risk_Classification}</td>
+                    <th style="font-family:Verdana">AML Review Status:</th>
+                    <td style="font-family:Verdana">{!Aml}</td>
+                </tr>
+                
+                 <tr>
+                    <th style="font-family:Verdana">Approval OR Rating:</th>
+                    <td style="font-family:Verdana">{!ApprovalOR}</td>
+                    <th style="font-family:Verdana">OR Override:</th>
+                    <td style="font-family:Verdana">{!OROverride}</td>
+                </tr>
+                
+               
+
+   
+            </thead>
+        </table>
+        <br/>
+        <div class="title"><b>Customer Exposure (amounts in K)</b></div>
+        <br/>
+
+        <table width="60%" class="table-bordered content" style="margin: 0 auto;">
+            <thead>
+
+                <tr>
+                    <th style="width:50px ; font-family:Verdana">Exchange Rate:</th>
+                    <td style="width:50px  ; font-family:Verdana">
+                        <apex:outputtext value="{0, number, integer}">
+                           <apex:param value="{!tc}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+                    <th style="width:50px ; font-family:Verdana">Sum Of Opportunities In USD:</th>
+                    <td style="width:50px ; font-family:Verdana"> 
+                        <apex:outputtext value="{0, number, integer}">
+                            <apex:param value="{!Sum_Opp_USD}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+
+                </tr>
+                
+                <tr>
+
+                    <apex:repeat value="{!oppsCar}" var="oppc" id="oppcartable3">
+
+                        <apex:repeat value="{!oppc['oppcar']}" var="opc" id="oppcartable4">
+
+                           <th style="font-family:Verdana">Carve out of (USD):</th>
+                            <td style="width:50px ; font-family:Verdana">
+                            <apex:outputtext value="{0, number, integer}">
+                           - <apex:param value="{!opc.MD_num_Destination_Amount__c}"></apex:param>
+                        </apex:outputtext>
+                                 </td>
+                        </apex:repeat>
+                    </apex:repeat>
+                </tr>                
+
+                <tr>
+                    <th style="width:50px ; font-family:Verdana">Current Exposure (USD):</th>
+                    <td style="width:50px ; font-family:Verdana"> 
+                        <apex:outputtext value="{0, number, integer}">
+                            <apex:param value="{!Current_Exposure}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+
+                </tr>
+
+
+               <tr>
+                  
+                    <th style="width:50px ; font-family:Verdana">Total Exposure (USD)</th>
+                    <td style="width:50px ; font-family:Verdana"> 
+                         <apex:outputPanel rendered="{!if(Incremental, true ,false)}">
+                      <apex:outputtext value="">{!Totaltc}
+                        </apex:outputtext>
+                              </apex:outputPanel>
+                      <apex:outputPanel rendered="{!if(ADD_ON, true ,false)}">
+                      <apex:outputtext value="">{!Totaltc}
+                        </apex:outputtext>
+                              </apex:outputPanel>
+                    </td>
+                  
+                </tr>
+
+                
+
+            </thead>
+        </table>
+
+        <br/>
+        <div class="title"><b>Deal Information</b></div>
+        <br/>
+
+        <table width="100%" class="table-bordered content">
+            <thead>
+
+                <tr>
+                    <th style="font-family:Verdana">Credit Bureau</th>
+                    <th style="font-family:Verdana">Pass:</th>
+                    <td style="font-family:Verdana">{!Pass_CBureau}</td>
+                    <th style="font-family:Verdana">Date:</th>
+                    <td style="font-family:Verdana">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Date_CBureau}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+
+                    <th style="font-family:Verdana">Comments:</th>
+                    <td style="font-family:Verdana">{!Comments_CBureau}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Payment Trend</th>
+                    <th style="font-family:Verdana">Pass:</th>
+                    <td style="font-family:Verdana">{!Pass_Payment_Trend}</td>
+                    <th style="font-family:Verdana">Date:</th>
+                    <td style="font-family:Verdana">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Date_Payment_Trend}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+
+                    <th style="font-family:Verdana">Comments:</th>
+                    <td style="font-family:Verdana">{!Comments_Payment_trend}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Bil</th>
+                    <th style="font-family:Verdana">Pass:</th>
+                    <td style="font-family:Verdana">{!Pass_Bil}</td>
+                    <th style="font-family:Verdana">Date:</th>
+                    <td style="font-family:Verdana">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Date_Bil}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+                    <th style="font-family:Verdana">Comments:</th>
+                    <td style="font-family:Verdana">{!Comments_Bil}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Fiscal Situation</th>
+                    <th style="font-family:Verdana">Pass:</th>
+                    <td style="font-family:Verdana">{!Pass_Fiscal_Situation}</td>
+                    <th style="font-family:Verdana">Date:</th>
+                    <td style="font-family:Verdana">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Date_Fiscal_Situation}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+                    <th style="font-family:Verdana">Comments:</th>
+                    <td style="font-family:Verdana">{!Comments_Fiscal_Situation}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Google Search</th>
+                    <th style="font-family:Verdana">Pass:</th>
+                    <td style="font-family:Verdana">{!Google_Search_Pass}</td>
+                    <th style="font-family:Verdana">Date:</th>
+                    <td style="font-family:Verdana">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Google_Search_Date}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+                    <th style="font-family:Verdana">Comments:</th>
+                    <td style="font-family:Verdana">{!Comments_Google_Search}</td>
+                </tr>
+
+                <tr>
+                    <th style="font-family:Verdana">Visit</th>
+                    <th style="font-family:Verdana">Pass:</th>
+                    <td style="font-family:Verdana">{!Visit_Pass}</td>
+                    <th style="font-family:Verdana">Date:</th>
+                    <td style="font-family:Verdana">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Visit_Date}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+                    <th style="font-family:Verdana">Comments:</th>
+                    <td style="font-family:Verdana"> {!Comments_Visit}</td>
+                </tr>
+
+                <tr>
+                    <td style="height:18px; border: none;"></td>
+                </tr>
+            </thead>
+        </table>
+
+        <table width="100%" class="table-bordered content">
+            <thead>
+                <tr>
+                    <th style="width:50px ; font-family:Verdana ; vertical-align: inherit">Background:</th>
+                    <td style="width:50px ; font-family:Verdana ;text-align:justify">{!Background}</td>
+                </tr>
+
+                <tr>
+                    <th style="width:50px ; font-family:Verdana ;vertical-align: inherit">Last Approved Inf:</th>
+                    <td style="width:50px ; font-family:Verdana  ;text-align:justify">{!Last_Approved_Int}</td>
+                </tr>
+
+                <tr>
+                    <th style="width:50px ; font-family:Verdana ;vertical-align: inherit">Request:</th>
+                    <td style="width:50px ; font-family:Verdana  ;text-align:justify">{!Request}</td>
+                </tr>
+
+            </thead>
+        </table>
+
+        <br/>
+        <div class="title "><b>Collateral</b></div>
+        <br/>
+
+        <table width="100%" class="table-bordered content">
+            <thead>
+                <tr>
+                    <th style="width:50px ; font-family:Verdana ; vertical-align: inherit">Description:</th>
+                    <td style="width:50px ; font-family:Verdana  ;text-align:justify">{!Description}</td>
+                </tr>
+
+                <tr>
+                    <th style="width:50px ; font-family:Verdana ; vertical-align: inherit">Endorsement:</th>
+                    <td style="width:50px ; font-family:Verdana  ;text-align:justify">{!Endorsement}</td>
+                </tr>
+                
+                  <tr>
+                    <td style="height:15px; border: none;"></td>
+                </tr>
+            </thead>
+        </table>
+
+        
+        <table width="100%" class="table-bordered content">
+            <thead>
+                <tr>
+                   
+                    <th style="border: none"><div class="gfg"><apex:outputText value="{!img1}" escape="false"> </apex:outputText></div></th>
+                    <th style="border: none"><div class="gfg"><apex:outputText value="{!img2}" escape="false"> </apex:outputText></div></th>
+                </tr>               
+ 
+            </thead>
+        </table>
+        
+        <br/>
+        <div class="title"><b>Financial Inf Summary</b></div>
+        <br/>
+
+        <table width="100%" class="table-bordered content">
+            <thead>
+                <tr>
+                    <td style="width: 50px ; font-family:Verdana ;text-align:justify">{!Financial_Inf_Summary}</td>
+                </tr>
+            </thead>
+        </table>
+
+        <!--Tabla de Pricing-->
+
+        <br/>
+        <div class="title"><b>Pricing</b></div>
+        <br/>
+
+        <table width="60%" class="table-bordered content" style="margin: 0 auto;">
+            <thead>
+
+                <apex:repeat value="{!opps}" var="opp" id="priceTable">
+
+                    <apex:repeat value="{!opp['pricings']}" var="price" id="priceTable2">
+
+                        <tr>
+                            <th class="title" style="width: 50px ; font-family:Verdana">Customer Name</th>
+                            <th class="title" style="width: 50px ; font-family:Verdana">TRANCHE</th>
+                        </tr>
+
+                        <tr>
+                            <th class="title" style="width: 50px ; font-family:Verdana"> </th>
+                            <th class="title" style="width: 50px ; font-family:Verdana">Vertical/Prod/Equip Type</th>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Amount</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                 <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param value="{!price.ES3_rb_Pricing__r.TBO018_dv_Amount__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Currency</th>
+                             
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_rb_Pricing__r.CurrencyIsoCode}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Term (Months)</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_rb_Pricing__r.TBO018_un_Term__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Product</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_rb_Pricing__r.ES3_tx_Product_TL_QL_LOAN__c}</td>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Special Bucket</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_ls_SL_B_YES_NO__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">PP Deal</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_nu_Progress_Payments_M__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">ROI wo Insurance (Hurdle)</th>
+                            <td style="width:50px; font-family:Verdana">
+                                <apex:outputText value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_nu_ROI_No_Insurance__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">ROI w Insurance</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                 <apex:outputText value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_rb_Pricing__r.TBO018_pr_Economic_ROI__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Book Yield</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                <apex:outputText value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_rb_Pricing__r.TBO018_pr_Book_Yield__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Active Rate</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                <apex:outputText value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_pc_Rate__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Gross Margin</th>
+                                <td style="width: 50px; font-family:Verdana">{!GrossMargin}</td>
+                            </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">ROE</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                <apex:outputtext value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_rb_Pricing__r.TBO018_pr_Economic_ROE__c}"></apex:param>
+                                </apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Opening Fee</th>
+                            <td style="width:50px ; font-family:Verdana">
+                                <apex:outputtext value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_rb_Pricing__r.TBO018_pr_Opening_Fee__c}"></apex:param>
+                                </apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Sec. Deposit</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_rb_Pricing__r.TBO018_pr_Security_Deposit__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Advance Rent</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.ES3_nu_Advance_PaymentPercent__c}</td>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Residual/PO/Balloon</th>
+                            <td style="width: 50px; font-family:Verdana">
+                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param id="ballon" value="{!IF(ISBLANK(TEXT(price.ES3_num_Ballon_Bullet_Payment__c )),VALUE(price.ES3_rb_Pricing__r.ES3_tx_Ballon_Bullet_Payment__c),price.ES3_num_Ballon_Bullet_Payment__c )}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">TL Only: EOL Option</th>
+                            <td style="width: 50px; font-family:Verdana">{!price.BKL_txt_EOL_Option__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Grace Period (Mos)</th>
+                            <td style="width: 50px; font-family:Verdana"> {!price.ES3_nu_Grace_Period_in_Months__c}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 50px; font-family:Verdana">Expense ANI</th>
+                            <td style="width:50px; font-family:Verdana">
+                                 <apex:outputText value="{0, number, 0.00}">
+                                    <apex:param value="{!price.ES3_rb_Pricing__r.TBO018_pr_Expense_ANI__c}"></apex:param>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+
+                    </apex:repeat>
+                </apex:repeat>
+
+            </thead>
+        </table>
+
+        <br/>
+        <div class="title"><b>Rationale</b></div>
+        <br/>
+
+        <table width="100%" class="table-bordered content">
+            <thead>
+                <tr>
+                    <td style="width:50px; font-family:Verdana ;text-align:justify">{!Rationale_com}</td>
+                </tr>
+                <tr>
+                    <td style="height:18px; border: none;"></td>
+                </tr>
+                
+                
+            </thead>
+        </table>
+        
+                <table width="100%" class="table-bordered content">
+            <thead>
+
+                <tr>
+                    <th style="width: 50px; font-family:Verdana">Original Approval Date:</th>
+                    <td style="width:50px; font-family:Verdana ;text-align:justify"></td>
+                </tr>
+
+                <tr>
+                    <th style="width: 50px; font-family:Verdana">Original Validity:</th>
+                    <td style="width:50px; font-family:Verdana ;text-align:justify"></td>
+                </tr>
+
+                <tr>
+                    <th style="width: 50px; font-family:Verdana">New Validity Date:</th>
+                    <td style="font-family:Verdana  ;text-align:justify">
+                        <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Fecha_Vigencia}"></apex:param>
+                        </apex:outputtext>
+                    </td>
+                </tr>
+
+            </thead>
+        </table>
+
+    </apex:form>
+</apex:page>

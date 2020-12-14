@@ -1,0 +1,202 @@
+<apex:page standardController="Case" standardStylesheets="false" applyBodyTag="false" showChat="false" showHeader="false" sidebar="true" id="miPagina" >
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <title>Salesforce Lightning Design System Trailhead Module</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <apex:slds />
+        </head>
+        <style type="text/css">
+            .asideText { font-style: italic; }
+            font-weight: normal;
+            font-style: normal;
+            }
+            h1, th, ,span, ul, li{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            }
+            font-weight: normal;
+            font-style: normal;
+            }
+            a{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            }
+            h4,h3{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size:18px;
+            }
+            .inputField{
+            width: 80%;
+            height: 34px;
+            padding: 6px 13px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            } 
+            .inputField2{
+            width: 80%;
+            height: 34px;
+            padding: 6px 13px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            } 
+            .inputField3{
+            width: 50%;
+            height: 34px;
+            padding: 6px 15px;
+            font-size: 10px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            }
+            table{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size:13px;
+            color: 3399FF;
+            }
+            label, input{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size:14px;
+            }
+            h2{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size:24px;
+            }
+            .site-wrap {
+            min-height: 100%;
+            min-width: 100%;
+            background-color: white; 
+            position: relative;
+            top: 0;
+            bottom: 100%;
+            left: 0;
+            z-index: 1;
+            padding: 4em;
+            background-image: -webkit-linear-gradient(315deg, rgb(254,255,255) 0%,rgb(221,241,249) 35%,rgb(160,216,239) 100%);
+            background-image: linear-gradient(135deg, rgb(254,255,255) 0%,rgb(221,241,249) 35%,rgb(160,216,239) 100%);
+            background-size: 200%;
+            }
+            .divTable{
+            display: table;
+            width: 100%;
+            }
+            .divTableRow {
+            display: table-row;
+            }
+            .divTableHeading {
+            background-color: #FFF;
+            display: table-header-group;
+            }
+            .divTableCell, .divTableHead {
+            border: 1px solid #FFF;
+            display: table-cell;
+            padding: 3px 10px;
+            }
+            .divTableHeading {
+            background-color: #FFF;
+            display: table-header-group;
+            font-weight: bold;
+            }
+            .divTableFoot {
+            background-color: #FFF;
+            display: table-footer-group;
+            font-weight: bold;
+            }
+            .divTableBody {
+            display: table-row-group;
+            }
+        </style>
+        <body>
+            <apex:form id="Caso_Cerrado">  
+                <apex:pageBlock id="PaginaprincipaldelCasoCerrado" >
+                    <div class="slds-scope">
+                        <div class="" id="Case_closed"></div>               
+                        <div class="row">
+                            <div class= "bs-component"></div>
+                        </div>
+                        <br/>
+                        <div class="slds-page-header" role="banner">
+                            <div class="slds-media slds-media--center">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-standard-case">
+                                        <svg class="slds-icon slds-icon-text slds-icon--large" aria-hidden="true"> 
+                                            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#case')}"></use>
+                                        </svg><span class="slds-assistive-text"></span>
+                                    </span>   
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-text-heading--small"><b>CASOS</b></div> 
+                                    <div class="slds-text-heading--medium">CERRAR EL CASO</div>  
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="slds-m-top--x-large"></div>
+                        <div class="row">
+                            <div class="col-lg-10 col-xs-12" >
+                                <span class="slds-badge">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;Información del Caso&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;</span><br/><br/>
+                                <div class="row"> 
+                                    <div class="divTable" style="width: 100%;">
+                                        <div class="divTableBody">
+                                            <div class="divTableRow">
+                                                <div class="divTableCell" style="width: 20%;"></div>
+                                                <div class="divTableCell" style="width: 40%;"></div>
+                                                <div class="divTableCell" style="width: 40%;"></div> 
+                                            </div>
+                                            <div class="divTableRow">
+                                                <div class="slds-tile__detail slds-text-body--small" align="right">Estado</div>
+                                                <div class="divTableCell"><apex:inputField value="{!Case.Status}"  required="TRUE" style="font-weight: normal;" /></div>
+                                            </div><div class="slds-m-top--none"></div>
+                                            <div class="divTableRow">
+                                                <div class="slds-tile__detail slds-text-body--small" align="right">Comentarios del Cierre</div>
+                                                <div class="divTableCell"><apex:inputField value="{!Case.CAS029_rb_Comentarios_delcierre__c}" required="TRUE" style="font-weight: normal;" /></div>
+                                            </div><div class="slds-m-top--none"></div>    
+   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
+                        </div><div class="slds-m-top--x-large"></div><hr/>
+                        <div class="slds-page-header" role="banner">
+                            <div class="slds-media slds-media--center">
+
+                                <div align="center" class="slds-media__figure slds-media__figure--reverse">
+                                    <apex:commandButton value="Save" action="{!Save}" styleClass="slds-button slds-button--brand"/>
+                                    <apex:commandButton value="Cancel" action="{!Cancel}" styleClass="slds-button slds-button--brand"/>
+                                </div>
+                            </div>
+                        </div>             
+                    </div>
+                    <apex:pageMessages id="apexerror" />
+                </apex:pageblock>
+                <div class="col-lg-12  col-sm-12 ">                                    
+                    <apex:pageBlock >
+                        <div class="form-group col-xs-3" />
+                        <div class="form-group col-xs-3" />
+                        <div class="form-group col-xs-3" />
+                        <div class="form-group col-xs-3" />
+                    </apex:pageBlock>
+                </div>        
+            </apex:form>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,19 @@
+<template>
+    <template if:true={supplierInApproval}>
+        <div class="slds-grid slds-wrap">
+            <template if:true={spiner}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+            <template if:false={spiner}>
+                    <div class="slds-col slds-size_4-of-12">
+                    <lightning-input onchange={handlechange} type="datetime"
+                        value={fecha}
+                        label="Account statement date"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning-button label="Set Date" onclick={handleClick}></lightning-button>
+                    </div>
+            </template>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,96 @@
+<apex:page lightningStylesheets="true"  controller="EIV_EntitiesSearchClass" >
+    <apex:form >
+        
+        <apex:tabPanel switchType="client" selectedTab="TAB1" id="theTabPanel">
+            <apex:tab label="SEARCH ENTITIES" name="TAB1" id="tabOne">
+                <apex:pageBlock title="Search Entities" rendered="{!searchEntity}"> 
+                    <apex:pageBlockSection columns="1" title="Search">
+                        <apex:inputText value="{!searchString}" label="Search Entity from RFC or Name"/> 
+                        <apex:commandButton value="Search records" action="{!searchEntity}"/> 
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:pageBlock title="Entities">
+                    <apex:pageMessages id="showmsg"></apex:pageMessages> 
+                    <apex:pageblockTable value="{!entities}" var="a"> 
+                        <apex:column headerValue="Oracle Account Name">
+                            <apex:outputLink value="/apex/{!a.vfSNameRead}?PartyId={!a.Party_Id}&AccountId={!a.Account_ID}&AccountName={!a.SF_Account_Name}&TopParentID={!a.Top_Parent_ID}&TopParentName={!a.Top_Parent_Name}" id="linkaccountId">{!a.Oracle_Account_Name}</apex:outputLink>
+                        </apex:column>                       
+                        <apex:column headerValue="Oracle Account Number">
+                            <apex:outputText value="{!a.Oracle_Account_Number}"/>
+                        </apex:column>                  
+                        <apex:column headerValue="RFC">
+                            <apex:outputText value="{!a.RFC}"/>
+                        </apex:column>
+                        <apex:column headerValue="Party Id">
+                            <apex:outputText value="{!a.Party_Id}"/>
+                        </apex:column>                
+                        <apex:column headerValue="Top Parent Name">
+                            <apex:outputLink value="/{!a.Top_Parent_Id}" id="linkTopParentId">{!a.Top_Parent_Name}</apex:outputLink>
+                        </apex:column>                  
+                        <apex:column headerValue="Customer Type">
+                            <apex:outputText value="{!a.Customer_Type}"/>
+                        </apex:column>
+                    </apex:pageblockTable> 
+                </apex:pageBlock>                         
+            </apex:tab>
+            <apex:tab label="SEARCH REQUESTS" name="TAB2" id="tabTwo">
+                <apex:pageBlock title="Search Request" rendered="true"> 
+                    <apex:pageBlockSection columns="2" title="SearchReqParams">
+                        <apex:inputText value="{!searchAssignedGroup}" label="Assigned To (Group)"/> 
+                        <apex:inputText value="{!searchRequestType}" label="Request Type"/> 
+                        <apex:inputText value="{!searchAssignedTo}" label="Assigned To (Person)"/> 
+                        <apex:inputText value="{!searchRequestStatus}" label="Request Status"/> 
+                        <apex:inputText value="{!searchStartDate}" label="Request Start Date"/> 
+                        <apex:inputText value="{!searchEndDate}" label="Request End Date"/> 
+                        <apex:inputText value="{!searchRequestedBy}" label="Request By"/> 
+                        <apex:inputText value="{!searchPartyName}" label="Oracle Account Name"/> 
+                        <apex:inputText value="{!searchSourceTopParentName}" label="Top Parent Name"/> 
+						<apex:inputText value="{!searchEgPartyName}" label="Economic Group"/> 
+                        <apex:inputText value="{!searchRequestId}" label="Request ID"/> 
+                        <apex:commandButton value="Search records" action="{!searchRequest}"/> 
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:pageBlock title="Requests">
+                    <apex:pageMessages id="showmsgReq"></apex:pageMessages> 
+                    <apex:pageblockTable value="{!requestList}" var="a"> 
+                        
+                        <apex:column headerValue="Request Type">
+                            <!--<apex:outputLink value="/apex/ES2_ReadPage_AML?PartyId={!a.Party_Id}&AccountId={!a.Account_ID}&AccountName={!a.SF_Account_Name}&TopParentID={!a.Top_Parent_ID}&TopParentName={!a.Top_Parent_Name}" id="linkaccountId">{!a.pOutRequestType}</apex:outputLink>-->
+                            <apex:outputLink value="/apex/ES2_ReadPage_AML?AccountId={!a.pOutSourceAccountId}TopParentID={!a.pOutSourceTopParentId}" id="linkAMLId">{!a.pOutRequestType}</apex:outputLink>
+                        </apex:column>                       
+                        
+                      
+                        <apex:column headerValue="Request Type">
+                            <apex:outputText value="{!a.pOutRequestType}"/>
+                        </apex:column>
+                        <apex:column headerValue="Party Name">
+                            <apex:outputText value="{!a.pOutPartyName}"/>
+                        </apex:column>
+                        <apex:column headerValue="Request Id">
+                            <apex:outputText value="{!a.pOutRequestId}"/>
+                        </apex:column>
+                        <apex:column headerValue="Created By">
+                            <apex:outputText value="{!a.pOutCreatedBy}"/>
+                        </apex:column>
+                        <apex:column headerValue="Requested By">
+                            <apex:outputText value="{!a.pOutRequestedBy}"/>
+                        </apex:column>
+                        <apex:column headerValue="Assigned Group">
+                            <apex:outputText value="{!a.pOutAssignedGroup}"/>
+                        </apex:column>                       
+                        <apex:column headerValue="Assigned To">
+                            <apex:outputText value="{!a.pOutAssignedTo}"/>
+                        </apex:column>
+                        <apex:column headerValue="Creation Date">
+                            <apex:outputText value="{!a.pOutCreationDate}"/>
+                        </apex:column>
+                        
+                        
+                    </apex:pageblockTable> 
+                </apex:pageBlock>                         
+            
+            
+            </apex:tab>
+        </apex:tabPanel>           
+    </apex:form>
+</apex:page>

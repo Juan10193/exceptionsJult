@@ -1,0 +1,58 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font color="#000066" style="color: rgb(0, 0, 0); font-family: arial; font-size: medium; background-color: rgb(255, 255, 255);"><b><span style="white-space:pre">	</span>Dear&nbsp;</b></font><span style="background-color: rgb(255, 255, 255);"><font color="#000066" face="arial"><b>{!User.Name}</b></font><b style="color: rgb(0, 0, 102); font-family: arial; font-size: 12pt;">,</b></span><table border="0" cellpadding="0" cellspacing="0" width="828" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; border-collapse: collapse; width: 621pt;"><colgroup><col width="828" style="mso-width-source:userset;mso-width-alt:30281;width:621pt"></colgroup><tbody>
+ 
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066"><br>You are receiving this
+  notification because the Progress Payment Fee</font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066">{!PPF_obj_Progress_Payment_Fee__c.Name},
+  must be charger<br><ul><li>Takedown&nbsp;{!Progress_Payment__c.PPF_rb_Original_Takedown_ProgressPayment__c}</li><li>Takedown OEC {!Progress_Payment__c.PPE_TDAmount__c}</li><li>Fee Amount Percentege {!PPF_obj_Progress_Payment_Fee__c.Fee_Amount_Percentege__c}</li><li>Fee Amount&nbsp;{!PPF_obj_Progress_Payment_Fee__c.PPF_Fee_amount__c}</li></ul></font><div style=""><font face="Arial, sans-serif"><font color="#000066" style="color: rgb(0, 0, 102);">If you want to see record in Salesforce,&nbsp;</font><a href="https://engeniumcapital--devca.cs53.my.salesforce.com/p/email/template/EmailTemplateEditorUi/{!PPF_obj_Progress_Payment_Fee__c.PPE_fm_CurrentURL__c}{!PPF_obj_Progress_Payment_Fee__c.Id}" style="">&nbsp;</a><a href="{!PPF_obj_Progress_Payment_Fee__c.Link}">{!PPF_obj_Progress_Payment_Fee__c.Name}</a></font></div><font color="#000066"><div><b style="font-size: 12pt;">Regards,</b></div></font><font color="#000066"><div><b style="font-size: 16px; font-family: Arial, sans-serif; background-color: rgb(255, 255, 255);">Engenium Capital</b></div></font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" width="828" style="height:12.0pt;width:621pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl68" style="height:12.0pt"><br></td>
+ </tr></tbody></table><p class="x_MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin: 0cm 0cm 0.0001pt 35.4pt; background-color: rgb(255, 255, 255);"><span lang="EN-US" style=""><font style="" color="#000066" face="Arial, sans-serif"><b><br></b></font></span></p><table border="0" cellpadding="0" cellspacing="0" width="828" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; border-collapse: collapse; width: 621pt;"><tbody><tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl63" width="828" style="height:12.0pt;width:621pt"><br></td></tr></tbody></table>]]></td>
+</tr>
+</table>

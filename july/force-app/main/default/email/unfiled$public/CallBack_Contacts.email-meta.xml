@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>CallBack Contacts</name>
+    <style>formalLetter</style>
+    <subject>Call Back Contacts for {!Entity_CP__c.Name} need your approval</subject>
+    <textOnly>Dear User
+You are receiving this notification because {!Entity_CP__c.Name} has Call Back Contacts that need your approval:
+
+Requestor: {!Entity_CP__c.LastModifiedBy}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

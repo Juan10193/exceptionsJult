@@ -1,0 +1,28 @@
+.lgc-bg {
+    background-color: rgb(255, 255, 255);
+    border:rgb(170, 168, 168) 1px solid;
+}
+
+.lgc-bg-second {
+    background-color: rgb(255, 255, 255);
+    border:rgb(211, 208, 208) 1px solid;
+}
+
+.ytp-button {
+    border-color: rgb(0, 38, 255);
+    border-width: 1px;
+    color: #ffffff;
+    background-color: rgb(0, 102, 255);
+    margin: 4px;
+}
+
+.slds-popover.slds-popover_full-width{
+    position: absolute;
+    left:0rem;
+    top:1200 px;
+    
+}
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}

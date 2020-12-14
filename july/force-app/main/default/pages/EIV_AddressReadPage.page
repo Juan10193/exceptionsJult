@@ -1,0 +1,91 @@
+<apex:page lightningStylesheets="true" controller="EIV_EntityExtendClassBis">
+    <apex:form >
+        <!--Aqui inicia Information-->
+        <apex:pageBlock title="Address">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            
+            <apex:pageBlockSection columns="2" title="Top Parent information">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Top Parent Name"  />
+                        <apex:outputText id="Top_Parent_Name" value="{!Entity.Top_Parent_Name}" />
+                    </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Entity Name" id="Entity_name"/>
+                        <apex:outputText value="{!Entity.Oracle_Account_Name}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Information"> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Zip Code" for="zip_code"/>
+                    <apex:outputText value="{!addressObj.Zip_Code}"/> 
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Country" for="Country"/>
+                    <apex:outputText value="{!addressObj.Country}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="State" for="State"/>
+                    <apex:outputText value="{!addressObj.State}"/> 
+                </apex:pageBlockSectionItem>
+                
+
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Active" for="Active"/>
+                     <apex:outputText value="{!addressObj.Status}"/> <!--  -->
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="City" for="City"/>
+                     <apex:outputText value="{!addressObj.City}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Purpose" for="Purpose"/>
+                    <apex:outputText value="{!addressObj .Purpose}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Municipality" for="Municipality"/>
+                     <apex:outputText value="{!addressObj.Municipality}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="County" for="County"/>
+                     <apex:outputText value="{!addressObj.County}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Street" for="Street"/>
+                     <apex:outputText value="{!addressObj.Street}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Outdoor Number" for="Outdoor_Number"/>
+                    <apex:outputText value="{!addressObj.Outdoor_Number}"/>  
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+               
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Interior Number" for="Interior_Number"/>
+                     <apex:outputText value="{!addressObj.Interior_Number}"/>   
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <div style="width: 350px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Edit" rendered="{!addressPrivileges.bUpdate}" action="{!editAddress}"/>
+                <apex:commandButton style="width: 100px;" value="Clone" rendered="{!addressPrivileges.bCreate}" action="{!cloneAddress}"/>
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}"/>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,112 @@
+<apex:page controller="TBO014_cvf_Update_CreditApproval">
+    <apex:outputPanel rendered="{!hasPrivileges}">
+        <apex:outputPanel rendered="{!(creditApproval.TBO014_tx_Status__c == 'New') || (creditApproval.TBO014_tx_Status__c == 'Rework') || (creditApproval.TBO014_tx_Status__c == 'MOD') || ((creditApproval.TBO014_tx_Status__c == 'Declined') && hasErrorMessages)}"> 
+            <apex:sectionHeader title="Edit Credit Approval" subtitle="{!creditApproval.Name}"/>
+            <apex:form id="caform">
+                <apex:pageBlock title="Update Credit Approval">
+                    <apex:pageBlockButtons >
+                        <apex:commandButton value="Save" action="{!btnSave}"/>
+                        <apex:commandButton value="Cancel" action="{!btnCancel}" />
+                    </apex:pageBlockButtons>
+                    <apex:pageMessages id="showmsg"></apex:pageMessages>
+                    <apex:pageBlockSection title="Credit Approval Information" columns="2">
+                        <apex:inputField value="{!creditApproval.TBO014_rb_Account__c}" />
+                        <apex:outputField value="{!creditApproval.TBO014_tx_Region__c}" />
+                        <apex:outputField value="{!creditApproval.OwnerId}" />
+                        <apex:outputField value="{!creditApproval.Name}"/>
+                        <apex:inputField value="{!creditApproval.TBO014_ls_Approval_Category__c}" />
+                        <apex:outputField value="{!creditApproval.TBO014_tx_EXT_REF_ID__c}" />
+                        <apex:outputField value="{!creditApproval.TBO014_tx_Approval_Type__c}" />
+                        <apex:outputField value="{!creditApproval.TBO014_rb_Credit_Approval_Original__c}" />
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Approval request" columns="2">
+                        <apex:outputField value="{!creditApproval.TBO014_un_Total_Amount_USD_Converted__c}" />
+                        <apex:outputField value="{!creditApproval.TBO014_un_Amount_USD__c}" />
+                        <apex:outputText value="" />
+                        <apex:outputField value="{!creditApproval.TBO014_un_Amount_MXN__c}" />
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Approval status" columns="2">
+                        <apex:inputField value="{!creditApproval.TBO014_tx_Status__c}" />
+                        <apex:inputField value="{!creditApproval.TBO014_fh_Effective_Start_Date__c}" />
+                        <apex:inputField value="{!creditApproval.TBO014_fh_Status_Date__c}" />
+                        <apex:inputField value="{!creditApproval.TBO014_fh_Effective_End_Date__c}" />
+                        <!--
+                        <apex:inputField value="{!creditApproval.TBO014_ca_Active__c}" />
+                        <apex:inputField value="{!creditApproval.TBO014_ls_EFA_required__c}" />
+                        -->
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection title="Opportunities" columns="1">
+                            <apex:panelGrid columns="4" id="opportunities" style="padding-left: 170px;">
+                                <apex:outputLabel style="font-weight:bold; padding-right: 15px;">Opportunity</apex:outputLabel>
+                                <apex:selectList id="unselectedOpp" value="{!selectedOpportunitiesLeft}" multiselect="true" size="5" style="width:160px; height: 100px;">
+                                    <apex:selectOptions value="{!UnselectedOpportunities}" />
+                                </apex:selectList>
+                                <apex:panelGroup >
+                                    <br/>
+                                    <apex:commandButton value=">" action="{!selectOpportunityClick}" reRender="caform"/>
+                                    <br/>
+                                    <br/>
+                                    <apex:commandButton value="<" action="{!unselectOpportunityClick}" reRender="caform"/>
+                                </apex:panelGroup>
+                                <apex:selectList id="selectedOpp" value="{!selectedOpportunitiesRight}" label="Opportunity" multiselect="true"  size="5" style="width:160px; height: 100px;">
+                                    <apex:selectOptions value="{!SelectedOpportunities}" />
+                                </apex:selectList>
+                            </apex:panelGrid>
+                    </apex:pageBlockSection>
+                    <apex:outputPanel id="pricings">
+                        <apex:pageBlockSection title="Pricing" columns="1">
+                            <apex:panelGrid columns="4" id="pricings" style="padding-left: 195px;">
+                                <apex:outputLabel style="font-weight:bold; padding-right: 15px;">Pricing</apex:outputLabel>
+                                <apex:selectList id="unselectedPricing" value="{!selectedPricingsLeft}" multiselect="true" size="5" style="width:160px; height: 100px;">
+                                    <apex:selectOptions value="{!UnselectedPricings}" />
+                                </apex:selectList>
+                                <apex:panelGroup >
+                                    <br/>
+                                    <apex:commandButton value=">" action="{!selectPricingClick}" reRender="pricings"/>
+                                    <br/>
+                                    <br/>
+                                    <apex:commandButton value="<" action="{!unselectPricingClick}" reRender="pricings"/>
+                                </apex:panelGroup>
+                                <apex:selectList id="selectedPricing" value="{!selectedPricingsRight}" label="Pricing" multiselect="true"  size="5" style="width:160px; height: 100px;">
+                                    <apex:selectOptions value="{!SelectedPricings}" />
+                                </apex:selectList>
+                            </apex:panelGrid>
+                        </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <apex:pageBlockSection title="System information" columns="2">
+                        <apex:outputField value="{!creditApproval.CreatedById}" />
+                        <apex:outputField value="{!creditApproval.LastModifiedById}" />
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:form>
+            </apex:outputPanel>
+        <apex:outputPanel rendered="{!(creditApproval.TBO014_tx_Status__c == 'Submitted') || (creditApproval.TBO014_tx_Status__c == 'Approved') || ((creditApproval.TBO014_tx_Status__c == 'Declined') && (!hasErrorMessages))}">
+            <apex:form id="stForm">
+                <apex:pageBlock mode="maindetail" title="Status Not Modifiable">
+                    <div style="padding-left: 15px;">
+                        <p>
+                            A Credit Approval cannot be modified while in Submitted or Approved status.
+                        </p>  
+                        <p>
+                            Click <apex:commandLink value="here" action="{!btnCancel}" /> to return to the previous page.
+                        </p>  
+                    </div>  
+                </apex:pageBlock>
+            </apex:form>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!(!hasPrivileges)}">
+        <apex:form id="npForm">
+            <apex:pageBlock mode="maindetail" title="Insufficient Privileges">
+                <div style="padding-left: 15px;">
+                    <p>
+                        You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.
+                    </p>  
+                    <p>
+                        Click <apex:commandLink value="here" action="{!btnCancel}" /> to return to the previous page.
+                    </p>  
+                </div>  
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

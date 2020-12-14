@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notificación a PB si Deal category es igual a Release y el stage avance a Audit CD</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>TKD_Prebook_S_AduitCD</name>
+    <style>freeForm</style>
+    <subject>Takedown CP  {!Takedowns_Contingency_plan__c.Name} With Deal Category &quot;Release&quot; has a been changed to &quot;Registry&quot;</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because the Takedown CP
+{!Takedowns_Contingency_plan__c.Name} in {!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c} stage is waiting for Approval.
+
+If you want to see the record in Salesforce, click here .
+
+Regards,
+Engen Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

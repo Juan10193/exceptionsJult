@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Factura de Comisión de Apertura con comprobante de pago</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Factura_de_Comision_de_Apertura_con_comprobante_de_pago</name>
+    <style>formalLetter</style>
+    <subject>Factura de Comisión de Apertura con comprobante de pago</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+Confirmamos la recepción del comprobante de pago, con el cual solicitaremos le emisión de la factura.
+
+En breve se realizará el envío al contacto de facturación registrado en nuestro sistema, desde el correo genérico facturacion@engeniumcapital.com
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

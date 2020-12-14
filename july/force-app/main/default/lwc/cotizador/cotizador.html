@@ -1,0 +1,198 @@
+<!--
+  @File Name          : cotizador.html
+  @Description        :
+  @Author             : angel87ambher@gmail.com
+  @Group              :
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 11-12-2020
+  @Modification Log   :
+  Ver       Date            Author      		    Modification
+  1.0    18/2/2020   angel87ambher@gmail.com     Initial Version
+-->
+<template>
+
+	<lightning-card title="Datos de cotizacion" icon-name="action:quote">
+		<lightning-layout-item size="12" padding="around-small">
+				<div class="slds-p-around_medium lgc-bg">
+					<lightning-tree-grid
+						columns={tabledatos}
+						data={lstcuenta}
+						key-field="name"
+					></lightning-tree-grid>
+				</div>
+		</lightning-layout-item>
+	</lightning-card> 
+
+    <lightning-card title="Cotizador" icon-name="action:quote">
+        <lightning-layout multiple-rows >
+            <lightning-layout-item size="12" padding="around-small">
+
+				<div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none" >
+
+					<lightning-layout multiple-rows>
+
+                       <!-- <lightning-button label={toggleButtonLabel} title="Toggle content action" icon-name={toggleIconName} onclick={handleToggleClick}> </lightning-button>-->
+
+						<lightning-layout-item size="12" padding="around-small">
+
+							<div class="slds-m-around_medium">
+								<lightning-radio-group name="radioGroup" label="Tipo de persona:" options={persona} value="" onchange={handleChangePersona} type="radio"></lightning-radio-group>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<!-- <lightning-input type="text" label="Nombre de la empresa:" value="" onchange={handleChangeEmpresa}  placeholder="type here..." required></lightning-input> -->
+								
+								<c-lookup  selection={initialSelection}
+								errors={errors}
+								onsearch={handleSearch}
+								onselectionchange={handleSelectionChange}
+								label="*Nombre de la empresa:"
+								placeholder="Search Salesforce"
+								is-multi-entry={isMultiEntry}
+								required></c-lookup>
+							</div>
+							<template if:false={resultados}>
+								<p><strong>No se encontraron registros </strong></p> <lightning-button variant="base" label="Nuevo Lead" onclick={navigateToNewLead} title="Crear un Nuevo Lead"></lightning-button>
+							</template>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-input type="text" label="Nombre de contacto:" value="" data-id="NombreCon" onchange={handleChangeContacto}  placeholder="type here..." required></lightning-input>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-input type="text" label="RFC:" value="" onchange={handleChangeRFC} placeholder="type here..."></lightning-input>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-input type="email" label="Correo eletrónico:" data-id="email" value="" onchange={handleChangeEmail}  placeholder="type here..." required></lightning-input>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-input type="tel" label="Teléfono:" value="" data-id="phone" onchange={handleChangeTel}  placeholder="areacode-phone" required></lightning-input>
+							</div>
+						</lightning-layout-item>
+
+						<!--<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-combobox name="Ventas" label="Ventas/Ingresos anuales" value="" placeholder="Seleccione" options={ventas} onchange={handleChangeVentas} required > </lightning-combobox>
+							</div>
+						</lightning-layout-item>-->
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-combobox name="financiamiento" label="Tipo de financiamiento" value="" placeholder="Seleccione" options={tipofinanciamiento} onchange={handleChangeFinancialType} required > </lightning-combobox>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-combobox name="Ubicacion" label="Ubicación" value="" placeholder="Seleccione" options={ubicacion} onchange={handleChangeUbicacion} required> </lightning-combobox>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-combobox name="Plazo" label="Plazo" value="" placeholder="Seleccione" options={plazo} onchange={handleChangePlazo} required> </lightning-combobox>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+								<lightning-combobox name="TipoActivo" label="Tipo de activo" value="" placeholder="Seleccione" options={tipoactivo} onchange={handleChangeTipoActivo} required> </lightning-combobox>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+							   <!-- <lightning-input type="number" name="input7" label="Valor del activo" value="" onchange={handleChangeActivo} formatter="currency" step="0.01" currency-code="MXN" required></lightning-input>-->
+								<lightning-input type="number" name="seven" value="0" onchange={handleChangeActivo} label="Valor del activo" ></lightning-input>
+							</div>
+						</lightning-layout-item>
+						
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+							   <!-- <lightning-input type="number" name="input7" label="Valor del activo" value="" onchange={handleChangeActivo} formatter="currency" step="0.01" currency-code="MXN" required></lightning-input>-->
+								<lightning-input type="number" name="seven" step="0.01" min={tasActiva} value={tasActiva} onchange={handleChangeTasa} label="Tasa Activa" ></lightning-input>
+
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+
+							<div class="slds-m-around_medium">
+								<lightning-radio-group name="radioGroup2" label="Moneda del activo:" options={moneda} value="" onchange={handleChangeMoneda} type="radio"></lightning-radio-group>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-horizontal_medium">
+								<lightning-slider label="Comisión por apertura" size="x-small" value={val} min="0" max="4.5" step="0.5" onchange={handleChangeSlider}></lightning-slider>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-horizontal_medium">
+								<lightning-slider label="Deposito de seguridad" size="x-small" value={val} min="0" max="20" onchange={handleChangeSlider2}></lightning-slider>
+							</div>
+						</lightning-layout-item>
+
+						<template if:true={financiero}>
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-horizontal_medium">
+								<lightning-slider label="Opción de compra" size="x-small" value={val} min="0" max="3" step="0.5" onchange={handleChangeSlider3}></lightning-slider>
+							</div>
+						</lightning-layout-item>
+					</template>
+
+						
+						<lightning-layout-item size="3" padding="around-small">
+							<div class="slds-p-horizontal_medium">
+								<lightning-slider label="R. Anticipada / Enganche" size="x-small" value={val} min="0" max="20" onchange={handleChangeSlider4}></lightning-slider>
+							</div>
+						</lightning-layout-item>
+
+
+					</lightning-layout>
+					<div if:true={sipinner} class="slds-spinner_inline spinner-padding">
+						<lightning-spinner variant="brand" 
+										   alternative-text="Updating Record"     
+										   size="medium">
+						</lightning-spinner>
+					</div>
+					<lightning-layout-item size="5" padding="around-small">
+				<div class="slds-p-horizontal_xx_xx-large slds-align_absolute-center">
+					<lightning-button variant="brand" onclick={handleClick} label="Cotizador" title="Download action with brand variant" icon-name="action:quote" class="slds-p-horizontal_xx-large slds-align_float-center"></lightning-button>
+					<template if:true={guardado}>
+						<lightning-button variant="brand" onclick={handleSaveCotizacion} label="Guardar" title="Guardar Cotizacion" icon-name="action:quote" class="slds-p-horizontal_xx_xx-large slds-align_float-center"></lightning-button>
+					</template>
+					
+				</div>
+			</lightning-layout-item>
+				</div>
+
+					</lightning-layout-item>
+		</lightning-layout>
+	</lightning-card>
+
+	<lightning-card title="Tabla" icon-name="action:quote">
+		<lightning-layout-item>
+			<div style="height: 300px;" class="slds-m-vertical_large slds-m-around_medium lgc-id_content-toggle">
+				<lightning-datatable
+					key-field="id"
+					data={lstAmortizacion}
+					columns={tablecols}>
+				</lightning-datatable>
+			</div>
+		</lightning-layout-item>
+	</lightning-card>
+</template>

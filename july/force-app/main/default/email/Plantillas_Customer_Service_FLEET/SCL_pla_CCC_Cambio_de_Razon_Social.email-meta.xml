@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CCC Cambio de Razon Social</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_CCC_Cambio_de_Razon_Social</name>
+    <style>formalLetter</style>
+    <subject>Cambio de Razon Social</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por comunicarse a la plataforma de Servicio a Clientes de Engenium Capital.
+
+En caso de usted requerir cambio de Razón Social, es necesario nos envíe los documentos legales que amparen el cambio de razón social y/o datos fiscales:
+
+·  Nueva cedula RFC
+
+·  Acta Cesión de Derechos, Acta fusión, Acta de Asamblea y/o Acta Constitutiva.
+
+Por nuestra parte procederemos a solicitar la aprobación de nuestra área Legal y Riesgo.
+
+NOTA: SOLO CCC.
+
+Solicitar la aprobación de nuestra área Legal y Riesgo por mail.
+
+Una vez obtenido este VoBo solicitar un SR a Transaction Delivery y adjuntar aprobaciones.
+
+Para futuras referencias su número de caso es: {!Case.CaseNumber}
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

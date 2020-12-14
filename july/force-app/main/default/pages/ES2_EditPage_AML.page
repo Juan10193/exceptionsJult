@@ -1,0 +1,135 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_AML" >
+    <apex:form >
+        <apex:pageBlock title="AML">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:inputText disabled="true" id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:inputText disabled="true" id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:inputText disabled="true" id="Top_Parent_Name" value="{!req.pOutsourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:inputText disabled="true" id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:inputText disabled="true" id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:inputText disabled="true" id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:inputText disabled="true" id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:inputText disabled="true" id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                
+                <apex:pageBlockSectionItem >
+                    
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            
+            <apex:pageBlockSection columns="2" title="AML CRR">  <!--AQUI EMPIEZA EL AREA CRR --> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR" for="CRR"/>
+                    <apex:inputText disabled="true" id="CRR" value="{!req.amlObj.CRR}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR Modification Date" for="CRRModificationDate"/>
+                    <apex:inputText disabled="true" id="CRRModificationDate" value="{!req.amlObj.CRRModificationDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR Override" for="CRROverride"/>
+                    <apex:selectList size="1" id="CRROverride" style="width: 173px" disabled="true"  value="{!req.amlObj.CRROverride}">
+                        <apex:selectOption itemLabel="SELECTION" itemValue="SELECTION"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR Expiration Date" for="CRRExpirationDate" />
+                    <apex:inputText disabled="true" id="CRRExpirationDate" value="{!req.amlObj.CRRExpirationDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="CRR Override Comment" for="CRR_Override_Comment"/>
+                    <apex:inputText disabled="true" id="CRR_Override_Comment" value="{!req.amlObj.CRR_Override_Comment}"/> 
+                </apex:pageBlockSectionItem> 
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            
+            <apex:pageBlockSection columns="2" title="AML HITS Information">  <!--AQUI EMPIEZA EL AREA hits --> 
+                
+                <apex:pageBlockSectionItem id="pbs3" >
+                    <apex:outputLabel value="Hits" for="Hits"/>
+                    <apex:inputCheckbox disabled="true" id="Hits" value="{!req.amlhitsObj.Flag}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="% Coincidence" for="Coincidence"/>
+                    <apex:inputText disabled="true" id="Coincidence"/> 
+                </apex:pageBlockSectionItem>  
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Uw Status" for="UwStatus"/>
+                    <apex:inputText id="UwStatus" value="{!req.amlhitsObj.UwStatus}" disabled="true">
+                    </apex:inputText>
+                </apex:pageBlockSectionItem>  
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Uw Comments" for="UwComments"/>
+                    <apex:inputtext id="UwComments" value="{!req.amlhitsObj.UwComments}" disabled="true"/> 
+                </apex:pageBlockSectionItem>  
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="AML Status" for="AMLStatus"  />
+                    <apex:inputText id="AMLStatus" value="{!req.amlhitsObj.AMLStatus}" disabled="true">
+                    </apex:inputText>
+                </apex:pageBlockSectionItem>  
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="AML Comments" for="AMLComments"/>
+                    <apex:inputtext id="AMLComments" value="{!req.amlhitsObj.AMLComments}" disabled="true"/> 
+                </apex:pageBlockSectionItem>
+                <!----> 
+            </apex:pageBlockSection>
+            
+            <div style="width: 230px;margin-left: AUTO;margin-right: AUTO;">
+                <apex:commandButton style="width: 100px;" action="{!saveAML}" value="Save" />
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}"/>
+            </div>
+        </apex:pageBlock>    
+    </apex:form>
+</apex:page>

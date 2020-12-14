@@ -1,0 +1,61 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<table border="0" cellpadding="0" cellspacing="0" width="828" style="border-collapse:
+ collapse;width:621pt">
+ <colgroup><col width="828" style="mso-width-source:userset;mso-width-alt:30281;width:621pt">
+ </colgroup><tbody><tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl63" width="828" style="height:12.0pt;width:621pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" style="background-color: rgb(255, 255, 255);"><b>Dear&nbsp;</b></font><font color="#000066"><b>{!User.Name}</b></font><b style="font-size: 12pt; background-color: rgb(255, 255, 255); color: rgb(0, 0, 102);">,</b></blockquote></td>
+ </tr>
+ 
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif" size="2"><br></font></blockquote><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif" size="2"><br></font></blockquote><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif" size="2">Your approval is requested for the progress payment fee&nbsp;</font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif" size="2">{!PPF_obj_Progress_Payment_Fee__c.Name}<br><ul><li>Takedown&nbsp;{!Progress_Payment__c.PPF_rb_Original_Takedown_ProgressPayment__c}</li><li>Takedown OEC {!Progress_Payment__c.PPE_TDAmount__c}</li><li>Fee Amount Percentege {!PPF_obj_Progress_Payment_Fee__c.Fee_Amount_Percentege__c}</li><li>Fee Amount&nbsp;{!PPF_obj_Progress_Payment_Fee__c.PPF_Fee_amount__c}</li></ul></font><div style=""><font color="#000066" face="Arial, sans-serif" size="2"><br></font></div><div style=""><font color="#000066" face="Arial, sans-serif" size="2"><br></font></div><font face="Arial, sans-serif" size="2"><font color="#000066"><div><b style="">Regards,</b></div></font><font color="#000066"><div><b style="background-color: rgb(255, 255, 255);">Engenium Capital</b></div></font></font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><font face="Arial, sans-serif" size="2"><span style="white-space: pre;">	</span><font color="#000066" style="">Click here to go Salesforce Record</font>&nbsp;<a href="{!PPF_obj_Progress_Payment_Fee__c.PPE_fm_CurrentURL__c}{!PPF_obj_Progress_Payment_Fee__c.Id}" style=""> </a><a href="{!PPF_obj_Progress_Payment_Fee__c.Link}">{!PPF_obj_Progress_Payment_Fee__c.Name}</a></font></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" width="828" style="height:12.0pt;width:621pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl64" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl68" style="height:12.0pt"><br></td>
+ </tr></tbody></table><p class="x_MsoNormal" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 35.4pt; background-color: rgb(255, 255, 255);"><span lang="EN-US" style=""><font style="" color="#000066" face="Arial, sans-serif"><b><br></b></font></span></p><table border="0" cellpadding="0" cellspacing="0" width="828" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); border-collapse: collapse; width: 621pt;"><tbody><tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl63" width="828" style="height:12.0pt;width:621pt"><br></td></tr></tbody></table>]]></td>
+</tr>
+</table>

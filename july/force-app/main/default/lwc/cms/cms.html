@@ -1,0 +1,9 @@
+<template>
+    <template if:true={urlContent}>
+        <lightning-card title="Documents" icon-name="custom:custom59" style="z-index: -1;">
+            <div class="slds-m-around_medium">
+                <iframe width="100%" height="600" style="border-radius: 2%" src={urlContent}></iframe>
+            </div>
+        </lightning-card>
+    </template>
+</template>

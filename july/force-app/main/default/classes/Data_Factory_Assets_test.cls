@@ -1,0 +1,80 @@
+@Istest
+public class Data_Factory_Assets_test {
+    public static Asset createAsset(id accountId, id tkdId, id tkdInvoice){
+        Asset activo = new Asset();
+        activo.AccountId = accountId; 
+        activo.Name = 'asset name';
+        activo.SerialNumber = 'ufgth4567';
+        activo.InstallDate = date.today();
+        activo.PurchaseDate = date.today();
+        activo.UsageEndDate = date.today();
+        activo.Status = 'testStatus';
+        activo.Price = 20;
+        activo.Quantity = 20;
+        activo.Description =  'Test descripción';
+        activo.TDK_dv_Unit_cost__c = 20; 
+        activo.TDK_tx_pediment__c = 'Test Pediment';
+        activo.TKD_ca_welcome_kit_sent__c = true;
+        activo.TKD_ck_active__c = true;
+        activo.TKD_dv_payment_amount__c = 20;
+        activo.TKD_dv_soft_cost__c  = 20;
+        activo.TKD_dv_total_cost__c = 20;
+        activo.TKD_fh_annex_a_approved_Date__c = date.today();
+        activo.TKD_fh_annex_a_created_Date__c = date.today();
+        activo.TKD_fh_annex_a_sent_date__c = date.today();
+        activo.TKD_fh_annex_b_sent_date__c = date.today();
+        activo.TKD_fh_customer_agreed_delivery_date__c = date.today();
+        activo.TKD_fh_fecha_de_importacion__c = date.today();
+        activo.TKD_fh_forcasted_delivery_date__c = date.today();
+        activo.TKD_fh_imported_on__c = date.today();
+        activo.TKD_fh_insurance_expiration_date__c = date.today();
+        activo.TKD_fh_policy_validity__c = date.today();
+        activo.TKD_fh_quote_date__c = date.today();
+        activo.TKD_fh_real_delivery_date__c = date.today();
+        activo.TKD_fh_welcome_kit_sent_date__c = date.today();
+        activo.TKD_ft_OpenLegacy_modified_on__c = datetime.newInstance(2008, 12, 1);
+        activo.TKD_ft_openlegacy_created_on__c = datetime.newInstance(2008, 12, 1);
+        activo.TKD_ls_annex_a_status__c = 'In process';
+        activo.TKD_ls_annex_b_status__c = 'In process';
+        activo.TKD_ls_asset_type__c = 'Transporte (Tractocamiones)'; 
+        activo.TKD_ls_delivery_status__c = 'Not Started';
+        activo.TKD_ls_ec_or_customer_supplier__c = 'Engenium';
+        activo.TKD_ls_purchase_Status__c = 'Not Started';
+        activo.TKD_ls_stage__c = 'Ops Quote';
+        activo.TKD_nu_unit_availability_days__c = 5;
+        activo.TKD_rb_Takedown_CP__c = tkdId;
+        //activo.TKD_rb_collateral__c = null; 
+        activo.TKD_rb_takedown_Invoice__c = tkdInvoice;
+        activo.TKD_tl_ec_policy__c = 'policy test'; 
+        activo.TKD_tl_engine_number__c = '22334';
+        activo.TKD_tl_imported_by__c = 'ENG';
+        activo.TKD_tl_op_collateral_description__c = 'Colateral desc';
+        activo.TKD_tl_op_collateral_type__c = 'ColateralType';
+        activo.TKD_tx_Category__c = 'some category';
+        activo.TKD_tx_Concept_ID__c = 'some concept';
+        activo.TKD_tx_Insurance_company__c = 'Some company';
+        activo.TKD_tx_Insurance_policy__c = 'some insurance Policy'; 
+        activo.TKD_tx_Model__c = '2039';
+        activo.TKD_tx_OpenLegacy_modified_by__c = 'Somebody'; 
+        activo.TKD_tx_Sub_Category__c = 'Test subcategory';
+        activo.TKD_tx_annex_a_number__c = '21';
+        activo.TKD_tx_arrears__c = 'Somebody';
+        activo.TKD_tx_aseguradora__c = 'Nissan';
+        activo.TKD_tx_asset_external_ID__c = '1313';
+        activo.TKD_tx_brand__c = 'Nextel';
+        activo.TKD_tx_inciso_insurance__c  = 'sony';
+        activo.TKD_tx_model_year__c = '2029';
+        activo.TKD_tx_openlegacy_created_by__c = 'Somebody'; 
+        activo.TKD_tx_payment_frecuency__c = 'Month';
+        activo.TKD_tx_payment_order__c = '123';
+        activo.TKD_tx_payment_type__c = 'Some type';
+        activo.TKD_tx_period__c = 'Nome';
+        activo.TKD_tx_plates__c = 'jhdgt356';
+        activo.TKD_tx_quote_number__c = 'akdasha';
+        activo.TKD_tx_supplier_name__c = 'Some';
+        insert activo;
+        return activo;
+    }
+    
+
+}

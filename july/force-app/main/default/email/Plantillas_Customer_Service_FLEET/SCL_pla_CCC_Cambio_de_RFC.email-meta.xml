@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CCC Cambio de RFC</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_CCC_Cambio_de_RFC</name>
+    <style>formalLetter</style>
+    <subject>Cambio de RFC</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por comunicarse a la plataforma de Servicio a Clientes de Engenium Capital.
+
+En caso de usted requerir cambio de Registro Federal de Contribuyentes (RFC), es necesario nos envíe la nueva cédula donde indique el cambio.
+
+De ya haber sido enviada, favor de omitir nuestra solicitud.
+
+Para futuras referencias su número de caso es: {!Case.CaseNumber}
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

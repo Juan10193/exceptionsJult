@@ -1,0 +1,556 @@
+<template>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <label class="slds-page-header__meta-text">Primarios: <template if:true={opportunity}>{primarios}</template> pts</label>
+                    <lightning-formatted-text class="slds-page-header__meta-text"></lightning-formatted-text>
+                </div>
+                <div class="slds-col">
+                    <label>Enhancer: <template if:true={opportunity}>{puntosEstructura}</template> pts</label>
+                    <lightning-formatted-text></lightning-formatted-text>
+                </div>
+                <div class="slds-col">
+                    <label>Total <template if:true={opportunity}>{totalPoints}</template> pts</label>
+                    <lightning-formatted-text></lightning-formatted-text>
+                </div>
+                <div class="slds-col">
+                    <label>Resultado: <template if:true={appResult}><div class={appResult.color}>
+                        <lightning-icon icon-name={appResult.name}  variant={appResult.variant}  size="x-small"></lightning-icon>
+                         <strong>{appResult.res}</strong>
+                    </div></template></label>
+                    <lightning-formatted-text></lightning-formatted-text>
+                </div>
+                <div class="slds-col">
+                    <label>Riesgo: <template if:true={appResult}><div class={appResult.color}>
+                         <strong>{appResult.risk}</strong>
+                    </div></template></label>
+                    <lightning-formatted-text></lightning-formatted-text>
+                </div>    
+            </div>
+        </div>
+    </div>
+    <template if:true={opportunity}>
+    <!-- <lightning-accordion allow-multiple-sections-open 
+        active-section-name={activeSections}> -->
+        <!-- <lightning-accordion-section name="Información General" label="Información General"> -->
+            <h3 class="slds-section-title--divider animated slideInLeft">Información General</h3>
+            <lightning-record-view-form
+                record-id={recordId}
+                object-api-name="Opportunity">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label"><strong>Nombre de la Oportunidad</strong></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static"><lightning-output-field field-name="Name" variant="label-hidden"></lightning-output-field></div>
+                                </div> 
+                            </div>    
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label"><strong>Cuenta</strong></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static"><lightning-output-field field-name="AccountId" variant="label-hidden"></lightning-output-field></div>
+                                </div> 
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label"><strong>Cotizaciones</strong></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{infoGeneral.cotizaciones}</div>
+                                </div> 
+                            </div>    
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label"><strong>Moneda</strong></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static"><lightning-output-field field-name="CurrencyIsoCode" variant="label-hidden"></lightning-output-field></div>
+                                </div> 
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label"><strong>Monto a Pagar</strong></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static"><lightning-output-field field-name="Amount" variant="label-hidden"></lightning-output-field></div>
+                                </div> 
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </lightning-record-view-form>
+        <div if:true={sipinner} class="slds-spinner_inline spinner-padding">
+            <lightning-spinner variant="brand" 
+                               alternative-text="Updating Record"     
+                               size="medium">
+            </lightning-spinner>
+        </div>
+       <!--  </lightning-accordion-section> -->
+        <template if:false={editMode}>
+            <lightning-record-view-form
+                    record-id={recordId}
+                    object-api-name="Opportunity">
+                <!-- <lightning-accordion-section name="Carácter" label="Carácter"> -->
+                    <h3 class="slds-section-title--divider animated slideInLeft">Carácter</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Buró de Crédito Representativo</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_BurodeCrditoRepresentativo__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Experiencia con Principales Clientes</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_ExpConClientesPrinc__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Buró Legal</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_Bur_Legal__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Puntos Carácter</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{puntosCaracter}  <lightning-icon icon-name={puntosCaracterIcon.icono}  variant={puntosCaracterIcon.variant}  size="x-small"></lightning-icon></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Buró de Crédito Aval</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_BurdeCrditoAval__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                <!-- </lightning-accordion-section>
+                <lightning-accordion-section name="Continuidad de Negocio" label="Continuidad de Negocio"> -->
+                    <h3 class="slds-section-title--divider animated slideInLeft">Continuidad de Negocio</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Años en el Negocio</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_Anosenelnegocio__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Riesgo Industria</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_Industria__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Concentración en Clientes</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ConcentracinenClientes__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Puntos Continuidad de negoicio</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{puntosContinuidadNeg}  <lightning-icon icon-name={puntosCntNegIcon.icono}  variant={puntosCntNegIcon.variant}  size="x-small"></lightning-icon></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <!-- <div class="slds-form__row">
+                                <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Industria</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="SIC_code__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div> -->
+                        </div>
+                    </div> 
+                <!-- </lightning-accordion-section>
+                <lightning-accordion-section name="Desempeño Financiero" label="Desempeño Financiero"> -->
+                    <h3 class="slds-section-title--divider animated slideInLeft">Desempeño Financiero</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Días de AR</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LM_ls_D_as_de_AR__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Total debt vs EBITDA</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_TotaldebtVSEBITDA__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Tamaño del deal(Monto a financiar / Activos fijos)</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_Tama_o_del_Deal__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Puntos Continuidad de negoicio</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{puntosDesempFinan} <lightning-icon icon-name={puntosDesempFicon.icono}  variant={puntosDesempFicon.variant}  size="x-small"></lightning-icon></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>FCCR</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_FCCR__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                <!-- </lightning-accordion-section>
+                <lightning-accordion-section name="Estructura" label="Estructura"> -->
+                    <h3 class="slds-section-title--divider animated slideInLeft">Estructura</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>LTV Advance Payment o SD</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_LTVAdvancePaymentSD__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Garantías adicionales(Fid,Boot,Real State)</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_Garant_as_Adicionales__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Activo altamente monetizable</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LM_ls_Activaltamentemonetiz__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Puntos Estructura</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{puntosEstructura} <lightning-icon icon-name={puntosDesempFicon.icono}  variant={puntosDesempFicon.variant}  size="x-small"></lightning-icon></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Collateral Gap</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="LMM_ls_Collateral_Gap__c" variant="label-hidden"></lightning-output-field></div>
+                                            <template if:true={visiEdit}><lightning-button-icon icon-name="utility:edit"   alternative-text="Edit" title="Edit" data-section="Desempeño Financiero" onclick={changeToEdit} size="xx-small" ></lightning-button-icon></template>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                <!-- </lightning-accordion-section> -->
+            </lightning-record-view-form>
+        </template>
+        <template if:true={editMode}>
+        <lightning-record-edit-form record-id={recordId}
+        object-api-name="Opportunity" onsuccess={handleSuccess} onerror={handleError} onsubmit={handleSubmit}>
+            <!-- <lightning-accordion-section name="Carácter" label="Carácter"> -->
+                <h3 class="slds-section-title--divider animated slideInLeft">Carácter</h3>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Buró de Crédito Representativo</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_BurodeCrditoRepresentativo__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Buró Legal</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_Bur_Legal__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Experiencia con Principales Clientes</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_ExpConClientesPrinc__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Buró de Crédito Aval</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_BurdeCrditoAval__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Puntos Carácter</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{puntosCaracter}  <lightning-icon icon-name={puntosCaracterIcon.icono}  variant={puntosCaracterIcon.variant}  size="x-small"></lightning-icon></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            <!-- </lightning-accordion-section> -->
+            <!-- <lightning-accordion-section name="Continuidad de Negocio" label="Continuidad de Negocio"> -->
+                <h3 class="slds-section-title--divider animated slideInLeft">Continuidad de Negocio</h3>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Años en el Negocio</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_Anosenelnegocio__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Riesgo Industria</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_Industria__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Concentración en Clientes</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ConcentracinenClientes__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Puntos Continuidad de negoicio</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{puntosContinuidadNeg}  <lightning-icon icon-name={puntosCntNegIcon.icono}  variant={puntosCntNegIcon.variant}  size="x-small"></lightning-icon></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <!-- <div class="slds-form__row">
+                            <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Industria</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="SIC_code__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div> -->
+                    </div>
+                </div> 
+            <!-- </lightning-accordion-section>
+            <lightning-accordion-section name="Desempeño Financiero" label="Desempeño Financiero"> -->
+                <h3 class="slds-section-title--divider animated slideInLeft">Desempeño Financiero</h3>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Días de AR</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LM_ls_D_as_de_AR__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Total debt vs EBITDA</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_TotaldebtVSEBITDA__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Tamaño del deal(Monto a financiar / Activos fijos)</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_Tama_o_del_Deal__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Puntos Continuidad de negoicio</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{puntosDesempFinan} <lightning-icon icon-name={puntosDesempFicon.icono}  variant={puntosDesempFicon.variant}  size="x-small"></lightning-icon></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>FCCR</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_FCCR__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+           <!--  </lightning-accordion-section>
+            <lightning-accordion-section name="Estructura" label="Estructura"> -->
+                <h3 class="slds-section-title--divider animated slideInLeft">Estructura</h3>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>LTV Advance Payment o SD</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_LTVAdvancePaymentSD__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Garantías adicionales(Fid,Boot,Real State)</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_Garant_as_Adicionales__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Activo altamente monetizable</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LM_ls_Activaltamentemonetiz__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Puntos Estructura</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{puntosEstructura} <lightning-icon icon-name={puntosDesempFicon.icono}  variant={puntosDesempFicon.variant}  size="x-small"></lightning-icon></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_6-of-12" role="listitem">
+                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label"><strong>Collateral Gap</strong></label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static"><lightning-input-field field-name="LMM_ls_Collateral_Gap__c" variant="label-hidden"></lightning-input-field></div>
+                                    </div> 
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            <!-- </lightning-accordion-section> -->
+            <div style="text-align: center;">
+                <lightning-button class="slds-m-top_small slds-m-right_x-large" variant="brand" type="submit" name="save" label="Save"></lightning-button>
+                <lightning-button class="slds-m-top_small" variant="brand" type="reset" name="cancel" label="Cancel" onclick={clearEditMode}></lightning-button>
+            </div>    
+        </lightning-record-edit-form>
+    </template>
+    <!-- </lightning-accordion> -->
+    </template>
+</template>

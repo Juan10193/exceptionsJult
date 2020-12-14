@@ -1,0 +1,359 @@
+<!--
+  @File Name          : LMMCotizacionPDF.page
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 12/5/2020 9:27:02
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/5/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+
+<apex:page standardcontroller="EC_Quote__c" extensions="LMMCotizacionPDFController" renderAs="pdf" showHeader="false" sidebar="false"
+  applyBodyTag="false" applyHtmlTag="false">
+  <html>
+
+  <head>
+    <style type="text/css" media="print">
+      /* @font-face {
+        font-family: "Garamond";
+        src: url('{!URLFOR($Resource.FontEngenRubik, 'Rubik/Rubik-Regular.ttf')}');
+        src: local(custom_font),
+        url('{!URLFOR($Resource.FontEngenRubik)}') format('truetype');
+      }*/
+
+      @font-face {
+        font-family: myFont;
+        src: url({!URLFOR($Resource.FontEngenRubik, 'Rubik/Rubik-Regular.ttf')
+      }
+
+      );
+      }
+
+      @page {
+        size: letter;
+        margin-top: 2.5cm;
+        margin-right: 0cm;
+        margin-left: 0cm;
+        margin-bottom: 2.5cm;
+        @top-right {
+          content: element(header);
+          margin-right: 2cm;
+        }
+        @bottom-center {
+          content: element(fotter);
+        }
+        background-image: url("{!$Resource.LogoG}");
+        background-repeat: no-repeat;
+      }
+
+      div.header {
+        position: running(header);
+      }
+
+      div.fotter {
+        position: running(fotter);
+        font-size: 8px;
+        margin-right: 2cm;
+        margin-left: 2cm;
+        text-align: justify;
+      }
+
+      .page-break {
+        display: block;
+        page-break-after: always;
+      }
+
+      .bodyFirstPage {
+        margin-bottom: 2.5cm;
+        margin-top: 2.5cm;
+        margin-right: 2.3cm;
+        margin-left: 2.3cm;
+      }
+
+      .dateDocument {
+        padding: 10px;
+        display: block;
+        text-align: right;
+      }
+
+      .notifyText {
+        display: block;
+        padding: 10px;
+      }
+
+      .fields {
+        display: block;
+        padding: 10px;
+      }
+
+      .tableHead {
+        font-weight: bold;
+        padding: 3px;
+        text-align: center;
+        border-top: solid #1E3A61;
+        border-bottom: solid #1E3A61;
+        color: #1E3A61;
+      }
+
+      .tableRow {
+        color: #1E3A61;
+        text-align: left;
+      }
+
+      .fieldSection {}
+
+      .fieldLabel {
+        color: #45C9A8;
+      }
+
+      p {
+        font-family: myFont;
+      }
+
+      .firma {
+        width: 30%;
+        background-color: black;
+      }
+
+      .afterTable {
+        text-align: center;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="header">
+      <center>
+        <img src="{!$Resource.logoEngen}" width="100%" />
+      </center>
+    </div>
+    <div class="fotter">
+      <center>
+        <p> NOTA: Esta es una cotización indicativa basada en una variedad de suposiciones, incluyendo promedios de la industria,
+          datos históricos y pronósticos. Se proporciona únicamente con fines informativos. Si bien se ha hecho todo lo posible
+          para asegurar la razonabilidad de los diversos supuestos, al aceptar la estimación adjunta usted reconoce y acepta
+          que la cotización no es una garantía de ningún tipo y Engen Capital no asume ninguna responsabilidad, ya sea expresa
+          o implícita, a la integridad o exactitud de esta estimación. Engen Capital no proporciona asesoría tributraria,
+          contable o legal. Los clientes deben buscar la guía de sus propios profesionales de impuestos, contabilidad y legales.
+          *Los cálculos de esta cotización están indexados a la tasa de referencia SWAP, moneda y plazos indicados en esta
+          cotización. Los montos definitivos serán calculados en función al cambio de la tasa de referencia a la fecha de
+          firma del anexo. </p>
+      </center>
+    </div>
+    <div class="bodyFirstPage page-break">
+      <div class="dateDocument">
+        <p>
+          <br/> {!currentDate}
+          <br/># de propuesta:
+          <br/>
+        </p>
+      </div>
+      <div class="notifyText">
+        <p>{!EC_Quote__c.LMM_Account__r.name}
+          <br/> {!EC_Quote__c.Nombre_de_contacto__c}
+          <br/>
+          <br/> Engen Capital, somete a su consideración la siguiente Propuesta de financiamiento conforme a los términos y condiciones
+          aquí descritos:
+          <br/>
+          <br/>
+          <b>Generales de la operación:</b>
+          <br/>
+        </p>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Tipo de operación: &nbsp;</p>
+          <p style="float: left;">{!Tipo_de_Financiamiento}</p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Proveedor: &nbsp;</p>
+          <p style="float: left;"></p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Descripción del equipo: &nbsp;</p>
+          <p style="float: left;">{!EC_Quote__c.Tipo_de_activo__c}</p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Costo total del equipo: &nbsp;</p>
+          <p style="float: left;">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!EC_Quote__c.Valor_del_activo__c}" />
+            </apex:outputText>
+          </p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Depósito de seguridad: &nbsp;</p>
+          <p style="float: left;">
+            <apex:outputText value="{0,number,0.00}%">
+              <apex:param value="{!EC_Quote__c.LMM_Deposito_en_gtia__c}" />
+            </apex:outputText>
+            (
+            <apex:outputText value="{0, number, Currency}" rendered="{!IF(or(EC_Quote__c.LMM_Deposito_en_gtia__c == null,EC_Quote__c.LMM_Deposito_en_gtia__c == 0), false , true)}">
+              <apex:param value="{!calculatedLMM_Deposito_en_gtia}" />
+            </apex:outputText>
+            )
+          </p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Comisión por apertura: &nbsp;</p>
+          <p style="float: left;">
+            <apex:outputText value="{0,number,0.00}%">
+              <apex:param value="{!EC_Quote__c.LMM_Comision__c}" />
+            </apex:outputText>
+            (
+            <apex:outputText value="{0, number, Currency}" rendered="{!IF(or(EC_Quote__c.LMM_Comision__c == null,EC_Quote__c.LMM_Comision__c == 0), false , true)}">
+              <apex:param value="{!calculatedLMM_Comision}" />
+            </apex:outputText>
+            )
+          </p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Enganche: &nbsp;</p>
+          <p style="float: left;">
+            <apex:outputText value="{0,number,0.00}%">
+              <apex:param value="{!EC_Quote__c.LMM_Anticipo_a_capital__c}" />
+            </apex:outputText>
+            (
+            <apex:outputText value="{0, number, Currency}" rendered="{!IF(or(EC_Quote__c.LMM_Anticipo_a_capital__c == null,EC_Quote__c.LMM_Anticipo_a_capital__c == 0), false , true)}">
+              <apex:param value="{!calculatedLMM_Anticipo_a_capital}" />
+            </apex:outputText>
+            )
+          </p>
+        </div>
+
+        <apex:outputText rendered="{!IF(Tipo_de_Financiamiento == 'A. Financiero', true , false)}">
+          <div class="fieldSection" style="overflow: hidden;">
+            <p class="fieldLabel" style="float: left;">Opción de compra: &nbsp;</p>
+            <p style="float: left;">
+              <apex:outputText value="{0,number,0.00}%">
+                <apex:param value="{!EC_Quote__c.ECQ_Opci_n_de_compra__c}" />
+              </apex:outputText>
+              (
+              <apex:outputText value="{0, number, Currency}" rendered="{!IF(or(EC_Quote__c.ECQ_Opci_n_de_compra__c == null,EC_Quote__c.ECQ_Opci_n_de_compra__c == 0), false , true)}">
+                <apex:param value="{!calculatedECQ_Opci_n_de_compra}" />
+              </apex:outputText>
+              )
+            </p>
+          </div>
+        </apex:outputText>
+
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Vigencia de la Cotización: &nbsp;</p>
+          <p style="float: left;">30 días naturales</p>
+        </div>
+        <div class="fieldSection" style="overflow: hidden;">
+          <p class="fieldLabel" style="float: left;">Rentas del plazo básico: &nbsp;</p>
+          <p style="float: left;">
+            {!EC_Quote__c.Plazo__c} Meses
+          </p>
+        </div>
+
+      </div>
+      <div class="fields"></div>
+      <div class="footerFirstPage">
+        <p>[1] La tasa Swap a utilizar será la publicada en Bloomberg. La tasa Swap para dólares a utilizar será la publicada
+          en el Consejo de la Reserva Federal en el "Federal Reserve Statistical Release H.15" (Federal Reserve Release H.15
+          Historical Data), o en cualquier otro boletín que sustituya.</p>
+      </div>
+    </div>
+    <div class="bodyFirstPage page-break">
+      <div class="table">
+        <apex:dataTable value="{!listLMMCotizacionPDFWrapper}" var="da" cellpadding="4" cellspacing="4" rowClasses="tableRow" headerClass="tableHead"
+          width="100%">
+          <apex:column headerValue="Period">
+            <apex:outputText value="{0, number, 0}">
+              <apex:param value="{!da.intPeriod}" />
+            </apex:outputText>
+          </apex:column>
+
+          <apex:column headerValue="Balance">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!da.dblBalance}" />
+            </apex:outputText>
+          </apex:column>
+
+          <apex:column headerValue="Capital">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!da.dblCapital}" />
+            </apex:outputText>
+          </apex:column>
+
+          <apex:column headerValue="Interés">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!da.dblInterest}" />
+            </apex:outputText>
+          </apex:column>
+
+          <apex:column headerValue="Pago">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!da.dblSubtotal}" />
+            </apex:outputText>
+          </apex:column>
+
+          <apex:column headerValue="IVA">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!da.dblIva}" />
+            </apex:outputText>
+          </apex:column>
+
+          <apex:column headerValue="Total">
+            <apex:outputText value="{0, number, Currency}">
+              <apex:param value="{!da.dblTotal}" />
+            </apex:outputText>
+          </apex:column>
+
+        </apex:dataTable>
+      </div>
+    </div>
+    <div class="bodyFirstPage page-break">
+      <p style='text-align: justify'>Esta Propuesta y su contenido constituyen información confidencial para Engen Capital, de tal manera que se le considera
+        como secreto industrial de conformidad con la Ley de la Propiedad Industrial para todos los efectos a que haya lugar;
+        por lo tanto, dicha información no podrá ser divulgada por el Cliente a cualquier persona o tercero sin el consentimiento
+        previo y por escrito de Engen Capital. Así mismo, toda información y/o documento(s) proporcionado(s) por el Cliente
+        y/o el garante, incluyendo de manera enunciativa más no limitativa la información comercial o financiera propiedad
+        del Cliente o del garante entregada a Engen Capital con carácter de confidencial, en relación con la aprobación,
+        ejecución, administración y cierre del Cliente (la “Información Confidencial”), será(n) usado(s) por Engen Capital,
+        sus matrices, sus empresas afiliadas, subsidiarias y/o cualquier otra entidad que, directa o indirectamente controle
+        a, sea controlada por, o esté bajo el control común de Engen Capital, incluyendo sin limitar a sus empleados y personal
+        autorizado, única y exclusivamente con fines referentes a procesos, aprobaciones, monitoreos, evaluaciones estadísticas,
+        proyecciones financieras, reportes internos, auditorías y cualquier otro trámite relacionado que resulte necesario.
+        Engen Capital se compromete a conservar y custodiar la Información Confidencial con la mayor de las diligencias,
+        empleando el máximo empeño en prevenir la filtración de la misma.</p>
+
+      <p style='text-align: justify'>Asimismo, de conformidad con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y su
+        reglamento, Engen Capital así como sus entidades filiales y subsidiarias, con domicilio en Antonio Dovalí Jaime No.
+        70 Torre C, Piso 4° Col. Santa Fe, C.P. 01210, Ciudad de México, utilizará los datos personales recabados con la
+        finalidad de (i) analizarlos y evaluarlos para ofrecer cualquiera de los productos y servicios financieros, (ii)
+        cumplir con los términos y condiciones en la prestación de dichos productos y servicios, (iii) analizar y evaluar
+        riesgos en el otorgamiento de los mismos, (iv) llevar a cabo procedimientos de cumplimiento y análisis interno de
+        conformidad con las políticas internas de Engen Capital, así como la legislación aplicable en materia regulatoria
+        y, en general, para hacer del conocimiento de los clientes a quienes se contactan los servicios que ofrece Engen
+        Capital. Los datos personales, incluidos aquellos que puedan ser clasificados como datos sensibles, financieros,
+        comerciales o patrimoniales, se encuentran seguros, y son tratados y conservados de conformidad con la Ley Federal
+        de Protección de Datos Personales en Posesión de los Particulares y su reglamento, los cuales a su vez podrán ser
+        transmitidos y verificados por Engen Capital así como por terceros autorizados proveedores de servicios, para los
+        efectos señalados anteriormente. Para mayor información acerca del tratamiento y de los derechos que puede hacer
+        valer, puede acceder al aviso de privacidad completo a través de nuestra página de internet
+        <a href="https://www.engen.com.mx">“www.engen.com.mx”</a>.
+      </p>
+
+    </div>
+    <div class="bodyFirstPage afterTable">
+
+      <p>En espera de que nuestra Propuesta sea de su agrado, quedamos en espera de su pronta revisión y respuesta, la cual
+        deberá ser firmada en cada una de sus páginas y enviada a {!EC_Quote__c.Owner.name} al correo electrónico, {!EC_Quote__c.Owner.Email},
+        misma que surtirá efectos una vez recibida por el área correspondiente de Engen Capital. </p>
+      <p>Propuesta aceptada por: At'n. {!EC_Quote__c.Owner.name}</p>
+      <br/>
+      <br/>
+      <br/>
+      <hr class="firma"></hr>
+      <p>{!EC_Quote__c.Nombre_de_contacto__c} {!EC_Quote__c.LMM_Account__r.name}
+      </p>
+
+    </div>
+  </body>
+
+  </html>
+</apex:page>

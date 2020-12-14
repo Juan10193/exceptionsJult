@@ -1,0 +1,547 @@
+<aura:component controller="Takedown_Controller_SupplierInCA" implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes" access="global">
+<aura:registerEvent name="detailsitesEvent" type="c:detailsitesEvent"/>
+<aura:attribute name="isOpen" type="boolean" default="false" />
+  <aura:attribute name="isOpenNewSupplier" type="boolean" default="false" />
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute name="nameSupplier" type="String" default="" />
+  <aura:attribute name="rfcSupplier" type="String" default="" />
+  <aura:attribute name="loadedKS" type="Boolean" default="true" />
+  <aura:attribute name="InformationSuppliers" type="Takedown_Wrapper_SupplierInCA.responseAmlHits[]"/>
+  <!--Atributos Find -->
+  <aura:attribute name="SearchByRFC" type="String" default="" />
+  <aura:attribute name="SearchByName" type="String" default="" />
+  <aura:attribute name="SearchByCurrency" type="String" default="" />
+  <aura:attribute name="SearchByTaxCode" type="String" default="" />
+  <aura:attribute name="InformationKnownSuppliers"  type="Takedown_Wrapper_SearchKnownSuppliers.responseSearchKnownSupplier[]"/>
+  <aura:attribute name="InformationDetKnownSuppliers" type="Takedown_Wrapper_DetSearchKnownSuppliers.responseDetSearchKnownSupplier[]"/>
+  <aura:attribute name="ischkbxSupplierSelected" type="Boolean" default="false"/>
+  <!--Atributos Find -->
+  <!-- atributos para  modal invoice -->
+  <aura:attribute name="isOpenInvoice" type="Boolean" />
+  <aura:attribute name="isOpenHitsDesc" type="Boolean" />
+  <aura:attribute name="isOpenContact" type="Boolean" default="false"/>
+  <aura:attribute name="isOpenAccount" type="Boolean" default="false"/>
+  <aura:attribute name="lstInvoices" type="Object" />
+  <aura:attribute name="lstInvoicesSelected" type="Object" />
+  <aura:attribute name="idSupplierSelect" type="String" />
+  <aura:attribute name="hitsDesc" type="String" />
+  <aura:attribute name="visibilityDivResult" type="Boolean" default="false" />
+  <aura:attribute name="visibilityDivDetail" type="Boolean" default="false"/>
+  <aura:attribute name="visibilityDivSearch" type="Boolean" default="false"/>
+  <aura:attribute name="statusSuppApp" type="Object"/>
+  <aura:attribute name="supplierSelected" type="Object" />
+  <aura:attribute name="siteSelected" type="Object" />
+  <aura:attribute name="accountSelected" type="Object" />
+  <!-- ./ atributos para  modal invoice -->
+  <aura:handler name="init" value="{! this }" action="{! c.init }" />
+  <!-- atributos par amodal Suppliers Documents-->
+  <aura:attribute name="isModalDocsOpen" type="boolean" default="false"/>
+  <aura:attribute name="filterKnownSuppliers" type="List" default="[]" />
+  <aura:attribute name="sitesSelected" type="Supplier__c[]" default="[]" />
+  <aura:attribute name="suppliersSelected" type="Supplier__c[]" />
+  <!--Artributos para evento de detail site-->
+  
+
+  <c:TKD_siteDetail></c:TKD_siteDetail>
+  <aura:if isTrue="{!v.isModalDocsOpen}">
+    <c:takedownDocsSupplier recordId="{! v.recordId}" docshowModal="{!v.isModalDocsOpen}" onclosedocsmodal="{!c.isModalDocsClosed}"></c:takedownDocsSupplier>
+  </aura:if>
+  
+   <!--Panel Status -->
+            <article class="slds-card">
+            <div class="slds-card__body slds-card__body_inner">
+                <article class="slds-card slds-card_boundary">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure"></div>
+                            <div class="slds-media__body"><span></span>
+                                <strong>AML Status : </strong><lightning:badge label="{! v.statusSuppApp.tkd_ls_Stage_AML__c}" style="background-color: #4DC3FF;"/> <strong style="margin-left:30px"> PROVEEDOR Status : </strong><lightning:badge label="{! v.statusSuppApp.tkd_ls_Stage_Supplier__c}" style="background-color: #4DC3FF;"/></div>
+                                <lightning:buttonIcon iconName="utility:open_folder"  alternativeText="Suppliers Documents"
+                                onclick="{!c.openDocsSuppliers}" />
+                            <div class="slds-no-flex"><button class="slds-button slds-button_neutral" onclick="{! c.gotoURlSupplier}">Supplier in Approval</button></div>
+                        </header>
+                    </div>                   
+                </article>
+            </div>
+        </article>
+   <!--Panel Status -->
+    
+  <!--tableAmlHits -->
+  <c:TDK_supplierInTD_tableAmlHits recordId="{! v.recordId}"></c:TDK_supplierInTD_tableAmlHits>
+    
+  <!--./tableAmlHits -->
+      <div class="slds-no-flex"><lightning:button variant="brand" label="Add Supplier" iconName="action:new"  iconPosition="left" title="Add Supplier" onclick="{! c.openModel }"/></div>    
+  <!-- 3ra Seccion -->
+     <!--Tabs  -->  
+    		<div id="tabsKNS" style="display:none">
+              <!--Tabs New Supplier and Known Suplier iconName="action:new_group"-->
+              <lightning:tabset variant="scoped">
+                <lightning:tab label="Known Supplier" >
+                    <aura:renderIf isTrue="{!v.visibilityDivSearch}">
+                    	<div id="searchSuplier">
+                         <article class="slds-card">                       
+                           <div class="slds-card__body slds-card__body_inner">
+                              <article class="slds-card slds-card_boundary">
+                                 <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                       <div class="slds-media__figure">  <lightning:icon  iconName="standard:search" size="small" variant="bare"/></div>
+                                       <div class="slds-media__body">
+                                          <h2 class="slds-card__header-title">
+                                             <strong>Search Supplier</strong>
+                                          </h2>
+                                       </div>
+                                    </header>
+                                 </div>
+                                 <div class="slds-card__body slds-card__body_inner">
+                                     <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                                    <div class="slds-size_2-of-4" ><lightning:input name="SearchByRFCS"  aura:Id="fields" label="Search by RFC:" value="{! v.SearchByRFC}" maxlength="100" required="false" type="search"   variant="label-inline"/></div>
+                                                    <div class="slds-size_2-of-4" ><lightning:input name="SearchByNameS" aura:Id="fields"  label="Search by Name:" value="{! v.SearchByName}"  maxlength="500"  required="false" type="search" variant="label-inline"/></div>
+                                                    <div class="slds-size_2-of-4" ><lightning:input name="SearchByCurrencyS" aura:Id="SearchByCurrencyS"  label="Search by Currency:" value="{! v.SearchByCurrency}"  maxlength="500" type="search"  variant="label-inline"/></div>
+                                                    <div class="slds-size_2-of-4" ><lightning:input name="SearchByTaxCodeS" aura:Id="SearchByTaxCodeS"   label="Search by Tax Code:"  value="{! v.SearchByTaxCode}" maxlength="500" type="search"  variant="label-inline" /></div>
+                                                  </div>
+                                 </div>
+                                 <footer class="slds-card__footer">
+                                     <div class="slds-media__body"></div>
+                                     <div class="slds-no-flex" ><lightning:button variant="brand" class="btn bg-gradient-cyan float-right" label="Search" iconName="utility:search" iconPosition="left" title="Search Suppliers" onclick="{! c.searchSuppliers }"/></div>
+    
+                                 </footer>
+                              </article>
+                           </div>                       
+                    	</article>
+                    </div>
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.visibilityDivResult}">
+                        <div id="resultSearchSupplier">
+                        <article class="slds-card">                       
+                           <div class="slds-card__body slds-card__body_inner">
+                              <article class="slds-card slds-card_boundary">
+                                 <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                       <div class="slds-media__figure"><lightning:icon  iconName="standard:sales_path" size="small" variant="bare"/></div>
+                                       <div class="slds-media__body">
+                                          <h2 class="slds-card__header-title">
+                                             <strong>Results</strong>
+                                          </h2>
+                                       </div>
+                                    </header>
+                                 </div>
+                                 <div class="slds-card__body slds-card__body_inner">
+                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                    <thead class="gris text-center">
+                                      <tr class="slds-line-height_reset">
+                                        <th class="" scope="col"> <div class="slds-truncate" title="Originator" >RFC</div></th>
+                                        <th class="" scope="col"> <div class="slds-truncate" title="ISC">Name</div> </th>
+                                        <th class="" scope="col"><div class="slds-truncate" title="Suppliers">Currency</div ></th>
+                                        <th class="" scope="col"> <div class="slds-truncate" title="AML Status">Tax Code</div > </th>
+                                        <th class="" scope="col"> <div class="slds-truncate" title="Approval Status">Site Code</div></th>
+                                        <th class="" scope="col"> <div class="slds-truncate" title="Approval Status">OrganizationName</div></th>
+                                        <th class="" scope="col"> <div class="slds-truncate" title="Approval Status">Country</div></th>
+                                        <th class="" scope="col"> <div class="slds-truncate" title="Approval Status">City</div></th>
+                                        
+                                        <th class="" scope="col"> <div class="slds-truncate" title="Details">Select</div> </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                      <aura:if isTrue="{! v.filterKnownSuppliers.length > 0 }">
+                                        <aura:iteration items="{! v.filterKnownSuppliers}" var="infoKnownSupp" indexVar="indexDet">
+                                          <tr class="slds-hint-parent"><td><div class="slds-truncate" data-sited="{!infoKnownSupp.vendorSiteId}" onclick="{!c.showdetailSite}" style="cursor: pointer; color:#275BAD">{! infoKnownSupp.supplier.vatRegistrationNum}</div ></td>
+                                            
+                                            <td> <div class="slds-truncate" >{! infoKnownSupp.supplier.vendorName}</div ></td>
+                                            <td class="text-center" >{! infoKnownSupp.paymentCurrencyCode}</td>
+                                            <td class="text-center" >{! infoKnownSupp.vatCode}</td >
+                                            <td class="text-center" >{! infoKnownSupp.vendorSiteCode}</td >
+                                            <td class="text-center" >{! infoKnownSupp.organizationName}</td > 
+                                            <td class="text-center" >{! infoKnownSupp.country}</td > 
+                                            <td class="text-center" >{! infoKnownSupp.city}</td > 
+                                             
+                                            <td class="text-center" data-indx="{!indexDet}"><lightning:button  iconName="utility:add" iconPosition="left" tabindex="{!indexDet}"   variant="brand" onclick="{! c.selectSite }" /></td>
+                                          </tr>
+                                        </aura:iteration>
+                                      </aura:if>
+                                    </tbody>
+                                    <lightning:button variant="brand" label="Save" iconName="utility:save"  iconPosition="left" title="Save" onclick="{!c.saveListSites}"/>
+                                  </table>                                     
+                                 </div>                                
+                              </article>
+                           </div>                       
+                    	</article>
+                    </div>
+                    </aura:renderIf>
+                    
+                    <aura:renderIf isTrue="{!v.visibilityDivDetail}">
+                    	<div id="detailSupplier" >
+                         <article class="slds-card">                       
+                           <div class="slds-card__body slds-card__body_inner">
+                              <article class="slds-card slds-card_boundary">
+                                 <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                       <div class="slds-media__figure"><lightning:icon  iconName="standard:sales_path" size="small" variant="bare"/></div>
+                                       <div class="slds-media__body">
+                                          <h2 class="slds-card__header-title">
+                                             <strong>Detail Supplier</strong>
+                                          </h2>
+                                       </div>
+                                    </header>
+                                 </div>
+                                 <div class="slds-card__body slds-card__body_inner">
+                                     <aura:iteration items="{! v.InformationDetKnownSuppliers}" var="infoDetKnownSupp" indexVar="indexSupp">
+                                       <div id="infoSupplier">
+                                       <article class="slds-card">                       
+                                       <div class="slds-card__body slds-card__body_inner">
+                                          <article class="slds-card slds-card_boundary">
+                                                 <div class="slds-card__header slds-grid">
+                                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                       <div class="slds-media__figure"><lightning:icon  iconName="standard:sales_cadence" size="small" variant="bare"/></div>
+                                                       <div class="slds-media__body">
+                                                          <h2 class="slds-card__header-title">
+                                                             <strong>Information Supplier</strong>
+                                                          </h2>
+                                                       </div>
+                                                    </header>
+                                                 </div>
+                                                 <div class="slds-card__body slds-card__body_inner">
+                                                      <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                                            <div class="slds-size_1-of-3" ><lightning:input name="vendorName"  aura:Id="vendorName" label="Name:" value="{! infoDetKnownSupp.vendorName}" maxlength="100"  variant="label-inline"/></div>
+                                                            <div class="slds-size_1-of-3" ><lightning:input name="vendorSiteCodeAlt" aura:Id="vendorSiteCodeAlt"  label="Vendor Site Code: " value="{! infoDetKnownSupp.vendorNameAlt}"  variant="label-inline"/></div>                                           
+                                                            <div class="slds-size_1-of-3" ><lightning:input name="vatRegistrationNum" aura:Id="vatRegistrationNum"  label="RFC:" value="{! infoDetKnownSupp.vatRegistrationNum}"  variant="label-inline"/></div>                                           
+                                                      </div>                                   
+                                                 </div>                                
+                                              </article>
+                                           </div>                       
+                                        </article>
+                                       </div>
+                                         
+                                         
+                                       <div id="infoSite">
+                                       <article class="slds-card">                       
+                                       <div class="slds-card__body slds-card__body_inner">
+                                          <article class="slds-card slds-card_boundary">
+                                                 <div class="slds-card__header slds-grid">
+                                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                       <div class="slds-media__figure"><lightning:icon  iconName="standard:sales_cadence" size="small" variant="bare"/></div>
+                                                       <div class="slds-media__body">
+                                                          <h2 class="slds-card__header-title">
+                                                             <strong>Information Site</strong>
+                                                          </h2>
+                                                       </div>
+                                                       <div class="slds-no-flex"><lightning:button label="New" iconName="utility:add" iconPosition="left"/></div>
+                                                    </header>
+                                                 </div>
+                                                 <div class="slds-card__body slds-card__body_inner">
+                                                      <aura:iteration items="{! infoDetKnownSupp.sites.site}" var="site" indexVar="indexSite">
+                                                        <lightning:accordion   onsectiontoggle="{! c.handleSectionToggle }"  allowMultipleSectionsOpen="true">
+                                                            <lightning:accordionSection name="{! site.vendorSiteId}" label="{! site.vendorSiteCode}">
+                                                                <!--Agregar toda la informacion relacionada con los sites.-->
+                                                                <div class="demo-only demo-only--sizing slds-grid slds-wrap"><div class="slds-size_1-of-3" ></div><div class="slds-size_1-of-3" ></div>
+                                                                      <div class="slds-size_1-of-3" > 
+                                                                        <lightning:input type="toggle" label="Elegir Site" name="options" value="1" variant="label-inline"/>
+                                                                      </div>
+                                                                </div>
+                                                                <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="Vendor Site Code" value="{! site.vendorSiteCode}" variant="label-inline"/></div>
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="Phone" value="{! site.phone}" variant="label-inline"/></div>
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="Country" value="{! site.country}" variant="label-inline"/></div>
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="Address Line 1" value="{! site.addressLine1}" variant="label-inline"/></div>
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="Address Line 2" value="{! site.addressLine2}" variant="label-inline"/></div>	
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="City" value="{! site.city}" variant="label-inline"/></div>
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="State" value="{! site.state}" variant="label-inline"/></div>
+                                                                    <div class="slds-size_1-of-3" ><lightning:input name="" aura:id="" label="ZIP" value="{! site.zip}" variant="label-inline"/></div>
+                                                                </div><br></br><br></br>
+                                                                <div id="infoAccount">
+                                                                    <article class="slds-card">                       
+                                                                       <div class="slds-card__body slds-card__body_inner">
+                                                                          <article class="slds-card slds-card_boundary">
+                                                                                 <div class="slds-card__header slds-grid">
+                                                                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                                                       <div class="slds-media__figure"><lightning:icon  iconName="standard:account" size="small" variant="bare"/></div>
+                                                                                       <div class="slds-media__body">
+                                                                                          <h2 class="slds-card__header-title">
+                                                                                             <strong>Information Account</strong>
+                                                                                          </h2>
+                                                                                       </div>
+                                                                                       <div class="slds-no-flex"><lightning:button label="New" name="{!indexSupp+'-'+ indexSite}" iconName="utility:add" iconPosition="left" onclick="{! c.newAccount }"/></div>
+                                                                                    </header>
+                                                                                 </div>
+                                                                                 <div class="slds-card__body slds-card__body_inner">
+                                                                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                                                                        <thead class="gris text-center">
+                                                                                          <tr class="slds-line-height_reset">
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="Originator" >Bank Name</div></th>
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="ISC">Bank Account Name</div> </th>
+                                                                                            <th class="" scope="col"><div class="slds-truncate" title="Suppliers">Bank Account Num</div ></th>
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="AML Status">Currency</div > </th>
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="AML Status">Action</div > </th>
+                                                                                          </tr>
+                                                                                        </thead>
+                                                                                        <tbody class="text-center">
+                                                                                            <aura:iteration items="{! site.accounts.account}" var="account" indexVar="indexAcc">
+                                                                                              <tr class="slds-hint-parent"> 
+                                                                                                <td ><div class="slds-truncate">{! account.bankName}</div >
+                                                                         
+                                                                                                    
+                                                                                                  </td>
+                                                                                                <td> <div class="slds-truncate" >{! account.bankAccountName}</div ></td>
+                                                                                                <td class="text-center" >{! account.bankAccountNum}</td>
+                                                                                                <td class="text-center" >{! account.curency}</td >
+                                                                                                <td class="text-center"> <lightning:button aura:id="{!indexSupp}" name="{!indexSupp+'-'+ indexSite +'-'+indexAcc}" iconName="utility:edit" iconPosition="left" tabindex="{!indexAcc}"  variant="brand" onclick="{! c.showDetailsAccount }" /></td>
+                                                                                              </tr>
+                                                                                            </aura:iteration>                                                
+                                                                                        </tbody>
+                                                                                      </table>                                   
+                                                                                 </div>                                
+                                                                              </article>
+                                                                           </div>                       
+                                                                        </article>
+                                                                </div><br></br>
+                                                                <!-- Informacion del contacto -->
+                                                                <div id="infoContact">
+                                                                    <article class="slds-card">                       
+                                                                       <div class="slds-card__body slds-card__body_inner">
+                                                                          <article class="slds-card slds-card_boundary">
+                                                                                 <div class="slds-card__header slds-grid">
+                                                                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                                                       <div class="slds-media__figure"><lightning:icon  iconName="standard:contact" size="small" variant="bare"/></div>
+                                                                                       <div class="slds-media__body">
+                                                                                          <h2 class="slds-card__header-title">
+                                                                                             <strong>Information Contact</strong>
+                                                                                          </h2>
+                                                                                       </div>
+                                                                                       <div class="slds-no-flex"><lightning:button label="New" iconName="utility:add" iconPosition="left" onclick="{! c.newContact }"/></div>
+                                                                                    </header>
+                                                                                 </div>
+                                                                                 <div class="slds-card__body slds-card__body_inner">
+                                                                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                                                                        <thead class="gris text-center">
+                                                                                          <tr class="slds-line-height_reset">
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="Originator" >First Name</div></th>
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="ISC">Last Name</div> </th>
+                                                                                            <th class="" scope="col"> <div class="slds-truncate" title="ISC">Phone</div> </th>
+                                                                                            <th class="" scope="col"><div class="slds-truncate" title="Suppliers">Email Address</div ></th>
+                                                                                            <th class="" scope="col"><div class="slds-truncate" title="Suppliers">Action</div ></th>
+                                                                                          </tr>
+                                                                                        </thead>
+                                                                                        <tbody class="text-center">
+                                                                                           <aura:iteration items="{! site.contacts.contact}" var="contact" indexVar="indexCon">
+                                                                                              <tr class="slds-hint-parent"> 
+                                                                                                <td ><div class="slds-truncate">{! contact.personFirstName}</div ></td>
+                                                                                                <td> <div class="slds-truncate" >{! contact.personLastName}</div ></td>
+                                                                                                <td> <div class="slds-truncate" >{! contact.phone}</div ></td>
+                                                                                                <td class="text-center" >{! contact.emailAddress}</td>
+                                                                                                <td class="text-center"><lightning:button name="{!indexSupp+'-'+ indexSite +'-'+indexCon}"  iconName="utility:edit" iconPosition="left" tabindex="{!indexCon}"  variant="brand" onclick="{! c.showDetailsContacts }" /> </td> 
+                                                                                              </tr>
+                                                                                            </aura:iteration>                                                
+                                                                                        </tbody>
+                                                                                      </table>                                                                                     
+                                                                                 </div>                                
+                                                                              </article>
+                                                                           </div>                       
+                                                                        </article>
+                                                                </div>
+                                                                 
+                                                            </lightning:accordionSection>
+                                                        </lightning:accordion>                                               
+                                                    </aura:iteration>                                        
+                                                 </div>                                
+                                              </article>
+                                           </div>                       
+                                        </article>
+                                       </div>
+                                                   
+                                    </aura:iteration>
+                                 </div> 
+                                 <footer class="slds-media slds-media_center slds-has-flexi-truncate">
+                                  <div class="slds-media__body"></div>
+                                  <div class="slds-no-flex">
+                                      <lightning:button variant="brand" label="Save" iconName="utility:save"  iconPosition="left" title="Save" onclick="{! c.onSave }"/>
+                                      <lightning:button  label="Cancel" iconName="utility:close"  iconPosition="left" title="Add Supplier" onclick="{! c.cancelDetails }"/>
+                                  </div>
+                                </footer>
+                              </article>
+                           </div>                       
+                    	</article>
+                    </div>
+                    </aura:renderIf>
+                    
+                    <br></br><br></br>
+                    <aura:renderIf isTrue="{!v.visibilityDivSearch == true &amp;&amp; v.visibilityDivResult == true}">
+                    	<footer class="slds-media slds-media_center slds-has-flexi-truncate">
+                                  <div class="slds-media__body"></div>
+                                  <div class="slds-no-flex">
+                                      <lightning:button  label="Cancel" iconName="utility:close"  iconPosition="left" title="Add Supplier" onclick="{! c.cancelSearch }"/>
+                                  </div>
+                    </footer>
+                    </aura:renderIf>
+
+                  <!--./ Informacion de la tab Known Supplier iconName="action:join_group" -->
+                </lightning:tab>
+                <lightning:tab label="New Supplier" >                     
+                  <c:TKD_supplierInTD_NewSupplier recordId="{! v.recordId}"></c:TKD_supplierInTD_NewSupplier>  
+                </lightning:tab>
+              </lightning:tabset>
+             </div>
+              <!--./ Fin tabs -->
+              <br></br>
+
+  <!-- 3ra Seccion-->
+    
+  <!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::  MODALES ::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+  <!-- Modal para seleccionar invoices -->
+  <div class="slds-m-around_xx-large">
+    <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+    <aura:if isTrue="{! v.isOpenInvoice}">
+      <!--###### MODAL BOX Start######-->
+      <section  role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open card-info" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <!--<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open card-info"> -->
+        <div class="slds-modal__container">
+          <!-- ###### MODAL BOX HEADER Start ######-->
+          <header class="slds-modal__header card-header">
+            <lightning:buttonIcon  iconName="utility:close"  onclick="{! c.closeModalInvoice}" alternativeText="close" variant="bare-inverse"  class="slds-modal__close"/>
+            <h2 id="modal-heading-01"  class="slds-text-heading_medium slds-hyphenate" ><strong>Invoice</strong>
+              <lightning:icon  iconName="utility:insert_template" size="x-small" variant="bare" class="float-right" iconClass="white" />
+            </h2>
+          </header>
+          <!--###### MODAL BOX BODY Part Start######-->
+          <div  class="slds-modal__content slds-p-around_medium"  id="modal-content-id-1">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                      <tr style="padding:0.5rem;background:#ddd;color: #000000"><!-- onchange="{!c.handleChange}" -->
+                        <th class="text-center"><lightning:input type="checkbox" aura:id="chkbxSupplierAllSelected" name="chkbxSupplierAllSelected"/></th>
+                        <th>Name Invoice</th>
+                      </tr>
+                      <aura:iteration items="{! v.lstInvoices}" var="lstInv" indexVar="indexInv">
+                        <tr>
+                          <!--checked="{! v.ischkbxSupplierSelected}" -->
+                          <td class="text-center"><lightning:input type="checkbox" value="{!indexInv}"  aura:id="chkbxSupplierSelected" name="chkbxSupplierSelected" onchange="{!c.handleChangeCheckBx}" /></td>
+                          <td>{!lstInv.Name}</td>
+                        </tr>
+                      </aura:iteration>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div> </div ><!-- /.row -->
+          </div>
+          <!--###### MODAL BOX FOOTER Part Start ######-->
+          <footer class="slds-modal__footer"> <lightning:button  variant="neutral" label="Cancel" title="Cancel" onclick="{!c.closeModalInvoice}" />
+            <lightning:button variant="brand" class="btn-info" label="Save" title="{!indexInv}" tabindex="{!indexInv}" onclick="{! c.onSaveInvoice }"/>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+      <!--###### MODAL BOX Part END Here ######-->
+    </aura:if>
+  </div>
+   <!-- ./ Modal para seleccionar invoices -->
+  
+    
+  <!--Modal  Contacto-->
+  <div class="slds-m-around_xx-large">
+    <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+    <aura:if isTrue="{! v.isOpenContact}">
+      <!--###### MODAL BOX Start######-->
+      <section  role="dialog" tabindex="-1"  class="slds-modal slds-fade-in-open card-info" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <!--<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open card-info"> -->
+        <div class="slds-modal__container">
+          <!-- ###### MODAL BOX HEADER Start ######-->
+          <header class="slds-modal__header card-header">
+            <lightning:buttonIcon  iconName="utility:close"  onclick="{! c.closeModalContact}"  alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+            <h2  id="modal-heading-01"  class="slds-text-heading_medium slds-hyphenate" ><strong>Contacto</strong>
+              <!--<lightning:icon
+                iconName="utility:insert_template"
+                size="x-small"
+                variant="bare"
+                class="float-right"
+                iconClass="white"
+              /> -->
+            </h2>
+          </header>
+          <!--###### MODAL BOX BODY Part Start######-->
+          <div  class="slds-modal__content slds-p-around_medium"  id="modal-content-id-1">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body"> 
+                      <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                        <div class="slds-size_2-of-4" ><lightning:input name=""  aura:Id="" label="First Name" value="" variant="label-inline"/></div>
+                        <div class="slds-size_2-of-4" ><lightning:input name="" aura:Id=""  label="Last Name" value="" variant="label-inline"/></div>
+                        <div class="slds-size_2-of-4" ><lightning:input name="" aura:Id=""  label="Phone" value="" variant="label-inline"/></div>
+                        <div class="slds-size_2-of-4" ><lightning:input name="" aura:Id=""  label="Email Address"  value="" variant="label-inline" /></div>
+                      </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div> 
+            </div><!-- /.row -->
+          </div>
+          <!--###### MODAL BOX FOOTER Part Start ######-->
+          <footer class="slds-modal__footer">
+            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.closeModalContacto}" />
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+      <!--###### MODAL BOX Part END Here ######-->
+    </aura:if>
+  </div>
+  <!--Fin Modal Contacto -->
+  <!--Modal  Cuenta-->
+  <div class="slds-m-around_xx-large">
+    <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+    <aura:if isTrue="{! v.isOpenAccount}">
+      <!--###### MODAL BOX Start######-->
+      <section  role="dialog" tabindex="-1"  class="slds-modal slds-fade-in-open card-info" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <!--<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open card-info"> -->
+        <div class="slds-modal__container">
+          <!-- ###### MODAL BOX HEADER Start ######-->
+          <header class="slds-modal__header card-header">
+            <lightning:buttonIcon  iconName="utility:close"  onclick="{! c.closeModalAccount}"  alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+            <h2  id="modal-heading-01"  class="slds-text-heading_medium slds-hyphenate" ><strong>Account</strong>
+              <!--<lightning:icon
+                iconName="utility:insert_template"
+                size="x-small"
+                variant="bare"
+                class="float-right"
+                iconClass="white"
+              /> -->
+            </h2>
+          </header>
+          <!--###### MODAL BOX BODY Part Start######-->
+          <div  class="slds-modal__content slds-p-around_medium"  id="modal-content-id-1">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body"> 
+                      <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                        <div class="slds-size_2-of-4" ><lightning:input name=""  aura:Id="" label="Bank Name" value="{! v.accountSelected.bankName }" variant="label-inline"/></div>
+                        <div class="slds-size_2-of-4" ><lightning:input name="" aura:Id=""  label="Bank Account Name" value="{! v.accountSelected.bankAccountName }" variant="label-inline"/></div>
+                        <div class="slds-size_2-of-4" ><lightning:input name="" aura:Id=""  label="Bank Account Num" value="{! v.accountSelected.bankAccountNum }" variant="label-inline"/></div>
+                        <div class="slds-size_2-of-4" ><lightning:input name="" aura:Id=""  label="Currency"  value="{! v.accountSelected.curency }" variant="label-inline" /></div>
+                      </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div> 
+            </div><!-- /.row -->
+          </div>
+          <!--###### MODAL BOX FOOTER Part Start ######-->
+          <footer class="slds-modal__footer">
+            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.closeModalAccount}" />
+            <lightning:button variant="brand" label="Save" title="Cancel" onclick="" />
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+      <!--###### MODAL BOX Part END Here ######-->
+    </aura:if>
+  </div>
+  <!--Fin Modal Cuenta -->
+    
+    
+</aura:component>

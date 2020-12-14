@@ -1,0 +1,158 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon size="small" icon-name="custom:custom26"></lightning-icon>
+                </div>
+                <div class="slds-media__body slds-truncate">
+                    <span class="slds-text-heading--small"><strong>Approval Status</strong></span>
+                </div>
+            </header>
+            <template if:true={visibilityAML}>
+                <div class="slds-form_item" role="listitem">
+                    <div class="slds-form-element  slds-form-element_stackeD slds-hint-parent">
+                        <div class="slds-form-element__control">
+                            <lightning-button-group>
+                                <lightning-button label="Approve AML" onclick={handleApproveAML}></lightning-button>
+                                <lightning-button label="Reject AML" onclick={handleRejectAML}></lightning-button>
+                            </lightning-button-group>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <div class="slds-no-flex">
+                <template if:true={visibilityRisk}>
+                    <div class="slds-form_item" role="listitem">
+                        <div class="slds-form-element  slds-form-element_stacked slds-hint-parent">
+                            <div class="slds-form-element__control">
+                            <lightning-button label="Send to AML" onclick={handleSendToAML}></lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="slds-card__body animated fadeIn">
+            <div class="slds-card__body--inner slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-tile slds-media slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-hint-parent">
+                    <div class="slds-media__figure">
+                        <lightning-icon size="x-small"  icon-name={amlIcon.iconName} title={amlIcon.iconTitle}></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                            <h3><strong>AML</strong></h3>
+                        </div>
+                        <lightning-record-view-form
+                        record-id={recordId}
+                        object-api-name="Opportunity">
+                            <div class="slds-tile__detail slds-text-body--small">
+                                <dl class="slds-dl--horizontal">
+                                
+                                    <dt class="slds-dl--horizontal__label">
+                                        <span class="slds-truncate" title="Status"><strong>Status:</strong></span>
+                                    </dt>
+                                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                        <span class="slds-truncate"><lightning-output-field field-name="LMM_Status_AML__c" variant="label-hidden"></lightning-output-field></span>
+                                    </dd>
+                                    <dt class="slds-dl--horizontal__label">
+                                        <span class="slds-truncate" title="Status"><strong>ApprovedBy:</strong></span>
+                                    </dt>
+                                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                        <span class="slds-truncate"><lightning-output-field field-name="AML_Approved_By__c" variant="label-hidden"></lightning-output-field></span>
+                                    </dd>
+                                    <dt class="slds-dl--horizontal__label">
+                                        <span class="slds-truncate" title="Date"><strong>Comments:</strong></span>
+                                    </dt>
+                                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                        <span>
+                                        <template if:false={viewComments}>
+                                          <div style="cursor: pointer; color: blue;" onclick={handleViewComments}>View Comments</div>
+                                        </template>
+                                        <template if:true={viewComments}>
+                                            <span onclick={handleCloseComments} style="cursor: pointer; color: blue;">Close Comments</span>
+                                            <lightning-output-field field-name="AML_Approval_Coments__c" variant="label-hidden"></lightning-output-field>
+                                         </template>
+                                        </span>   
+                                    </dd>
+                                </dl>
+                            </div>
+                        </lightning-record-view-form>
+                    </div>
+                </div>
+                <div class="slds-tile slds-media slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-hint-parent">
+                    <div class="slds-media__figure">
+                        <lightning-icon size="x-small" icon-name={riskIcon.iconName} title={riskIcon.iconTitle}></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                            <h3><strong>RISK</strong></h3>
+                        </div>
+                        <lightning-record-view-form
+                        record-id={recordId}
+                        object-api-name="Opportunity">
+                            <div class="slds-tile__detail slds-text-body--small">
+                                <dl class="slds-dl--horizontal">
+                                
+                                    <dt class="slds-dl--horizontal__label">
+                                        <span class="slds-truncate" title="Status"><strong>Status:</strong></span>
+                                    </dt>
+                                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                        <lightning-output-field field-name="LMM_Status_Risk__c" variant="label-hidden"></lightning-output-field>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </lightning-record-view-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+   
+        <!--Use template if:true to display/hide popup based on isModalOpen value--> 
+        <template if:true={isModalOpen}>
+            <!-- Modal/Popup Box LWC starts here -->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC header here -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">AML COMMENTS</h2>
+                    </header>
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 animated fadeIn" role="list">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                            <label class="slds-form-element__label"><strong>Comments</strong></label>
+                                            <div class="slds-form-element__control">
+                                                <lightning-textarea
+                                                        name="comentsAML"
+                                                        onchange={handleAMLComments}
+                                                        max-length="32768">
+                                                </lightning-textarea>
+                                            </div> 
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+</template>

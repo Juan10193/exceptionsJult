@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead_General</letterhead>
+    <name>English - Supplier Digital Registration Invitation</name>
+    <style>freeForm</style>
+    <subject>Complete the registry of, {!Entity_CP__c.Name}, as a supplier of Engenium Capital.</subject>
+    <textOnly>Dear, {!Entity_CP__c.Registration_Contact_First_Name__c}:
+
+You&apos;re receiving this email, as part of the enrollment process of,  {!Entity_CP__c.Name}, as of supplier of Engenium Capital.
+
+For further reference, please note that this process was initiated by:
+
+{!User.Name}
+{!User.Email}
+{!User.Phone}
+
+The process is easy and fast, and we&apos;ll guide you at every step. If you have doubts, don&apos;t hesitate in contacting us to the following WhatsApp number:
+55-3717-9208 (from 8:00am to 5:30pm, Monday through Friday)
+
+During the process we&apos;ll ask you information about:
+
+The account receivable contact
+Fiscal details
+Payment details
+
+
+At the final step, it will be necessary that you attach:
+
+The cover page of the bank account statement where you will receive the payment
+Your RFC (if you are a national provider) / &quot;Tax ID&quot; (for foreigners)
+
+The system only accepts JPG, JPGE, PNG formats. There are free sites where you can convert a PDF to JPG, you can use this *: https://smallpdf.com/es/convertidor-pdf
+
+
+Take into account that in this digital platform you will fill out the application, but the process ends when you receive our confirmation email.
+
+Let&apos;s continue building great businesses together!
+
+
+Click here to start your registration process
+
+Kind regards,
+
+Supplier Success - Engenium Capital
+
+* The above reference does not constitute or should be understood as a promotion or relationship of any kind between Engenium Capital and the website. The use of the same and / or any other online file converter is the responsibility of the provider, demarcating to Engenium Capital the use or treatment that said website or converter may give to the data or information sent.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

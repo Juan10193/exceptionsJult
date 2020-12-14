@@ -1,0 +1,73 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-14-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-13-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+
+<template>
+  <div class="slds-p-around_x-small">
+    <lightning-card title="Contact Information" icon-name="standard:contact">
+      <lightning-button-stateful if:true={contactId} slot="actions" label-when-off="Edit" label-when-on="Editing"
+        label-when-hover="Save" icon-name-when-off="utility:edit" icon-name-when-on="utility:edit_form"
+        icon-name-when-hover="utility:save" selected={isSelectedEditing} onclick={handleEditClick}>
+      </lightning-button-stateful>
+    </lightning-card>
+  </div>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" padding="around-small">
+      <div class="slds-p-around_xx-small container lgc-bg">Information
+      </div>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="text" label="Department" data-field="department" readonly={isReadOnly} required
+        maxlength="60">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="email" label="Email address" data-field="emailAddress" readonly={isReadOnly} required
+        maxlength="2000">
+      </lightning-input>
+    </lightning-layout-item>
+
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="text" label="First name" data-field="firstName" readonly={isReadOnly} required
+        maxlength="60">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="text" label="Last name" data-field="lastName" readonly={isReadOnly} required
+        maxlength="60">
+      </lightning-input>
+    </lightning-layout-item>
+
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Phone area code" data-field="phoneAreaCode" readonly={isReadOnly}
+        required maxlength="10">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Phone number" data-field="phoneNumber" readonly={isReadOnly}
+        required maxlength="40" field-level-help="you can put a number with extension. Example 5511551155 ext 3940">
+      </lightning-input>
+    </lightning-layout-item>
+    <!--<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Phone extensión" data-field="phoneExtensión" readonly={isReadOnly}
+        maxlength="20" required>
+      </lightning-input>
+    </lightning-layout-item>-->
+
+  </lightning-layout>
+
+</template>

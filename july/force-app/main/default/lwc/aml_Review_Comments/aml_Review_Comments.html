@@ -1,0 +1,87 @@
+<template>
+    <br>
+    
+        
+            <lightning-card>
+                <h3 slot="title">
+                    <lightning-layout>
+                        <lightning-icon icon-name="utility:comments" size="small"></lightning-icon>
+                        &nbsp;
+                        <p><b>Comments</b></p>
+                        </br></br></br>
+                    </lightning-layout>
+                </h3>
+
+                <section role="log" class="slds-chat slds-scrollable_y"   style="height: 20rem; width: auto;" data-id="chat">
+                    <ul class="slds-chat-list">
+                        <template for:each={commentarios} for:item='com' onchange={gobot}>
+                            <template if:false={com.isActualUser}>
+                                <li key={com.Id} class="slds-chat-listitem slds-chat-listitem_inbound">
+
+                                    <div class="slds-chat-message">
+                                        <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                            <img alt="Person name" src={com.photo} title="Person name" />
+                                        </span>
+                                        <div class="slds-chat-message__body">
+                                            <div class="slds-chat-message__text slds-chat-message__text_inbound">
+                                                <span>
+                                                    <lightning-formatted-rich-text value={com.comment}>
+                                                    </lightning-formatted-rich-text>
+                                                </span>
+                                            </div>
+                                            <div class="slds-chat-message__meta" aria-label={com.userName}>
+                                                {com.userName} • {datos}
+                                                <lightning-formatted-date-time value={com.createDate} year="numeric"
+                                                    month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+                                                    time-zone-name="short" hour12="false">
+                                                </lightning-formatted-date-time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                            <template if:true={com.isActualUser}>
+                                <li key={com.Id} class="slds-chat-listitem slds-chat-listitem_outbound">
+                                    <div class="slds-chat-message">
+                                       
+                                        <div class="slds-chat-message__body">
+                                            <div class="slds-chat-message__text slds-chat-message__text_outbound-agent">
+                                                <span>
+                                                    <lightning-formatted-rich-text value={com.comment}>
+                                                    </lightning-formatted-rich-text>
+                                                </span>
+                                            </div>
+                                            <div class="slds-chat-message__meta" aria-label={com.userName}>
+                                                {com.userName} • {datos}
+                                                <lightning-formatted-date-time value={com.createDate} year="numeric"
+                                                    month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+                                                    time-zone-name="short" hour12="false">
+                                                </lightning-formatted-date-time>
+                                            </div>
+                                        </div>
+                                        <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                            <img alt="Person name" src={com.photo} title="Person name" />
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </template>
+                    </ul>
+                </section>
+                <lightning-record-edit-form object-api-name="LWC_Comment__c" onsubmit={onRecordSubmit} onsuccess={handleSuccess} data-id="commForm">
+                        <lightning-messages></lightning-messages>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-3_of-3">
+                            <lightning-input-field field-name="LWC_Comment__c" data-id="commInput"></lightning-input-field>
+                        </div>
+                    </div>
+                    <div style="text-align: right">
+                            <lightning-button variant="brand" type="submit" label="Add Comment" title="Add Comment"  icon-name="utility:send"
+                                class="slds-m-left_x-small">
+                            </lightning-button>
+                        </div>
+                </lightning-record-edit-form>
+            </lightning-card>
+        
+    
+</template>

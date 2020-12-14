@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Opportunity Created by a no owner</name>
+    <style>freeForm</style>
+    <subject>An oppportinity has been created from another user in an account that you own</subject>
+    <textOnly>Dear {!Account.OwnerFirstName},
+
+You&apos;re receiving this notification, because {!Opportunity.CreatedBy}, created an opportunity in the account {!Account.ACC_fm_Company_Legal_Name__c} that you own.
+
+Please refer to the following details for your reference:
+
+Opportunity name: {!Opportunity.Name}
+Opportunity ID: {!Opportunity.OPP_tx_EXT_REF_ID__c}
+Stage:{!Opportunity.StageName}
+Amount: {!Opportunity.Amount}
+Currency: {!Opportunity.CurrencyIsoCode}
+Line of business: {!Opportunity.OPP_ls_Line_of_Business__c}
+Collateral: {!Opportunity.OPP_ls_Collateral__c}
+Product: {!Opportunity.OPP_ls_Product__c}
+Opportunity from Vendor/ broker?:   {!Opportunity.OPP_ls_Vendor_Brand__c} {!Opportunity.OPP_rb_Broker_Name__c}
+
+You can access the record in the following link: https://na30.salesforce.com/{!Opportunity.Id}
+
+Thank you,
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

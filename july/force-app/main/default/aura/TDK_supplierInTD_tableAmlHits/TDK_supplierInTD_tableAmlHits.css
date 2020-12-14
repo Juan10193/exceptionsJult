@@ -1,0 +1,16 @@
+.THIS .red {
+    color: #FF002B;
+}
+.THIS .orange {
+    color: #FFC733;
+}
+.THIS .black {
+    color: #000000;
+}
+.THIS .table-container
+{
+    width: 100%;
+    overflow-y: auto;
+    _overflow: auto;
+    margin: 0 0 1em;
+}

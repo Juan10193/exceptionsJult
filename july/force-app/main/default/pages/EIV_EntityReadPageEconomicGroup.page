@@ -1,0 +1,80 @@
+<apex:page lightningStylesheets="true" controller="EIV_EntityExtendClassBis">
+    <apex:form >
+        <apex:pageBlock title="Economic group">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>                      
+            
+            <apex:pageBlockSection columns="2" title="General Information">
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" id="Top_Parent_Name"/>
+                    <apex:outputLink value="/{!Entity.Top_Parent_ID}" id="linkaccountId">{!Entity.Top_Parent_Name}</apex:outputLink>
+                </apex:pageBlockSectionItem>    
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Number" id="Oracle_Account_Number"/>
+                    <apex:outputText value="{!Entity.Oracle_Account_Number}" />
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Type" id="Customer_type"/>
+                    <apex:outputText value="{!Entity.Customer_Type}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic group Name" id="Economic_group_Name"/>
+                    <apex:outputText value="{!Entity.Oracle_Account_Name}" />
+                </apex:pageBlockSectionItem>
+                <!---->
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="SIC Code">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SIC Code" id="SIC_Code"/>
+                    <apex:outputLink value="/{!Entity.SIC_CodeId}" id="linkSicCodeId">{!Entity.SIC_Code}</apex:outputLink>
+                    
+                </apex:pageBlockSectionItem>
+                
+                
+                
+                
+                <apex:pageBlockSectionItem id="SicDescriptionId" >
+                    <apex:outputLabel value="SIC Description" id="SIC_Description"/>
+                    <apex:outputText value="{!Entity.SIC_Description}"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            <div style="width: 150px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Edit" id="saveButton" action="{!EditEntity}" rendered="{!entityPrivileges.bUpdate}" />
+            </div>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Related Entities">
+            <div style="width: 150px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="New Entity" id="newButton" action="{!NewEntity}" rendered="{!entityPrivileges.bCreate}"/>
+            </div>
+            <apex:pageBlockTable value="{!EntitiesFromEconomicGroup}" var="add">
+                
+                <apex:column headerValue="Oracle Account Name">
+                    <apex:outputLink value="/apex/{!add.vfSNameRead}?PartyId={!add.Party_Id}&AccountId={!add.Account_ID}&AccountName={!add.SF_Account_Name}&TopParentID={!add.Top_Parent_ID}&TopParentName={!add.Top_Parent_Name}" id="linkaccountId">{!add.Oracle_Account_Name}</apex:outputLink>
+                </apex:column>                       
+                <apex:column headerValue="Oracle Account Number">
+                    <apex:outputText value="{!add.Oracle_Account_Number}"/>
+                </apex:column>                  
+                <apex:column headerValue="RFC">
+                    <apex:outputText value="{!add.RFC}"/>
+                </apex:column>
+                <apex:column headerValue="Party Id">
+                    <apex:outputText value="{!add.Party_Id}"/>
+                </apex:column>                
+                <apex:column headerValue="Top Parent Name">
+                    <apex:outputLink value="/{!add.Top_Parent_Id}" id="linkTopParentId">{!add.Top_Parent_Name}</apex:outputLink>
+                </apex:column>                  
+                <apex:column headerValue="Customer Type">
+                    <apex:outputText value="{!add.Customer_Type}"/>
+                </apex:column>                
+
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

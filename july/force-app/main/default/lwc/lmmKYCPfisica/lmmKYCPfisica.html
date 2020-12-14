@@ -1,0 +1,513 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 07-31-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   07-27-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    <div data-id="toastModel" style="height: 4rem; " class="slds-hide demo-only">
+        <div class="slds-notify_container slds-is-relative">
+            <div class={mainDivClass} role="status">
+                <span class="slds-assistive-text">{variant}</span>
+                <span class={messageDivClass} title={message}>
+                    <lightning-icon icon-name={iconName} size="small" variant="inverse"></lightning-icon>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">{title}</h2>
+                    <p style="color:white;">{message}</p>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={closeModel}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"> </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+    <template if:true={validatePIN}>
+        <c-modal-question onaccept={handleAccessPin}
+            accept-button-name="Login" title="ENTER PIN">
+            <div slot="body">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                      <span></span>
+                    </div>
+                    <div class="slds-col">
+                      <span><lightning-input type="password" onchange={pinChange}></lightning-input></span>
+                    </div>
+                    <div class="slds-col">
+                      <span></span>
+                    </div>
+                </div>
+            </div>
+        </c-modal-question>
+    </template>
+
+    <template if:true={successPIN}>
+        <template if:true={kycRecord}>
+            <img class="logoEngen" src={logoEngen}/>
+            <lightning-card variant="Narrow" title="" >
+                <lightning-button 
+                    variant="brand" 
+                    label="Save" 
+                    title="Save" 
+                    onclick={handleSave}
+                    class="slds-m-left_x-small" 
+                    slot="actions" 
+                    icon-name="utility:save"
+                >
+                </lightning-button>
+                <div slot="actions">{kycRecord.LMM_fm_Porcentaje_de_llenado_PF__c.value}% completado</div>
+                <div class="fullDevice" style="max-width: 100%;"></div>
+                <div class="bodyPage">
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <h1><b>Información General del Cliente Persona Física.</b></h1>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Fecha:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="date" class="customInputText fullLine" data-field="fechaEdicion" value={kycRecord.LMM_fh_Fecha__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>Para efectos del presente formato por ENGENCAP HOLDING, S. DE R.L. DE C.V.debe entenderse
+                                a ésta misma así como a todas sus subsidiarias y afiliadas
+                                correspondientes.</p>
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        I. Cliente Persona Física
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Nombre Completo (sin abreviaturas):</p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="nombreCompleto"
+                                value={kycRecord.LMM_tx_Nombre_Completo_sin_abreviaturas__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Profesión u Ocupación:</p>
+                        </div>
+                        <div class="slds-col slds-size_10-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="profesionOcupacion"
+                                value={kycRecord.LMM_tx_Profesion_u_Ocupacion__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-bottom_xx-small">
+                            <p>RFC:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="RFC"
+                                value={kycRecord.LMM_tx_RFC__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-bottom_xx-small">
+                            <p>CURP:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="CURP"
+                                value={kycRecord.LMM_tx_CURP__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Fecha de Nacimiento:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="date" class="customInputText partialLine" data-field="fechaNacimiento"
+                                value={kycRecord.LMM_fh_Fecha_de_Nacimiento__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Nacionalidad:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="nacionalidad"
+                                value={kycRecord.LMM_tx_Nacionalidad__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_7-of-12 slds-p-bottom_xx-small">
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-bottom_xx-small">
+                            <p>Genero:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="genero" id="Masculino" value="Masculino" data-field="generoM"
+                                checked={generoM}> Masculino<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="genero" id="Femenino" value="Femenino" data-field="generoF"
+                                checked={generoF}> Femenino<br>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-bottom_xx-small">
+                            <p>Estado Civil:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="estadoCivil" id="Casado" value="Casado" data-field="estadoCivilC"
+                                checked={estadoCivilC}> Casado<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="estadoCivil" id="Soltero" value="Soltero"
+                                data-field="estadoCivilS" checked={estadoCivilS}> Soltero<br>
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        II. Domicilio Persona Física (No es válido un apartado postal como dirección).
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Calle:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="calle"
+                                value={kycRecord.LMM_tx_Calle__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>No. Ext.:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="noExt"
+                                value={kycRecord.LMM_tx_No_Ext__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>No. Int.:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="noInt"
+                                value={kycRecord.LMM_tx_No_Int__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Colonia/Urbanización:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="coloniaUrbanizacion"
+                                value={kycRecord.LMM_tx_Colonia_Urbanizacion__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>C. Postal:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="cp"
+                                value={kycRecord.LMM_tx_Codigo_Postal__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Alcaldía o Municipio:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="alcaldiaOMunicipio"
+                                value={kycRecord.LMM_tx_Alcaldia_o_Municipio__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Ciudad:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="ciudad"
+                                value={kycRecord.LMM_tx_Ciudad__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Entidad Federativa:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="entidadFederativa"
+                                value={kycRecord.LMM_tx_Entidad_Federativa__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>País:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="pais"
+                                value={kycRecord.LMM_tx_Pais__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Teléfono, Oficina o particular:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="telefonoOficinaOparticular"
+                                value={kycRecord.LMM_tf_Telefono_Oficina_o_particular__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Correo Electrónico:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="correoElectronico"
+                                value={kycRecord.LMM_ce_Correo_Electronico__c.value} />
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        III. Personas Políticamente Expuestas(PPE)(1) o
+                        Persona Políticamente Expuesta por Asimilación(PPE por Asimilación)(2)
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>¿Es usted una Persona Políticamente Expuesta(1)?</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="ppExpuesta" value="Si" data-field="ppExpuestaSi"
+                                checked={ppExpuestaSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="ppExpuesta" value="No" data-field="ppExpuestaNo"
+                                checked={ppExpuestaNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                            <p>En caso afirmativo señale el puesto
+                                Ej.: Presidente de la República, Secretario o Subsecretario de Estado, Senador,
+                                Diputado,
+                                Gobernador,
+                                Presidente Municipal, Magistrado, entre otros.):</p>
+                        </div>
+                        <div class="slds-col slds-size_5-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="ppExpuestaPuesto"
+                                value={kycRecord.LMM_tx_Persona_Expuesta_Puesto__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>¿Es usted PPE por Asimilación?</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="ppExpuestaAsimilacion" value="Si"
+                                data-field="ppExpuestaAsimilacionSi" checked={ppExpuestaAsimilacionSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="ppExpuestaAsimilacion" value="No"
+                                data-field="ppExpuestaAsimilacionNo" checked={ppExpuestaAsimilacionNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Nombre de la PPE: </p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="nombrePPE"
+                                value={kycRecord.LMM_tx_Nombre_de_la_PPE__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Parentesco (por asimilación):</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="parentescoPorAsimilacion"
+                                value={kycRecord.LMM_tx_Parentesco_por_asimilacion__c.value} />
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        IV.Origen de los Recursos.
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>¿Actividades propias de la empresa?</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="actividadesPropEmp" value="Si" data-field="actividadesPropEmpSi"
+                                checked={actividadesPropEmpSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="actividadesPropEmp" value="No" data-field="actividadesPropEmpNo"
+                                checked={actividadesPropEmpNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>¿Sostiene algún tipo de relación comercial con gobierno?</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="Si"
+                                data-field="tieneRelacionComercialSi" checked={tieneRelacionComercialSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="No"
+                                data-field="tieneRelacionComercialNo" checked={tieneRelacionComercialNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>En caso afirmativo responder lo siguiente:
+                                Nombre de la(s) entidad(es) de gobierno con la(s) que tiene Relación
+                                Comercial:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="nombreEntidadDeGob"
+                                value={kycRecord.LMM_tx_Entidad_con_relacioncomercial__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Porcentaje aproximado del ingreso anual:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="ingresoAnual"
+                                value={kycRecord.LMM_dv_Porcentaje_de_ingreso_anual__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Declaro que los recursos provenen de fuentes lícitas</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="RecursosFuentesLicitas" value="Si"
+                                data-field="RecursosFuentesLicitasSi" checked={RecursosFuentesLicitasSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="RecursosFuentesLicitas" value="No"
+                                data-field="RecursosFuentesLicitasNo" checked={RecursosFuentesLicitasNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>El Presente Formato Es Suscrito Por:</p>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="suscritoPor"
+                                value={kycRecord.LMM_tx_Formato_suscrito_por__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_10-of-12 slds-p-bottom_xx-small">
+                            <p>Si actúa en nombre y representación de la persona física que se identifica en
+                                el presente
+                                formato señale lo siguiente:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" checked={kycRecord.LMM_ca_Actua_en_representacion__c.value}
+                                data-field="acutaEnRepresentacion" onclick={handleUncheck}>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Escritura Pública (Poder) N°:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="escrituraPNum"
+                                value={kycRecord.LMM_tx_Escritura_Publica__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>De Fecha:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input type="date" class="customInputText partialLine" data-field="deFecha"
+                                value={kycRecord.LMM_fh_De_Fecha__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Ante El Notario:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="anteNotario"
+                                value={kycRecord.LMM_tx_Ante_El_Notario__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Con Número:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="conNumero"
+                                value={kycRecord.LMM_tx_Con_Numero__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>De La Ciudad De:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="deLaCiudadDe"
+                                value={kycRecord.LMM_tx_De_La_Ciudad_De__c.value} />
+                        </div>
+                            <!--<div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                                            <p>Inscripción En El R.P.C.:</p>
+                                        </div>
+                                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                                            <input class="customInputText partialLine" data-field="inscripRPC"
+                                                value={kycRecord.LMM_tx_Inscripcion_En_El_R_P_C__c.value} />
+                                        </div>-->
+                        <p class="finalFooter">1. Se entiende por PPE, aquel individuo que desempeña o ha
+                            desempeñado
+                            funciones públicas
+                            destacadas en
+                            territorio nacional o en el extranjero, considerando entre otros a los jefes de
+                            estado o de
+                            gobierno,
+                            líderes políticos, funcionarios gubernamentales, judiciales o militares de alta
+                            jerarquía,
+                            altos
+                            ejecutivos
+                            de empresas estatales o funcionarios o miembros importantes de partidos
+                            políticos y
+                            organizaciones internacionales;
+                            entendidas como aquellas entidades establecidas mediante acuerdos políticos
+                            oficiales entre
+                            estados, los cuales
+                            tienen el estatus de tratados internacionales; cuya existencia es reconocida por
+                            la ley en
+                            sus
+                            respectivos estados
+                            miembros y no son tratadas como unidades institucionales residentes de los
+                            países en los que
+                            están ubicadas. </p>
+                        <br>
+                        <p class="finalFooter">Nombre y Firma ! Régimen Sociedad Conyugal ! Régimen Bienes
+                            Separados
+                            Nombre
+                            Del Cónyuge Y
+                            Dependientes Económicos: ! Masculino ! Femenino Estado Civil: ! Casado ! Soltero
+                            Si Es
+                            Casado:
+                            Inscripción En El R.P.C.: ! Si actúa en nombre y representación de la persona
+                            física que se
+                            identifica en el presente formato señale lo siguiente: Escritura Pública (Poder)
+                            N°: Ante El
+                            Notario: De La Ciudad De: De Fecha : Con Número: El Presente Formato Es Suscrito
+                            Por: Tipo
+                            de
+                            producto o servicio que le presta a dicha(s) entidades: Tiempo de antigüedad de
+                            la relación
+                            comercial con dicha(s) entidad(es): En caso afirmativo responder lo siguiente:
+                            Nombre de
+                            la(s)
+                            entidad(es) de gobierno con la(s) que tiene Relación Comercial: Porcentaje
+                            aproximado del
+                            ingreso anual: IV.Origen de los Recursos. ¿Actividades propias de la empresa? !
+                            Sí ! No
+                            ¿Sostiene algún tipo de relación comercial con gobierno? ! Sí ! No ¿Es usted una
+                            Persona
+                            Políticamente Expuesta(1)? Teléfono Oficina o particular: Correo Electrónico:
+                            II. Domicilio
+                            Persona Física (No es válido un apartado postal como dirección). Calle:
+                            Colonia/Urbanización:
+                            Información General del Cliente Persona Física con Actividad Empresarial. Para
+                            efectos del
+                            presente formato por ENGENCAP HOLDING, S. DE R.L. DE C.V.debe entenderse a ésta
+                            misma así
+                            como a
+                            todas sus subsidiarias y afiliadas correspondientes. I. Cliente Persona Física
+                            con Actividad
+                            Empresarial. Profesión u Ocupación: Nombre Completo (sin abreviaturas): Aviso de
+                            Privacidad.
+                            Sus
+                            datos personales están seguros en EngenCapital. En los términos de la Ley
+                            Federal de
+                            Protección
+                            de datos personales en posesión de los particulares y su reglamento,
+                            EngenCapital (así como
+                            entidades filiales y subsidiarias), con domicilio en Antonio Dovalí Jaime No.
+                            70, Torre C,
+                            Piso
+                            4° Col. Santa Fe, 01210, México, D.F. utilizará sus datos personales aquí
+                            recabados con la
+                            finalidadde analizarlos y evaluarlos para ofrecerle cualquiera de nuestros
+                            productos y
+                            servicios
+                            financieros, cumplir con nuestros términos y condiciones en la prestación de
+                            nuestros
+                            productos
+                            y servicios, para el análisis de riesgo en la contratación de los mismos y en
+                            general, para
+                            hacer de su conocimiento los servicios que ofrece EngenCapital. Mediante la
+                            firma de este
+                            documento entenderemos que acepta y reconoce expresamente que sus datos
+                            personales,
+                            incluidos
+                            aquellos catalogados como sensibles, financieros y patrimoniales podrán ser
+                            tratados,
+                            transmitidos y verificados para dichos efectos por Engenium capital, así como
+                            por terceros
+                            autorizados proveedores de servicios. Para mayor información acerca del
+                            tratamiento y de los
+                            derechos que puede hacer valer, usted puede acceder al aviso de privacidad
+                            completo a través
+                            de
+                            nuestra página de internet <a href="https://www.engen.com.mx">“www.engen.com.mx”</a>
+                        </p>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+    </template>
+</template>

@@ -1,0 +1,180 @@
+<template>
+<br/>
+    <div class="slds-media__body">
+            <div class="slds-page-header__name">
+                <div class="slds-page-header__name-title">
+                <h2>
+                    <span
+                    class="slds-page-header__title slds-truncate"
+                    title="General Information"
+                    >General Information</span
+                    >
+                </h2>
+                </div>
+            </div>
+    </div>
+<br/>
+    <lightning-record-edit-form object-api-name="Takedowns_Contingency_plan__c" onerror={errohandler} onsuccess={handleSuccess} data-id="generalForm" onsubmit={handleSubmit}>
+        <lightning-messages>
+        </lightning-messages>
+    <div class="slds-grid slds-wrap">
+        <!-- <div class="slds-col slds-size_1-of-2">
+            
+            <lightning-input-field label="Account legal Name" field-name="Account_Legal_Name__c" value={forecast.Account_Legal_Name__c}>
+            </lightning-input-field>
+        </div> -->
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- More lightning-input-field components here -->
+            <lightning-input 
+            label="Opportunity" value={selectedOpp.Name} type="search"
+            placeholder="Search Opportunities" onclick={changeTemplateLookOpps} onchange={clearBoxes}>
+            </lightning-input>
+        </div>
+       
+       <!--     
+            <lightning-input-field label="Customer Name" field-name="CPL_rb_Entity_Name_CP__c">
+            </lightning-input-field>
+        </div>  -->
+        
+        
+        <!-- <div class="slds-col slds-size_1-of-2">
+            <lightning-input label="Customer Name" type="search" placeholder="Customer Name" onclick={changeTemplateLookEntitys} value={selectedCustomer.Name} >
+            </lightning-input>
+        </div> -->
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input label="Pricing CA" type="search" placeholder="Pricing CA" onclick={changeTemplateLookPricingsInca} value={selectedPricingCa.Name} >
+            </lightning-input>
+        </div>
+
+    
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field label="Customer Name" type="search" placeholder="Customer Name"  field-name="CPL_rb_Entity_Name_CP__c" value={forecast.CLI_rb_Customer_Name__c} >
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Deal Category" field-name="CPL_ls_Deal_Category__c" value={selectedOpp.OPP_ls_Deal_Category__c}>
+            </lightning-input-field>
+        </div>
+
+        
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Financing Needs" field-name="Financing_Needs__c" >
+            </lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Start of leasing" field-name="CPL_ls_Start_of_leasing__c" >
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="ISC" field-name="CLI_rb_Inside_Sales_Owner__c">
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Amount" field-name="TDAmount__c" value={forecast.TBO021_dv_Amount__c}>
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Currency" field-name="CurrencyIsoCode" value={forecast.CurrencyIsoCode}>
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Exchange Rate for Credit Line" field-name="CPL_nu_TD_Echange_Rate__c">
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Invoice Currency" field-name="CLI_lsInvoice_Currency__c" value={forecast.TBO021_ls_Invoice_Currency__c}>
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Operation Unit" field-name="CPL_ls_Operation_Unit__c">
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Inside Sales Comments" field-name="CLI_txt_Inside_Sales_Comments__c" value={forecast.TBO021_tl_CommercialSupportComments__c}>
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Product" field-name="CPL_ls_Product__c">
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Funding Date" field-name="CPL_da_Funding_Date__c" value={forecast.TBO021_fh_Funding_Date__c}>
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Volume Recognition Date" field-name="Volume_Recognition_Date__c" value={forecast.TBO021_fh_Delivery_Date__c}>
+            </lightning-input-field>
+        </div>
+         <div class="slds-col slds-size_1-of-2">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Contract Annex Num" field-name="Contract_Annex_Number__c">
+            </lightning-input-field>
+        </div>
+        <div class="slds-hidden">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Forecast Id" field-name="Takedowns_forecast__c" value={recordId}>
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-hidden">
+            <lightning-input-field 
+            label="Opportunity" value={selectedOpp.Id}
+            field-name="CPL_rb_Opp__c">
+            </lightning-input-field>
+        </div>
+
+        <div class="slds-hidden">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Entity In Ca" field-name="Customer_Name__c" value={selectedCustomer.Id}>
+            </lightning-input-field>
+        </div>
+        <div class="slds-hidden">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Pricing Ca" field-name="TKD_rb_Pricin_CA__c" value={selectedPricingCa.Id}>
+            </lightning-input-field>
+        </div>
+        <div class="slds-hidden">
+            <!-- Your lightning-input-field components here -->
+            <lightning-input-field label="Stage" field-name="TKD_ls_takedown_stage__c">
+            </lightning-input-field>
+        </div>
+        
+    </div>
+    <br/>
+    <div style="text-align: center">
+            <lightning-button variant="neutral" style="padding-left: 2em" label="Save" type="submit" title="Save"></lightning-button>
+    </div>
+    </lightning-record-edit-form>
+    <div class="slds-m-around_large">
+        <div if:false={isLoaded} class="slds-is-relative">
+           <lightning-spinner
+               alternative-text="Loading...">
+           </lightning-spinner>
+       </div>
+   </div>
+</template>

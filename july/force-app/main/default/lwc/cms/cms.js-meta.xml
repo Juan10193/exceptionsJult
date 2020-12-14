@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__Tab</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <supportedFormFactors>
+                <supportedFormFactor type="Small"/>
+                <supportedFormFactor type="Large"/>
+            </supportedFormFactors>
+            <property name="fieldsProcess" type="String" description="En caso de tener documentos viables escribir lista de campos separados por comas"/>
+            <property name="processName" type="String" description="Nombre del proceso"/>
+            <property name="isUnic" type="Boolean" default="false" description="Identifica si Son documentos fijos o Variables"/>
+            <property name="estructura" type="String" description="JSON de estructura que representa los campos a enviar al servicio"/>
+            <property name="validations" default="" type="String" description="JSON validaciones de campos para el proceso"/>
+            <property name="queryEstructure" type="String" description="Query para traer las entidades al takedown"/>
+            <property name="isJoinQuery" default="false" type="Boolean" description="Marcar si se esta haciendo una busqueda no relacionada al objeto"/>
+            <property name="joinField" default="" type="String" description="Campo para Hacer join"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

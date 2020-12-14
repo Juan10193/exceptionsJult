@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Se utiliza cuando pre book activa el check de booked</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Takedown pre book by pre book team</name>
+    <style>formalLetter</style>
+    <subject>Takedown {!Takedowns_Contingency_plan__c.Name} as Pre book</subject>
+    <textOnly>Dear User
+You are receiving this notification because the {!Units__c.Name} from  #FleetToGo {!FleetToGo__c.Name} for customer {!Units__c.Customer_Name__c}  has been booked:
+
+Requestor: {!Units__c.LastModifiedBy}
+Fleet Name: {!FleetToGo__c.Fleet_Name__c}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

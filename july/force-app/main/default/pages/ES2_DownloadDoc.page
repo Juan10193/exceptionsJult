@@ -1,0 +1,183 @@
+<apex:page lightningStylesheets="true" controller="ES2_controller_DownloadDoc" >
+    <html>
+        <head>
+            <script>
+             
+            //var htmlContent =node.innerHTML;
+            //	var textContent  = node.textContent;
+            	
+            
+            	window.onload = function(){
+                   var togl = document.getElementById('img_j_id0:pb:pbs');
+                    togl.click();
+                    
+                   
+                    
+                    
+                   
+    var storeObj = {};
+
+                    
+document.getElementById('downloadFile').addEventListener('click', downloadUploadedFile);
+		
+        storeObj["mimetype"] = document.getElementById('mime').value;
+                    
+                    storeObj["encode"] = document.getElementById('base').value;
+                    
+                    //document.getElementById('base').value;
+        storeObj["file"] = document.getElementById('orname').value;
+    
+                    
+
+
+    function downloadUploadedFile(event){
+        
+        var url = "data:" + storeObj.mimetype + ";base64," + storeObj.encode;
+        var action = document.createElement('a');
+        action.style.display ='none';
+        action.setAttribute("href", url);
+        action.setAttribute("target", "_blank");
+        action.setAttribute("download", storeObj.file);
+        document.body.appendChild(action);
+        action.click();
+        URL.revokeObjectURL(url);
+        action.remove();
+    }
+                    
+    var prev = document.getElementById('preview');
+                   
+        prev.data='data:'+ storeObj.mimetype +';base64,' + storeObj.encode;
+        prev.type =storeObj.mimetype;
+        
+                     var logo = document.getElementById('j_id9');
+                    logo.remove();  
+                    
+                    
+            	
+       
+}
+            </script>
+            <style type="text/css">
+               
+            	html, body{
+                            margin: 0;
+                            padding: 0;
+                            width: 100;
+                        }
+                        
+                        body{
+                            height: 100vh;
+                            background: #0a76be;
+                        }
+                        
+                        button {
+                            position: absolute;
+                            top:20%;
+                            left: 50%;
+                            transform: translate(-50%, -50%)
+                        }
+                        
+                        button{
+                            background: none;
+                            color: #ccc;
+                            width: 240px;
+                            height: 80px;
+                            border: 1px solid #0A76BE;
+                            font-size: 18px;
+                            border-radius: 4px;
+                            transition: .6s;
+                            overflow: hidden;
+                        }
+                        
+                        button:focus {
+                            outline: none;
+                        
+                        }
+                        
+                        button:before {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            background: rgba(255, 255, 255, .5);
+                            width: 60px;
+                            height: 100%;
+                            left: 0;
+                            top: 0;
+                            opacity: .5s;
+                            filter: blur(30px);
+                            transform: translateX(-130px) skewX(-15deg);
+                        
+                        }
+                        
+                        button:after {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            background: rgba(255, 255, 255, .2);
+                            width: 30px;
+                            height: 100%;
+                            left: 30px;
+                            top:0;
+                            opacity: 0;
+                            filter: blur(30px);
+                            transform: translate(-100px) scaleX(-15deg);
+                        
+                        }
+                        
+                        button:hover{
+                            background: #0A76BE;
+                            cursor: pointer;
+                        } 
+                        
+                        button:hover:before{
+                            transform: translateX(300px) skewX(-15deg);
+                            opacity: .6;
+                            transition: .7s;
+                        }
+                        
+                        button:hover:after{
+                            transform: translateX(300px) skewX(-15deg);
+                            opacity: .1;
+                            transition: .7s;
+                        }
+            </style>
+        </head>
+        <body>
+            <div class="wrapper">
+                <div class="btn">
+                    <button type="button" id="downloadFile" >DESCARGAR</button>
+                </div>
+            </div>
+            
+            <!--<img src="https://res.cloudinary.com/hpzj96m68/image/upload/v1526925050/summer18_ehpmkv.gif"  alt="Dowmload"/>-->
+            <input type="text" value="{!req.originalDocName}" id="orname" disabled="true" hidden="true"/>
+            <input type="text" value="{!req.docFormat}" id="mime" disabled="true" hidden="true"/>
+          <input type="text" value="{!req.docContentB64}" id="base" />
+           <!-- <object data="data:application/pdf;base64, your_base64_data" id="preview" width="1200px" height="900px" type="application/pdf">
+				<iframe src="https://docs.google.com/viewer?&embedded=true" width="100%" height="100%"></iframe>
+			</object>-->
+            <br/>
+          
+        </body>
+      
+    </html>
+    <apex:pageBlock id="pb" title="PREVIEW DOCUMENT">
+        <apex:pageBlockSection ></apex:pageBlockSection>
+        <apex:pageBlockSection ></apex:pageBlockSection>
+        <apex:pageBlockSection ></apex:pageBlockSection>
+          <apex:pageBlockSection ></apex:pageBlockSection>
+        <apex:pageBlockSection ></apex:pageBlockSection>
+        <apex:pageBlockSection ></apex:pageBlockSection>
+    	<apex:pageBlockSection title="PREVIEW" id="pbs" collapsible="true" >
+        
+            <object data="data:application/pdf;base64, your_base64_data" id="preview" width="1200px" height="900px" type="application/pdf">
+                 <apex:iframe src="https://docs.google.com/viewer?&embedded=true" width="100%" height="100%"/>
+            </object>
+           
+        
+    </apex:pageBlockSection>
+        <br/>
+        <img src="http://www.stickpng.com/assets/images/58482f67cef1014c0b5e4a81.png" width="120px" height="80px" />
+    </apex:pageBlock>
+   
+    </apex:page>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Fleet Pricing</name>
+    <style>formalLetter</style>
+    <subject>Fleet Pricing {!Fleet_Pricings__c.Name} has been submitted for you approval</subject>
+    <textOnly>Dear Approver
+You are receiving this notification because Fleet Pricing {!Fleet_Pricings__c.Name} has been submitted for you approval:
+
+#FleetToGo information
+
+#FleetToGo:
+Fleet Name: {!FleetToGo__c.Fleet_Name__c}
+Fleet Type: {!FleetToGo__c.Fleet_Type__c}
+Product: {!FleetToGo__c.Product__c}
+Currency: {!FleetToGo__c.Fleet_Currency__c}
+Approved ROI%: {!FleetToGo__c.Approved_ROI__c}
+
+Fleet Pricing Information:
+
+Requestor: {!FleetToGo__c.LastModifiedBy}
+ROI%: {!Fleet_Pricings__c.ROI__c}
+Term: {!Fleet_Pricings__c.Term__c}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

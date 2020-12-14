@@ -1,0 +1,185 @@
+<apex:page lightningStylesheets="true" standardController="Takedowns_Contingency_plan__c" extensions="ConvertForecastExtensionController">
+    <apex:form id="frm">
+        <apex:messages />
+        <script>
+        	window.onload = function() {
+                /* if({!converted}==1){
+                	alert("This Easy Forecast has been Converted before")
+                    window.close();
+                }*/
+                
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi4.Oportunidad}').value="{!Opportunity}"
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi12.TDAmount}').value="{!TDAmount}".replace(/[^0-9\.,]+/g,'')
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi10.Divisa}').value="{!Divisa}"
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi20.EasyForecastId}').value="{!EasyFId}"
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi23.InvoiceCurrency}').value="{!InvoiceCurrency}"
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi15.FundingDate}').value="{!FundingDate}"
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi22.InsideSalesComments}').value="{!InsideSalesComments}"
+                document.getElementById('{!$Component.frm.pgb.pgbs1.pgbsi2.Propietario}').value="{!OwnerId}"
+                
+                
+                	
+                
+                
+            }
+        	function cancel(){
+            	window.close();
+            }
+        </script>
+        <apex:pageBlock id="pgb" rendered="{!IF(converted=='1',false,true)}">
+            {!OwnerId}
+        	<apex:pageBlockSection title="Takedowns Details" id="pgbs1">
+                
+                <apex:pageBlockSectionItem id="pbgsi1">
+                    <apex:outputLabel value="{!$ObjectType.Takedowns_Contingency_plan__c.fields.CPL_ls_Stage__c.Label}" />
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_ls_Stage__c}" id="stage"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Takedowns_Contingency_plan__c.fields.CPL_ls_Deal_Category__c.Label}" />
+                	<apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_ls_Deal_Category__c}" id="dealCategory"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi2">
+                <apex:outputLabel value="{!$ObjectType.Takedowns_Contingency_plan__c.fields.OwnerId.Label}" />
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.OwnerId}" id="Propietario" />
+            	</apex:pageBlockSectionItem>
+               
+                <apex:pageBlockSectionItem id="pgbsi3">
+                 	<apex:outputLabel >Financing Needs</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Financing_Needs__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi4">
+                    <apex:outputLabel >Oportunidad</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_rb_Opp__c}" id="Oportunidad"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi5">
+                    <apex:outputLabel >Start of leasing</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_ls_Start_of_leasing__c}" id="StartOfLeassing"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi6">
+                    <apex:outputLabel >Inside Sales Owner</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CLI_rb_Inside_Sales_Owner__c}" id="InsideSalesOwner"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi7">
+                	<apex:outputLabel >OEC</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CLI_dv_Amount__c}" id="OEC"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi8">
+                	<apex:outputLabel >Customer Name</apex:outputLabel>
+                    <apex:inputField required="true" value="{!Takedowns_Contingency_plan__c.CPL_rb_Entity_Name_CP__c}" id="CustomerName"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi9">
+                	<apex:outputLabel >PP Number</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CLI_nu_PP_Number__c}" id="PPNumber"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi10">
+                	<apex:outputLabel >Currency</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CurrencyIsoCode}" id="Divisa"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi11">
+                	<apex:outputLabel >Date sent documents to client</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_da_DateSentDocumentsToClient__c}" id="DateSentDocumments"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi12">
+                	<apex:outputLabel >TDAmount</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.TDAmount__c}" id="TDAmount"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi13">
+                    <apex:outputLabel >Booking Date</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_dt_booking_date__c}" id="BookingDate"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi14">
+                	<apex:outputLabel >Exchange Rate for Credit Line</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_nu_TD_Echange_Rate__c}" id="ExchangeRateCreditLine"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi15">
+                	<apex:outputLabel >Funding Date</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_da_Funding_Date__c}" id="FundingDate"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi16">
+                	<apex:outputLabel >Operation Unit</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_ls_Operation_Unit__c}" id="OperationUnit"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi17">
+                    <apex:outputLabel >Delay Funding	</apex:outputLabel>
+                    <apex:inputCheckbox value="{!Takedowns_Contingency_plan__c.CPL_ck_Delay_Funding__c}" id="DelayFunding"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi18">
+                    <apex:outputLabel >Product</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_ls_Product__c}" id="product"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi19">
+                	<apex:outputLabel >Contract-Annex Number</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Contract_Annex_Number__c}" id="Contract-AnnexNumber"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi20">
+                	<apex:outputLabel >Easy Forecast ID</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Takedowns_forecast__c}" id="EasyForecastId"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi21">
+                    <apex:outputLabel >OLFM Contract Number</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_tx_OLFM_Contract_Number__c}" id="OLFMContractNumber"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi22">
+                	<apex:outputLabel >Inside Sales Comments</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CLI_txt_Inside_Sales_Comments__c}" id="InsideSalesComments"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi23">
+                	<apex:outputLabel >Invoice Currency</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CLI_lsInvoice_Currency__c}" id="InvoiceCurrency"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi24">
+    				<apex:outputLabel >Return Conditions</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Return_Conditions__c}" id="ReturnConditions"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi25">
+                	<apex:outputLabel >Annex Pricing (SuperTrump)</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Annex_Pricing_SuperTrump__c}" id="AnnexPricing"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi26">
+                	<apex:outputLabel >Credit Approval Files</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Credit_Approval_Files__c}" id="CreditApprovalFiles"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="pgbs3" title="Documentation Check List">
+                <apex:pageBlockSectionItem id="pgbsi37">
+                    <apex:outputLabel >Documents for Tollgate 1</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_lsm_Documents_for_Tollgate_1__c}" id="DocumentsForTollgate1"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi38">
+                	<apex:outputLabel >Documents for Tollgate 2</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.CPL_lsm_Documents_for_Tollgate_2__c}" id="DocumentsForTollgate2"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+           
+            <apex:pageBlockSection id="pgbs5" title="Información del sistema">
+                <apex:pageBlockSectionItem id="pgbsi40">
+                    <apex:outputLabel >Tollgate 1 Date</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Tollgate_1_Date__c}" id="Tollgate1Date" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pgbsi41">
+                	<apex:outputLabel >Takedown Funded Date</apex:outputLabel>
+                    <apex:inputField value="{!Takedowns_Contingency_plan__c.Takedown_Funded_Date__c}" id="TakedownFundedDate"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <div align="center">
+                <apex:commandButton value="Guardar" action="{!save}" />
+                <apex:commandButton value="Cancelar" action="{!back}" immediate="true"
+                    html-formnovalidate="formnovalidate" />
+            </div>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!IF(converted=='1',true,false)}">
+        	<div align="center">
+                <apex:commandButton value="OK" action="{!NewRecord}" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+     <script>
+                	document.getElementById('j_id0:frm:pgb:pgbs1:pgbsi2:Propietario_mlktp').style.display="none";
+    </script>
+</apex:page>

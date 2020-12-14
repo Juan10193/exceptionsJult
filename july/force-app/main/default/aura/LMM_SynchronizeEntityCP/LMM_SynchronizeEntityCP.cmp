@@ -1,0 +1,15 @@
+<!--
+  @File Name          : LMM_SynchronizeEntityCP.cmp
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 12/6/2020 7:07:29
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/6/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<aura:component controller="LMM_SynchronizeEntityCPController" implements="force:hasRecordId,force:lightningQuickAction" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="recordId" type="String" />
+</aura:component>

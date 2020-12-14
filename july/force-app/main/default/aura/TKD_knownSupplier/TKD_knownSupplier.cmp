@@ -1,0 +1,193 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-10-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   09-10-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<aura:component controller="Takedown_Controller_SupplierInCA"
+    implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes"
+    access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="TKD_SaveNewSupplier" type="c:TKD_SaveNewSupplier"/>
+    <aura:attribute name="sitesOraIds" type="string[]" default="[]" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="loadedKS" type="Boolean" default="true" />
+    <aura:attribute name="SearchByRFC" type="String" default="" />
+    <aura:attribute name="SearchByName" type="String" default="" />
+    <aura:attribute name="SearchByCurrency" type="String" default="" />
+    <aura:attribute name="SearchByTaxCode" type="String" default="" />
+    <aura:attribute name="visibilityDivResult" type="Boolean" default="false" />
+
+    <aura:attribute name="InformationKnownSuppliers"
+        type="Takedown_Wrapper_SearchKnownSuppliers.responseSearchKnownSupplier[]" />
+
+    <aura:attribute name="filterKnownSuppliers" type="List" default="[]" />
+    <aura:attribute name="sitesSelected" type="Supplier__c[]" default="[]" />
+    <aura:attribute name="suppliersSelected" type="Supplier__c[]" />
+    <aura:attribute name="spinner" type="Boolean" default="false" />
+
+    <aura:registerEvent name="detailsitesEvent" type="c:detailsitesEvent" />
+    <c:TKD_siteDetail></c:TKD_siteDetail>
+    <aura:if isTrue="{!v.spinner}">
+        <div class="demo-only" style="height:6rem">
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    <div id="searchSuplier">
+        <article class="slds-card">
+            <div class="slds-card__body slds-card__body_inner">
+                <article class="slds-card slds-card_boundary">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="standard:search" size="small" variant="bare" />
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <strong>Search Supplier</strong>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                            <div class="slds-size_2-of-4">
+                                <lightning:input name="SearchByRFCS" aura:Id="fields" label="Search by RFC:"
+                                    value="{! v.SearchByRFC}" maxlength="100" required="false" type="search"
+                                    variant="label-inline" />
+                            </div>
+                            <div class="slds-size_2-of-4">
+                                <lightning:input name="SearchByNameS" aura:Id="fields" label="Search by Name:"
+                                    value="{! v.SearchByName}" maxlength="500" required="false" type="search"
+                                    variant="label-inline" />
+                            </div>
+                            <div class="slds-size_2-of-4">
+                                <lightning:input name="SearchByCurrencyS" aura:Id="SearchByCurrencyS"
+                                    label="Search by Currency:" value="{! v.SearchByCurrency}" maxlength="500"
+                                    type="search" variant="label-inline" />
+                            </div>
+                            <div class="slds-size_2-of-4">
+                                <lightning:input name="SearchByTaxCodeS" aura:Id="SearchByTaxCodeS"
+                                    label="Search by Tax Code:" value="{! v.SearchByTaxCode}" maxlength="500"
+                                    type="search" variant="label-inline" />
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-card__footer">
+                        <div class="slds-media__body"></div>
+                        <div class="slds-no-flex">
+                            <lightning:button variant="brand" class="btn bg-gradient-cyan float-right" label="Search"
+                                iconName="utility:search" iconPosition="left" title="Search Suppliers"
+                                onclick="{! c.searchSuppliers }" />
+                        </div>
+                    </footer>
+                </article>
+            </div>
+        </article>
+    </div>
+    <aura:renderIf isTrue="{!v.visibilityDivResult}">
+        <div id="resultSearchSupplier">
+            <article class="slds-card">
+                <div class="slds-card__body slds-card__body_inner">
+                    <article class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning:icon iconName="standard:sales_path" size="small" variant="bare" />
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <strong>Results</strong>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead class="gris text-center">
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Originator">RFC</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="ISC">Name</div>
+                                        </th>
+                                        <!--<th class="" scope="col">
+                                            <div class="slds-truncate" title="Suppliers">Currency</div>
+                                        </th>-->
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="AML Status">Tax Code</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Approval Status">Site Code</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Approval Status">OrganizationName</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Approval Status">Country</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Approval Status">City</div>
+                                        </th>
+
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Details">Select</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <aura:if isTrue="{! v.filterKnownSuppliers.length > 0 }">
+                                        <aura:iteration items="{! v.filterKnownSuppliers}" var="infoKnownSupp"
+                                            indexVar="indexDet">
+                                            <tr class="slds-hint-parent">
+                                                <td>
+                                                    <div class="slds-truncate"
+                                                        data-sited="{!infoKnownSupp.vendorSiteId}"
+                                                        onclick="{!c.showdetailSite}"
+                                                        style="cursor: pointer; color:#275BAD">{!
+                                                        infoKnownSupp.supplier.vatRegistrationNum}</div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="slds-truncate">{! infoKnownSupp.supplier.vendorName}
+                                                    </div>
+                                                </td>
+                                                <!--<td class="text-center">{! infoKnownSupp.paymentCurrencyCode}</td>-->
+                                                <td class="text-center">{! infoKnownSupp.vatCode}</td>
+                                                <td class="text-center">{! infoKnownSupp.vendorSiteCode}</td>
+                                                <td class="text-center">{! infoKnownSupp.organizationName}</td>
+                                                <td class="text-center">{! infoKnownSupp.country}</td>
+                                                <td class="text-center">{! infoKnownSupp.city}</td>
+
+                                                <td class="text-center" data-indx="{!indexDet}">
+                                                    
+                                                    <lightning:button  disabled="{!infoKnownSupp.buttonstate}" iconName="{!infoKnownSupp.icon}" iconPosition="left"
+                                                    tabindex="{!indexDet}" variant="brand"
+                                                    onclick="{! c.selectSite }" />
+                                                       
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </aura:if>
+                                </tbody>
+                                <lightning:button variant="brand" label="Save" iconName="utility:save"
+                                    iconPosition="left" title="Save" onclick="{!c.saveListSites}" />
+                            </table>
+                        </div>
+                    </article>
+                </div>
+            </article>
+        </div>
+    </aura:renderIf>
+</aura:component>

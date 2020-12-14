@@ -1,0 +1,29 @@
+<!--
+  @description       : 
+  @author            : angel87ambher@gmail.com
+  @group             : 
+  @last modified on  : 10-02-2020
+  @last modified by  : angel87ambher@gmail.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   10-01-2020   angel87ambher@gmail.com   Initial Version
+-->
+<template>
+  <template if:true={waivers}>
+  <template if:true={typeException}>
+    <lightning-checkbox-group name="Checklist Solicitud"
+                              label="Checklist Solicitud"
+                              options={optionSolicitud}
+                              value={value}
+                              onchange={handleChange}>
+    </lightning-checkbox-group>
+
+    <lightning-checkbox-group name="Checklist Cierre"
+    label="Checklist Cierre"
+    options={optionCierre}
+    value={value}
+    onchange={handleChange}>
+    </lightning-checkbox-group>
+ </template>
+  </template>
+</template>

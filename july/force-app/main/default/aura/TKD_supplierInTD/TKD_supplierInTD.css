@@ -1,0 +1,54 @@
+.THIS .white {
+    color: #ffffff;
+}
+
+
+.THIS.c-container {
+    border: 1px solid #d8dde6;
+    margin: 10px 0 20px 0;
+}
+.THIS .custom-box {
+    text-align: center;
+    background-color: #f4f6f9;
+    padding: 1rem;
+    border: 1px solid #d8dde6;
+}
+.THIS .green {
+    color: #28a745;
+}
+.THIS .btn-Caribbean-Green{ 
+    background-color: #CCFFF7 !important;
+}
+.THIS .gris{ 
+    background-color: #ddd !important;
+    color: #222 !important;
+}
+.THIS .grisD{ 
+    background-color: #eee !important;
+    color: #222 !important;
+}
+
+
+.THIS .card-info:not(.card-outline) .card-header {
+  background-color: #17a2b8;
+  border-bottom: 0;
+  color: #ffffff;
+}
+
+.THIS .table-container
+{
+    width: 100%;
+    overflow-y: auto;
+    _overflow: auto;
+    margin: 0 0 1em;
+}
+.THIS .red {
+    color: #FF002B;
+}
+.THIS .tiffanyBlue {
+    color: #00B3B3;
+}
+
+.THIS .dark {
+    color: #000000;
+}

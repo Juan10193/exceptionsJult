@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template para aprobar un TKD en cualquier stage.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>TKD_Submit_Approval_Generic_Process_Template</name>
+    <style>freeForm</style>
+    <subject>Takedown &quot;{!Takedowns_Contingency_plan__c.Name}&quot; in {!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c}  stage need approval</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because the Takedown CP
+{!Takedowns_Contingency_plan__c.Name} in {!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c} stage is waiting for Approval.
+
+Takedown detail:
+Opportunity: {!Takedowns_Contingency_plan__c.CPL_rb_Opp__c}Amount: {!Takedowns_Contingency_plan__c.TDAmount__c}Currency: {!Takedowns_Contingency_plan__c.CurrencyIsoCode}ISC: {!Takedowns_Contingency_plan__c.CLI_rb_Inside_Sales_Owner__c}Customer Name: {!Takedowns_Contingency_plan__c.CPL_rb_Entity_Name_CP__c}Contract-Annex Number: {!Takedowns_Contingency_plan__c.Contract_Annex_Number__c}
+Product: {!Takedowns_Contingency_plan__c.CPL_ls_Product__c}Deal Category: {!Takedowns_Contingency_plan__c.CPL_ls_Deal_Category__c}
+
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+Engen Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

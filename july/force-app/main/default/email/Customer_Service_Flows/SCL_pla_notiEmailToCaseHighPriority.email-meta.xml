@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notificación por emailtocase con palabra clave</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_notiEmailToCaseHighPriority</name>
+    <style>formalLetter</style>
+    <subject>Caso con palabra clave de Alta Prioridad {!Case.CaseNumber}</subject>
+    <textOnly>Hola, {!Case.OwnerFullName} buena tarde:
+Le informamos que se ha creado el caso  {!Case.CaseNumber} y este contiene palabra(s) clave de alta prioridad, por lo que le enviamos esta notificación para que lo revise y clasifique para su atención inmediata:
+
+{!Case.Subject}
+
+y el siguiente contenido:
+
+{!Case.Description}
+
+(Puede abrir el caso dando clic directamente en el numero de caso)
+
+Atentamente el equipo de Servicio a Clientes de ENGENIUM CAPITAL
+Tel.: +52 (55) 5257.6161 (CDMX o zona metropolitana)
+Tel.: 01-800-714-3227 (Interior)
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

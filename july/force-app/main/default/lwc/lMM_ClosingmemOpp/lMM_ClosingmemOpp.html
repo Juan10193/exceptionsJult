@@ -1,0 +1,658 @@
+<!--
+  @File Name          : lMM_ClosingmemOpp.html
+  @Description        : 
+  @Author             : angel87ambher@gmail.com
+  @Group              : 
+  @Last Modified By   : angel87ambher@gmail.com
+  @Last Modified On   : 29/5/2020 14:42:13
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    22/5/2020   angel87ambher@gmail.com     Initial Version
+-->
+<template>
+    <lightning-card style="max-width: 100%;">
+        <h3 class="slds-section-title--divider animated slideInLeft">Información General</h3>
+        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+          <div class="slds-form__row">
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Tipo de credito:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{tipoCredito}</div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Fecha de aprobación:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{fechAprobacion}</div>
+                      </div>
+                  </div> 
+              </div>
+              <div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <label class="slds-form-element__label"><strong>Nombre de la Oportunidad:</strong></label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{nameOpp}</div>
+                    </div> 
+                </div>      
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <label class="slds-form-element__label"><strong>Estatus opportunidad:</strong></label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{estatusOpp}</div>
+                    </div>
+                </div> 
+            </div>
+          </div>
+          <div class="slds-form__row">
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Originador:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{originador}</div>
+                      </div>
+                  </div> 
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Vertical:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{vertical}</div>
+                      </div>
+                  </div> 
+              </div>
+          </div>
+          <div class="slds-form__row">
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Grupo Economico:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static"></div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Nivel de aprobación:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{nivelAprobacion}</div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Estatus Risk:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{estatusRisk}</div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Estatus AML:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{estatusAML}</div>
+                      </div>
+                  </div> 
+              </div>  
+          </div> 
+      </div>
+    <div class="slds-form__item" role="listitem">
+        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+            <label class="slds-form-element__label"><strong>UW:</strong></label>
+            <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{uw}</div>
+            </div> 
+        </div>      
+    </div>
+      <h3 class="slds-section-title--divider animated slideInLeft">ENTITIES STRUCTURE</h3>
+      <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <label class="slds-form-element__label slds-p-bottom_large" style="font-size: 1em;"><strong>ENTIDAD</strong></label>
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"></div>
+                          </div> 
+                      </div>
+                  </div>
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <label class="slds-form-element__label slds-p-bottom_large" style="font-size: 1em;"><strong>ROL</strong></label>
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"></div>
+                          </div> 
+                      </div>
+                  </div>
+              </div>
+      </div>
+      <h3 class="slds-section-title--divider animated slideInLeft">Opportunity: </h3>
+      
+      <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+          <div class="slds-form__row">
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Estatus opportunidad:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{estatusOpp}</div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Moneda</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{moneda}</div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Multicurrency</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">
+                            <temmplate if:true={multicurrency}>Yes</temmplate>
+                            <template if:false={multicurrency}>No</template>
+                          </div>
+                      </div> 
+                  </div>      
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Monto:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static"><lightning-formatted-number value={monto} format-style="decimal" minimum-fraction-digits="2"></lightning-formatted-number></div>
+                      </div>
+                  </div> 
+              </div>
+              <div class="slds-form__item" role="listitem">
+                  <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                      <label class="slds-form-element__label"><strong>Producto:</strong></label>
+                      <div class="slds-form-element__control">
+                          <div class="slds-form-element__static">{tipoActivo}</div>
+                      </div>
+                  </div> 
+              </div>
+          </div>
+      </div>
+
+     <h3 class="slds-section-title--divider animated slideInLeft">Cotizacion: {}</h3>
+      <div class="slds-grid slds-wrap" key={cotizador.Id}>
+          <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12  animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control" style="text-align: center;">
+                              <h3 class="slds-section-title--divider animated slideInLeft" style="background-color: #47d7ac;">STRUCTURE</h3>
+                          </div> 
+                      </div>      
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Producto:  </strong>{}</div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Currency: </strong>{}</div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Periodo de gracia (M): </strong>{}</div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Type of Grace Period: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Low-High/High-Low: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>L-H Description: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Advance Payment %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>EFA: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Used/New: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>SL&amp;B YES/NO: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Progress Description: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+          </div>
+          <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12  animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control" style="text-align: center;">
+                              <h3 class="slds-section-title--divider animated slideInLeft" style="background-color: #47d7ac;">STRUCTURE</h3>
+                          </div> 
+                      </div>      
+                  </div>
+              </div>
+             
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>EBO: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>EBO Description: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Equipment to Finance: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Asset description: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Return Condition: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Remarketing Fee %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Split Trac %: </strong><lightning-formatted-number format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Lock Fee %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Boot Collateral Type: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>EOL Option: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Prom Note: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Carga Peligrosa: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Cash Collateral: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Collection Rights: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Cross Collateral: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control" >
+                              <div class="slds-form-element__static"><strong>Direct Debit: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+          </div>
+          <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12  animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control" style="text-align: center;">
+                              <h3 class="slds-section-title--divider animated slideInLeft" style="background-color: #47d7ac;">ECONOMICS</h3>
+                          </div> 
+                      </div>      
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Expense ANI: </strong><lightning-formatted-number format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>ROI (with insurance) %: </strong><lightning-formatted-number format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>ROI (no insurance) %: </strong><lightning-formatted-number format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Book Yield: </strong> %</div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Opening Fee %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>SD: </strong><lightning-formatted-number  format-style="currency" currency-code="" currency-display-as="symbol"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>SD%: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent" style="border-bottom-color: #47d7ac;">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>SD Comment: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Rate (fixed-floating): </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Rate %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>RV %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Balloon/Bullet Payment: </strong><lightning-formatted-number  format-style="currency" currency-code="" currency-display-as="symbol"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>P option %: </strong><lightning-formatted-number  format-style="decimal" minimum-fraction-digits="4"></lightning-formatted-number></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control">
+                              <div class="slds-form-element__static"><strong>Last Update: </strong></div>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+          </div>
+      </div>
+ 
+      <h3 class="slds-section-title--divider animated slideInLeft">SPECIAL CONDITION AND COVENANT</h3>
+      <div class="slds-grid slds-wrap">
+          <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12  animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control" style="text-align: center;">
+                              <h3 class="slds-section-title--divider animated slideInLeft" style="background-color: #47d7ac;">SPECIAL CONDITION</h3>
+                          </div> 
+                      </div>      
+                  </div>
+              </div>
+                  <div class="slds-form__row">
+                      <div class="slds-form__item" role="listitem">
+                          <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                              <div class="slds-form-element__control" >
+                                  <div class="slds-form-element__static"><strong></strong></div>
+                              </div>
+                          </div> 
+                      </div>
+                  </div>
+              
+          </div>
+          <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12  animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control" style="text-align: center;">
+                              <h3 class="slds-section-title--divider animated slideInLeft" style="background-color: #47d7ac;">COVENANT CUALITATIVO</h3>
+                          </div> 
+                      </div>      
+                  </div>
+              </div>
+        
+                  <div class="slds-form__row">
+                      <div class="slds-form__item" role="listitem">
+                          <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                              <div class="slds-form-element__control">
+                                  <div class="slds-form-element__static"><strong></strong></div>
+                              </div>
+                          </div> 
+                      </div>
+                  </div>
+     
+          </div>
+          <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12  animated fadeIn" role="list">
+              <div class="slds-form__row">
+                  <div class="slds-form__item" role="listitem">
+                      <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                          <div class="slds-form-element__control" style="text-align: center;">
+                              <h3 class="slds-section-title--divider animated slideInLeft" style="background-color: #47d7ac;">COVENANT CUANTITATIVO</h3>
+                          </div> 
+                      </div>      
+                  </div>
+              </div>
+       
+                  <div class="slds-form__row">
+                      <div class="slds-form__item" role="listitem">
+                          <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                              <div class="slds-form-element__control">
+                                  <div class="slds-form-element__static"><strong></strong></div>
+                              </div>
+                          </div> 
+                      </div>
+                  </div>
+         
+          </div>
+      </div>
+      </lightning-card>
+</template>

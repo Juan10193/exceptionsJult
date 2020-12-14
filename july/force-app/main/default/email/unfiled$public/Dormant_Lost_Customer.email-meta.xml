@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Dormant/ Lost Customer</name>
+    <style>formalLetter</style>
+    <subject>{!Account.ACC_fm_Company_Legal_Name__c}  has changed status to {!Account.ACC_tx_Account_Status__c}</subject>
+    <textOnly>Dear {!Account.OwnerFirstName},
+
+
+You’re receiving this notification, because {!Account.ACC_fm_Company_Legal_Name__c}, has changed status to {!Account.ACC_tx_Account_Status__c}. Please refer to the following information about the account:
+
+
+Business generation history:
+
+Customer since: {!Account.ACC_tx_Customer_Since__c}
+Historic funded volume ($USD): {!Account.Total_Volume__c}
+Current pipeline (Opp. - In credit): {!Account.Total_Pipeline__c}
+Historic lost deals: {!Account.Historic_Lost_Deals__c}
+
+Coverage KPI’s:
+
+Last meeting date: {!Account.ACC_fh_Last_meeting_Date__c}
+Last call date: {!Account.ACC_fh_Last_Call_Date__c}
+Last opportunity created date: {!Account.ACC_fh_Last_date_opportunity_created__c}
+
+Potential assessment:
+
+Tier: {!Account.ACC_tx_Account_Tier__c}
+Company Rank: {!Account.ACC_tx_Company_Rank__c}
+Potential comments: {!Account.ACC_tx_Account_Potential_Comments__c}
+
+
+As per Engenium Capital policy, a proper strategy is required to revert the status, please review it with your manager and if an action is required, create an Account Plan in the correspondent section of the account in Salesforce.
+
+
+To review this record, click in the following link: {!Account.Link}
+
+
+Regards,
+
+
+Digital Marketing – Engenuim Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

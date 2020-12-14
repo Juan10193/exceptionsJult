@@ -1,0 +1,73 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaFisica" >
+    <apex:form id="frm">
+        <script>
+     function validar(){
+    	var alerts=[];
+    	var nombre = document.getElementById('{!$Component.frm.pb.pbs1.pbsi1.kycIndResLegalName}').value;
+        var nacio =  document.getElementById('{!$Component.frm.pb.pbs1.pbsi2.kycIndResCountry}').value;
+        var rfc = document.getElementById('{!$Component.frm.pb.pbs1.pbsi3.kycIndResRFC}').value; 
+    	if(nombre ==""){
+        	var validarnombre ='Porfavor Introducir Nombre, Razón o Denominación Social\n';
+            alerts.push(validarnombre);
+        }
+         
+       if(nacio==""){
+       		var validarnacio = 'Porfavor Itrodusca una Nacionalidad\n';
+            alerts.push(validarnacio);
+       }
+         
+       if(rfc ==""){
+           var validarrfc = "Porfavor Introdusca el RFC\n";
+           alerts.push(validarrfc);
+       }
+         
+         if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+     } 
+    
+    </script>
+        <apex:pageBlock title="Proveedor de Recursos" id="pb">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection id="pbs1" columns="2">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Nombre, Razón o Denominación Social" for="kycIndResLegalName"/>
+                    <apex:inputText id="kycIndResLegalName" value="{!provRecurso.pOutKYCIndResLegalName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Nacionalidad / Lugar de constitución" for="kycIndResCountry"/>
+                    <apex:inputText id="kycIndResCountry" value="{!provRecurso.pOutKYCIndResCountry}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="RFC (Sólo para mexicanos) y Fecha de Nacimiento" for="kycIndResRFC"/>
+                    <apex:inputText id="kycIndResRFC" value="{!provRecurso.pOutKYCIndResRFC}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi4">
+                    <apex:outputLabel value="Domicilio" for="kycIndResAddress"/>
+                    <apex:inputText id="kycIndResAddress" value="{!provRecurso.pOutKYCIndResAddress}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi5">
+                    <apex:outputLabel value="Número de serie de la Firma Electrónica Avanzada"/>
+                    <apex:inputText id="kycIndResFEASerialNo" value="{!provRecurso.pOutKYCIndResFEASerialNo}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel style="float:center" >
+                <apex:commandButton value="Save" action="{!saveProvider}" onclick="return validar();" style="float:center; width:120px"  /> 
+            	<apex:commandButton value="Cancel" action="{!CancelTable}" style="float:center; width:120px"/>
+                </apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

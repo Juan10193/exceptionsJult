@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>New NPS Survey Responded</name>
+    <style>freeForm</style>
+    <subject>{!Contact.OwnerFirstName} {!Contact.LastName} responded our NPS survey</subject>
+    <textOnly>Dear {!Contact.OwnerFirstName},
+
+Your receiving this notification because {!Contact.FirstName} {!Contact.LastName} responded our NPS survey.
+
+You can review the response in the following link:
+
+{!Contact.Latests_NPS_Survey_Responded_Link__c}
+
+Regards,
+
+Digital Marketing.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

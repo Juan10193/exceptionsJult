@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Engenium_Fleet</letterhead>
+    <name>Fleet Quote</name>
+    <style>freeForm</style>
+    <subject>Engenium Fleet | Cotización vehículos: {!Units__c.Name}</subject>
+    <textOnly>Hola, {!FleetToGo__c.Fleet_Manager_First_Name__c}:
+
+Te envío la cotización de las unidades solicitadas de la flotilla, {!Units__c.FleetToGo_Name__c}, de {!Units__c.Customer_Name__c}.
+
+Folio: {!Units__c.Name}.
+
+Atentamente,
+
+{!User.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Correo_Generico_Servicio_a_Clientes</letterhead>
+    <name>Generica Servicio a Clientes</name>
+    <style>freeForm</style>
+    <subject>Comunicación caso: {!Case.CaseNumber}</subject>
+    <textOnly>Estimado Cliente,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Atentamente Servicio a Clientes
+
+T +52 (55) 5023.3003
+
+T 01-800-022-1000
+
+clientesprimero@engeniumcapital.com
+
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

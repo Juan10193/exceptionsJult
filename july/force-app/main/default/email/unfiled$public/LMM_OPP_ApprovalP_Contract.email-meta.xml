@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>LMM_OPP_ApprovalP_Contract</name>
+    <style>freeForm</style>
+    <subject>Opportunity {!Opportunity.Name} in Contract Approval Process</subject>
+    <textOnly>Dear User,
+
+You have received this notification to Approve the Opportunity {!Opportunity.Name}
+
+Opportunity details:
+
+Opportunity Name: {!Opportunity.Name}
+Account LegalName: {!Opportunity.Account}
+Stage: {!Opportunity.StageName}
+Amount: {!Opportunity.Amount}
+Prodocut: {!Opportunity.OPP_ls_Product__c}
+
+
+If you want to view more detail in Salesforce, please &quot;Click here&quot;
+
+Remember that if you want to assign this approval process to RISK team, you should mark the check field &quot;Assign to Risk&quot; and next approve the approval process</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

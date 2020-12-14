@@ -1,0 +1,14 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font face="Verdana, Helvetica, sans-serif" style="" size="2" color="#000066"><b>Dear User</b></font>]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[<div style=""><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="color: rgb(0, 0, 102); font-family: Verdana, Helvetica, sans-serif; font-size: small;">You are receiving this notification because&nbsp; the takedown&nbsp; <b>{!Takedowns_Contingency_plan__c.Name}</b> has been marked as <b>Pre book</b> in the <b>{!Takedowns_Contingency_plan__c.TKD_ls_takedown_stage__c}</b> stage.</span></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2"><div style=""><br></div><div style="">If you want to see the record in Salesforce, <a href="{!Takedowns_Contingency_plan__c.Link}">click here</a>.</div><div style=""><br></div><div style="">Regards,</div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div></font></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div></div>]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[]]></td>
+</tr>
+</table>

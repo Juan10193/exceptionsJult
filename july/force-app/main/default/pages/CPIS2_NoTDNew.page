@@ -1,0 +1,12 @@
+<apex:page standardController="Takedowns_Contingency_plan__c"  standardStylesheets="false" applyBodyTag="false" showChat="false">
+
+
+ <apex:form >
+        <apex:pageBlock >
+        <apex:pageMessage summary="The takedowns have to be created from a valid Easy Forecast" severity="warning" strength="3" />
+        <apex:pageMessages />
+       
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

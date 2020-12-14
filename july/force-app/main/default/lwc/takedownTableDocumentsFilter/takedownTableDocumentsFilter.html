@@ -1,0 +1,46 @@
+<!--
+  @File Name          : takedownTableDocumentsFilter.html
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 18/10/2019 16:28:43
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    7/9/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<template>
+    <div class="demo-only" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium animated fadeInUp">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="standard:first_non_empty" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Settings </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-tabset variant="vertical">
+                        <lightning-tab label="document type">
+                            <lightning-dual-listbox name="Set up document type" label="Select Options (at least 1)"
+                                source-label="Available" selected-label="Selected"
+                                field-level-help="The selected option will allow you work different document type"
+                                options={options} min={min} value={values} onchange={handleChange}>
+                            </lightning-dual-listbox>
+                        </lightning-tab>
+                    </lightning-tabset>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" variant="neutral" onclick={closeModal}></lightning-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <lightning-button label="Save" variant="brand" onclick={saveMethod}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

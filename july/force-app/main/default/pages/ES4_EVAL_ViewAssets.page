@@ -1,0 +1,458 @@
+<apex:page lightningStylesheets="true" controller="ES4_Controller_EVAL">
+    <apex:form >
+        <apex:PageBlock title="Assets">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <div style="width: 340px;margin-left: auto;margin-right: auto;">
+            <apex:commandButton style="width: 100px;" value="Back" action="{!backEVAL}"/>
+                <apex:commandButton style="width: 100px;" value="Delete" rendered="{!editbtn}" action="{!delateAsset}"/>
+                <apex:commandButton style="width: 100px;" value="Edit" rendered="{!editbtn}" action="{!editAsset1}"/>
+            </div>
+            <apex:pageBlockSection columns="2" title="General Information">
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutStartDate,'T',' '),'.000-05:00','')}" /> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Name" for="Account_Name"/>
+                    <apex:outputText id="Account_Name" value="{!req.pOutSourceAccountName}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Id" for="Oportunity_Id"/>
+                    <apex:outputText id="Oportunity_Id" value="{!req.pOutSourceOpId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Id" for="Account_Id"/>
+                    <apex:outputText id="Account_Id" value="{!req.pOutSourceAccountId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Name" for="Account_Name"/>
+                    <apex:outputText id="Account_Name" value="{!req.pOutSourceAccountName}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutEndDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (SSO)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By User Name" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameAssignedTo}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2" title="Asset Configurator">
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Collateral Type" for="Collateral_Type"/>
+                    <apex:outputText id="Collateral_Type" value="{!ASS.pOutEVAssetCollateralType}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Collateral Description" for="Collateral_Description"/>
+                    <apex:outputText id="Collateral_Description" value="{!ASS.pOutEVAssetCollateralDescription}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset Manufacturer" for="Asset_Manufacturer"/>
+                    <apex:outputText id="Asset_Manufacturer" value="{!ASS.pOutEVAssetManufacturer}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset Model" for="Asset_Model"/>
+                    <apex:outputText id="Asset_Model" value="{!ASS.pOutEVAssetAssetModel}"/> 
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset year" for="Asset_year"/>
+                    <apex:outputText id="Asset_year" value="{!ASS.pOutEVAssetAssetModelYear}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset Description" for="Asset_Description"/>
+                    <apex:outputText id="Asset_Description" value="{!ASS.pOutEVAssetOracleFACategory}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Condition" for="Condition"/>
+                    <apex:outputText id="Condition" value="{!ASS.pOutEVAssetConditionType}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Multiple Location" for="Multiple_Location"/>
+                    <apex:outputText id="Multiple_Location" value="{!ASS.pOutEVAssetMultLocationFlag}"/> 
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Exchange Rate" for="Exchange_Rate"/>
+                    <apex:outputText id="Exchange_Rate" value="{!ASS.pOutEVAssetExchangeRate}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Quantity" for="Quantity"/>
+                    <apex:outputText id="Quantity" value="{!ASS.pOutEVAssetQuantity}"/> 
+                </apex:pageBlockSectionItem>  
+
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Freight Cost" for="Freight_Cost"/>
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Freight_Cost" value="{!VALUE(ASS.pOutEVAssetFreightCost)}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Packing/Handling Cost" for="Packing_Handling_Cost"/>
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Packing_Handling_Cost" value="{!VALUE(ASS.pOutEVAssetParkingCost)}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Installation Cost" for="Installation_Cost"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Installation_Cost" value="{!VALUE(ASS.pOutEVAssetInstallationCost)}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Training Cost" for="Training_Cost"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Training_Cost" value="{!VALUE(ASS.pOutEVAssetTrainingCost)}"/>
+                    </apex:outputText>
+                   
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Warranty Cost" for="Warranty_Cost"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Warranty_Cost" value="{!VALUE(ASS.pOutEVAssetWarrantyCost)}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Currency Type" for="Currency_Type"/>
+                    <apex:outputText id="Currency_Type" value="{!ASS.pOutEVAssetCurrencyType}"/> 
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Software Cost" for="Software_Cost"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Software_Cost" value="{!VALUE(ASS.pOutEVAssetSoftwareCost)}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem> 
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Insurance" for="Insurance"/>
+                    <apex:outputText id="Insurance" value="{!ASS.pOutEVAssetInsuranceType}"/> 
+                </apex:pageBlockSectionItem>
+
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Unit Cost" for="Unit_Cost"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Unit_Cost" value="{!VALUE(ASS.pOutEVAssetUnitCost)}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Unit Tax" for="Unit_Tax"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Unit_Tax" value="{!VALUE(ASS.pOutEVAssetUnitTax)}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Total cost" for="Total_cost"/>
+                   
+                    
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">    
+                        <apex:param id="Total_cost" value="{!VALUE(ASS.pOutEVAssetTotalCost)}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem>  
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Rapid Tag" for="Rapid_Tag"/>
+                    <apex:outputText id="Rapid_Tag" value="{!ASS.pOutEVAssetRapidTagFlag}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Imports" for="Imports"/>
+                    <apex:outputText id="Imports" value="{!ASS.pOutEVAssetImportFlag}"/> 
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+
+            </apex:pageBlockSection>
+
+             <!--------------------------------------------------------------------------------------------------------------------->    
+            
+            <apex:pageBlockSection columns="2" title="System Information">
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created By" for="Created_By"/>
+                    <apex:outputText id="Created_By" value="{!req.nameCreatedBy}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created Date" for="Created_Date"/>
+                    <apex:outputText id="Created_Date" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutCreationDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Updtate By" for="Update_By"/>
+                    <apex:outputText id="Update_By" value="{!req.nameUpdatedBy}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Update Date" for="Last_Update_Date"/>
+                    <apex:outputText id="Last_Update_Date" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutLastUpdateDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection> 
+
+            <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Valuations" >
+            
+            <div style="width:150px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New Valuation" action="{!newValuation}" rendered="{!aprbtn}"/>
+            </div>
+            <apex:pageBlockTable value="{!ASS.pOutEVValuationTBL}" var="add" align="center" >
+                
+                <apex:column >
+                    <apex:facet name="header">view</apex:facet>
+                    <apex:commandLink value="view"  action="{!viewValuation}" styleClass="btn" style="color:red;text-decoration:none;font:black" >
+                        <apex:param name="regId"  	value="{!add.pOutEVValValuationId}" assignTo="{!idReg}"/> 
+                    </apex:commandLink>                
+                </apex:column>
+
+                <apex:column value="{!add.pOutEVValValuationId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Valuation ID"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVValAssetId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Asset ID"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                
+                <apex:column value="{!add.pOutEVValTermMonths}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Term Months"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column >
+                    <apex:facet name="header" >FMV Amount</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!IF(ISBLANK(add.pOutEVValFMVAmount) || add.pOutEVValFMVAmount == '',0.00, VALUE(add.pOutEVValFMVAmount))}" />
+                    </apex:outputText>
+                </apex:column>                 
+                
+
+                
+                <apex:column value="{!add.pOutEVValFMVPercent}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="FMV Percent"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column >
+                    <apex:facet name="header" >NRV Amount</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!IF(ISBLANK(add.pOutEVValNRVAmount) || add.pOutEVValNRVAmount == '',0.00, VALUE(add.pOutEVValNRVAmount))}" />
+                    </apex:outputText>
+                </apex:column>                  
+                
+                
+                <apex:column value="{!add.pOutEVValNRVPercent}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="NRV Percent"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column >
+                    <apex:facet name="header" >OLV Amount</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!IF(ISBLANK(add.pOutEVValOLVAmount) || add.pOutEVValOLVAmount == '',0.00, VALUE(add.pOutEVValOLVAmount))}" />
+                    </apex:outputText>
+                </apex:column>                   
+                
+                
+                <apex:column value="{!add.pOutEVValOLVPercent}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="OLV Percent"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+
+                <apex:column >
+                    <apex:facet name="header" >RV Amount</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!IF(ISBLANK(add.pOutEVValRVAmount) || add.pOutEVValRVAmount == '',0.00, VALUE(add.pOutEVValRVAmount))}" />
+                    </apex:outputText>
+                </apex:column>    
+                
+                <apex:column value="{!add.pOutEVValRVPercent}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="RV Percent"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+            </apex:pageBlockTable>   
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Return Conditions" >
+            
+            <div style="width:150px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="New Condition" action="{!newEndorsement}" rendered="{!aprbtn}"/>
+            </div>
+            <apex:pageBlockTable value="{!ASS.pOutEVEndorsementTBL}" var="add" align="center" >     
+                
+                <apex:column >
+                    <apex:facet name="header">view</apex:facet>
+                    <apex:commandLink value="view"  action="{!viewEndorsement}" styleClass="btn" style="color:red;text-decoration:none;font:black" >
+                        <apex:param name="regId"  	value="{!add.pOutEVEndEndorsementId}" assignTo="{!idReg}"/> 
+                    </apex:commandLink>                
+                </apex:column>
+
+                <apex:column value="{!add.pOutEVEndEndorsementId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Endorsement ID"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVEndAssetId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Asset ID"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                
+                <apex:column value="{!add.pOutEVEndAttributeType}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Condition Name"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVEndValueType}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Value Type"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVEndUomType}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Uom type"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVEndValueOther}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Value Other"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVEndComment}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Coments"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutEVEndActiveFlag}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Active Flag"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+            </apex:pageBlockTable>   
+        </apex:pageBlock>
+
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

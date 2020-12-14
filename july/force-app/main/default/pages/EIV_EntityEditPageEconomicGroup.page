@@ -1,0 +1,81 @@
+<apex:page lightningStylesheets="true" setup="true" controller="EIV_EntityExtendClassBis">
+    <script>
+    function validate()
+    {
+        var cust = document.getElementById('{!$Component.principal.secion.cus.cu.Customer_type}').value;
+        var SIC = document.getElementById('{!$Component.principal.secion.sic.ec.SIC_Code}').value;
+        if (cust.length == "" || SIC.length == ""){
+            alert("All field with * must be filled");
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function ltrM(id){
+            var tecla=document.getElementById(id).value;
+            var tecla2=tecla.toUpperCase();
+            document.getElementById(id).value=tecla2;
+        }
+    </script>
+    <apex:form id="principal">
+        <apex:pageBlock title="Economic group" id="secion">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection columns="2" title="General Information" id="cus">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name"/>
+                        <c:AutoCompleteV2 allowClear="true" 
+                                          importJquery="true"
+                                          syncManualEntry="false"
+                                          labelField="Name" 
+                                          SObject="Account" 
+                                          valueField="Id" 
+                                          targetField="{!topParentSelected}" 
+                                          style="width:321px;"
+                                          /> 
+                    <!--
+                    <apex:outputLabel value="Top Parent Name" id="Top_Parent_Name"/>
+                    <apex:outputText value="{!sTopParentName}" /> -->
+                </apex:pageBlockSectionItem>    
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Number" id="Oracle_Account_Number"/>
+                    <apex:inputText disabled="true" value="{!Entity.Oracle_Account_Number}" />
+                </apex:pageBlockSectionItem>                
+                
+                <apex:pageBlockSectionItem id="cu">
+                    <apex:outputLabel value="Customer Type" />
+                    <apex:inputText value="{!Entity.Customer_Type}" disabled="true" id="Customer_type"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Economic Group Name" />
+                    <apex:inputText value="{!Entity.Oracle_Account_Name}" onkeyup="ltrM(this.id);" id="Oracle_account_name"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="SIC Code" id="sic">
+                <apex:pageBlockSectionItem id="ec">
+                    <apex:outputLabel value="SIC Code" />
+                    <c:AutoCompleteV2 allowClear="false" 
+                                      importJquery="true"
+                                      syncManualEntry="false"
+                                      labelField="EIV_fm_Sic_Code_Complete__c" 
+                                      SObject="TBO002_SIC_code__c" 
+                                      valueField="Id" 
+                                      targetField="{!CodeId}" 
+                                      style="width:400px"/> 
+                    
+                </apex:pageBlockSectionItem>
+                
+                
+            </apex:pageBlockSection>
+            <div style="width: 250px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Save" id="saveButton" action="{!SaveEntity}"/>
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}"/> 
+            </div>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

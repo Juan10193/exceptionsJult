@@ -1,0 +1,58 @@
+<!--
+  @File Name          : TKD_Supplier_ApprovalProcess.cmp
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 11/12/2019 16:16:44
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    11/12/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<aura:component 
+    controller="TKD_Supplier_ApprovalProcessController"
+    implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes"
+    access="global">
+    <lightning:workspaceAPI aura:id="menussupp"/>
+    <aura:registerEvent name="TKD_SupplierBundle_Event" type="c:TKD_SupplierBundle_Event"/>
+    <aura:registerEvent name="TKD_hidedocuments_Event" type="c:TKD_hidedocuments_Event"/>
+    <aura:handler event="c:TKD_SaveNewSupplier" action="{!c.handleSaveNewSupplier}" />
+    <aura:handler event="c:TKDvalidateSupplierSites" action="{!c.validateSupplierSit}" />
+    <aura:attribute name="isModalDocsOpen" type="boolean" default="false" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="statusSuppApp" type="Object"/>
+
+    <!-- Valdar que suppliers tengan sites -->
+    <aura:attribute name="supplierWithoutSites" type="boolean" default="true"/>
+    <!--<aura:handler name="updateExpense" event="c:expensesItemUpdate"
+        action="{!c.handleUpdateExpense}"/>-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    <aura:if isTrue="{!v.isModalDocsOpen}">
+        <c:takedownDocsSupplier recordId="{! v.recordId}" docshowModal="{!v.isModalDocsOpen}"
+            onclosedocsmodal="{!c.isModalDocsClosed}"></c:takedownDocsSupplier>
+    </aura:if>
+    <article class="slds-card">
+        <div class="slds-card__body slds-card__body_inner">
+            <article class="slds-card slds-card_boundary">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure"></div>
+                        <div class="slds-media__body"><span></span>
+                            <strong>AML Status : </strong>
+                            <lightning:badge label="{! v.statusSuppApp.tkd_ls_Stage_AML__c}"
+                                style="background-color: #00c6b7;" /> <strong style="margin-left:30px"> Asset Management Status
+                                : </strong>
+                            <lightning:badge label="{! v.statusSuppApp.tkd_ls_Stage_Supplier__c}"
+                                style="background-color: #00c6b7;" />
+                        </div>
+                        <c:takediwnValidateDocsSupplier recordId="{!v.recordId}"></c:takediwnValidateDocsSupplier>
+                        <lightning:button label="Suppliers Documents" iconName="utility:open_folder" iconPosition="left" onclick="{!c.openDocsSuppliers}"/>
+                        <lightning:button label="Supplier in Approval" iconName="utility:groups" iconPosition="left" onclick="{!c.gotoURlSupplier}" />
+                        <lightning:button label="Add supplier" iconName="utility:add" iconPosition="left" onclick="{!c.handleAddSupplier}" aura:id="addsup"/>
+                    </header>
+                </div>
+            </article>
+        </div>
+    </article>
+
+</aura:component>

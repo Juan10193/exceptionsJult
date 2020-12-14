@@ -1,0 +1,65 @@
+<apex:page lightningStylesheets="true"  controller="ES2_Controller_DOCUMENTOS">
+    <apex:form >
+        <apex:pageBlock title="Related Documents">
+            
+            
+            <apex:pageBlockSection columns="2" title="Document">
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Document Id" for="OracleDocId"/>
+                    <apex:outputText id="OracleDocId" value="Document ID" /> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Document Name" for="DocName"/>
+                    <apex:outputText id="DocName" value="Document Name"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Document Type" for="DocType"/>
+                    <apex:outputText id="DocType" value="Document Type"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Document Start Date" for="DocStartDate"/>
+                    <apex:outputText id="DocStartDate" value="Document Start Date"/>
+                </apex:pageBlockSectionItem> 
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="File Path" for="DocPath"/>
+                    <apex:outputText id="DocPath" value="File Path"/>
+                </apex:pageBlockSectionItem> 
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Document Expiration Date" for="DocEndDate"/>
+                    <apex:outputText id="DocEndDate" value="Document Expiration Date"/>
+                </apex:pageBlockSectionItem> 
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Document Status" for="DocStatus"/>
+                    <apex:outputText id="DocStatus" value="Document Status"/>
+                </apex:pageBlockSectionItem> 
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Document Link" for="DocURL"/>
+                    <apex:outputLink value="https://www.salesforce.com" id="DocURL" target="blank">Archivo PDF</apex:outputLink>
+                </apex:pageBlockSectionItem> 
+                <!---->
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="System Information">
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created By" for="CreatedBy"/>
+                    <apex:outputText id="CreatedBy" value="iokjhg"/> 
+                </apex:pageBlockSectionItem> 
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created Date" for="CreationDate"/>
+                    <apex:outputText id="CreationDate" value="iokjhg"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

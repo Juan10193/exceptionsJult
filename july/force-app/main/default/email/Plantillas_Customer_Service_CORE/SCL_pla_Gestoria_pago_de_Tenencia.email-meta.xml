@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Gestoría pago de Tenencia</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Gestoria_pago_de_Tenencia</name>
+    <style>formalLetter</style>
+    <subject>Gestoría pago de Tenencia</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+De acuerdo a su requerimiento, anexamos el costo de la gestoría de {!Case.CAS007_ls_tramites__c}:
+
+Costo gestoría: {!Case.CAS008_ls_precioClienteRapidTag__c}.
+
+Es necesario contar con su aprobación por esta vía para iniciar con el proceso de la gestoría, proporcionarnos archivo en Excel que contenga la siguiente información: Marca, Modelo, Año, Número de serie, Número de Placas Actuales y Estado al que pertenecen. Por nuestra parte, solicitamos los documentos originales a nuestro archivo (lapso de entrega 24 a 48 horas).
+
+Quedamos en espera de sus comentarios.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

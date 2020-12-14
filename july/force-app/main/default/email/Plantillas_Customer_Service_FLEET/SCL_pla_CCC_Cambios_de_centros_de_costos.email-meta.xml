@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CCC Cambios de centros de costos</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_CCC_Cambios_de_centros_de_costos</name>
+    <style>formalLetter</style>
+    <subject>Cambios de centros de costos</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por comunicarse a la plataforma de Servicio a Clientes de Engenium Capital.
+
+Favor de llenar el formato &quot;Layout para solicitud de cambios&quot; que se anexa, de haberlo enviado, favor de omitir esta instrucción.
+
+Dicho cambio se verá reflejado a partir del siguiente periodo de facturación.
+
+Su solicitud será atendida con el número de referencia: {!Case.CAS009_fm_referencia__c}
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

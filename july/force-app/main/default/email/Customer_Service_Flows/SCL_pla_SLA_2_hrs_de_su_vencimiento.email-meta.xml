@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SLA a 2 hrs de su vencimiento</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_SLA_2_hrs_de_su_vencimiento</name>
+    <style>formalLetter</style>
+    <subject>SLA a 2 horas de su vencimiento</subject>
+    <textOnly>Estimado  Usuario,
+
+
+
+
+Número de caso: {!Case.CaseNumber}
+
+Le informamos que su SLA esta a 2 horas de su vencimiento.
+
+Para ver el detalle del caso favor de dar clic en el siguiente Link:
+
+{!Case.Link}
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

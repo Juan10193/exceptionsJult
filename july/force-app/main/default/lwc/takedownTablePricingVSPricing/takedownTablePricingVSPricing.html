@@ -1,0 +1,72 @@
+<!--
+  @File Name          : takedownTablePricingVSPricing.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 15/11/2019 1:00:27
+  @Modification Log   : 
+  Ver       Date            Author      		    Modificationfv
+  1.0    26/9/2019   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <lightning-card title="Select Pricing booking">
+        <div class="slds-form slds-form_stacked slds-m-around_xx-small">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="6" padding="around-small">
+                            <h3 class="slds-section-title--divider">Pricing in Credit Approval</h3>
+                            <lightning-layout>
+                                    <lightning-layout-item padding="around-small">
+                                            <lightning-icon icon-name="standard:shipment" size="small"></lightning-icon>                                            
+                                    </lightning-layout-item>
+                                    <lightning-layout-item padding="around-small">
+                                            <p class="slds-p-horizontal_small">Credit Approval: <template if:true={Takedown_CA_VS_ST_Wrapper}> <template if:true={Takedown_CA_VS_ST_Wrapper.cA_Wrapper}><template if:true={Takedown_CA_VS_ST_Wrapper.cA_Wrapper.creditApprovalName}><lightning-formatted-url label={Takedown_CA_VS_ST_Wrapper.cA_Wrapper.creditApprovalName} value= {linkCA} target="_blank" ></lightning-formatted-url></template></template></template></p>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                                <lightning-layout>
+                                        <lightning-layout-item padding="around-small">
+                                                <img src={STIcon} />                                            
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="around-small">
+                                                <p class="slds-p-horizontal_small">Pricing CA: <template if:true={Takedown_CA_VS_ST_Wrapper}> <template if:true={Takedown_CA_VS_ST_Wrapper.cA_Wrapper}>{Takedown_CA_VS_ST_Wrapper.cA_Wrapper.pricingName}</template></template></p>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="around-small">
+                        <!--<lightning-card>-->
+                                <h3 class="slds-section-title--divider">Pricing Booking</h3>
+                        <lightning-layout>
+                            <lightning-layout-item padding="around-small">
+                                <img src={STIcon} />
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-small">
+                                <p class="slds-p-horizontal_small">Pricing Booking: </p>
+                            </lightning-layout-item>
+                            <lightning-layout-item >
+                                <c-lookup selection={initialSelection} errors={errors} onsearch={handleSearch}
+                                        onselectionchange={handleSelectionChange} label="Search"
+                                        placeholder="Search PricingBooking" is-multi-entry={isMultiEntry}
+                                        values-dummy={avaiblePricings}>
+                                    </c-lookup>
+                                </lightning-layout-item>
+                                <lightning-layout-item padding="around-small">
+                                        <lightning-button variant="brand" label="Save" onclick={handleSubmit}>
+                                            </lightning-button>
+                                        </lightning-layout-item>
+                        </lightning-layout>
+                        <!--  </lightning-card> -->
+                    </lightning-layout-item>
+                </lightning-layout>
+            
+        </div>
+    </lightning-card>
+    <template if:true={capricing.data}>
+        <div >
+            <lightning-datatable onrowselection={getSelectedRows} key-field="Id" data={capricing.data.rows} columns={columns}
+                hide-checkbox-column>
+            </lightning-datatable>
+        </div>
+    </template>
+
+</template>

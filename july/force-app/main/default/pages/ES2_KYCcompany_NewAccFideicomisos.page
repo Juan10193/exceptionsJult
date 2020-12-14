@@ -1,0 +1,76 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaMoral" >
+    <apex:form id="frm">
+        <script>
+     function validar(){
+    	var alerts=[];
+    	var nombre = document.getElementById('{!$Component.frm.pb.pbs.pbsi1.kycOrgTrustLegalName}').value;
+        var nacio =  document.getElementById('{!$Component.frm.pb.pbs.pbsi2.kycOrgTrustCountry}').value;
+        var rfc = document.getElementById('{!$Component.frm.pb.pbs.pbsi3.kycOrgTrustRFC}').value; 
+        var per =  document.getElementById('{!$Component.frm.pb.pbs.pbsi4.kycOrgTrustPersons}').value; 
+        
+    	if(nombre ==""){
+        	var validarNombre ='Porfavor Introdusca el Nombre, Razón o Denominación Social\n';
+            alerts.push(validarNombre);
+        }
+         
+       if(nacio==""){
+       		var validarnacio = 'Porfavor Itrodusca la Nacionalidad\n';
+            alerts.push(validarnacio);
+       }
+         
+       if(rfc ==""){
+           var validarRfc= "Porfavor Introdusca el RFC\n";
+           alerts.push(validarRfc);
+       }
+         
+      if(per ==""){
+      	 var validarPer = "Porfavor Introdusca La Personalidad\n";
+          alerts.push(validarPer);
+      }
+         
+         if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+     } 
+    
+    </script>
+
+        <apex:pageBlock id="pb" title="Accionistas o socios que sean Fideicomisos (incluye fondos privados)">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection id="pbs">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Nombre, Razón o Denominación Social" for="kycOrgTrustLegalName"/>
+                    <apex:inputText id="kycOrgTrustLegalName" value="{!sfidei.pOutKYCOrgTrustLegalName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Nacionalidad / Lugar de constitución" for="kycOrgTrustCountry"/>
+                    <apex:inputText id="kycOrgTrustCountry" value="{!sfidei.pOutKYCOrgTrustCountry}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="RFC (para mexicanos) o Número de identificación fiscal (para extranjeros)" for="kycOrgTrustRFC"/>
+                    <apex:inputText id="kycOrgTrustRFC" value="{!sfidei.pOutKYCOrgTrustRFC}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi4">
+                    <apex:outputLabel value="Personalidad (fideicomitentes y fideicomisarios)" for="kycOrgTrustPersons"/>
+                    <apex:inputText id="kycOrgTrustPersons" value="{!sfidei.pOutKYCOrgTrustPersons}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel style="float:center" >
+                <apex:commandButton value="Save" action="{!saveACcFidei}" onclick="return validar();" style="float:center; width:120px"  /> 
+            	<apex:commandButton value="Cancel" action="{!CancelTable}" style="float:center; width:120px"/>
+                </apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

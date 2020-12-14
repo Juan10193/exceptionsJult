@@ -1,0 +1,256 @@
+<!--
+  @File Name          : takedownPricingVSPricingDetail.html
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 26/9/2019 19:24:32
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    26/9/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<template>
+    <lightning-card variant="Narrow" title="Pricing in Credit Approval" icon-name="standard:custom">
+        <lightning-button label="test" icon-name="utility:delete" alternative-text="test" onclick={tests}>
+        </lightning-button>
+    </lightning-card>
+    <lightning-layout-item padding="around-small" size="12">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Product</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text value={wrapperdata.Product}>
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Currency</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text value={wrapperdata.CurrencyIsoCode}>
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Amount to Finance K</span>
+                    <div style="width: 100%">+
+                        <lightning-formatted-number value={wrapperdata.IST_Cost} format-style="currency"
+                            currency-code="USD">
+                        </lightning-formatted-number>
+                        <!--<lightning-formatted-text  value={wrapperdata.IST_Cost}>
+                        </lightning-formatted-text>-->
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Term in Months</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-number value={wrapperdata.IST_Term}>
+
+                        </lightning-formatted-number>
+                        <!--<lightning-formatted-text class="slds-border_bottom" value={wrapperdata.IST_Term}>
+                        </lightning-formatted-text>-->
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Equipment to Finance</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">ARR/ADV</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value={wrapperdata.Payment_Timing}>
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Low-High/High-Low</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">L-H Description</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Advance Payment %</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Frequency (Monthly/Quartely)</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value={wrapperdata.IST_Periodicity}>
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Progress Payments(M)</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Progress Description</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Lock Fee %</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Model, Asset & Return Condition</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">SL&B YES/NO</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Remarketing Fee %</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Used/New</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">EFA</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="right-align">
+                <div class="slds-form-element" style="border-bottom: 1px solid #aaa;">
+                    <span class="slds-form-element__label">Boot Collateral Type</span>
+                    <div style="width: 100%">
+                        <lightning-formatted-text class="slds-border_bottom" value="empty">
+                        </lightning-formatted-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+    </lightning-layout-item>
+    <!--<p slot="footer">Card Footer</p>-->
+
+
+</template>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Gestoria por acreditacion propiedad (SINIESTRO)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Gestoria_por_acreditacion_propiedad_(SINIESTRO)</name>
+    <style>formalLetter</style>
+    <subject>Gestoría por acreditación propiedad (SINIESTRO)</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+De acuerdo a su requerimiento, anexamos el costo de la gestoría para {!Case.CAS007_ls_tramites__c}:
+
+Costo gestoría: {!Case.CAS008_ls_precioClienteRapidTag__c}.
+
+Para este trámite es necesario nos proporcione la siguiente información:
+
+·  Número de serie de su equipo para ubicar Contrato y Anexo en el que se encuentra.
+
+· Datos del usuario afectado (Nombre, teléfono celular y correo electrónico)
+
+· Dirección completa del MP en donde se deberá presentar el gestor.
+
+· Datos del abogado del seguro (Nombre, teléfono celular y correo electrónico)
+
+· Copia de la denuncia inicial.
+
+· Número de averiguación previa.
+
+· Tramitar y proporcionar fecha de la cita ante el MP con aviso mínimo de 5 días CDMX y Zona Metropolitana y de 7 días, para el interior de la República.
+
+
+· Al acudir al MP será necesario que el representante de su empresa presente, adicional a la denuncia inicial original, la tarjeta de circulación, póliza de seguro y tenencias (si aplican) originales.
+
+Es necesario contar con su aprobación por esta vía para iniciar con el proceso de la gestoría.
+
+Por nuestra parte, solicitamos los documentos originales a nuestro archivo (lapso de entrega 24 a 48 horas).
+
+Una vez autorizado el cargo y enviada la información requerida, se dará inicio al trámite.
+
+En caso de que la autoridad determine el pago de algún derecho o multa deberá ser cubierto por su empresa.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

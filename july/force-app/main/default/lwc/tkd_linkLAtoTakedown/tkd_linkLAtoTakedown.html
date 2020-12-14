@@ -1,0 +1,445 @@
+<!--
+  @File Name          : tkd_linkLAtoTakedown.html
+  @Description        : 
+  @Author             : juandedios.hernandez@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : juandedios.hernandez@engeniumcapital.com
+  @Last Modified On   : 23/10/2019 9:59:30
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    15/10/2019   juandedios.hernandez@engeniumcapital.com     Initial Version
+-->
+<template>
+    <lightning-card  variant="Narrow"  title="Link Legal Assesment to takedown" style="width: 100%" icon-name="standard:output">
+        <lightning-tabset active-tab-value={defaultTab}>
+            <lightning-tab label="Add Legal Aassessment" value="one">
+                <fieldset class="slds-form-element slds-form-element_compound">
+                    <!-- <div class="slds-form-element__control">
+                        <div class="slds-form-element__row">
+                            <div class="slds-size_2-of-12">
+                                <div class="slds-form-element animated fadeInRight">
+                                    <label class="slds-form-element__label"></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-button variant="brand" label="Search LAs" title="Search LAs" onclick={handleSearch}></lightning-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:true={cargandoSearch}>
+                                <div class="slds-size_2-of-12">
+                                    <div class="slds-form-element animated fadeInRight">
+                                        <label class="slds-form-element__label"></label>
+                                        <div class="slds-form-element__control">
+                                            LOADING  SEARCH ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div> -->
+                    </br>
+                    <div class="slds-grid slds gutters">
+                        <template if:true={cargandoSearch}>
+                            <div class="slds-size_2-of-12">
+                                <div class="slds-form-element animated fadeInRight">
+                                    <label class="slds-form-element__label"></label>
+                                    <div class="slds-form-element__control">
+                                        LOADING  SEARCH ...
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:true={flagSearchEnts}>
+                            <div class="slds-col slds-size_12-of-12">
+                                <h2 class="slds-text-heading_medium slds-m-bottom_medium animated slideInUp" style="text-align: center">
+                                    <code>Entitys Master In Credit Approval</code>
+                                </h2>
+                                <table class="animated bounceInLeft">
+                                    <thead>
+                                        <tr>
+                                            <th>Search LAS</th>
+                                            <th>PartyId</th>
+                                            <th>CA Name</th>
+                                            <th>Entity Name</th>
+                                            <th>Customer Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={listEntitys} for:item="ent">
+                                            <tr key={ent.Id}>
+                                                <td data-column="Search LAS">
+                                                    <lightning-button variant="brand" label="Search LAs" title="Search LAs" data-partyid={ent.ES2_tx_Party_Id__c} 
+                                                    data-enturl={ent.ES2_fm_Entity__c} data-entcaid={ent.Id} onclick={handleSearch}></lightning-button>
+                                                </td>
+                                                <td data-column="PartyId">{ent.ES2_tx_Party_Id__c}</td>
+                                                <td data-column="CA Name">{ent.ES2_rb_Credit_approval__r.Name}</td>
+                                                <td data-column="Entity Name"><lightning-formatted-rich-text value={ent.ES2_fm_Entity__c}></lightning-formatted-rich-text></td>
+                                                <td data-column="Customer Type">{ent.ES2_tx_CostumerType__c}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>      
+                        </template>
+                        <template if:true={listLAS}>
+                            <div class="slds-col slds-size_12-of-12">
+                                <div class="animated fadeInDown">
+                                    <lightning-button variant="brand" label="Back" title="Back"  
+                                    onclick={backtoSearchLAS}></lightning-button>
+                                </div><br/>
+                                <h2 class="slds-text-heading_medium slds-m-bottom_medium animated slideInUp" style="text-align: center">
+                                    <code>Legal Assessments in Entity</code>
+                                </h2>
+                                <table class="animated bounceInRight">
+                                    <thead>
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>RequestId</th>
+                                            <th>Status</th>
+                                            <th>RequestType</th>
+                                            <th>Entity Name</th>
+                                            <th>Created By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={listLAS} for:item="la">
+                                            <tr key={la.header.requestId}>
+                                                <td data-column="Select">
+                                                    <template if:true={la.showAddFlag}>
+                                                        <lightning-button-icon icon-name="utility:pop_in"  
+                                                        alternative-text="Select Legal Assessment" onclick={selectLA}   
+                                                        class="slds-m-left_xx-small" data-reqid ={la.header.requestId} 
+                                                        data-enttycaid={la.entIncaId} data-legalas={la}>
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </td>
+                                                <td data-column="RequestId"><a href="#" title="View Eval" onclick={previewLA} data-requestid={la.header.requestId}>{la.header.requestId}</a></td>
+                                                <td data-column="Status">{la.header.requestStatus}</td>
+                                                <td data-column="RequestType">{la.header.ndaType}</td>
+                                                <td data-column="Entity Name"><lightning-formatted-rich-text value={la.urlEnt}></lightning-formatted-rich-text></td>
+                                                <td data-column="Created By">{la.header.nameCreatedBy}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>      
+                        </template>
+                    </div>
+                </fieldset>
+                
+            </lightning-tab>
+            <lightning-tab label="Linked Legal Assessments" value="two">
+                <template if:true={listLinkedLAS}>
+                    <div class="slds-col slds-size_12-of-12">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_medium animated slideInUp" style="text-align: center">
+                            <code>Legal Assessments</code>
+                        </h2>
+                        <table class="animated bounceInRight">
+                            <thead>
+                                <tr>
+                                    <th>Detail</th>
+                                    <th>RequestId</th>
+                                    <th>Name</th>
+                                    <th>Takedown</th>
+                                    <th>Entity Name</th>
+                                    <th>Linked By</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={listLinkedLAS} for:item="la">
+                                    <tr key={la.Id}>
+                                        <td data-column="Detail">
+                                            
+                                            <lightning-button-icon icon-name="utility:preview"  
+                                            alternative-text="View Detail" onclick={openmodal}   
+                                            class="slds-m-left_xx-small" data-lareqid ={la.TKD_tx_RequestId__c} 
+                                            data-takedownid={la.TKD_rb_Takedown_CP__c}>
+                                            </lightning-button-icon>
+                                            
+                                        </td>
+                                        <td data-column="RequestId">{la.TKD_tx_RequestId__c}</td>
+                                        <td data-column="Name">{la.Name}</td>
+                                        <td data-column="Takedown">{la.TKD_rb_Takedown_CP__r.Name}</td>
+                                        <td data-column="Entity Name"><lightning-formatted-rich-text value={la.TKD_fm_EntityUrl__c}></lightning-formatted-rich-text></td>
+                                        <td data-column="Linked By">{la.CreatedBy.FirstName} {la.CreatedBy.LastName}</td>
+                                        <td data-column="Delete"><lightning-button-icon data-laintdid={la.Id} icon-name="utility:delete"  
+                                        alternative-text="Remove this Legal Assessment" onclick={removeLa}>
+                                        </lightning-button-icon></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>      
+                </template>
+            </lightning-tab>
+        </lightning-tabset>
+        <p slot="footer"></p>
+    </lightning-card>
+    
+<div class="slds-theme_default">
+    <template if:true={openmodel}>
+    <div class="demo-only" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Legal Assessment: {legalAssestmentId} Detail</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    <lightning-card style="max-width: 100%;">
+                        <h3 slot="title" class="animated fadeInDown">
+                            <strong>Legal Assessment: <a href={urlLa} title="View LA" target="_blank">{legalAssestmentId}</a></strong>
+                                
+                        </h3>
+                        <template if:true={legalAssesment}>
+                            <h3 class="slds-section-title--divider animated slideInLeft">General Information</h3>
+                            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                            <label class="slds-form-element__label">Type</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">{legalAssesment.header.ndaType}</div>
+                                            </div> 
+                                        </div>      
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                            <label class="slds-form-element__label">Valid Through</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">{legalAssesment.legalAssessment.laHeader.generalInformation.laGIValidThrough}</div>
+                                            </div> 
+                                        </div>      
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:true={bil}>
+                                <h3 class="slds-section-title--divider animated slideInLeft">BIL</h3>    
+                                <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                <label class="slds-form-element__label">Fecha Revision</label>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">{bil.laBFechaRevision}</div>
+                                                </div> 
+                                            </div>      
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                <label class="slds-form-element__label">Incidencias</label>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">{bil.laBIncidencias}</div>
+                                                </div> 
+                                            </div>      
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                <label class="slds-form-element__label">Comentarios</label>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">{bil.laBComentarios}</div>
+                                                </div> 
+                                            </div>      
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:true={acta}>
+                                <template if:true={acta.actaFlagMoral}>
+                                    <h3 class="slds-section-title--divider animated slideInLeft">Acta Constitutiva</h3>    
+                                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Denominación al Momento de Constituirse</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laCDenomConstituirse}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Fedatario Público</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACFedatarioPublico}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Escritura No.</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACEscrituraNum}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Fecha Registro</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACFechaRegistro}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Fecha</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACFechaEscritura}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Lugar Registro</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACLugarRegistro}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Duración</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACDuracion}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Datos Registro</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACDatosRegistro}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Cláusula Extranjeros</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACClausulaExtranjero}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Observaciones</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACObservaciones}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:true={acta}>
+                                <template if:true={acta.actaFlagExtranj}>
+                                    <h3 class="slds-section-title--divider customba animated slideInLeft">Acta Constitutiva</h3>
+                                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Denominación al Momento de Constituirse</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laCDenomConstituirse}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Duración</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACDuracion}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Fecha</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACFechaEscritura}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label class="slds-form-element__label">Observaciones</label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{acta.laACObservaciones}</div>
+                                                    </div> 
+                                                </div>      
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>                       
+                        </template>
+                        <template if:true={apoderado}>
+                            <div class="slds-grid slds gutters">
+                                <div class="slds-col slds-size_12-of-12">
+                                    <h3 class="slds-section-title--divider animated slideInLeft">Apoderados</h3>
+                                    <table class="animated fadeInLeft">
+                                        <thead>
+                                            <tr>
+                                                <th>VIEW</th>
+                                                <th>NOMBRE</th>
+                                                <th>VIGENCIA ID</th>
+                                                <th>ACTOS DE DOMINIO</th>
+                                                <th>TÍTULOS DE CREDITO</th>
+                                                <th>ACTOS ADMINISTRATIVOS</th>
+                                                <th>PLEITOS Y COBRANZAS</th>
+                                                <th>I-M</th>
+                                                <th>OBSERVACIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={apoderado} for:item="apo">
+                                                <tr key={apo.laAApoderadoID}>
+                                                    <td data-column="VIEW">
+                                    
+                                                        <lightning-button-icon icon-name="utility:pop_in"  
+                                                        alternative-text="View Apoderado" onclick={viewApo}   
+                                                        class="slds-m-left_xx-small" data-reqid ={apo.laAApoderadoID}>
+                                                        </lightning-button-icon>
+                                                        
+                                                    </td>
+                                                    <td data-column="NOMBRE">{apo.laANombreFacultado}</td>
+                                                    <td data-column="VIGENCIA ID">{apo.laAFecha}</td>
+                                                    <td data-column="ACTOS DE DOMINIO">{apo.laAActosDominio}</td>
+                                                    <td data-column="TÍTULOS DE CREDITO">{apo.laATitulosCredito}</td>
+                                                    <td data-column="ACTOS ADMINISTRATIVOS">{apo.laAActosAdministrativos}</td>
+                                                    <td data-column="PLEITOS Y COBRANZAS">{apo.laAPleitosCobranza}</td>
+                                                    <td data-column="I-M">{apo.laAIndMan}</td>
+                                                    <td data-column="OBSERVACIONES">{apo.laAObservaciones}</td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </template>
+                    </lightning-card>  
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Close" variant="neutral" onclick={closeModal}></lightning-button>&nbsp;&nbsp;&nbsp;&nbsp;
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    </template>
+</div>
+    
+</template>

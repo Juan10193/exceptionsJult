@@ -1,0 +1,52 @@
+<apex:page lightningStylesheets="true"  controller="EIV_EntityExtendClassBis">
+    <apex:form >
+        <apex:pageBlock title="Invoicing ">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <apex:pageBlockSection columns="2" title="Top Parent Information">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Top Parent Name"  />
+                        <apex:outputText id="Top_Parent_Name" value="{!Entity.Top_Parent_Name}" />
+                    </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Entity Name" id="Entity_name"/>
+                        <apex:outputText value="{!Entity.Oracle_Account_Name}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title=" Information">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="ENGENIUM Legal Entity" id="ENGENIUM_Legal_Entity"/>
+                    <apex:outputText value="{!invoicingObj.EC_Operating_Unit_Name}"  />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Payment Method" id="Payment_Method"/>
+                    <apex:outputText value="{!invoicingObj.Payment_Method}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Virtual Account" id="Customer_Payment_Account"/>
+                    <apex:outputText value="{!invoicingObj.EC_Payment_Account}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Billing Mails" id="Billing_Mails"/>
+                    <apex:outputText value="{!invoicingObj.Billing_Mails}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="ENGENIUM CLABE" id="ENGENIUM_CLABE"/>
+                    <apex:outputText value="{!invoicingObj.EC_CLABE}" />
+                </apex:pageBlockSectionItem>
+                
+                
+                
+            </apex:pageBlockSection>
+            <div style="width: 350px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Edit" action="{!editInvoicing}" rendered="{!invoicingPrivileges.bUpdate}" />
+                <!--<apex:commandButton style="width: 100px;" value="Clone" action="{!cloneInvoicing}" />-->
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

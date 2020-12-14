@@ -1,0 +1,91 @@
+<apex:page docType="html-5.0" lightningStylesheets="true" controller="ES2_Controller_DOCUMENTOS">
+    <script>
+    
+    
+   
+    
+    
+    function test(){
+        
+        
+        var arch = document.getElementById('{!$Component.frm.pb.pbs.pbsi4.file}');
+        var inputFile = document.querySelectorAll("[id*='file']")[0];
+        //alert(arch.files[0].size);
+         if(inputFile.value.length == 0)
+        {
+            alert("Inserta un archivo");
+            return false;
+        }
+        else if(arch.files[0].size > 4285969 && inputFile.value.length != 0 ){
+        
+        	alert('El tamaño del archivo no puede ser superior a 4.2MB');
+            return false;
+        }
+        else if(arch.files[0].size < 4285969 && inputFile.value.length != 0)
+        {
+        	return true;
+        }
+        
+       
+        else
+        {
+            return true;
+        }
+        
+       
+    }
+    
+    
+    
+    
+    </script>
+    
+    <apex:form id="frm">
+        <apex:pageBlock title="Related Documents" id="pb">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <apex:pageBlockSection columns="2" title="Document" id="pbs">
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Oracle Document Id" for="OracleDocId"/>
+                    <apex:inputText disabled="true" id="OracleDocId" value="{!doc.pOutDocId}"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Document Name*" for="DocName"/>
+                    <apex:inputText id="DocName" value="{!doc.pOutDocName}"/> 
+                </apex:pageBlockSectionItem> 
+                <!---->
+                
+                <apex:pageBlockSectionItem id="Document_Type">
+                    <apex:outputLabel value="Document Type" />
+                    <apex:selectList value="{!doc.pOutDocType}" size="1" style="width: 173px">
+                        <apex:selectOptions value="{!DocOptions}"/>
+                    </apex:selectList>  
+                </apex:pageBlockSectionItem>                 
+                
+                <!----->
+                <!-- start date--> 
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="Start Date*" for="sdate"/>
+                    <apex:input type="date" required="true" value="{!x}" id="sdate"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbsi4">
+                    <apex:inputFile id="file" value="{!filevalue}" fileName="{!fileName}" contentType="{!filetype}" />
+                </apex:pageBlockSectionItem>
+                
+                <!-- end date-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="End Date" for="ndate"/>
+                    <apex:input type="date" value="{!y}" id="ndate"/>
+                </apex:pageBlockSectionItem>
+                <!---->
+            </apex:pageBlockSection>
+            <div style="width: 230px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="Save" onclick="return test();" style="width: 100px;" action="{!SaveDoCTOS}" />
+                <apex:commandButton value="Back" style="width: 100px;" action="{!BackDocumentos}" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

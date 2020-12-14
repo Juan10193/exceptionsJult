@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Aclaración de Facturas de moratorios</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Aclaracion_de_Facturas_de_moratorios</name>
+    <style>formalLetter</style>
+    <subject>Aclaración de Facturas de moratorios</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+Usted tiene, como periodo de gracia para el pago de las obligaciones, los primero 5 días naturales del mes; si el pago no sucediera, los intereses moratorios se calculan a partir del día 1 del mes.
+
+Adjuntamos el detalle del cargo.
+
+En caso de haber realizado su pago en tiempo, favor de proporcionarnos el comprobante de depósito para solicitar la aclaración correspondiente.
+
+Quedamos en espera de sus comentarios.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

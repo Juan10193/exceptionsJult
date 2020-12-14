@@ -1,0 +1,18 @@
+<!--
+  @Component Name     : UploadFacturas.cmp
+  @Description        : 
+  @Author             : jhernandez@anivia.mx
+  @Group              : 
+  @Last Modified By   : jhernandez@anivia.mx
+  @Last Modified On   : 15/7/2019 9:34:07
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    12/7/2019 10:41:02   jhernandez@anivia.mx     Initial Version
+-->
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" >
+    <aura:registerEvent name="refreshInvoices" type="c:Takedown_RefresTableInvoices_Event"/>
+    <aura:attribute name="recordId" type="string" />
+    <c:takedownUploadFacturasLWC onrefreshtable="{!c.handleRefreshTable}" recordId="{!v.recordId}"></c:takedownUploadFacturasLWC>
+</aura:component>

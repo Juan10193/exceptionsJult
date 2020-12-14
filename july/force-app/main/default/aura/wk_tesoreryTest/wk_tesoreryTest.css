@@ -1,0 +1,18 @@
+.THIS .white {
+    background-color: #ffffff;
+}
+.THIS .text-align_justify {
+    text-align: justify;
+}
+
+.THIS .card-info:not(.card-outline) .card-header {
+  background-color: #17a2b8;
+  border-bottom: 0;
+  color: #ffffff;
+}
+
+.THIS .header {
+    background:#16325c;
+    color: #ffffff;
+    
+}

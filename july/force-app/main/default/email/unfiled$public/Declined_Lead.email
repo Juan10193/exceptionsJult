@@ -1,0 +1,15 @@
+Dear User, 
+
+The prospect you requested has been declined. Please find below the details:
+
+Suspect Name : {!Lead.Name}
+Status : {!Lead.00N63000000ofNu}
+Declination Reason:{!Lead.LEA_tl_Declination_Reason__c}
+Created on : {!Lead.CreatedDate}
+Created By : {!Lead.OwnerFullName}
+
+To view the Suspect record, please visit the following link:
+{!Lead.Link}
+
+Regards, 
+Digital Maketing - Engenium Capital

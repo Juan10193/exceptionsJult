@@ -1,0 +1,35 @@
+public class ES5_wraper_LA_apoderados {
+    public string laAApoderadoID {get; set;}
+    public string laADocumentID {get; set;}
+    public string laANombreFacultado {get; set;}
+    public string laAFecha {get; set;}
+    public string laAActosDominio {get; set;}
+    public string laATitulosCredito {get; set;}
+    public string laAActosAdministrativos {get; set;}
+    public string laAPleitosCobranza {get; set;}
+    public string laAIndMan {get; set;}
+    public string laAObservaciones {get; set;}
+    public string laAEscrituraNum {get; set;}
+    public string laAPEspecial {get; set;}
+    public string laAPOtros {get; set;}
+    public string laAFedatarioPublico {get; set;}
+    public string laAFechaRegistro {get; set;}
+    public string laALugarRegistro {get; set;}
+    public string laADatosRegistro {get; set;}
+    public string laAOcupacion {get; set;}
+    public string laAFechaNacimiento {get; set;}
+    public string laANacionalidad {get; set;}
+    public string laADomicilio {get; set;}
+    public string laAEscrituraRevoca {get; set;}
+    public string laAFechaRevoca {get; set;}
+    public string laALugarRevoca {get; set;}
+    public string laADatosRegistroRevoca {get; set;}
+    public string laAObservacionesRevoca {get; set;}
+    public string laAActiveFlag {get; set;}
+    public string laACreatedBy {get; set;}
+    public string laACreationDate {get; set;}
+    public string laALastUpdatedBy {get; set;}
+    public string laALastUpdateDate {get; set;}
+    public string laANameCreatedBy {get; set;}
+    public string laANameUpdatedBy {get; set;}
+}

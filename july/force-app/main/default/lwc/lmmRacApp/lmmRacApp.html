@@ -1,0 +1,123 @@
+<!--
+  @description       : 
+  @author            : angel87ambher@gmail.com
+  @group             : 
+  @last modified on  : 09-02-2020
+  @last modified by  : angel87ambher@gmail.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   08-04-2020   angel87ambher@gmail.com   Initial Version-->
+
+<template>
+    <lightning-card title="Resultados" icon-name="action:new_note">
+		<lightning-layout-item size="12" padding="around-small">
+				<div class="slds-p-around_medium lgc-bg">
+                    <div class="c-container">
+                        <lightning-layout>
+                    <lightning-layout-item padding="around-small">
+                        <div class="header-column">
+                           <p class="field-title" title="Total:">Total:</p>
+                           <lightning-output-field field-name="Total"> </lightning-output-field>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small">
+                        <div class="header-column">
+                            <p class="field-title" title="Resultado:">Resultado:</p>
+                            <p></p>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+				</div>
+		</lightning-layout-item>
+	</lightning-card> 
+
+    
+    <lightning-card title="RAC" icon-name="action:new_note">
+        <lightning-layout multiple-rows >
+            <lightning-layout-item size="12" padding="around-small">
+
+				<div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none" >
+
+					<lightning-layout multiple-rows>
+						<lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-combobox name="BuroRepresentativo" label="Buro Representativo:" value="" placeholder="Select Option" options={buroRepresentativo} onchange={handleChangeBuroRepresentativo} ></lightning-combobox>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="Añosdeexperienciaenelsector" label="Años de experiencia en el sector:" value="" onchange={handleChangeAñosExperienciaSector}></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="OR15omejor" label="OR15 o mejor:" value="" onchange={handleChangeOR15}></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="Añosexperienciacliente" label="Años de experiencia con clientes principales:" value="" onchange={handleChangeAñosexperienciacliente}></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="MaximaConcentracionenclientes" label="Maxima Concentración en 2 clientes:" value="" onchange={handleChangeMaximaConcentracion}></lightning-input>
+							</div>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="FCCR" label="FCCR:" value="" onchange={handleChangeFCCR} step="0.01"></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="Apalancamiento" label="Apalancamiento (Debt/EBITDA):" value="" onchange={handleChangeApalancamiento} step="0.01"></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="Ratio" label="Ratio. Línea de Crédito/ Activo Fijo:" value="" onchange={handleChangeRatio} step="0.01"></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="AccionesdePG" label="% de Accionesde PG:" value="" onchange={handleChangeAccionesPG} ></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="4" padding="around-small">
+							<div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="number" name="CalificacionBuro" label="Calificación del Buró del Aval Principal (PF):" value="" onchange={handleChangeCalificacionBuro}></lightning-input>
+							</div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" padding="around-small">
+                            <div class="slds-align_absolute-center">
+                                    <lightning-button class="slds-m-top_small slds-m-right_x-large" variant="brand" type="submit" name="save" label="Save"></lightning-button>
+                                    <lightning-button class="slds-m-top_small" variant="brand" type="reset" name="cancel" label="Cancel" onclick={clearEditMode}></lightning-button>
+                            </div>
+                        </lightning-layout-item>
+
+					</lightning-layout>
+					<div if:true={sipinner} class="slds-spinner_inline spinner-padding">
+						<lightning-spinner variant="brand"
+										   alternative-text="Updating Record"     
+										   size="medium">
+						</lightning-spinner>
+					</div>
+				</div>
+
+					</lightning-layout-item>
+		</lightning-layout>
+	</lightning-card>
+</template>
+</template>

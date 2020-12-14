@@ -1,0 +1,148 @@
+<apex:page lightningStylesheets="true" controller="ES5_Controller_LA_Modificaciones" docType="html-5.0">
+    <apex:form >
+        <apex:pageBlock title="Modificaciones">
+           	
+            <br/>
+            
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Entity Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Entidad" for="Entidad"/>
+                    <apex:outputText id="Entidad" value="{!req.LAH.pOutEntidad}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Numero de Cuenta" for="no_cuenta"/>
+                    <apex:outputText id="no_cuenta" value="{!req.LAH.pOutNoCuenta}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nacionalidad" for="Nacionalidad"/>
+                    <apex:outputText id="Nacionalidad" value="{!req.LAH.pOutnacionalidad}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Tipo de Entidad" for="EntityTipo"/>
+                    <apex:outputText id="EntityTipo" value="{!req.LAH.pOutEntidadtype}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC/TIN" for="RFC"/>
+                    <apex:outputText id="RFC" value="{!req.LAH.pOutRFC}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Grupo Economico" for="Grupo_Economico"/>
+                    <apex:outputText id="Grupo_Economico" value="{!req.LAH.pOutEConomicgroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            
+            <apex:pageBlockSection columns="2" title="Modificaciones">
+                
+                <!--<apex:repeat value="{!req.LAH.pmoral.modificaciones}" var="modificaciones"> -->
+                    <!---->
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Reforma total de los estatutos*" for="ReformaTotal"/>
+                        <apex:inputText id="ReformaTotal" value="{!WModificacion.laMMReformaTotal}"/> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Escritura No.*" for="Escritura"/>
+                        <apex:inputText id="Escritura" value="{!WModificacion.laMMEscritura}"/> 
+                    </apex:pageBlockSectionItem>
+                    <!-- -->
+                	<apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Fecha" for="Fecha"/>
+                        <apex:input type="date" id="Fecha"  value="{!Fecha}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Fedatario Publico" for="FedatrioPublico"/>
+                        <apex:inputText id="FedatrioPublico" value="{!WModificacion.laMMFederatarioPublico}"/> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Lugar de Registro" for="RLugar" />
+                        <apex:inputText id="RLugar" value="{!WModificacion.laMMRLugar}"/> 
+                    </apex:pageBlockSectionItem>
+                    <!-- -->
+                    <!--<apex:pageBlockSectionItem >
+                        <apex:outputLabel value="R.Fecha" for="RFecha" />
+                        <apex:inputText id="RFecha" value="{!WModificacion.laMMRFecha}"/> 
+                    </apex:pageBlockSectionItem> -->
+                	<apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Fecha de Registro" for="Fecha"/>
+                        <apex:input type="date" id="RFecha"  value="{!R_Fecha}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Datos de Registro" for="RDatos" />
+                        <apex:inputText id="RDatos" value="{!WModificacion.laMMRDatos}"/> 
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Observaciones" for="Observaciones"/>
+                        <apex:inputTextarea rows="3" id="Observaciones" value="{!WModificacion.laMMObservaciones}"/>
+                    </apex:pageBlockSectionItem>
+               <!-- </apex:repeat>-->
+            </apex:pageBlockSection>
+            </apex:pageBlock> 
+            <div style="width: 250px;margin-left: auto;margin-right: auto;" id="div">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!Save}" rendered="{!editbtn}"/>
+                <apex:commandButton style="width: 115px;" value="Back to Entity" action="{!redirect_RP_Modificaciones}" rendered="{!!IsBackToLegal}" immediate="true"/>
+				<apex:commandButton style="width: 115px;" value="Back to Legal" action="{!redirect_RP_LA_PM}" rendered="{!IsBackToLegal}" immediate="true"/>               
+            </div>
+            
+            
+            
+        
+        
+    </apex:form>
+</apex:page>

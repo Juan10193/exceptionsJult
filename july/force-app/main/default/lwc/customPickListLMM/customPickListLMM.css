@@ -1,0 +1,23 @@
+.slds-modal__content{
+    overflow: initial;
+}
+.slds-section-title--divider {
+    color: white !important;
+    background: #004877 !important;
+    border-style: solid;
+}
+.divButton { 
+    border-radius: 5px;
+    display:inline-block;    
+    border:1px solid #CCC;    
+    box-shadow: 0 0 3px -1px rgba(0,0,0,0.2);
+    cursor:pointer;
+    vertical-align:middle;
+    max-width: 100px;
+    padding: 5px;
+    text-align: center;
+}
+.divButton:hover {
+    background:#DDD;
+    box-shadow: 0 0 3px -1px rgba(0,0,0,0.6);
+}

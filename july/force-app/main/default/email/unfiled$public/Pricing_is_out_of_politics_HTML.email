@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);"><b style="">Dear user,</b></span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);">You are receiving this notification because the opportunity {!Opportunity.Name}&nbsp;has a pricing out of policy&nbsp;</span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);">To view the Opportunity record, please visit the following link:&nbsp;</span><br style=""><span style="background-color: rgb(255, 255, 255);">{!Opportunity.Link}&nbsp;</span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);">Thank you,&nbsp;</span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);">Digital Marketing - Engenium Capit</span><span style="font-size: 12pt; color: rgb(0, 0, 0); font-family: arial; background-color: rgb(255, 255, 255);">al</span></font>]]></td>
+</tr>
+</table>

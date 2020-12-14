@@ -1,0 +1,151 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 11-04-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   10-14-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+  <template if:true={showSpinner}>
+    <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+  </template>
+  <template if:true={showSpinnerInProcess}>
+    <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+  </template>
+  <div class="slds-p-around_medium lgc-bg">
+    <div class="animated fadeInRight">
+      <lightning-button-group>
+        <lightning-button label="Borrar" title="Borrar" icon-name="utility:delete" disabled={disableButtonsOnRows}
+          onclick={handleDeleteSelectedRowsFromSF}></lightning-button>
+        <lightning-button label="Recalcular" title="Recalcular" icon-name="utility:number_input"
+          onclick={handleOpenRecalcularNBVModal} disabled={disableButtonsOnRows}></lightning-button>
+        <lightning-button label="Solicita terminación de contratos" title="Buscar contratos"
+          icon-name="utility:cancel_file_request" onclick={handleOpenCotizacionTerminacionContrato}
+          disabled={disableButtonsOnRows}></lightning-button>
+        <lightning-button label="Buscar contratos" title="" icon-name="utility:search"
+          onclick={handleOpenSearchContractModal} disabled={disableAllButtonsByStage}></lightning-button>
+      </lightning-button-group>
+      <lightning-helptext content="*Botones disponibles solo para stage Nuevo y negociación.">
+      </lightning-helptext>
+    </div>
+  </div>
+  <div class="c-container animated fadeInLeft">
+    <lightning-layout>
+      <lightning-layout-item padding="around-small">
+        <div class="header-column">
+          <p class="field-title" title="Field 1">Selected NBV</p>
+          <p>
+            <lightning-formatted-number value={NBV} format-style="currency" currency-code={CurrencyIsoCode}>
+            </lightning-formatted-number>
+          </p>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <div class="header-column">
+          <p class="field-title" title="Field 1">Selected OEC</p>
+          <p>
+            <lightning-formatted-number value={OEC} format-style="currency" currency-code={CurrencyIsoCode}>
+            </lightning-formatted-number>
+          </p>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <div class="header-column">
+          <p class="field-title" title="Field2 (3)">Selected Contract OI
+          </p>
+          <p>
+            <lightning-formatted-number value={OpenItems} format-style="currency" currency-code={CurrencyIsoCode}>
+            </lightning-formatted-number>
+          </p>
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+  <div class="animated slideInDown">
+    <lightning-datatable key-field="id" data={dataFromSelectedContract} columns={columnsFromSelectedContract}
+      onrowselection={getSelectedRowsFromSF}>
+    </lightning-datatable>
+  </div>
+  <template if:true={showModalBuscarContratos}>
+    <c-modal-question onclose={handleCloseModals} onaccept={guardarContratos} close-button-name="Cerrar"
+      accept-button-name="Guardar" title="Contratos de entidades"
+      init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_large'
+      disable-accept-button={disableInsertRows}>
+      <div slot="body" style="height:70%">
+        <lightning-datatable key-field="id" data={dataFromSearchContract} columns={columnsFromSearchContract}
+          onrowselection={getSelectedRowsFromOracle}>
+        </lightning-datatable>
+      </div>
+    </c-modal-question>
+  </template>
+  <template if:true={showModalRecalcularNBV}>
+    <c-modal-question onalternative={backStep} onclose={handleCloseModals} onaccept={nextStep}
+      alternative-button-name="Anterior" accept-button-name={stepAcceptButtonLabel}
+      disable-alternative-button={disableCloseButton} title="Recalcular NBV" init-modal-class={modalSize}>
+      <div slot="body" style="height:70%">
+        <lightning-progress-indicator current-step={step} type="base" variant="base">
+          <lightning-progress-step label="Agrega fecha" value="1"></lightning-progress-step>
+          <lightning-progress-step label="Compara datos" value="2"></lightning-progress-step>
+          <lightning-progress-step label="Guarda información" value="3"></lightning-progress-step>
+        </lightning-progress-indicator>
+        <template if:true={visibleStep1}>
+          <lightning-input type="date" name="NBVDate" label="Seleccione una fecha" value={fechaParaNBV}
+            class="slds-p-around_medium" required>
+          </lightning-input>
+        </template>
+        <template if:true={visibleStep2}>
+
+          <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="around-small">
+              <h3 class="slds-section-title--divider animated slideInLeft">Contratos en salesforce: </h3>
+              <lightning-datatable key-field="id" data={dataFromSelectedContract} columns={columnsFromSelectedContract}
+                class="slds-p-around_medium" hide-checkbox-column>
+              </lightning-datatable>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+              <h3 class="slds-section-title--divider animated slideInLeft">Contratos a actualizar: </h3>
+              <lightning-datatable key-field="id" data={dataFromRecalculatedContract}
+                columns={columnsFromSearchContract} class="slds-p-around_medium" hide-checkbox-column>
+              </lightning-datatable>
+            </lightning-layout-item>
+          </lightning-layout>
+
+
+
+        </template>
+        <template if:true={visibleStep3}>
+          <lightning-layout-item size="12" padding="around-small">
+            <h3 class="slds-section-title--divider animated slideInLeft">¿Está seguro de actualizar la información? </h3>
+            <lightning-datatable key-field="id" data={dataFromRecalculatedContract} columns={columnsFromSearchContract}
+              class="slds-p-around_medium" hide-checkbox-column>
+            </lightning-datatable>
+          </lightning-layout-item>
+        </template>
+      </div>
+    </c-modal-question>
+  </template>
+  <template if:true={showModalCotizacionTerminacionContrato}>
+    <c-modal-question onclose={handleCloseModals} onaccept={solicitudDeTerminacion} close-button-name="Cerrar"
+      accept-button-name="Guardar" title="Terminación de contrato" init-modal-class={modalSize}>
+      <div slot="body" style="height:70%">
+        <lightning-input type="date" name="fechaTerminacionContrato" data-field="fechaTerminacionContrato"
+          label="Seleccione la fecha de terminación de contrato" class="slds-p-around_medium" required>
+        </lightning-input>
+        <lightning-dual-listbox name="detalleDeLaNegociacion"
+                            label="Detalle de la negociación"
+                            source-label="Disponible"
+                            selected-label="Seleccionado"
+                            field-level-help="Selecciona el detalle de la negociación"
+                            options={detalleDeLaNegociacionOptions}
+                            onchange={handleChangeDualListBox}
+                            value={detalleDeLaNegociacionValue}
+                            class="slds-p-around_medium"
+                            required></lightning-dual-listbox>
+      </div>
+    </c-modal-question>
+  </template>
+
+</template>

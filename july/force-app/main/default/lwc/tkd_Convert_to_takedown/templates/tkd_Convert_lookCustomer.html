@@ -1,0 +1,11 @@
+<template>
+    <div>
+        <lightning-button icon-name="utility:back" onclick={changeTemplatetoGeneral} style="padding-bottom: 1rem" label="Back" title="Back"></lightning-button>
+    </div>
+    <div style="height: 300px;">
+        <lightning-datatable key-field="Id" data={customerLookData}
+                columns={COLUMNSCUSTOMER} hide-checkbox-column="true"
+                onrowaction={addCustomerName}>
+        </lightning-datatable>
+    </div>
+</template>

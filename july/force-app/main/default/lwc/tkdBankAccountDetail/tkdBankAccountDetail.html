@@ -1,0 +1,132 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 10-29-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-10-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+  <div class="slds-p-around_x-small">
+    <lightning-card title="Bank Account Information" icon-name="custom:custom87">
+      <lightning-button-stateful if:true={bankAccountId} slot="actions" label-when-off="Edit" label-when-on="Editing"
+        label-when-hover="Save" icon-name-when-off="utility:edit" icon-name-when-on="utility:edit_form"
+        icon-name-when-hover="utility:save" selected={isSelectedEditing} onclick={handleEditClick}>
+      </lightning-button-stateful>
+    </lightning-card>
+  </div>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" padding="around-small">
+      <div class="slds-p-around_xx-small container lgc-bg">Information
+      </div>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"
+      padding="around-small">
+      <lightning-input type="text" label="Bank Account Number (CLABE/Account/IBAN)" data-field="bankAccountNumber"
+        readonly={isReadOnly} required>
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="Country" data-field="countryReadOnly" readonly required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Country" value={SR_ls_CountryValue} placeholder="Select a Country"
+          options={SR_ls_CountryOptions} data-field="country" onchange={hanldeCountrySelection}  required>
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="Bank Name" data-field="bankNameReadOnly" readonly required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Bank Name" value={Bank_NameValue} placeholder="Select a Bank Name"
+          options={Bank_NameOptions} data-field="bankName" onchange={hanldeChangeBankName} required>
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="Bank Account Currency" data-field="bankAccountCurrencyReadOnly" readonly
+          required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Bank Account Currency" value={Bank_Account_CurrencyValue}
+          placeholder="Select a Bank Account Currency" options={Bank_Account_CurrencyOptions}
+          data-field="bankAccountCurrency" onchange={hanldeChangeIntBank} required>
+        </lightning-combobox>
+      </template>
+
+
+    </lightning-layout-item>
+
+    <lightning-layout-item size="12" padding="around-small">
+      <div class="slds-p-around_xx-small container lgc-bg">Aditional Information
+      </div>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+        <lightning-input type="text" label="SWIFT/ABA/IBAN TYPE" data-field="swiftAbaIbanTypeReadOnly" readonly
+          required>
+        </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="text" label="SWIFT/ABA/IBAN Value" data-field="swiftAbaIbanValue" readonly
+      required>
+      </lightning-input>
+    </lightning-layout-item>
+
+
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="Intermediary Bank Name" data-field="specificIntermedieryBankReadOnly"
+        readonly>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Specific intermediary bank" value={specific_intermediary_bankValue}
+          placeholder="Select a specific intermediary bank" options={specific_intermediary_bankOptions}
+          data-field="specificIntermedieryBank" onchange={hanldeChangeIntBank}>
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="text" label="Intermediary Bank Name" data-field="intermediaryBankName"
+        readonly={isReadOnly}>
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="SWIFT/ABA/IBAN TYPE" data-field="intermedieryBankTypeReadOnly" readonly
+          required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Intermediary Bank Type" value={TipoValue}
+          placeholder="Select an Intermediary Bank Type" options={TipoOptions} data-field="intermedieryBankType">
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+      padding="around-small">
+      <lightning-input type="text" label="Intermediary Bank Code" data-field="intermediaryBankCode"
+        readonly={isReadOnly}>
+      </lightning-input>
+    </lightning-layout-item>
+  </lightning-layout>
+
+</template>

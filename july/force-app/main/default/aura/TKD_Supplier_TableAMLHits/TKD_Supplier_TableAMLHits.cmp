@@ -1,0 +1,25 @@
+<!--
+  @File Name          : TKD_Supplier_TableAMLHits.cmp
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 10/12/2019 23:16:07
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    10/12/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<aura:component controller="TKD_Supplier_TableAMLHits_controller" 
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId"
+    access="global" >
+        <aura:attribute name="recordId" type="String" />
+        <aura:handler name="init" value="{! this }" action="{! c.init }" />
+        <aura:attribute name="supplierDataTableColumns" type="List" />
+        <aura:attribute name="supplierData" type="Object" />
+        <lightning:datatable
+                keyField="id"
+                data="{! v.supplierData }"
+                columns="{! v.supplierDataTableColumns }"
+                hideCheckboxColumn="true"
+                onrowaction="{! c.handleRowAction }"/>
+</aura:component>

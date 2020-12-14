@@ -1,0 +1,23 @@
+<template>
+    <div class="c-container">
+        
+        <template if:true={_resultData.data}>
+            <lightning-layout>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <div class="slds-text-title">Invoices approval status</div>
+                        <lightning-icon icon-name={approvalStatusValue}
+                            size="xx-small" alternative-text="Working"></lightning-icon>
+                        {approvalStatusLabel} 
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <div class="slds-text-title">Approval comments</div>
+                        {comments}
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </div>
+</template>

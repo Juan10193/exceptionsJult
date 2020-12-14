@@ -1,0 +1,57 @@
+<apex:page standardController="TBO001_AccountClassification__c" extensions="TBO001_ext_UpdateAccountClassification">
+    <apex:outputPanel rendered="{!hasPrivileges}"> 
+        <apex:sectionHeader title="Edit Account Classification" subtitle="{!TBO001_AccountClassification__c.Name}"/>
+        <apex:form id="acForm">
+            <apex:pageBlock title="Update Account Classification">
+                <script>
+                function confirmChangeTier() {
+                    var tier = '{!tier}';
+                    if (tier == 'Tier Four') { 
+                        if(confirm('Are you sure you want to make all related Account Classifications a ' + tier + '?')) {
+                            return true;
+                        }
+                    }
+                    else {
+                        return true;
+                    }
+                    
+                    return false;
+                }
+                </script>
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{!btnSave}" onclick="return confirmChangeTier();" />
+                    <apex:commandButton value="Cancel" action="{!btnCancel}"/>
+                </apex:pageBlockButtons>
+                <apex:pageMessages id="showmsg"></apex:pageMessages>
+                <apex:PageBlockSection title="Information" columns="2">
+                    <apex:outputField value="{!TBO001_AccountClassification__c.OwnerId}"/>
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_ls_Line_of_Business__c}"/>
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_rb_Account__c}"/>
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_ls_Tier__c}">
+                        <apex:actionSupport event="onchange" action="{!setTier}" reRender="acForm"/>
+                    </apex:inputField>
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_ls_Region__c}"/>
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_ls_CompanyRank__c}" rendered="{!tier == 'Tier Three'}"/>
+                </apex:PageBlockSection>
+                <apex:PageBlockSection title="Account status" columns="2">
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_ls_Customer_Status__c}"/>
+                    <apex:inputField value="{!TBO001_AccountClassification__c.TBO001_tx_Customer_Since__c}"/>
+                </apex:PageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!(!hasPrivileges)}">
+        <apex:form id="npForm">
+            <apex:pageBlock mode="maindetail" title="Insufficient Privileges">
+                <div style="padding-left: 15px;">
+                    <p>
+                        You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.
+                    </p>  
+                    <p>
+                        Click <apex:commandLink value="here" action="{!btnCancel}" /> to return to the previous page.
+                    </p>  
+                </div>  
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

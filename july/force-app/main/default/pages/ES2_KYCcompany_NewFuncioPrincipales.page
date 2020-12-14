@@ -1,0 +1,72 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaMoral">
+    <apex:form id="frm">
+        <script>
+     function validar(){
+    	var alerts=[];
+    	var cargo = document.getElementById('{!$Component.frm.pb.pbs.pbsi1.kycOrgBizMainTitle}').value;
+        var nombre =  document.getElementById('{!$Component.frm.pb.pbs.pbsi2.kycOrgBizMainName}').value;
+        var rfc = document.getElementById('{!$Component.frm.pb.pbs.pbsi3.kycOrgBizMainRFC}').value; 
+         //var per =  document.getElementById('{!$Component.frm.pb.pbs.pbsi4.kycOrgPartnerIndPorcent}').value; 
+        
+    	if(cargo ==""){
+        	var validarcargo ='Porfavor Introdusca el Cargo\n';
+            alerts.push(validarcargo);
+        }
+         
+       if(nombre==""){
+       		var validarpuesto = 'Porfavor Itrodusca el Nombre Completo\n';
+            alerts.push(validarpuesto);
+       }
+         
+       if(rfc ==""){
+           var validarRfc= "Porfavor Introdusca Fecha de nacimiento o RFC\n";
+           alerts.push(validarRfc);
+       }
+         
+         /*if(per ==""){
+      	 var validarPer = "Porfavor Introdusca El Porcentaje de Participación\n";
+          alerts.push(validarPer);
+      }*/
+         
+         if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+     } 
+    
+    </script>
+
+        <apex:pageBlock id="pb" title="Funcionarios Principales">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection id="pbs">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Cargo" for="kycOrgBizMainTitle"/>
+                    <apex:inputText id="kycOrgBizMainTitle" value="{!funcioP.pOutKYCOrgBizMainTitle}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Nombre Completo" for="kycOrgBizMainName"/>
+                    <apex:inputText id="kycOrgBizMainName" value="{!funcioP.pOutKYCOrgBizMainName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="Fecha de nacimiento o RFC" for="kycOrgBizMainRFC"/>
+                    <apex:inputText id="kycOrgBizMainRFC" value="{!funcioP.pOutKYCOrgBizMainRFC}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel style="float:center" >
+                <apex:commandButton value="Save" action="{!savePMFuncioP}" onclick="return validar();" style="float:center; width:120px"  /> 
+            	<apex:commandButton value="Cancel" action="{!CancelTable}" style="float:center; width:120px"/>
+                </apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

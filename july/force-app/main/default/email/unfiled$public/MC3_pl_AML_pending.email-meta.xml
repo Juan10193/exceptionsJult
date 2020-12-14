@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>MC3_pl_AML_pending</name>
+    <style>freeForm</style>
+    <subject>Credit Approval &quot;{!Credit_approval_CP__c.Name}&quot; has been submitted for your approval</subject>
+    <textOnly>Dear Approver,
+You are receiving this notification because the Credit Approval
+{!Credit_approval_CP__c.Name}, has been submitted for your approval.
+
+Customer: {!Credit_approval_CP__c.CPL_rb_account__c}
+Type of credit approval: {!Credit_approval_CP__c.Type_of_credit_approval__c}
+New Expiration Date: {!Credit_approval_CP__c.MC3_date_New_Expiration_Date__c}
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

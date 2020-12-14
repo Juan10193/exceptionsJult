@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>application/json</contentType>
+    <description>Mock de datos con para test de Validación de documentos XML, el servicio web es de Open Legacy</description>
+</StaticResource>

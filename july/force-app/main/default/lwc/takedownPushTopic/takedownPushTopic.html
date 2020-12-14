@@ -1,0 +1,26 @@
+<!--
+  @File Name          : takedownPushTopic.html
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 6/9/2019 9:03:18
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    6/9/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<template>
+    <lightning-card title="EmpApi Example" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <p>Use the buttons below to subscribe and unsubscribe to a streaming channel!</p>
+            <lightning-input label="Channel Name" value={channelName}
+                onchange={handleChannelName}></lightning-input>
+            <lightning-button variant="success" label="Subscribe" title="Subscribe"
+                onclick={handleSubscribe} disabled={isSubscribeDisabled}
+                class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant="destructive" label="Unsubscribe" title="Unsubscribe"
+                onclick={handleUnsubscribe} disabled={isUnsubscribeDisabled}
+                class="slds-m-left_x-small"></lightning-button>
+        </div>
+    </lightning-card>
+</template>

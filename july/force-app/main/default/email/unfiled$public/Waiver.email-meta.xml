@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Waiver Status Changed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Waiver</name>
+    <style>formalLetter</style>
+    <subject>Waiver {!WaiverToGo__c.Name} for customer {!Waivers__c.Customer_Name__c has been submitted for your approval</subject>
+    <textOnly>Dear Approver
+You are receiving this notification because the waiver {!WaiverToGo__c.Name} for customer {!WaiverToGo__c.Customer_Name__c} has been Submitted for you approval:
+
+Requestor: {!WaiverToGo__c.OwnerFullName}
+Waiver: {!WaiverToGo__c.Document_Type__c}
+Reason(s) for Waiver: {!WaiverToGo__c.Reason_for_Exception__c}
+Requestor Comments: {!WaiverToGo__c.Requester_Comments__c}
+Service Level Agreement for Closing: {!WaiverToGo__c.Service_Level_Agreement_Days__c}
+Takedown Amount USD: {!WaiverToGo__c.Takedown_Amount_USD__c}
+
+
+If you want to see the waiver record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

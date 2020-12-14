@@ -1,0 +1,98 @@
+<apex:page lightningStylesheets="true" controller="EIV_EntityExtendClassBis">
+    <apex:form >
+        <apex:pageBlock title="Contact">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+                <apex:pageBlockSection columns="2" title="Top Parent information">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Top Parent Name"  />
+                        <apex:outputText id="Top_Parent_Name" value="{!Entity.Top_Parent_Name}" />
+                    </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Entity Name" id="Entity_name"/>
+                        <apex:outputText value="{!Entity.Oracle_Account_Name}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                 <apex:pageBlockSection columns="2" title="information">
+                     
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Prefix" id="Prefix"/>
+                        <apex:outputText value="{!contactObj.Prefix}"/>
+                    </apex:pageBlockSectionItem>                     
+                     
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Email" id="Email"/>
+                        <apex:outputText value="{!contactObj.Email}" />
+                    </apex:pageBlockSectionItem>                     
+                     
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="First Name" id="Fists_Name"/>
+                        <apex:outputText value="{!contactObj.First_Name}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Country Code" id="Country_Code"/>
+                        <apex:outputText value="{!contactObj.Country_code}" />
+                    </apex:pageBlockSectionItem>
+
+                     <apex:pageBlockSectionItem >
+                         <apex:outputLabel value="Middle Name" id="Middle_Name"/>
+                         <apex:outputText value="{!contactObj.middleName}" />
+                     </apex:pageBlockSectionItem>                     
+                     
+                     <apex:pageBlockSectionItem >
+                         <apex:outputLabel value="Area Code" id="Area_Code"/>
+                         <apex:outputText value="{!contactObj.Area_code}" />
+                     </apex:pageBlockSectionItem>
+                     
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Last Name" id="Last_Name"/>
+                        <apex:outputText value="{!contactObj.First_Last_Name}"/>
+                    </apex:pageBlockSectionItem>
+                                           
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Phone" id="Phone"/>
+                        <apex:outputText value="{!contactObj.Phone}" />
+                    </apex:pageBlockSectionItem>
+                     
+                     <apex:pageBlockSectionItem >
+                     	<apex:outputLabel value="Second Last Name" id="SecondLast_Name"/>
+                     	<apex:outputText value="{!contactObj.secondLastName}" />
+                     </apex:pageBlockSectionItem>
+                     
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Phone Number Extension" id="Phone_Number_Extension"/>
+                        <apex:outputText value="{!contactObj.Phone_number_extension}" />
+                    </apex:pageBlockSectionItem>
+                     
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Type" id="Type"/>
+                        <apex:outputText value="{!contactObj.TypeContact}"/>
+                    </apex:pageBlockSectionItem>
+                     
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Mobile" id="Mobile"/>
+                        <apex:outputText value="{!contactObj.Mobile}" />
+                    </apex:pageBlockSectionItem>
+                     
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Title" id="Title"/>
+                        <apex:outputText value="{!contactObj.title}" />
+                    </apex:pageBlockSectionItem>
+                     
+
+                     
+                    
+ 
+                     
+                     
+                </apex:pageBlockSection>
+            <div style="width: 340px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Edit" action="{!editContact}" rendered="{!contactPrivileges.bUpdate}"/>
+                <apex:commandButton style="width: 100px;" value="Clone" action="{!cloneContact}"/>
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}"/>                
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

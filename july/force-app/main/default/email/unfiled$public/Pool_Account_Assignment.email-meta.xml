@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Pool Account Assignment</name>
+    <style>freeForm</style>
+    <subject>An account has been requested to be assigned from pool/ removed from Territory Plan</subject>
+    <textOnly>Dear user,
+
+The following account has been requested to be assigned from the pool/ removed from territory plan:
+
+Company name: {!Account.Name}
+Current account owner: {!Account.OwnerFullName}
+Requestor name: {!Account.Territory_Plan_Assignment_Requestor__c}
+Include in Territory plan: {!Account.Include_In_My_Territory_Plan__c}
+Account type: {!Account.Account_Type__c}
+Account Potential Category: {!Account.Account_Potential_Category__c}
+Account Potential Description: {!Account.Account_Potencial_Description__c}
+Account Potential Comments Last Update: {!Account.Account_Potential_Comments_Last_Update__c}
+Account Potential Comments: {!Account.ACC_tx_Account_Potential_Comments__c}
+
+
+To view the record {!Account.Link}
+
+Regards,
+
+Digital Maketing - Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

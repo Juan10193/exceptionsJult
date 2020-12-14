@@ -1,0 +1,238 @@
+<template>
+    <lightning-card style="max-width: 100%;">
+        <h3 slot="title" class="animated fadeInDown">
+            <strong>Legal Assessment: <a href={urlLa} title="View Eval" target="_blank">{legalAssestmentId}</a></strong>
+                <lightning-button-icon icon-name="utility:delete"  alternative-text="Remove this Legal Assessment"   
+                class="slds-m-left_xx-small slds-p-left_medium" onclick={removeLa}>
+                </lightning-button-icon>
+        </h3>
+       <template if:true={legalAssesment}>
+            <h3 class="slds-section-title--divider animated slideInLeft">General Information</h3>
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Type</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{legalAssesment.header.ndaType}</div>
+                            </div> 
+                        </div>      
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Valid Through</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{legalAssesment.legalAssessment.laHeader.generalInformation.laGIValidThrough}</div>
+                            </div> 
+                        </div>      
+                    </div>
+                </div>
+            </div>
+            <h3 class="slds-section-title--divider animated slideInLeft">BIL</h3>    
+            <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Fecha Revision</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{bil.laBFechaRevision}</div>
+                            </div> 
+                        </div>      
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Incidencias</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{bil.laBIncidencias}</div>
+                            </div> 
+                        </div>      
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <label class="slds-form-element__label">Comentarios</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{bil.laBComentarios}</div>
+                            </div> 
+                        </div>      
+                    </div>
+                </div>
+            </div>
+            <template if:true={acta.actaFlagMoral}>
+                <h3 class="slds-section-title--divider animated slideInLeft">Acta Constitutiva</h3>    
+                <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Denominación al Momento de Constituirse</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laCDenomConstituirse}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Fedatario Público</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACFedatarioPublico}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Escritura No.</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACEscrituraNum}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Fecha Registro</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACFechaRegistro}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Fecha</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACFechaEscritura}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Lugar Registro</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACLugarRegistro}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Duración</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACDuracion}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Datos Registro</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACDatosRegistro}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Cláusula Extranjeros</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACClausulaExtranjero}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Observaciones</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACObservaciones}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={acta.actaFlagExtranj}>
+                <h3 class="slds-section-title--divider customba animated slideInLeft">Acta Constitutiva</h3>
+                <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Denominación al Momento de Constituirse</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laCDenomConstituirse}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Duración</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACDuracion}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Fecha</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACFechaEscritura}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                <label class="slds-form-element__label">Observaciones</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{acta.laACObservaciones}</div>
+                                </div> 
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+            </template>                       
+        </template>
+        <template if:true={apoderado}>
+            <div class="slds-grid slds gutters">
+                <div class="slds-col slds-size_12-of-12">
+                    <h3 class="slds-section-title--divider animated slideInLeft">Apoderados</h3>
+                    <table class="animated fadeInLeft">
+                        <thead>
+                            <tr>
+                                <th>VIEW</th>
+                                <th>NOMBRE</th>
+                                <th>VIGENCIA ID</th>
+                                <th>ACTOS DE DOMINIO</th>
+                                <th>TÍTULOS DE CREDITO</th>
+                                <th>ACTOS ADMINISTRATIVOS</th>
+                                <th>PLEITOS Y COBRANZAS</th>
+                                <th>I-M</th>
+                                <th>OBSERVACIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={apoderado} for:item="apo">
+                                <tr key={apo.laAApoderadoID}>
+                                    <td data-column="VIEW">
+                    
+                                        <lightning-button-icon icon-name="utility:pop_in"  
+                                        alternative-text="View Apoderado" onclick={viewApo}   
+                                        class="slds-m-left_xx-small" data-reqid ={apo.laAApoderadoID}>
+                                        </lightning-button-icon>
+                                        
+                                    </td>
+                                    <td data-column="NOMBRE">{apo.laANombreFacultado}</td>
+                                    <td data-column="VIGENCIA ID">{apo.laAFecha}</td>
+                                    <td data-column="ACTOS DE DOMINIO">{apo.laAActosDominio}</td>
+                                    <td data-column="TÍTULOS DE CREDITO">{apo.laATitulosCredito}</td>
+                                    <td data-column="ACTOS ADMINISTRATIVOS">{apo.laAActosAdministrativos}</td>
+                                    <td data-column="PLEITOS Y COBRANZAS">{apo.laAPleitosCobranza}</td>
+                                    <td data-column="I-M">{apo.laAIndMan}</td>
+                                    <td data-column="OBSERVACIONES">{apo.laAObservaciones}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>      
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+</template>

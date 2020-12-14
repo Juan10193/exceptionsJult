@@ -1,0 +1,188 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-10-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-06-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<aura:component controller="Takedown_Controller_tableAmlHits"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global">
+
+  <aura:handler name="init" value="{! this }" action="{! c.init }" />
+  <!--component attributs -->
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute name="newSupplier" type="Object" />
+  <aura:attribute name="sizeSupplier" type="Integer" />
+  <aura:attribute name="idSupplierSelect" type="String" access="public" />
+  <aura:attribute name="rfcSupplierSelect" type="String" access="public" />
+  <aura:attribute name="nameSupplierSelect" type="String" access="public" />
+  <aura:attribute name="isOpenHitsDesc" type="Boolean" />
+  <aura:attribute name="hitsDesc" type="String" />
+  <aura:attribute name="lstInvoices" type="Object" />
+  <aura:attribute name="lstInvoicesSelected" type="Object" />
+  <aura:attribute name="lstSites" type="Object" />
+  <aura:attribute name="isOpenInvoice" type="Boolean" />
+  <aura:attribute name="isOpenEditSupplier" type="Boolean" />
+  <aura:attribute name="haveInvoice" type="Boolean" />
+  <aura:attribute name="spinner" type="boolean" default="FALSE" />
+  <aura:attribute name="isChkBxInvoice" type="boolean" default="FALSE" />
+  <aura:attribute name="validateHits" type="Boolean" default="false" />
+  <aura:registerEvent name="TKDvalidateSupplierSites" type="c:TKDvalidateSupplierSites" />
+  <aura:attribute name="supplierSelected" type="String" />
+  <aura:attribute name="siteSelected" type="String" />
+
+  <aura:if isTrue="{!v.spinner}">
+    <div id="tableAmlHits" style="display:block">
+      <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__figure">
+              <lightning:icon iconName="standard:groups" size="small" variant="bare" class="float-center" />
+            </div>
+            <div class="slds-media__body">
+              <h2 class="slds-card__header-title"><strong>Suppliers</strong></h2>
+            </div>
+            <!--({!v.sizeSupplier})-->
+            <lightning:button label="Validate Hits" title="Validate Hits" onclick="{! c.validateHits }"
+              disabled="{!v.validateHits}" />
+          </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner table-container slds-table_resizable-cols ">
+          <br></br> <br></br>
+          <!--Tabla Con sites -->
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <thead class="gris text-center">
+              <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="RFC">RFC</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Name">Name</div>
+                </th>
+                <!--<th class="" scope="col">
+                  <div class="slds-truncate" title="Currency">Currency</div>
+                </th>-->
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Tax Code">Tax Code</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Site">Site</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="AML Hits">AML Hits</div>
+                </th>
+                <!--<th class="" scope="col"><div class="slds-truncate" title="Hits Description">Hits Description</div ></th > -->
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Oracle Supplier">Oracle Supplier</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Invoice">Invoice</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Action">Action</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <aura:iteration items="{! v.lstSites}" var="site" indexVar="index">
+                <tr class="slds-hint-parent">
+                  <!--<td data-label="RFC"><div class="slds-truncate"><a href="{!'/' + site.idSupplier}" target="_self">{! site.rfc}</a></div></td>-->
+                  <td data-label="RFC">
+                    <div class="slds-truncate"><a href="#" data-customattribute="{!site.idSupplier}"
+                        onclick="{!c.openEditSupplier}">{! site.rfc}</a></div>
+                  </td>
+                  <td data-label="Name">
+                    <div class="slds-truncate">{! site.name}</div>
+                  </td>
+                  <!--<td data-label="Currency">{! site.currencyCode}</td>-->
+                  <td data-label="TaxCode">{! site.taxCode}</td>
+                  <!--<td data-label="Site"><a href="{!'/' + site.idSite}" target="_self">{! site.nameSite}</a></td>-->
+                  <td data-label="Site">
+                    <div class="slds-truncate"><a href="#" data-customattribute="{!site.idSite}"
+                        onclick="{!c.openEditSite}">{! site.nameSite}</a></div>
+                  </td>
+                  <td class="text-center">
+                    <aura:if isTrue="{! site.amlHits == 'true'}">
+                      <lightning:buttonIcon iconName="utility:close" alternativeText="View Hits Description"
+                        size="large" iconClass="red" variant="bare" class="float-center" tabindex="{!index}"
+                        onclick="{! c.openModalHitsDesc}" />
+                    </aura:if>
+                    <aura:if isTrue="{!site.amlHits == undefined}">
+                      <lightning:icon iconName="action:info" size="xx-small" variant="bare" class="float-center"
+                        title="Need Verification" />
+                    </aura:if>
+                    <aura:if isTrue="{!site.amlHits == 'false'}">
+                      <lightning:icon iconName="action:approval" size="xx-small" variant="bare" class="float-center" />
+                    </aura:if>
+                  </td>
+                  <td class="text-center">
+                    <aura:if isTrue="{! site.oracleSupplier != null}">
+                      <lightning:icon iconName="action:approval" size="xx-small" variant="bare" class="float-center" />
+                      <aura:set attribute="else">
+                        <lightning:icon iconName="action:close" size="xx-small" variant="bare" class="float-center" />
+                      </aura:set>
+                    </aura:if>
+                  </td>
+                  <td>
+                    <aura:if isTrue="{!  site.invoice == null || site.invoice == ''}">
+                      <div data-sited="{!index}" onclick="{! c.openModalInvoice}">
+                        <lightning:buttonIcon alternativeText="Invoice" iconName="utility:news" size="large"
+                          variant="bare" iconClass="tiffanyBlue" tabindex="{!index}" />
+                      </div>
+                      <aura:set attribute="else">
+                        <div data-sited="{!index}" onclick="{! c.openModalInvoice}"
+                          style="cursor: pointer; color:#275BAD">{! site.invoice}</div>
+                      </aura:set>
+                    </aura:if>
+                  </td>
+                  <td class="text-center">
+                    <aura:if isTrue="{!site.idSite != undefined}">
+                      <lightning:buttonIcon iconName="utility:delete" variant="bare" title="{!site.idSite}"
+                        iconClass="red" tabindex="{!index}" onclick="{! c.deleteSupplier}" size="large" />
+                    </aura:if>
+                    <aura:if isTrue="{!site.idSite == undefined}">
+                      <lightning:buttonIcon iconName="utility:delete" variant="bare"
+                        alternativeText="{!site.idSupplier}" iconClass="red" tabindex="{!index}"
+                        onclick="{! c.deleteSupplier}" size="large" />
+                    </aura:if>
+                  </td>
+                </tr>
+              </aura:iteration>
+            </tbody>
+          </table>
+        </div>
+      </article><br></br><br></br>
+    </div>
+    <aura:set attribute="else">
+      <lightning:spinner alternativeText="Loading" />
+    </aura:set>
+  </aura:if>
+
+
+  <!--Modal para mostrar el hits description de la tabla AML Hits  -->
+  <aura:if isTrue="{! v.isOpenHitsDesc}">
+    <c:TDK_supplierInTD_modalHistDesc hitsDesc="{! v.hitsDesc}" isOpenHitsDesc="{! v.isOpenHitsDesc}">
+    </c:TDK_supplierInTD_modalHistDesc>
+  </aura:if>
+  <c:tkdManageSupplier aura:id="tkdmanagesupplier" supplierId="{!v.supplierSelected}" takedownId="{!v.recordId}" isOnlySiteRecord="false"></c:tkdManageSupplier>
+  <!--<c:tkdModalSupplierDetail aura:id="tkdmodalsupplierdetail" supplierId="{!v.supplierSelected}"
+    takedownId="{!v.recordId}"></c:tkdModalSupplierDetail>-->
+  <c:tkdManageSupplier aura:id="tkdmodalsitedetail" supplierId="{!v.supplierSelected}" siteId="{!v.siteSelected}" takedownId="{!v.recordId}" isOnlySiteRecord="true"></c:tkdManageSupplier>
+    
+  <!--<c:tkdModalSiteDetail aura:id="tkdmodalsitedetail" supplierId="{!v.supplierSelected}" siteId="{!v.siteSelected}"
+    takedownId="{!v.recordId}"></c:tkdModalSiteDetail> -->
+  <!-- Modal para obtener los invoices deacuerdo al supplier seleccionado -->
+
+
+  <c:TDK_supplierInTD_modalInvoice recordId="{! v.recordId}" lstInvoices="{! v.lstInvoices}"
+    lstInvoicesSelected="{! v.lstInvoicesSelected}" isChkBxInvoice="{! v.isChkBxInvoice}"
+    rfcSupplierSelect="{! v.rfcSupplierSelect}" idSupplierSelect="{! v.idSupplierSelect}"
+    nameSupplierSelect="{! v.nameSupplierSelect}" isOpenInvoice="{! v.isOpenInvoice}" lstSites="{! v.lstSites}">
+  </c:TDK_supplierInTD_modalInvoice>
+  <!-- </aura:if> -->
+
+</aura:component>

@@ -1,0 +1,85 @@
+.slds-form-element__label {
+    display : none !important;
+    visibility : hidden !important;
+  }
+
+  .slds-section-title--divider {
+    color: white !important;
+    background: #004877 !important;
+    border-style: solid;
+  }
+
+  .bodyPage {
+    margin-bottom: 5.92em;
+    margin-top: 5.92em;
+    margin-right: 5.45em;
+    margin-left: 5.45em;
+  }
+
+  p {
+    color: #1e3a61;
+    text-align: left;
+  }
+
+  .section {
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+  }
+
+  .customInputText {  
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #03a8f45e;
+    outline: none;
+    
+  }
+  .fullLine {
+    width: 100%;
+  }
+  
+  .partialLine {
+    width: 94%;
+  }
+  
+  [placeholder]:focus::-webkit-input-placeholder {
+    transition: text-indent 0.4s 0.4s ease;
+    text-indent: -100%;
+    opacity: 1;
+  }
+  
+  @media 
+  only screen and (max-width: 768px),
+  (max-device-width: 768px){
+    .fullDevice {
+      display: none;
+    }
+    
+  }
+
+  @media 
+  only screen and (min-width: 768px),
+  (min-device-width: 768px){
+    .smallAndMediumDevice {
+      display: none;
+      width: 45%;
+    }
+    
+  }
+  
+  .finalFooter {
+    text-align: justify;
+    padding: 3px;
+    font-size: 8px;
+  }
+
+  .logoEngen {
+    max-width: 30%;
+  }
+
+  .demo-only {
+    display: flex;
+    justify-content: center;
+  }

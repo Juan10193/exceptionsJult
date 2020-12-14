@@ -1,0 +1,30 @@
+<apex:page lightningStylesheets="true"  >
+    <apex:form >
+        <apex:pageBlock title="Related Documents">
+            
+            
+            <apex:pageBlockSection columns="2" title="Document">
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Comment" for="ComComment"/>
+                    <apex:outputText id="ComComment"/>
+                </apex:pageBlockSectionItem> 
+                <!---->
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="System Information">
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created By" for="CreatedBy"/>
+                    <apex:outputText id="CreatedBy" value="iokjhg"/> 
+                </apex:pageBlockSectionItem> 
+                <!---->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created Date" for="CreationDate"/>
+                    <apex:outputText id="CreationDate" value="iokjhg"/> 
+                </apex:pageBlockSectionItem> 
+                <!----> 
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

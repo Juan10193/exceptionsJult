@@ -1,0 +1,67 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaMoral">
+    <apex:form id="frm">
+           <script>
+     function validar(){
+    	var alerts=[];
+    	var Insti = document.getElementById('{!$Component.frm.pb.pbs1.pbsi1.kycOrgBankName}').value;
+        var accNum =  document.getElementById('{!$Component.frm.pb.pbs1.pbsi2.kycOrgBankAccount}').value;
+        var banckCountry = document.getElementById('{!$Component.frm.pb.pbs1.pbsi3.kycOrgBankCountry}').value; 
+    	if(Insti ==""){
+        	var validarInsti ='La Institución Financiera es Requerida\n';
+            alerts.push(validarInsti);
+        }
+         
+       if(accNum==""){
+       		var validarAccnum = 'Porfavor Itrodusca un Número de Cuenta\n';
+            alerts.push(validarAccnum);
+       }
+         
+       if(banckCountry ==""){
+           var validarBanckCountry = "Porfavor Introdusca el País\n";
+           alerts.push(validarBanckCountry);
+       }
+         
+         if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+     } 
+    
+    </script>
+        <apex:pageBlock title="Cuentas Bancarias" id="pb">
+            
+            <apex:pageBlockSection id="pbs1">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Institución Financiera" for="kycOrgBankName"/>
+                    <apex:inputText id="kycOrgBankName" value="{!bankT.pOutKYCOrgBankName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Número de Cuenta" for="kycOrgBankAccount"/>
+                    <apex:inputText id="kycOrgBankAccount" value="{!bankT.pOutKYCOrgBankAccount}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="País" for="kycOrgBankCountry"/>
+                    <apex:inputText id="kycOrgBankCountry" value="{!bankT.pOutKYCOrgBankCountry}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+           
+            
+            <apex:pageBlockSection columns="3">
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel style="float:center" >
+                <apex:commandButton value="Save" onClick="return validar();" action="{!saveKYCPMBANCK}" style="float:center; width:120px"  /> 
+            	<apex:commandButton value="Cancel" action="{!CancelTable}" style="float:center; width:120px"/>
+                </apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

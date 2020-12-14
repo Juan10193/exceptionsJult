@@ -1,0 +1,92 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-27-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   09-02-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    
+    <template if:true={supplierWithoutModal}>
+        <div slot="body" class="slds-scrollable_y" style="height:400px">
+            <c-tkd-supplier-detail supplier-id={supplierId} takedown-id={takedownId}
+                onopensitemodal={handleOpenSiteModal} onhandlegetsaveresultsupplier={handleGetSaveResultSupplier}
+                onloadcomplete={handleLoadSupplier}>
+            </c-tkd-supplier-detail>
+        </div>
+    </template>
+    <template if:false={supplierWithoutModal}>
+        
+        <template if:false={isOnlySiteRecord}>
+            <template if:true={openModalSupplierDetail}>
+                <c-modal-question onclose={handleCloseSupplierModal} close-button-name='Close'
+                    disable-close-button='true' title='Supplier'
+                    init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_large'
+                    disable-accept-button={disabledAcceptButton}
+                    onaccept={handleSaveSupplier} accept-button-name="Save">
+                    <div slot="body" class="slds-scrollable_y" style="height:400px">
+                        <template if:true={showSpinner}>
+                            <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+                        </template>
+                        <c-tkd-supplier-detail supplier-id={supplierId} takedown-id={takedownId}
+                            onopensitemodal={handleOpenSiteModal}
+                            onhandlegetsaveresultsupplier={handleGetSaveResultSupplier}
+                            onloadcomplete={handleLoadSupplier}
+                            ondisablesave={disablesave}>
+                        </c-tkd-supplier-detail>
+                    </div>
+                </c-modal-question>
+            </template>
+        </template>
+    </template>
+    <template if:true={openModalSiteDetail}>
+        <c-modal-question onclose={handleCloseSiteModal} onaccept={handleSaveSite} close-button-name='Close'
+            accept-button-name="Save" title='Site'
+            init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'
+            disable-accept-button={disabledAcceptButton}>
+            <div slot="body" class="slds-scrollable_y" style="height:400px">
+                <template if:true={showSpinner}>
+                    <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+                </template>
+                <c-tkd-site-detail supplier-id={supplierId} site-id={siteId} takedown-id={takedownId}
+                    onopenbankaccountmodal={handleOpenBankAccountModal} onopencontactmodal={handleOpenContactModal}
+                    onhandlegetsaveresultsite={handleGetSaveResultSite} ondisablesave={disablesave}
+                    onloadcomplete={handleLoadSite}>
+                </c-tkd-site-detail>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalBankAccount}>
+        <c-modal-question onclose={handleCloseBankAccountModal} onaccept={handleSaveBankAccount}
+            close-button-name='Close' accept-button-name="Save" title='Bank Account'
+            init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'
+            disable-accept-button={disabledAcceptButton}>
+            <div slot="body" class="slds-scrollable_y" style="height:400px">
+                <template if:true={showSpinner}>
+                    <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+                </template>
+                <c-tkd-bank-account-detail site-id={siteId} bank-account-id={bankAccountId}
+                    onhandlegetsaveresultnewbankaccount={handleGetSaveResultNewBankAccount} 
+                    ondisablesave={disablesave}
+                    onloadcomplete={handleLoadBankAccount}>
+                </c-tkd-bank-account-detail>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalContact}>
+        <c-modal-question onclose={handleCloseContactModal} onaccept={handleSaveContact} close-button-name='Close'
+            accept-button-name="Save" title='Contacts'
+            init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'
+            disable-accept-button={disabledAcceptButton}>
+            <div slot="body">
+                <c-tkd-contact-detail site-id={siteId} contact-id={contactId}
+                    onhandlegetsaveresultnewcontact={handleGetSaveResultNewContact} ondisablesave={disablesave}>
+                </c-tkd-contact-detail>
+            </div>
+        </c-modal-question>
+    </template>
+
+</template>

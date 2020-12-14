@@ -1,0 +1,102 @@
+<aura:component controller="Takedown_Controller_modalInvoice" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+    <aura:attribute name="isOpenInvoice" type="Boolean" />
+    <aura:attribute name="isOpenModalAlert" type="Boolean" default="false"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="lstInvoices" type="Object"></aura:attribute>
+    <aura:attribute name="lstInvoicesSelected" type="Object"></aura:attribute>
+    <aura:attribute name="rfcSupplierSelect" type="String" access="public" />
+    <aura:attribute name="idSupplierSelect" type="String" access="public" />  
+    <aura:attribute name="nameSupplierSelect" type="String" access="public" />
+    <aura:attribute name="isChkBxInvoice" type="Boolean" />  
+    <aura:attribute name="lstSites" type="Object" />
+
+
+     <!-- Modal para seleccionar invoices -->
+          <div class="slds-m-around_xx-large">
+            <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+            <aura:if isTrue="{! v.isOpenInvoice}">
+              <!--###### MODAL BOX Start######-->
+              <section  role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                <!--<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open card-info"> -->
+                <div class="slds-modal__container">
+                  <!-- ###### MODAL BOX HEADER Start ######-->
+                  <header class="slds-modal__header card-header">
+                    <lightning:buttonIcon  iconName="utility:close"  onclick="{! c.closeModalInvoice}" alternativeText="close" variant="bare-inverse"  class="slds-modal__close"/>
+                    <h2 id="modal-heading-01"  class="slds-text-heading_medium slds-hyphenate" ><strong>Invoice</strong>
+                      <!--<lightning:icon  iconName="utility:insert_template" size="x-small" variant="bare" class="float-right" iconClass="white" />-->
+                    </h2>
+                  </header>
+                  <!--###### MODAL BOX BODY Part Start######-->
+                  <div  class="slds-modal__content slds-p-around_medium"  id="modal-content-id-1">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card">
+                          <div class="card-body table-responsive p-0">
+                            <table class="table table-hover">
+                              <tr style="padding:0.5rem;background:#ddd;color: #000000"><!-- onchange="{!c.handleChange}" -->
+                                <th class="text-center"><lightning:input type="checkbox" aura:id="chkbxSupplierAllSelected" name="chkbxSupplierAllSelected" disabled="true"/></th>
+                                <th>Name Invoices</th>
+                              </tr>
+                              <aura:iteration items="{! v.lstInvoices}" var="lstInv" indexVar="indexInv">
+                                <tr>
+                                  <!--checked="{! v.ischkbxSupplierSelected}" -->
+                                  <td class="text-center"><lightning:input type="checkbox" value="{!indexInv}"  aura:id="chkbxSupplierSelected" name="chkbxSupplierSelected" onchange="{!c.handleChangeCheckBx}" checked="{! lstInv.TKD_txt_RFC__c == v.rfcSupplierSelect ? true : false}" /></td>
+                                  <td>{!lstInv.Name} &nbsp; {!lstInv.TKD_txt_Extension__c}</td>
+                                </tr>
+                              </aura:iteration>
+                            </table>
+                          </div>
+                          <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                      </div> </div ><!-- /.row -->
+                  </div>
+                  <!--###### MODAL BOX FOOTER Part Start ######-->
+                  <footer class="slds-modal__footer"> <lightning:button  variant="neutral" label="Cancel" title="Cancel" onclick="{!c.closeModalInvoice}" />
+                    <lightning:button variant="brand" class="btn-info" label="Save" title="{!indexInv}" tabindex="{!indexInv}" onclick="{! c.onSaveModalInvoice}"/>
+                  </footer>
+                </div>
+              </section>
+              <div class="slds-backdrop slds-backdrop_open"></div>
+              <!--###### MODAL BOX Part END Here ######-->
+            </aura:if>
+          </div>
+   <!-- ./ Modal para seleccionar invoices -->
+   
+    
+    <!-- Modal para  reasignacion de un proveedor para las facturas -->
+    <aura:if isTrue="{! v.isOpenModalAlert}">                    
+            <!--###### MODAL BOX Start######--> 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header slds-modal__header_empty">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModalAlert }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-text-align_center">
+                            <lightning:icon iconName="utility:info_alt" alternativeText="Are you sure?" size="large"  variant="error" /><br></br> <br></br>
+                        	<h4><strong>Are you sure?</strong></h4>
+                             <!--Estas seguro de desvincular el provedoor "X" de la factura "Y" -->.<br></br><br></br>
+                            <lightning:button variant="brand" label="Ok" onclick="{! c.onSaveInvoiceController }"/>
+                            <lightning:button variant="brand" label="Cancel" onclick="{! c.closeModalAlert }"/>
+                        </div> 
+                        
+                    </div>                    
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+    </aura:if>
+    
+    
+    
+    <!-- / Fin Modal para  reasignacion de un proveedor para las facturas-->
+	
+</aura:component>

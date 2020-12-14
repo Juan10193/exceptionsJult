@@ -1,0 +1,28 @@
+<aura:component implements="force:appHostable,lightning:isUrlAddressable,flexipage:availableForAllPageTypes,force:lightningQuickAction">
+    <lightning:workspaceAPI aura:id="workspace" /> 
+    <aura:handler event="lightning:tabFocused" action="{! c.doInit }"/>
+    <aura:handler name="init" value="this" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reloadPage}"/>
+    <aura:registerEvent name="passCaId" type="c:aml_ReviewPassV" />
+    <aura:attribute name="as__id" type="String" access="public" />
+    <aura:attribute name="as__commentType" type="String" access="public"/>
+    <aura:attribute name="re__load" type="String" access="public"/>
+    <aura:attribute name="showDetail" type="boolean" default="false" access="public"/>
+    <aura:attribute name="showDetalles" type="boolean" default="false" access="public"/>
+    <aura:attribute name="EntDetail" type="Array[]" access="public"/>
+    <aura:attribute name="detalle" type="Array[]" access="public"/>
+    <!--<c:ES3_com_Tollgate recordId="{!v.as__id}" />-->
+    <c:aml_Review_lwc recordId="{! v.as__id}" />
+    <c:aml_Review_Structure_lwc recordId="{! v.as__id}" onsentfromstructure="{!c.handleStructure}" detalle="{!v.detalle}" showDetalles="{!v.showDetalles}"/>
+    <aura:if isTrue ="{!v.showDetail}">
+    <c:aml_Review_Details Entity="{!v.EntDetail}" onadversement="{!c.handleadverse}" onsentfromdetails="{!c.handleDetails}"></c:aml_Review_Details>
+    </aura:if>
+    <lightning:layout multipleRows="true">
+    <lightning:layoutItem class="slds-p-right_x-smal" size="7">    
+    <c:aml_Review_Comments recordId="{!v.as__id}" commentType="{!v.as__commentType}" onrefresca="{!c.haceRefresh}"></c:aml_Review_Comments>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="5" class="slds-p-left_x-small">
+    <c:aml_Review_Docs_lwc recordId="{!v.as__id}"></c:aml_Review_Docs_lwc>
+    </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

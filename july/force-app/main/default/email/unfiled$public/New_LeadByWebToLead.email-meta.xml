@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Plantilla de correo para la notificación de la creación de nuevos prospectos</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>New LeadByWebToLead</name>
+    <style>freeForm</style>
+    <subject>{!Lead.Company} has been created as a prospect by WEB SITE</subject>
+    <textOnly>Dear user,
+
+A new prospect has been created by WEB SITE. Please refer to the following details for your review:
+
+Prospect details:
+
+Company name: {!Lead.Company}
+Contact name: {!Lead.FirstName} {!Lead.LastName}
+Email: {!Lead.Email}
+Phone number: {!Lead.LEA_tf_Company_Phone__c}
+State: {!Lead.State}
+Prospect Account Potential Comments:  {!Lead.JR_tl_Prospect_Account_Potential_Comment__c}
+
+System information:
+
+Created on: {!Lead.CreatedDate}
+
+
+To view the prospect record, please click in following link:
+{!Lead.Link}
+
+Regards,</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

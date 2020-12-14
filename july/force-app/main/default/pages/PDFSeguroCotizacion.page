@@ -1,0 +1,211 @@
+<apex:page standardcontroller="Opportunity" extensions="PDFSeguroCotizacion_cls" renderAs="pdf" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false">
+<html>
+
+  <head>
+    <style type="text/css" media="print">
+      /* @font-face {
+        font-family: "Garamond";
+        src: url('{!URLFOR($Resource.FontEngenRubik, 'Rubik/Rubik-Regular.ttf')}');
+        src: local(custom_font),
+        url('{!URLFOR($Resource.FontEngenRubik)}') format('truetype');
+      }*/
+
+      @font-face {
+        font-family: myFont;
+        src: url({!URLFOR($Resource.FontEngenRubik, 'Rubik/Rubik-Regular.ttf')
+      }
+
+      );
+      }
+
+      @page {
+        size: letter;
+        margin-top: 2.5cm;
+        margin-right: 0cm;
+        margin-left: 0cm;
+        margin-bottom: 2.5cm;
+        @top-right {
+          content: element(header);
+          margin-right: 2cm;
+        }
+        @bottom-center {
+          content: element(fotter);
+        }
+        background-image: url("{!$Resource.LogoG}");
+        background-repeat: no-repeat;
+      }
+
+      div.header {
+        position: running(header);
+      }
+
+      div.fotter {
+        position: running(fotter);
+        font-size: 8px;
+        margin-right: 2cm;
+        margin-left: 2cm;
+        text-align: justify;
+      }
+
+      .page-break {
+        display: block;
+        page-break-after: always;
+      }
+
+      .bodyFirstPage {
+        margin-bottom: 2.5cm;
+        margin-top: 2.5cm;
+        margin-right: 2.3cm;
+        margin-left: 2.3cm;
+      }
+
+      .dateDocument {
+        padding: 10px;
+        display: block;
+        text-align: left;
+      }
+
+      .notifyText {
+        display: block;
+        padding: 10px;
+      }
+
+      .fields {
+        display: block;
+        padding: 10px;
+      }
+
+      .tableHead {
+        font-weight: bold;
+        padding: 3px;
+        text-align: center;
+        border-top: solid #1E3A61;
+        border-bottom: solid #1E3A61;
+        color: #1E3A61;
+      }
+
+      .tableRow {
+        color: #1E3A61;
+        text-align: left;
+      }
+
+      .fieldSection {}
+
+      .fieldLabel {
+        color: #45C9A8;
+      }
+
+      p {
+        font-family: myFont;
+      }
+      
+      .pSize {
+      	font-size : 14px;
+      }
+
+      .firma {
+        width: 30%;
+        background-color: black;
+      }
+
+      .afterTable {
+        text-align: center;
+      }
+    </style>
+	<body>
+		<div class="header">
+			<center>
+				<img src="{!$Resource.logoEngen}" width="100%" />
+			</center>
+		</div>
+		<div class="fotter">
+      		<center>
+        		<p> NOTA: Esta es una cotización indicativa basada en una variedad de suposiciones, incluyendo promedios de la industria,
+                  datos históricos y pronósticos. Se proporciona únicamente con fines informativos. Si bien se ha hecho todo lo posible
+                  para asegurar la razonabilidad de los diversos supuestos, al aceptar la estimación adjunta usted reconoce y acepta
+                  que la cotización no es una garantía de ningún tipo y Engen Capital no asume ninguna responsabilidad, ya sea expresa
+                  o implícita, a la integridad o exactitud de esta estimación. Engen Capital no proporciona asesoría tributraria,
+                  contable o legal. Los clientes deben buscar la guía de sus propios profesionales de impuestos, contabilidad y legales.
+                  *Los cálculos de esta cotización están indexados a la tasa de referencia SWAP, moneda y plazos indicados en esta
+                  cotización. Los montos definitivos serán calculados en función al cambio de la tasa de referencia a la fecha de
+                  firma del anexo. 
+                </p>
+			</center>
+		</div>
+        <div class="bodyFirstPage">
+			<div class="dateDocument">
+				<p>
+					<br/>A quien corresponda
+					<br/>
+					<br/><b>Presente: </b>
+				</p>
+      		</div>
+            <div class="notifyText">
+                <p>
+                    <b>Se solicito una cotización del cliente: </b> {!getInfoSeguro[0].QS_Razon_social__c} <br/>
+                    <b>Fecha de creación: </b> <!--{!getInfoSeguro[0].createdDate} <br/>-->
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                        <apex:param value="{!getInfoSeguro[0].createdDate}" /> 
+                    </apex:outputText><br/>                    
+                    <b>Moneda: </b> {!Opportunity.CurrencyIsoCode} <br/>
+                    <b>Producto: </b> {!Opportunity.OPP_ls_Product__c} <br/>
+                    <b>Periodo: </b> {!getInfoSeguro[0].QS_Periodo_Cotizacion__c} <br/>
+                    <b>Solicitante: </b> {!getInfoSeguro[0].owner.Name} <br/>
+                </p>
+                
+                <apex:pageBlock title="">
+      				<apex:pageBlockTable value="{!getSeguroCotizacion}" var="seguroCotizacion" columnsWidth="20%,16%,16%,16%,16%,16%,16%">
+                        <apex:column value="{!seguroCotizacion.QS_descripcion__c}" headervalue="Coberturas" style="padding-bottom: 10px; font-size : 14px;"/>
+                        <!--<apex:column value="{!seguroCotizacion.QS_Suma_Asegurada__c}" headervalue="Sume Asegurada" style="padding-bottom: 10px;" />-->
+                        <apex:column style="padding-bottom: 10px; font-size : 14px;">
+                            <apex:facet name="header">Suma Asegurada</apex:facet>
+                            <apex:outputText value="{0, Number, Currency}" >
+                                <apex:param value="{!seguroCotizacion.QS_Suma_Asegurada__c}" />
+                            </apex:outputText>
+                        </apex:column>
+                        <apex:column value="{!seguroCotizacion.QS_Prima_Neta_Label__c}" headervalue="Prima Neta Total" style="padding-bottom: 10px; font-size : 14px;"/>
+                        <apex:column value="{!seguroCotizacion.QS_Gastos_Label__c}" headervalue="Gastos Exp" style="padding-bottom: 10px; font-size : 14px;"/>
+                        <apex:column value="{!seguroCotizacion.QS_IVA_Label__c}" headervalue="IVA" style="padding-bottom: 10px; font-size : 14px;"/>
+                        <apex:column value="{!seguroCotizacion.QS_Prima_Total_Label__c}" headervalue="Prima Total" style="padding-bottom: 10px; font-size : 14px;"/>
+      				</apex:pageBlockTable>
+				</apex:pageBlock>
+                <br/>
+                <br/>
+                <table class="list" border="0" cellpadding="0" cellspacing="0" style="width:100%">
+                    <tbody>
+                        <tr class="headerRow">
+                        	<th>Prima Neta</th>
+                        	<th>Gastos Exp</th>
+                        	<th>IVA</th>
+                            <th>Total</th>
+                        </tr>
+                    	<tr>
+                            <td>
+                            	<apex:outputText value="{0, Number, Currency}">
+                                    <apex:param value="{!getInfoTotal.primaNeta}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td>
+                            	<apex:outputText value="{0, Number, Currency}">
+                                    <apex:param value="{!getInfoTotal.gastosExp}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td>
+                            	<apex:outputText value="{0, Number, Currency}">
+                                    <apex:param value="{!getInfoTotal.iva}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td>
+                            	<apex:outputText value="{0, Number, Currency}">
+                                    <apex:param value="{!getInfoTotal.total}" /> 
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	</body>
+  </head>
+</html>   
+</apex:page>

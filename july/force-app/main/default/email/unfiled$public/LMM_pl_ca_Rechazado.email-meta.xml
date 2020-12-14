@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>LMM_pl_ca_Rechazado</name>
+    <style>freeForm</style>
+    <subject>Credit Approval LMM  &quot;{!Opportunity.Name}&quot; has been Rejected and need your action</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because the Credit Approval LMM
+{!Opportunity.Name}, has been rejected  and need you action.
+
+Customer: {!Opportunity.Account}
+Approval Amount: {!Opportunity.Amount}
+Type of credit approval: {!Opportunity.LMM_Tipo_de_credito__c}
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,4 @@
+<aura:component controller="ES3_DocSInRequestCalloutClass" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="recordId" type="String"/>
+	<lightning:button variant="brand" label="Upload Documents" onclick="{!c.getOps}" />
+</aura:component>

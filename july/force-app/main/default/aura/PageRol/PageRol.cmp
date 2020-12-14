@@ -1,0 +1,99 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="PageRolController" >
+    <!--init handler event call "initialize" function on component load
+        and fetch picklist values-->
+    <aura:handler name="init" value="{! this }" action="{! c.initialize }"/>
+    <aura:handler event="aura:doneRendering" action="{!c.doneRendering}"/>
+    
+    <!--use boolean attribute for Store true/false value,
+    make default to "false" so modal box are not display on the load of component. 
+    --> 
+    <aura:attribute name="recordId" type="string"/>
+    <aura:attribute name="isOpen" type="boolean" default="true"/>
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+    
+    <aura:attribute name="objInfo" type="ES2_Obj_EntityMasterInCreditApproval__c" default="{sobjectType : 'ES2_Obj_EntityMasterInCreditApproval__c'}" />
+    <aura:attribute name="listSkillsOptions" type="List" default="[]"/>
+    <aura:attribute name="selectedSkillsItems" type="List" default="[]"/>
+    
+    <!--Use "slds-m-around_xx-large" class to add standard X-Large padding to the component--> 
+    <div class="slds-m-around_xx-large">
+        
+        <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->   
+        <aura:if isTrue="{!v.isOpen}">
+            
+            <!--###### MODAL BOX Start######--> 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"></h2>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <aura:if isTrue="{!v.recordError}">
+                            <div onclick="{!c.refreshView}">
+                                <ui:message title="Error" severity="error" closable="true">
+                                    {!v.recordError}
+                                </ui:message>
+                            </div>
+                        </aura:if>
+                        
+                        
+                        <force:recordData aura:id="recordHandler"
+                                          recordId="{!v.recordId}"
+                                          layoutType="FULL"
+                                          targetRecord="{!v.record}"
+                                          targetFields="{!v.simpleRecord}"
+                                          targetError="{!v.recordError}"
+                                          mode="EDIT"
+                                          recordUpdated="{!c.handleRecordUpdated}"
+                                          />
+                        
+                        <div class="Record Details">
+                            <lightning:card iconName="action:edit" title="Edit Role">
+                                <div class="slds-p-horizontal--small">
+                                    
+                                    
+                                    <!-- lightning dualListbox component -->
+                                    <lightning:dualListbox aura:id="selectOptions"
+                                                           name="Skills"
+                                                           label= "Role" 
+                                                           sourceLabel="Available Options" 
+                                                           selectedLabel="Selected Options" 
+                                                           options="{! v.listSkillsOptions }"
+                                                           value="{! v.selectedSkillsItems }"
+                                                           onchange="{! c.handleChange }"/>
+                                    <br/>
+                                    <lightning:input aura:id="Rol" label="Role" value="{!v.simpleRecord.ES2_ms_Role__c}" class="slds-hidden"/>
+                                </div>
+                            </lightning:card>
+                        </div>
+                        
+                        
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" 
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.closeModel }"/>
+                        <lightning:button variant="brand" 
+                                          label="Update"
+                                          title="Update"
+                                          onclick="{!c.handleSaveRecord}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+            
+        </aura:if>
+    </div>
+</aura:component>

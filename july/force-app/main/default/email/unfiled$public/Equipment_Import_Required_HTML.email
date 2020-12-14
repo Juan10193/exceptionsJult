@@ -1,0 +1,179 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div style=""><font size="2" style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);"><b style=""><br></b></span></font></div><font size="2" style=""><font style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);"><b style="">Dear {!Opportunity.OwnerFirstName},&nbsp;</b></span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);">You’re receiving this notification because you created an opportunity that requires import services from:&nbsp;</span></font><b style="color: rgb(0, 0, 102);"><font face="Verdana, Helvetica, sans-serif">{!Opportunity.OPP_ls_Import_Type__c}.</font></b></font><div style="text-align: center; "><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><b><br></b></font></div><div style="text-align: center; "><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><b><a href="https://c.na30.content.force.com/sfc/servlet.shepherd/version/download/06836000005WQMD?asPdf=false&amp;operationContext=CHATTER">Download the import services brochure here</a></b></font></div><div style=""><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><br></font></div><div style=""><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2" style="">Please note that an<b style=""> approval from Pricing</b> (Pablo Zamora or Montserrat Ibarra) <b style="">and Import Services</b> (Fabiola Arellano) is required to charge the correspondent fee.</font></div><div style="font-size: 12pt;"><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><br></font></div><div style="font-size: 12pt;"><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2">The correct way to charge import services fees is including the "Income Fee" and "Expense Fee" in the pricing. <b>This fees can't be included in the rent payments</b>, unless approval from Pricing &amp; Import Services.</font></div><div style="font-size: 12pt;"><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><br></font></div><div style="font-size: 12pt;"><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2" style="">The import services fees are (please note this prices are plus VAT):</font></div><div style="font-size: 12pt; color: rgb(0, 0, 0);"><font color="#000066" face="Verdana, Helvetica, sans-serif" style="" size="1"><br></font></div><div style="font-size: 12pt; color: rgb(0, 0, 0);"><table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="444" style="width:332.9pt;margin-left:-.15pt;border-collapse:collapse;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-bottom:none;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:
+  15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">Road<o:p></o:p></font></b></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-top:
+  solid windowtext 1.0pt;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">USD<o:p></o:p></font></b></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;
+  background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">MXP<o:p></o:p></font></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">With Engenium customs agent<o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  1,250.00 <o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border:none;
+  border-right:solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  27,500.00 <o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">Using own customs agent**<o:p></o:p></font></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-bottom:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">$&nbsp;&nbsp;&nbsp;&nbsp;
+  500.00 <o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  11,000.00 <o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">Maritime<o:p></o:p></font></b></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;background:#47D7AC;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">USD<o:p></o:p></font></b></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border:none;
+  border-right:solid windowtext 1.0pt;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">MXP<o:p></o:p></font></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><span style="color: rgb(0, 0, 102);"><font size="1" face="Verdana, Helvetica, sans-serif">With Engenium customs agent</font></span></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-top:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  1,000.00 <o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  22,000.00 <o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><span style="color: rgb(0, 0, 102);"><font size="1" face="Verdana, Helvetica, sans-serif">Using own customs agent**</font></span></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-bottom:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">$&nbsp;&nbsp;&nbsp;&nbsp;
+  500.00 <o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  11,000.00 <o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">Airway<o:p></o:p></font></b></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;background:#47D7AC;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">USD<o:p></o:p></font></b></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border:none;
+  border-right:solid windowtext 1.0pt;background:#47D7AC;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal" align="center" style="text-align:center"><b><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">MXP<o:p></o:p></font></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:7;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border-top:none;
+  border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><span style="color: rgb(0, 0, 102);"><font size="1" face="Verdana, Helvetica, sans-serif">With Engenium customs agent</font></span></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-top:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  1,000.00 <o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  22,000.00 <o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:8;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><span style="color: rgb(0, 0, 102);"><font size="1" face="Verdana, Helvetica, sans-serif">Using own customs agent**</font></span></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;border:none;border-bottom:
+  solid windowtext 1.0pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">$&nbsp;&nbsp;&nbsp;&nbsp;
+  500.00 <o:p></o:p></font></p>
+  </td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt">
+  <p class="MsoNormal"><font face="Verdana, Helvetica, sans-serif" color="#000066" size="1">&nbsp;$&nbsp;
+  11,000.00 <o:p></o:p></font></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:9;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+ </tr>
+ <tr style="mso-yfti-irow:10;mso-yfti-lastrow:yes;height:15.0pt">
+  <td width="253" nowrap="" valign="bottom" style="width:190.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt">
+  <p class="MsoNormal"><b><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="1">**With prior Risk approval</font></b></p>
+  </td>
+  <td width="87" nowrap="" valign="bottom" style="width:64.9pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+  <td width="104" nowrap="" valign="bottom" style="width:78.0pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:15.0pt"></td>
+ </tr>
+</tbody></table></div><div style="font-size: 12pt; color: rgb(0, 0, 0);"><div style="color: rgb(0, 0, 0); font-size: 12pt;"><font size="2" style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);"><br></span></font></div><div style="color: rgb(0, 0, 0); font-size: 12pt;"><font size="2" style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);"><br></span></font></div><div style=""><font size="2" style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);">Please refer to the following details of the opportunity:&nbsp;</span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);"><b>Account details:&nbsp;</b></span><br style=""><ul style=""><li style="">Account name: {!Account.Name}</li><li style="">Target market: {!Account.ACC_fm_Target_Market__c}&nbsp;</li></ul><br style=""><span style="background-color: rgb(255, 255, 255);"><b>Required import services:&nbsp;</b></span><br style=""><ul style=""><li>Import to be conducted by: <b>{!Opportunity.OPP_ls_Import_Type__c}</b>&nbsp;</li></ul><br style=""><span style="background-color: rgb(255, 255, 255);"><b>Opportunity details:&nbsp;</b></span><br style=""><ul style=""><li>Opportunity name:&nbsp;{!Opportunity.Name}</li><li>Opportunity comments:&nbsp;{!Opportunity.OPP_tx_Opportunity_Comments__c}</li><li>Line of business: {!Opportunity.OPP_ls_Line_of_Business__c}&nbsp;</li><li>Amount: {!Opportunity.Amount}&nbsp;</li><li>Currency: {!Opportunity.CurrencyIsoCode}&nbsp;</li><li>Collateral: {!Opportunity.OPP_ls_Collateral__c}&nbsp;</li><li>Expected close date: {!Opportunity.CloseDate}&nbsp;</li></ul><br style=""><span style="background-color: rgb(255, 255, 255);">Thank you,&nbsp;</span><br style=""><br style=""><span style="background-color: rgb(255, 255, 255);">Digital Marketing – Engenium Capital.</span></font><div style="color: rgb(0, 0, 0); font-size: 12pt; font-family: arial;"><font size="2" style="" face="Verdana, Helvetica, sans-serif" color="#000066"><span style="background-color: rgb(255, 255, 255);"><br></span></font></div></div></div>]]></td>
+</tr>
+</table>

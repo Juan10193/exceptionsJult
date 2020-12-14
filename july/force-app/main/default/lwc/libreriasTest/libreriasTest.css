@@ -1,0 +1,21 @@
+.aBk {
+    width: 180px;
+    background-color: #29447e;
+    border: 0;
+    padding: 6px 18px 6px 18px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin: 6px 0 6px 0;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.bloque {
+    width: 260px;
+    background-color: #d4eefd;
+    padding: 16px;
+    margin: 12px 0 12px 0;
+    border-radius: 10px;
+    font-size: 1.2em;
+    position: relative;
+    text-align: center;
+}

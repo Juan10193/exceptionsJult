@@ -1,0 +1,38 @@
+<!--
+  @File Name          : tkd_Convert_to_takedown.html
+  @Description        : 
+  @Author             : jhernandez@anivia.mx
+  @Group              : 
+  @Last Modified By   : jhernandez@anivia.mx
+  @Last Modified On   : 10/9/2019 21:17:37
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    10/9/2019   jhernandez@anivia.mx     Initial Version
+-->
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+            Easy Forecast to Takedown
+        </h3>
+        <div slot="footer">
+        </div>
+        <template if:false={forecast.CLI_chb_Converted__c}>
+          <template if:true={oppValidation}>
+            <div style="text-align: center">
+                <img src={engrane}/> <br/>
+                <lightning-button variant="brand" 
+                label="Convert" title="Convert" 
+                onclick={changeTemplatetoGeneral} class="slds-m-left_x-small">  
+                </lightning-button>
+            </div>
+          </template>
+          <template if:false={oppValidation}>
+            <h3>This Opportunity Can´t be converted</h3>
+          </template>
+        </template>
+        <template if:true={forecast.CLI_chb_Converted__c}>
+          <img src={kodey}/>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,12 @@
+<apex:page standardController="TBO014_Credit_Approval__c" extensions="TBO014_ext_Botones_CreditApproval">
+    <apex:form target="_top">
+        <apex:pageBlock mode="maindetail">
+            <apex:pageBlockButtons location="Top" style="padding: 5px 24px 5px 0px">
+                <!--<apex:commandButton value="Submit" action="{!callSubmit}" rendered="{!isSubmitReady}" />-->
+                <apex:commandButton value="MAC Request" action="{!callMACRequest}" rendered="{!isMACRequestReady}" />
+                <apex:commandButton value="MOD Request" action="{!callMODRequest}" rendered="{!isMODRequestReady}"/>
+        	</apex:pageBlockButtons>
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+		</apex:pageBlock>
+    </apex:form>
+</apex:page>

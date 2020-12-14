@@ -1,0 +1,43 @@
+<apex:page standardController="Credit_approval_CP__c">
+    <apex:includeScript value="../../soap/ajax/20.0/connection.js"/>
+    <script>
+    //alert("Entre a if porque es:'{!$User.UIThemeDisplayed}'");
+    sforce.connection.sessionId='{!GETSESSIONID()}';
+    var record = new sforce.SObject("Credit_approval_CP__c"); 
+    record.Id = "{!Credit_approval_CP__c.Id}"; 
+    record.CPL_ls_StageName__c = 'Withdrawn'; 
+    var lostReasonOne = '{!Credit_approval_CP__c.CPI_ls_Reason_Lost_Level_1__c}'; 
+    var lostReasonTwo = '{!Credit_approval_CP__c.CPI_ls_Reason_Lost_Level_2__c}'; 
+    var lostReasonThree = '{!Credit_approval_CP__c.CPI_ls_Reason_Lost_Level_3__c}'; 
+    var lostReasonCompetitor = '{!Credit_approval_CP__c.CPI_rb_Competitor__c}'; 
+    var lostReasonComments = '{!Credit_approval_CP__c.CPI_tx_Lost_Comments__c}'; 
+    var idCP = "{!Credit_approval_CP__c.Id}"; 
+    
+    if (lostReasonOne === '' || lostReasonTwo === '' || lostReasonThree === '' || lostReasonCompetitor === '' || lostReasonComments === '')
+    {
+        alert('\n\nNOTIFICATION\n\n\nThis credit approval can not be put Withdrawn by:\n\nAdd reasons lost, lost comments and Competitor');
+        sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + idCP);
+    } 
+    else 
+    {
+        if(Modal.confirm && Modal.confirm('\n\nNOTIFICATION\n\n\nAre you sure you want to Withdrawn this Credit Approval???\n'))
+        {
+            var result = sforce.connection.update([record]);
+            
+            if (result[0].success == 'false') 
+            {
+                alert(result[0].errors.message);
+                sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + idCP);
+            } 
+            else 
+            {
+                sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + idCP);
+            }
+        }
+        else
+        {
+            sforce.one.navigateToURL("{!'/one/one.app#/sObject/'}" + idCP);
+        }
+    }    
+    </script>
+</apex:page>

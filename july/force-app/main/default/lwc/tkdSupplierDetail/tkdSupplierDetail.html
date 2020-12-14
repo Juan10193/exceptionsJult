@@ -1,0 +1,68 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-14-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-04-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+  <h3 class="slds-section-title--divider">Supplier</h3>
+  <div class="slds-p-around_x-small">
+    <lightning-card title="Supplier Information" icon-name="custom:custom98">
+      <lightning-button-stateful if:true={supplierId} slot="actions" label-when-off="Edit" label-when-on="Editing"
+        label-when-hover="Save" icon-name-when-off="utility:edit" icon-name-when-on="utility:edit_form"
+        icon-name-when-hover="utility:save" selected={isSelectedEditing} onclick={handleEditClick}>
+      </lightning-button-stateful>
+    </lightning-card>
+  </div>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Vendor Name" data-field="vendorName" readonly={isReadOnly}
+        onblur={handleCopyVendorName} required>
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Vendor Name Alt" data-field="vendorNameAlt" readonly={isReadOnly} required>
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Vat Registration Num" data-field="vatRegistrationNum"
+        onblur={handleUpperCaseRFC} readonly={isReadOnly} required maxlength="20"></lightning-input>
+    </lightning-layout-item>
+  </lightning-layout>
+  <h3 class="slds-section-title--divider">Sites</h3>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"
+      padding="around-small">
+      <lightning-card title="Site Information" icon-name="standard:location">
+        <lightning-button slot="actions" label="Add New" title="Add New" icon-name="utility:add"
+          class="slds-m-left_x-small" onclick={handleOpenModalSiteDetail}></lightning-button>
+        <p slot="footer" class="slds-p-horizontal_small">
+          <lightning-datatable key-field="id" data={sitesData} columns={columns} onrowaction={handleRowAction}
+            hide-checkbox-column>
+          </lightning-datatable>
+        </p>
+      </lightning-card>
+    </lightning-layout-item>
+  </lightning-layout>
+  <template if:true={openModalAskDelete}>
+    <c-modal-question onclose={closeModal} onaccept={deleteRow} close-button-name='Close' accept-button-name="Delete"
+      title='Are you sure to delete this record?'
+      init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'>
+    </c-modal-question>
+  </template>
+  <template if:true={openModalAskClone}>
+    <c-modal-question onclose={closeModal} onaccept={cloneSiteRecord} close-button-name='Close' accept-button-name="Accept"
+      title='Are you sure to clone this record?'
+      init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'>
+      <div slot='body'>
+        If they clone this record they also clone bank accounts and contacts.</div>
+    </c-modal-question>
+  </template>
+</template>

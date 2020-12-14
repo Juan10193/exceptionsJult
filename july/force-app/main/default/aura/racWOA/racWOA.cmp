@@ -1,0 +1,15 @@
+<!--
+  @File Name          : racWOA.cmp
+  @Description        : 
+  @Author             : angel87ambher@gmail.com
+  @Group              : 
+  @Last Modified By   : angel87ambher@gmail.com
+  @Last Modified On   : 4/6/2020 12:57:12
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/6/2020   angel87ambher@gmail.com     Initial Version
+-->
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    <aura:attribute name="recordId" type="String" />
+    <c:lmmRacFinal recordId="{!v.recordId}"></c:lmmRacFinal>
+</aura:component>

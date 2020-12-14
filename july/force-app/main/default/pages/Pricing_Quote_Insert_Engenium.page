@@ -1,0 +1,77 @@
+<apex:page showHeader="true" title="New Pricing Quote"  standardController="IST__SuperTRUMP_Pricing_Quote__c" extensions="Eng_SuperTRUMPPQInsertController" >
+<apex:sectionHeader title="New Pricing Quote" />
+
+    <apex:form title="New Pricing Quote"  id="InsertPricingQuote">
+          
+          <apex:pageBlock title="Pricing Quote Edit" id="pq" mode="insert" dir="">
+              <apex:pageMessages id="insertPageMessages"/>
+              <apex:pageBlockButtons location="both" id="pbbuttons">
+                  <apex:actionFunction name="executeST_JS" action="{!executeST}" rerender="pbbuttons,insertPageMessages" onComplete="actionComplete('{!actionNavigate}', '{!actionView}','{!actionURL}' );"/>
+                  <apex:commandButton value="Save"
+                    onclick="if (!doSubmit()) return false;"
+                    action="{!Save}"
+                    rerender="pbbuttons,insertPageMessages"
+                    status="save-status"
+                    oncomplete="executeST_JS();" />
+                  <apex:commandButton action="{!cancel}" 
+                    id="cancelButton" 
+                    accesskey=""
+                    oncomplete="actionComplete('{!actionNavigate}', '{!actionView}','{!actionURL}' );"
+                    value="Cancel" />
+                  <apex:actionStatus startText="Saving..." id="save-status" startStyle="margin-left: 0.5em;" onStop="notifySaved();"/>
+
+              </apex:pageBlockButtons>
+
+              <apex:pageblocksection columns="1" showHeader="true" collapsible="false" title="Pricing Quote Information" id="pqformbody">
+                    <apex:inputField value="{!IST__SuperTRUMP_Pricing_Quote__c.IST__Opportunity__c}"/>
+                    
+                    <apex:selectList value="{!IST__SuperTRUMP_Pricing_Quote__c.IST__Template__c}" required="true" size="1" title="SuperTRUMP Template">
+                        <apex:selectOptions value="{!templateOptions}"/>
+                    </apex:selectList>
+              </apex:pageblocksection>
+              <apex:inputHidden value="{!timeZoneOffset}" id="timeZoneOffsetHidden">
+                <script type="text/javascript"> var timeZoneOffsetHiddenID = "{!$Component.timeZoneOffsetHidden}"; </script>
+              </apex:inputHidden>
+          </apex:pageBlock>
+          <apex:outputText value="{!IST__SuperTRUMP_Pricing_Quote__c.id}" rendered="false"/>
+
+    </apex:form>
+    <script type="text/javascript">
+        var isSaving = false;
+        
+        function doSubmit() {
+            if (!isSaving){
+                isSaving = true;
+                document.getElementById(timeZoneOffsetHiddenID).value = new Date().getTimezoneOffset();
+                
+                return true;
+            }
+            return false;
+        }
+        
+        function actionComplete (nav, view, url) { 
+            var isSF1 = ((typeof sforce != 'undefined') && sforce && sforce.one);
+            setTimeout(function(){ isSaving = false; }, 500); // add delay to make it harder to double click
+           
+            if (isSF1) {
+                if (nav && nav == 'back') {
+                    //window.history.go(-2);    //avoid a blank page
+                    sforce.one.back(true);
+                    //Sfdc.canvas.publisher.publish({name: "publisher.close", payload:{ refresh:"true"}});
+    
+                    return null;   
+                } else if (nav) {
+                    //alert('going to '+nav);
+                    if (view) {
+                        sforce.one.navigateToSObject(nav, view);
+                    } else {
+                        sforce.one.navigateToSObject(nav);
+                    }
+                } else if (url) {
+                    sforce.one.navigateToURL(url, true);
+                }
+            }
+        };
+
+    </script> 
+</apex:page>

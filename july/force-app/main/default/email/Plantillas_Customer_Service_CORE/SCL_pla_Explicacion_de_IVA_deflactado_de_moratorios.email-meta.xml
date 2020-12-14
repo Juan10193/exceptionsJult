@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Explicación de IVA deflactado de moratorios</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_Explicacion_de_IVA_deflactado_de_moratorios</name>
+    <style>formalLetter</style>
+    <subject>Explicación de IVA deflactado de moratorios</subject>
+    <textOnly>Estimado  Cliente,
+
+
+Gracias por contactar al equipo de Servicio a Clientes de Engenium Capital.
+
+Número de caso: {!Case.CaseNumber}
+
+Debido a que usted cuenta con un Arrendamiento Financiero, el IVA en sus facturas de cargos moratorios también está calculado como IVA deflactado.
+
+El IVA deflactado  es una ponderación de tasas en la que se combinan inflación (UDI), tipo de cambio (si aplica) y tasa del contrato, mismo que en su contrato y/o Anexo viene documentado como interés real. Por esta razón el valor real de los intereses devengados no coincide con el 16% sobre los intereses nominales.
+
+Enviamos el sustento fiscal, así como un ejemplo del cálculo de IVA en su factura.
+
+Saludos cordiales.
+Atentamente Servicio a Clientes ENGENIUM CAPITAL
+
+CDMX +52 (55) 5257-6161
+
+Interior 01-800-714-3227
+
+engeniumcapital.com
+
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

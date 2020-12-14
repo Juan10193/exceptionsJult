@@ -1,0 +1,59 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<br><table border="0" cellpadding="0" cellspacing="0" width="828" style="text-align: left; border-collapse: collapse; width: 621pt;">
+ <colgroup><col width="828" style="mso-width-source:userset;mso-width-alt:30281;width:621pt">
+ </colgroup><tbody><tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" width="828" style="height:12.0pt;width:621pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif"><b>Dear User,<br><br></b></font></blockquote></td>
+ </tr>
+ 
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif">You are receiving this
+  notification because the Credit Approval&nbsp;</font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif">{!Credit_approval_CP__c.Name},
+  has changed its stage to Rework for AML and need your action<br><ul><li>Customer:&nbsp;{!Credit_approval_CP__c.CPL_rb_account__c}</li><li>Approval Amount: {!Credit_approval_CP__c.ES3_fm_Total_Opportunities_USD__c}</li><li>Type of credit approval Workout: {!Credit_approval_CP__c.Type_of_credit_approval_Workout__c}</li><li>Exposure: {!Credit_approval_CP__c.Exposure__c}</li><li>Exposure + Approval Amount: {!Credit_approval_CP__c.CPL_fm_Opportunities_Exposure__c}</li><li>AML Rework Reason:&nbsp;{!Credit_approval_CP__c.ES3_pl_AML_Rework_reason__c}</li><li>AML Comment: {!Credit_approval_CP__c.ES3_tx_AML_Rework_Comment__c}</li></ul></font><font color="#000066" face="Arial, sans-serif"><div><font color="#000066" face="Arial, sans-serif">If you want to see record in Salesforce,&nbsp;<b><font class="font5"><a href="{!Credit_approval_CP__c.ES3_fm_CurrentURL__c}{!Credit_approval_CP__c.Id}">click here</a></font><font class="font6"><a href="{!Credit_approval_CP__c.ES3_fm_CurrentURL__c}{!Credit_approval_CP__c.Id}">.</a><br><br></font></b></font></div></font><font color="#000066" face="Arial, sans-serif"><div><b style="font-size: 12pt; color: rgb(0, 0, 0); font-family: arial;"><font color="#000066" face="Arial, sans-serif">Regards,</font></b></div></font><font color="#000066" face="Arial, sans-serif"><div><b style="font-size: 16px; background-color: rgb(255, 255, 255);">Engenium Capital</b></div></font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><div style="text-align: center;"></div></td></tr><tr height="16" style="mso-height-source:userset;height:12.0pt"><td height="16" class="xl67" style="height:12.0pt"><div><font color="#000066" face="Arial, sans-serif"><br></font></div></td></tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl68" width="828" style="height:12.0pt;width:621pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl69" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl70" style="height:12.0pt"><br></td></tr></tbody></table>]]></td>
+</tr>
+</table>

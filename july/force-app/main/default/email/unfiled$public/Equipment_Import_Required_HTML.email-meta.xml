@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Equipment Import Required - HTML</name>
+    <style>freeForm</style>
+    <subject>An opportunity that requires import services has been created</subject>
+    <textOnly>Dear {!Opportunity.OwnerFirstName},
+
+You’re receiving this notification because you created an opportunity that requires import services from: {!Opportunity.OPP_ls_Import_Type__c}.
+
+Download the import services brochure here
+
+Please note that an approval from Pricing (Pablo Zamora or Montserrat Ibarra) and Import Services (Fabiola Arellano) is required to charge the correspondent fee.
+
+The correct way to charge import services fees is including the &quot;Income Fee&quot; and &quot;Expense Fee&quot; in the pricing. This fees can&apos;t be included in the rent payments, unless approval from Pricing &amp; Import Services.
+
+The import services fees are (please note this prices are plus VAT):
+
+Road
+
+USD
+
+MXP
+
+With Engenium customs agent
+
+$ 1,250.00
+
+$ 27,500.00
+
+Using own customs agent**
+
+$ 500.00
+
+$ 11,000.00
+
+Maritime
+
+USD
+
+MXP
+
+With Engenium customs agent
+
+$ 1,000.00
+
+$ 22,000.00
+
+Using own customs agent**
+
+$ 500.00
+
+$ 11,000.00
+
+Airway
+
+USD
+
+MXP
+
+With Engenium customs agent
+
+$ 1,000.00
+
+$ 22,000.00
+
+Using own customs agent**
+
+$ 500.00
+
+$ 11,000.00
+
+**With prior Risk approval
+
+
+
+Please refer to the following details of the opportunity:
+
+Account details:
+
+Account name: {!Account.Name}
+Target market: {!Account.ACC_fm_Target_Market__c}
+
+
+Required import services:
+
+Import to be conducted by: {!Opportunity.OPP_ls_Import_Type__c}
+
+
+Opportunity details:
+
+Opportunity name: {!Opportunity.Name}
+Opportunity comments: {!Opportunity.OPP_tx_Opportunity_Comments__c}
+Line of business: {!Opportunity.OPP_ls_Line_of_Business__c}
+Amount: {!Opportunity.Amount}
+Currency: {!Opportunity.CurrencyIsoCode}
+Collateral: {!Opportunity.OPP_ls_Collateral__c}
+Expected close date: {!Opportunity.CloseDate}
+
+
+Thank you,
+
+Digital Marketing – Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,14 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font face="Verdana, Helvetica, sans-serif" style="" size="2" color="#000066"><b>Dear Approver</b></font>]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[<font style="" color="#000066" size="2"><font style="" face="Verdana, Helvetica, sans-serif"><font style="">You are receiving this notification because t</font><font style="">Insurance Policy {!Insurance_Policy__c.Insurance_Policy_Number__c} has been issued for customer {!Insurance_Policy__c.Customer__c}</font></font></font><div><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><br></font></div><div><font color="#000066" face="Verdana, Helvetica, sans-serif" size="2"><br></font><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2">If you want to see the record in Salesforce, <a href="{!Insurance_Policy__c.Link}">click here</a>.</font></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2"><br></font></div><div style=""><font face="Verdana, Helvetica, sans-serif" style="" color="#000066" size="2">Regards,</font></div><div style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"><font face="Verdana, Helvetica, sans-serif" style="" size="2" color="#000066"><br></font></div><div style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"><font face="Verdana, Helvetica, sans-serif" style="" size="2" color="#000066"><b>Digital Marketing</b></font></div></div></div>]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[]]></td>
+</tr>
+</table>

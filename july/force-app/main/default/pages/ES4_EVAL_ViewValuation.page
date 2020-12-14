@@ -1,0 +1,241 @@
+<apex:page lightningStylesheets="true"  controller="ES4_Controller_EVAL">
+    <apex:form >
+        <apex:PageBlock title="Valuation">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            
+            <div style="width: 230px;margin-left: auto;margin-right: auto;">
+            <apex:commandButton style="width: 115px;" value="Back" action="{!backAsset}"  />
+                <apex:commandButton style="width: 100px;" value="Edit" action="{!editValuation}" rendered="{!editbtn}"/>
+            </div>
+            
+            <apex:pageBlockSection columns="2" title="General Information">
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutStartDate,'T',' '),'.000-05:00','')}" /> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Id" for="Oportunity_Id"/>
+                    <apex:outputText id="Oportunity_Id" value="{!req.pOutSourceOpId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Id" for="Account_Id"/>
+                    <apex:outputText id="Account_Id" value="{!req.pOutSourceAccountId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SF Account Name" for="Account_Name"/>
+                    <apex:outputText id="Account_Name" value="{!req.pOutSourceAccountName}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutEndDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (SSO)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By User Name" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameAssignedTo}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Asset Id" for="Asset_Id"/>
+                    <apex:outputText id="Asset_Id" value="{!VALL.pOutEVValAssetId}"/> 
+                </apex:pageBlockSectionItem>  
+
+            </apex:pageBlockSection>
+
+            <!--------------------------------------------------------------------------------------------------------------------->
+
+            <apex:pageBlockSection columns="2" title="Valuation">
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Valuation Id" for="Valuation_Id"/>
+                    <apex:outputText id="Valuation_Id" value="{!VALL.pOutEVValValuationId}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Term Months" for="TermMonths"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">    
+                        <apex:param id="TermMonths" value="{!VALUE(
+                                                          If(VALL.pOutEVValTermMonths=='' ,'0',VALL.pOutEVValTermMonths) )}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="FMV Amount" for="FMVAmount"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">    
+                        <apex:param id="FMVAmount" value="{!VALUE(
+                                                         If(VALL.pOutEVValFMVAmount=='' ,'0',VALL.pOutEVValFMVAmount)  )}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="FMV Percent" for="FMVPercent"/>
+                    
+                    <apex:outputText value="{0,number,000.00}%">    
+                        <apex:param id="FMVPercent" value="{!VALUE(
+                                                           If(VALL.pOutEVValFMVPercent=='' ,'0',VALL.pOutEVValFMVPercent) )}"/>
+                    </apex:outputText>
+                     
+                </apex:pageBlockSectionItem>
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="NRV Amount" for="NRVAmount"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">    
+                        <apex:param id="NRVAmount" value="{!VALUE(
+                                                         If(VALL.pOutEVValNRVAmount=='' ,'0',VALL.pOutEVValNRVAmount) )}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="NRV Percent" for="NRVPercent"/>
+                    
+                    <apex:outputText value="{0,number,000.00}%">    
+                        <apex:param id="NRVPercent" value="{!VALUE(
+                                                          If(VALL.pOutEVValNRVPercent=='' ,'0',VALL.pOutEVValNRVPercent) )}"/>
+                    </apex:outputText>
+                   
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="OLV Amount" for="OLVAmount"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">    
+                        <apex:param id="OLVAmount" value="{!VALUE(
+                                                         If(VALL.pOutEVValOLVAmount=='' ,'0',VALL.pOutEVValOLVAmount) )}"/>
+                    </apex:outputText>
+                   
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="OLV Percent" for="OLVPercent"/>
+                    
+                    <apex:outputText value="{0,number,000.00}%">    
+                        <apex:param id="OLVPercent" value="{!VALUE(
+                                                          If(VALL.pOutEVValOLVPercent=='' ,'0',VALL.pOutEVValOLVPercent) )}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RV Amount" for="RVAmount"/>
+                    
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">    
+                        <apex:param id="RVAmount" value="{!VALUE(
+                                                         If(VALL.pOutEVValRVAmount=='' ,'0',VALL.pOutEVValRVAmount))}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RV Percent" for="RVPercent"/>
+                    
+                    <apex:outputText value="{0,number,000.00}%">    
+                        <apex:param id="RVPercent" value="{!VALUE(
+                                                          If(VALL.pOutEVValRVPercent=='' ,'0',VALL.pOutEVValRVPercent) )}"/>
+                    </apex:outputText>
+                    
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Insurance Prima" for="InsurancePrima"/>
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">    
+                        <apex:param id="InsurancePrima" value="{!VALUE(
+                                                              If(VALL.pOutEVValInsurancePrima=='' ,'0',VALL.pOutEVValInsurancePrima) )}"/>
+                    </apex:outputText>
+                </apex:pageBlockSectionItem> 
+
+                <!-- -->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Active Flag" for="ActiveFlag"/>
+                    <apex:outputText id="ActiveFlag" value="{!VALL.pOutEVValActiveFlag}"/> 
+                </apex:pageBlockSectionItem>  
+
+            </apex:pageBlockSection>
+
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            
+            <apex:pageBlockSection columns="2" title="System Information">
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created By" for="Created_By"/>
+                    <apex:outputText id="Created_By" value="{!req.nameCreatedBy}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created Date" for="Created_Date"/>
+                    <apex:outputText id="Created_Date" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutCreationDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Updtate By" for="Update_By"/>
+                    <apex:outputText id="Update_By" value="{!req.nameUpdatedBy}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Update Date" for="Last_Update_Date"/>
+                    <apex:outputText id="Last_Update_Date" value="{!SUBSTITUTE(SUBSTITUTE(req.pOutLastUpdateDate,'T',' '),'.000-05:00','')}"/> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:PageBlock>
+    </apex:form>
+</apex:page>

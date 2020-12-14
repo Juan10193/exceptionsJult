@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Engenium_Fleet</letterhead>
+    <name>Fleet Purchase Order</name>
+    <style>freeForm</style>
+    <subject>Engenium Fleet | Orden de compra de unidad: {!Units__c.Name}</subject>
+    <textOnly>Te envío la orden de compra para la adquisición de un vehículo de la flotilla, {!Units__c.FleetToGo_Name__c}, del cliente, {!Units__c.Customer_Name__c}. Encuentra mayor detalle a continuación:
+
+Año: &lt;&lt;Units_Model&gt;&gt;
+Marca: &lt;&lt;Units_Brand&gt;&gt;
+Modelo: &lt;&lt;Units_Sub_brand&gt;&gt;
+Versión: &lt;&lt;Units_Version&gt;&gt;
+Transmisión: &lt;&lt;Units_Transmission&gt;&gt;
+Accesorios: &lt;&lt;Units_Accesories&gt;&gt;
+
+
+Con las siguientes opciones de color:
+
+Opción 1 (Ext. / Int.): &lt;&lt;Units_Exterior_Color_Option_1&gt;&gt; | &lt;&lt;Units_Interior_Color_Option_1&gt;&gt;
+Opción 2 (Ext. / Int.): &lt;&lt;Units_Exterior_Color_Option_2&gt;&gt; | &lt;&lt;Units_Interior_Color_Option_2&gt;&gt;
+Opción 1 (Ext. / Int.): &lt;&lt;Units_Exterior_Color_Option_3&gt;&gt; | &lt;&lt;Units_Interior_Color_Option_3&gt;&gt;
+
+
+De acuerdo a los siguientes precios:
+
+Auto: &lt;&lt; Costo_Del_Vehiculo&gt;&gt;
+Accesorios: &lt;&lt;Fleet_Costo_Accesorios&gt;&gt;
+
+
+Folio: {!Units__c.Name}.
+
+Atentamente,
+
+{!User.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

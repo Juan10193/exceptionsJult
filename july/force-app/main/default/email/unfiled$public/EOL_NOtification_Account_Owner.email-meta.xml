@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>EOL NOtification Account Owner</name>
+    <style>formalLetter</style>
+    <subject>#EOLToGo {!EOLToGo__c.Name} for customer {!EOLToGo__c.Customer_Final__c} require your action</subject>
+    <textOnly>Dear {!EOLToGo__c.Originator_final__c},
+You are receiving this notification because the #EOLToGo {!EOLToGo__c.Name} for customer {!EOLToGo__c.Customer_Final__c} require your action.
+
+
+To review account record in Salesforce, click here.
+
+Regards,
+
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

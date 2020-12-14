@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Membrete_para_leads2</letterhead>
+    <name>Template For leads</name>
+    <style>freeForm</style>
+    <subject>Gracias por contactarnos</subject>
+    <textOnly>Hola {!Lead.Name}:
+
+
+
+Nos da mucho gusto saber de tu interés en Engen Capital.
+
+
+Sabemos que quieres hacer que tu negocio sea más grande y estás dando el paso correcto, porque con Engen Capital no solo descubrirás a la empresa que hace que el financiamiento sea más fácil que nunca, además encontrarás al equipo más talentoso de la industria financiera del país con quienes te aseguramos que tu negocio dará el siguiente paso.
+
+
+Muy pronto nos pondremos en contacto contigo para  conocer a fondo tu negocio y así poder diseñar una solución que estamos seguros se traducirá en crecimiento para tu negocio.
+
+
+¡Gracias por tu confianza!
+
+
+Engen Capital
+
+
+
+
+
+www.engen.com.mx</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

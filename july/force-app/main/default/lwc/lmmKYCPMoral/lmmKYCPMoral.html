@@ -1,0 +1,583 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 07-31-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   07-27-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    <div data-id="toastModel" style="height: 4rem; " class="slds-hide demo-only">
+        <div class="slds-notify_container slds-is-relative">
+            <div class={mainDivClass} role="status">
+                <span class="slds-assistive-text">{variant}</span>
+                <span class={messageDivClass} title={message}>
+                    <lightning-icon icon-name={iconName} size="small" variant="inverse"></lightning-icon>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">{title}</h2>
+                    <p style="color:white;">{message}</p>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={closeModel}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"> </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <template if:true={validatePIN}>
+        <c-modal-question onaccept={handleAccessPin}
+            accept-button-name="Login" title="ENTER PIN">
+            <div slot="body">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                      <span></span>
+                    </div>
+                    <div class="slds-col">
+                      <span><lightning-input type="password" onchange={pinChange}></lightning-input></span>
+                    </div>
+                    <div class="slds-col">
+                      <span></span>
+                    </div>
+                </div>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={kycRecord}>
+        <img class="logoEngen" src={logoEngen} />
+            <lightning-card variant="Narrow" title="">
+                <lightning-button variant="brand" label="Save" title="Save" onclick={handleSave} 
+                    class="slds-m-left_x-small" slot="actions" icon-name="utility:save"></lightning-button>
+                    <div slot="actions">{kycRecord.LMM_fm_Porcentaje_de_llenado_PFAE__c.value}% completado</div>
+                    <div class="bodyPage">
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <h1><b>Información General del Cliente Persona Moral/Garante</b></h1>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Fecha:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+
+                            <input type="date" class="customInputText fullLine" data-field="fechaEdicion"
+                                value={kycRecord.LMM_fh_Fecha__c.value} />
+
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>Para efectos del presente formato por ENGENCAP HOLDING, S. DE R.L. DE C.V.debe entenderse
+                                a ésta misma así como a todas sus subsidiarias y afiliadas
+                                correspondientes.</p>
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        I. Cliente Persona Moral
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Denominación o Razón Social:</p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="razonSocial"
+                                value={kycRecord.LMM_tx_Razon_Social__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Giro Comercia:</p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="giroEmpresa"
+                                value={kycRecord.LMM_tx_Giro_de_la_empresa__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>RFC con homoclave:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="RFC"
+                                value={kycRecord.LMM_tx_RFC__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Fecha de Constitución:</p>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <input type="date" class="customInputText fullLine" data-field="fechaConstitucion"
+                                value={kycRecord.LMM_fh_Fecha_de_constitucion__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Nacionalidad:</p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="nacionalidad"
+                                value={kycRecord.LMM_tx_Nacionalidad__c.value} />
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        II. Domicilio Persona Moral (No es válido un apartado postal como dirección).
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Calle:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="calle"
+                                value={kycRecord.LMM_tx_Calle__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>No. Ext.:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="noExt"
+                                value={kycRecord.LMM_tx_No_Ext__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>No. Int.:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="noInt"
+                                value={kycRecord.LMM_tx_No_Int__c.value} />
+                        </div>
+
+
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Colonia/Urbanización:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="coloniaUrbanizacion"
+                                value={kycRecord.LMM_tx_Colonia_Urbanizacion__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>C. Postal:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="cp"
+                                value={kycRecord.LMM_tx_Codigo_Postal__c.value} />
+                        </div>
+
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Alcaldía o Municipio:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="alcaldiaOMunicipio"
+                                value={kycRecord.LMM_tx_Alcaldia_o_Municipio__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Ciudad:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="ciudad"
+                                value={kycRecord.LMM_tx_Ciudad__c.value} />
+                        </div>
+
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Entidad Federativa:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="entidadFederativa"
+                                value={kycRecord.LMM_tx_Entidad_Federativa__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>País:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="pais"
+                                value={kycRecord.LMM_tx_Pais__c.value} />
+                        </div>
+
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Teléfono, Oficina o particular:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText partialLine" data-field="telefonoOficinaOparticular"
+                                value={kycRecord.LMM_tf_Telefono_Oficina_o_particular__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <p>Correo Electrónico:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="correoElectronico"
+                                value={kycRecord.LMM_ce_Correo_Electronico__c.value} />
+                        </div>
+                    </div>
+
+                    <h3 class="slds-section-title--divider">
+                        III. Personas Políticamente Expuestas(PPE)(1) o
+                        Persona Políticamente Expuesta por Asimilación(PPE por Asimilación)(2).
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>¿Alguno de los Accionistas, Socios o Funcionarios de Primer Nivel o Miembro Directivo es
+                                una Persona Políticamente
+                                Expuesta(1) o una Persona Políticamente Expuesta por Asimilación(2):</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="PPEOPPEA" value="Sí" data-field="PPEOPPEASi" checked={PPEOPPEASi}>
+                            Sí<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="PPEOPPEA" value="No" data-field="PPEOPPEANo" checked={PPEOPPEANo}>
+                            No<br>
+                        </div>
+
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Nombre de la PPE:</p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="nombrePPE"
+                                value={kycRecord.LMM_tx_Nombre_de_la_PPE__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 slds-p-bottom_xx-small">
+                            <p>Parentesco (por asimilación):</p>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="nombrePPEA"
+                                value={kycRecord.LMM_tx_Parentesco_por_asimilacion__c.value} />
+                        </div>
+                    </div>
+
+                    <h3 class="slds-section-title--divider">
+                        IV.Origen de los Recursos.
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                            <p>¿Actividades propias de la empresa?:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="actividadesPropEmp" value="Sí" data-field="actividadesPropEmpSi"
+                                checked={actividadesPropEmpSi}> Sí<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="actividadesPropEmp" value="No" data-field="actividadesPropEmpNo"
+                                checked={actividadesPropEmpNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                            <p>¿Sostiene algún tipo de relación comercial con gobierno?</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="Si"
+                                data-field="tieneRelacionComercialSi" checked={tieneRelacionComercialSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="No"
+                                data-field="tieneRelacionComercialNo" checked={tieneRelacionComercialNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>En caso afirmativo responder lo siguiente:
+                                Nombre de la(s) entidad(es) de gobierno con la(s) que tiene Relación Comercial:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="nombreEntidadDeGob"
+                                value={kycRecord.LMM_tx_Entidad_con_relacioncomercial__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Porcentaje aproximado del ingreso anual:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="ingresoAnual"
+                                value={kycRecord.LMM_dv_Porcentaje_de_ingreso_anual__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Tipo de producto o servicio que le presta a dicha(s) entidades:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="productoOServicio"
+                                value={kycRecord.LMM_tx_Tipo_de_producto_o_servicio__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Tiempo de antigüedad de la relación comercial con dicha(s) entidad(es):</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="antiguedadRelaComer"
+                                value={kycRecord.LMM_tx_Tiempo_de_antiguedad_de_relacion__c.value} />
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-bottom_xx-small">
+                            <p>Declaro que los recursos son de cuenta propia y no provienen de terceros:</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="Si"
+                                data-field="recursosNoProvienenDeTercerosSi" checked={recursosNoProvienenDeTercerosSi}>
+                            Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="No"
+                                data-field="recursosNoProvienenDeTercerosNo" checked={recursosNoProvienenDeTercerosNo}>
+                            No<br>
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Declaro que los recursos provenen de fuentes lícitas</p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="Si"
+                                data-field="RecursosFuentesLicitasSi" checked={RecursosFuentesLicitasSi}> Si<br>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-bottom_xx-small">
+                            <input type="radio" name="tieneRelacionComercial" value="No"
+                                data-field="RecursosFuentesLicitasNo" checked={RecursosFuentesLicitasNo}> No<br>
+                        </div>
+                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_xx-small">
+                            <p>Destino del financiamiento solicitado:</p>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="destinoDelFinanciamiento"
+                                value={kycRecord.LMM_tx_Destino_del_financiamiento__c.value} />
+                        </div>
+
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        V. Composición del Capital Social.
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>Hago constar y certifico que las personas que a continuación se mencionan son los
+                                accionistas o socios de la sociedad</p>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <table
+                                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols"
+                                role="grid"
+                                data-table="principalesFuncionarios">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Nombre, Razón O Denominación Social">
+                                                Nombre, Razón O Denominación Social</div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Nacionalidad">Nacionalidad
+                                            </div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="RFC">
+                                                RFC</div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="% de Participación">
+                                                % de Participación</div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Acciones">
+                                                Acciones</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template if:true={condicionesSociales}>
+                                        <template for:each={condicionesSociales}
+                                            for:item="persona"
+                                            for:index="indx">
+                                            <tr key={persona.Id} id={persona.Id} class="slds-hint-parent">
+                                                <td role="gridcell" data-column="Nombre">                                                    
+                                                    <div class="slds-truncate" title={persona.Name}>
+                                                        <input class="customInputTextNoBox" data-id={indx} data-column="Nombre" value={persona.Name} onchange={handleCSNameChange}>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" data-column="Nacionalidad">
+                                                    <div class="slds-truncate" title={persona.LMM_tx_Nacionalidad__c}>
+                                                        <input class="customInputTextNoBox" data-id={indx} value={persona.LMM_tx_Nacionalidad__c} onchange={handleCSNacionalidadChange}>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" data-column="RFC">
+                                                    <div class="slds-truncate" >
+                                                        <input class="customInputTextNoBox" data-id={indx} value={persona.LMM_tx_RFC__c} onchange={handleCSRFCChange}></div>
+                                                </td>
+                                                <td role="gridcell" data-column="Participacion">
+                                                    <div class="slds-truncate">
+                                                        <input class="customInputTextNoBox" data-id={indx} value={persona.LMM_pr_Porcentaje_de_participacion__c} onchange={handleCSPorParChange}></div>
+                                                        
+                                                </td>
+                                                <td role="gridcell" data-column="Acciones">
+                                                    <div class="slds-truncate">
+                                                        <lightning-button-icon icon-name="utility:delete"
+                                                            alternative-text="Borrar" title="Borrar" data-id={indx} onclick={removeRowCondicionesSociales}>
+                                                        </lightning-button-icon>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <lightning-button label="Añadir fila" title="Añadir fila" icon-name="utility:add" class="slds-m-left_x-small" onclick={addRowCondicionesSociales}></lightning-button>
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        VI. Administración
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>Administrador General Único</p>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <table
+                                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols"
+                                role="grid"
+                                data-table="principalesFuncionarios">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Nombre Completo">
+                                                Nombre Completo</div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Nacionalidad">Nacionalidad
+                                            </div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Acciones">
+                                                Acciones</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template if:true={administracion}>
+                                        <template for:each={administracion}
+                                            for:item="persona"
+                                            for:index="indx">
+                                            <tr key={persona.Id} id={persona.Id} class="slds-hint-parent">
+                                                <td role="gridcell" data-column="Nombre">                                                    
+                                                    <div class="slds-truncate" title={persona.Name}>
+                                                        <input class="customInputTextNoBox" data-id={indx} data-column="Nombre" value={persona.Name} onchange={handleAdmNameChange}>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" data-column="Nacionalidad">
+                                                    <div class="slds-truncate" title={persona.LMM_tx_Nacionalidad__c}>
+                                                        <input class="customInputTextNoBox" data-id={indx} value={persona.LMM_tx_Nacionalidad__c} onchange={handleAdmNacionalidadChange}>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" data-column="Acciones">
+                                                    <div class="slds-truncate">
+                                                        <lightning-button-icon icon-name="utility:delete"
+                                                            alternative-text="Borrar" title="Borrar" data-id={indx} onclick={removeRowAdministracion}>
+                                                        </lightning-button-icon>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <lightning-button label="Añadir fila" title="Añadir fila" icon-name="utility:add" class="slds-m-left_x-small" onclick={addRowAdministracion}></lightning-button>
+                        </div>
+                    </div>
+                    <h3 class="slds-section-title--divider">
+                        VII. Principales Funcionarios
+                    </h3>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>Indicar el nombre del Director General, Director de Finanzas y Director de Operaciones
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <table
+                                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols"
+                                role="grid"
+                                data-table="principalesFuncionarios">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Nombre, Razón O Denominación Social">
+                                                Nombre, Razón O Denominación Social</div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Nacionalidad">Nacionalidad
+                                            </div>
+                                        </th>
+                                        <th class="slds-is-resizable" scope="col">
+                                            <div class="slds-truncate" title="Acciones">
+                                                Acciones</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template if:true={principalesFuncionarios}>
+                                        <template for:each={principalesFuncionarios}
+                                            for:item="persona"
+                                            for:index="indx">
+                                            <tr key={persona.Id} id={persona.Id} class="slds-hint-parent">
+                                                <td role="gridcell" data-column="Nombre">                                                    
+                                                    <div class="slds-truncate" title={persona.Name}>
+                                                        <input class="customInputTextNoBox" data-id={indx} data-column="Nombre" value={persona.Name} onchange={handlePFNameChange}>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" data-column="Nacionalidad">
+                                                    <div class="slds-truncate" title={persona.LMM_tx_Nacionalidad__c}>
+                                                        <input class="customInputTextNoBox" data-id={indx} value={persona.LMM_tx_Nacionalidad__c} onchange={handlePFNacionalidadChange}>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" data-column="Acciones">
+                                                    <div class="slds-truncate">
+                                                        <lightning-button-icon icon-name="utility:delete"
+                                                            alternative-text="Borrar" title="Borrar" data-id={indx} onclick={removeRowPrincipalesFuncionarios}>
+                                                        </lightning-button-icon>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <lightning-button label="Añadir fila" title="Añadir fila" icon-name="utility:add" class="slds-m-left_x-small" onclick={addRowPrincipalesFuncionarios}></lightning-button>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap section">
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <input class="customInputText fullLine" data-field="formatoSuscritoPor"
+                                value={kycRecord.LMM_tx_Formato_suscrito_por__c.value} />
+                        </div>    
+                        <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            <p>Nombre y firma</p>
+                        </div>    
+                        <p class="finalFooter">1. Se entiende por PPE, aquel individuo que desempeña o ha desempeñado
+                            funciones públicas
+                            destacadas en
+                            territorio nacional o en el extranjero, considerando entre otros a los jefes de estado o de
+                            gobierno,
+                            líderes políticos, funcionarios gubernamentales, judiciales o militares de alta jerarquía,
+                            altos
+                            ejecutivos
+                            de empresas estatales o funcionarios o miembros importantes de partidos políticos y
+                            organizaciones internacionales;
+                            entendidas como aquellas entidades establecidas mediante acuerdos políticos oficiales entre
+                            estados, los cuales
+                            tienen el estatus de tratados internacionales; cuya existencia es reconocida por la ley en
+                            sus
+                            respectivos estados
+                            miembros y no son tratadas como unidades institucionales residentes de los países en los que
+                            están ubicadas. </p>
+                        <br>
+                        <p class="finalFooter">Aviso de Privacidad.
+                            Sus
+                            datos personales están seguros en EngenCapital. En los términos de la Ley Federal de
+                            Protección
+                            de datos personales en posesión de los particulares y su reglamento, EngenCapital (así como
+                            entidades filiales y subsidiarias), con domicilio en Antonio Dovalí Jaime No. 70, Torre C,
+                            Piso
+                            4° Col. Santa Fe, 01210, México, D.F. utilizará sus datos personales aquí recabados con la
+                            finalidadde analizarlos y evaluarlos para ofrecerle cualquiera de nuestros productos y
+                            servicios
+                            financieros, cumplir con nuestros términos y condiciones en la prestación de nuestros
+                            productos
+                            y servicios, para el análisis de riesgo en la contratación de los mismos y en general, para
+                            hacer de su conocimiento los servicios que ofrece EngenCapital. Mediante la firma de este
+                            documento entenderemos que acepta y reconoce expresamente que sus datos personales,
+                            incluidos
+                            aquellos catalogados como sensibles, financieros y patrimoniales podrán ser tratados,
+                            transmitidos y verificados para dichos efectos por Engenium capital, así como por terceros
+                            autorizados proveedores de servicios. Para mayor información acerca del tratamiento y de los
+                            derechos que puede hacer valer, usted puede acceder al aviso de privacidad completo a través
+                            de
+                            nuestra página de internet <a href="https://www.engen.com.mx">“www.engen.com.mx”</a></p>
+                    </div>
+                    
+                </div>
+            </lightning-card>
+        
+    </template>
+</template>

@@ -1,0 +1,115 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    controller="MC3_listOfCAsinCa" access="global">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name='listaopp' type='Opportunity_in_Credit_approval_CP__c[]'></aura:attribute>
+
+    <aura:handler name="init" value="{!this}" action="{!c.opp}" />
+
+    <div class="slds-page-header" role="banner">
+        <!--Header part close-->
+
+        <div class="slds-scrollable_x" style="height: auto; width: auto;">
+            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <thead aura:id="tabla" name="Table OCA">
+
+                    <p class="slds-page-header__title slds-truncate" title="Report Documents">Original Credit Approval
+                    </p>
+                    <tr class="slds-line-height_reset">
+
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="CA Name">CA Name</div>
+                        </th>
+
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="opportunity type">Type of CA</div>
+                        </th>
+
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Final Balance">CA Stage</div>
+                        </th>
+
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="opportunity name">Opportunity Name</div>
+                        </th>
+
+
+
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Stage Name">Stage Name</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Fecha de Expiracion">Expiration Date</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Final Balance">Final Balance</div>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <aura:iteration items="{!v.listaopp}" var="item">
+                        <tr class="slds-hint-parent tabla">
+
+                            <th data-label="Actions" scope="row">
+                                <div class="slds-truncate" title="View">
+                                    <a href="{!'/one/one.app?#/sObject/'+ item.CP_rb_Credit_approval_CP__r.Id+ '/view'}"
+                                        tabindex="-1">{! item.CP_rb_Credit_approval_CP__r.Name }</a>
+                                    <!--<lightning:input value="{!'sourceAccountName' + idx}"/>-->
+                                </div>
+                            </th>
+
+                            <td data-label="opportunity type">
+                                <div class="slds-truncate" title="{!item.CP_rb_Credit_approval_CP__r.RecordType.Name}">
+                                    {!item.CP_rb_Credit_approval_CP__r.RecordType.Name}</div>
+                            </td>
+
+                            <th data-label="stage name" scope="row">
+                                <div class="slds-truncate"
+                                    title="{!item.CP_rb_Credit_approval_CP__r.CPL_ls_StageName__c}">
+                                    {!item.CP_rb_Credit_approval_CP__r.CPL_ls_StageName__c}</div>
+                            </th>
+
+                            <th data-label="opp name" scope="row">
+                                <div class="slds-truncate" title="{!item.CP_rb_Oportunidad__r.Name}">
+                                    {!item.CP_rb_Oportunidad__r.Name}</div>
+                            </th>
+
+
+
+                            <th data-label="stage name" scope="row">
+                                <div class="slds-truncate" title="{!item.CP_rb_Oportunidad__r.StageName}">
+                                    {!item.CP_rb_Oportunidad__r.StageName}</div>
+                            </th>
+                            <td data-label="fecha expiration" scope="row">
+                                <div class="slds-truncate"
+                                    title="{!item.CP_rb_Oportunidad__r.CPL_date_Expiration_Date__c}">
+                                    {!item.CP_rb_Oportunidad__r.CPL_date_Expiration_Date__c}</div>
+                            </td>
+                            <td data-label="final balance" scope="row">
+                                <div>
+                                    <lightning:input type="number" readonly="true"
+                                        value="{!item.CP_rb_Oportunidad__r.CPL_fm_Final_Balance__c}"
+                                        formatter="currency" step="0.0001" />
+                                </div>
+                            </td>
+
+
+
+
+
+
+
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--<aura:iteration items="{!v.listaopp}" var="item">
+<h1>{!item.Id}</h1>
+</aura:iteration>-->
+</aura:component>

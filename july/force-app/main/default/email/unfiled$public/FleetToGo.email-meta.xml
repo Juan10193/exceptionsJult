@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>#FleetToGo</name>
+    <style>formalLetter</style>
+    <subject>#FleetToGo {!FleetToGo__c.Name} for customer {!Opportunity.Account} has been submitted for your approval</subject>
+    <textOnly>Dear Approver
+You are receiving this notification because the #FleetToGo {!FleetToGo__c.Name} for customer {!Opportunity.Account} has been submitted for your approval:
+
+Requestor: {!FleetToGo__c.LastModifiedBy}
+Fleet Name: {!FleetToGo__c.Fleet_Name__c}
+Fleet Type: {!FleetToGo__c.Fleet_Type__c}
+Product: {!FleetToGo__c.Product__c}
+Currency: {!FleetToGo__c.Fleet_Currency__c}
+ROI%: {!FleetToGo__c.Approved_ROI__c}
+Mainteinance?: {!FleetToGo__c.Maintenance__c}
+Rapid Tag?: {!FleetToGo__c.Rapid_Tag_Plates__c}
+Telematics?: {!FleetToGo__c.Telematics__c}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

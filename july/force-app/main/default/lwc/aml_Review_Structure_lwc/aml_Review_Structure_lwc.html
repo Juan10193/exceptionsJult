@@ -1,0 +1,100 @@
+<template>
+  <br>
+  <lightning-layout multiple-rows="true">
+    <lightning-layout-item class="slds-p-right_x-smal" size="8">
+      <lightning-card>
+        <h3 slot="title">
+          <lightning-layout>
+            <lightning-icon icon-name="utility:company" size="small"></lightning-icon>
+            &nbsp;
+            <p><b>Structure</b></p>
+            </br></br></br>
+          </lightning-layout>
+        </h3>
+        <div class="slds-scrollable_y" style="height: 20rem; width: auto;">
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-max-medium-table_stacked-horizontal">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Entity">
+                    Entity
+                  </div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Obligor">Obligor</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Guarantor">Guarantor</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="RDE">RDE</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="BO">BO</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Depositary">Depositary</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={entidades} for:item='item'>
+                <tr key={item.id} class="slds-hint-parent">
+                  <td data-label="Entity">
+                    <div class="slds-truncate"><lightning-formatted-rich-text value={item.Name}></lightning-formatted-rich-text></div>
+                  </td>
+                  <td data-label="Obligor">
+                    <div class="slds-truncate" title={item.Obligor}>
+                      <template if:true={item.Obligor}>
+                        <lightning-icon icon-name="utility:success" size="small" variant="brand">
+                        </lightning-icon>
+                      </template>
+                    </div>
+                  </td>
+                  <td data-label="Guarantor">
+                    <div class="slds-truncate" title={item.Guarantor}>
+                      <template if:true={item.Guarantor}>
+                        <lightning-icon icon-name="utility:success" size="small" variant="brand">
+                        </lightning-icon>
+                      </template>
+                    </div>
+                  </td>
+                  <td data-label="RDE">
+                    <div class="slds-truncate" title={item.RDE}>
+                      <template if:true={item.RDE}>
+                        <lightning-icon icon-name="utility:success" size="small" variant="brand">
+                        </lightning-icon>
+                      </template>
+                    </div>
+                  </td>
+                  <td data-label="BO">
+                    <div class="slds-truncate" title={item.BO}>
+                      <template if:true={item.BO}>
+                        <lightning-icon icon-name="utility:success" size="small" variant="brand">
+                        </lightning-icon>
+                      </template>
+                    </div>
+                  </td>
+                  <td data-label="Depositary">
+                    <div class="slds-truncate" title={item.Depositary}>
+                      <template if:true={item.Depositary}>
+                        <lightning-icon icon-name="utility:success" size="small" variant="brand">
+                        </lightning-icon>
+                      </template>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item class="slds-p-left_x-small" size="4" medium-device-size="4" large-device-size="4"
+      small-device-size="12">
+      <template if:true={showDetalles}>
+      <c-aml-review-unr-items detalle={detalle}></c-aml-review-unr-items>
+      </template>
+    </lightning-layout-item>
+  </lightning-layout>
+</template>

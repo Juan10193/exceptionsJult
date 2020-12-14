@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Enviar cuando ya fue aprobado el TKD en el Tollgate 2 a Tesoreria</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>TKD_Tollgate_2_Approved</name>
+    <style>freeForm</style>
+    <subject>Takedown &quot;{!Takedowns_Contingency_plan__c.Name}&quot;  in stage Tollgate 2 has been approved</subject>
+    <textOnly>Dear User,
+
+You are receiving this notification because the Takedown CP
+{!Takedowns_Contingency_plan__c.Name} Tollgate 2 stage
+has been approved and changed to Registry stage.
+
+If you want to see the record in Salesforce, click here .
+ 
+Regards,
+Engen Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

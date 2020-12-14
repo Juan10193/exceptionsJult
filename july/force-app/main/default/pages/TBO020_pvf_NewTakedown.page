@@ -1,0 +1,152 @@
+<apex:page controller="TBO020_cvf_NewTakedown">
+    <apex:outputPanel rendered="{!hasPrivileges}">
+    <apex:sectionHeader title="Edit Takedown Funding" subtitle="New Takedown Funding"/>
+    <apex:form id="tfform">
+        <apex:pageBlock title="Takedown Funding">
+            <apex:pageBlockButtons >
+            	<apex:commandButton value="Save" action="{!btnSave}"/>
+                <apex:commandButton value="Cancel" action="{!btnCancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection title="Takedown detail" columns="2">
+                <apex:outputField value="{!opportunity.AccountId}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Region__c}"/>
+                <apex:inputField value="{!takedown.TBO020_rb_Takedown_Owner__c}"/>
+                <apex:inputField value="{!takedown.TBO020_tx_Status__c}"/>
+                <apex:inputField value="{!takedown.TBO020_rb_Commercial_support_owner__c}"/>
+                <apex:inputField value="{!takedown.TBO020_fh_Status_Date__c}"/>
+                <apex:outputField value="{!takedown.TBO020_pd_Opportunity__c}"/>
+                <!--<apex:inputField value="{!takedown.TBO020_ls_Vertical__c}"/>-->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Deal parameters" columns="2">
+                <apex:inputField value="{!takedown.TBO020_dv_Pricing_Amount__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Financing_Need__c}"/>
+                <apex:inputField value="{!takedown.CurrencyIsoCode}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Insurance_Type__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Invoices_Currency__c}"/>
+                <apex:inputField value="{!takedown.TBO020_lm_Additional_Services__c}"/>
+                <apex:inputField value="{!takedown.TBO020_tx_Pricing_Product__c}"/>
+                <apex:inputField value="{!takedown.TBO020_fh_Delivery_Date__c}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!takedown.TBO020_fh_Funding_Date__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Deal_Category__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Collateral details" columns="2">
+                <apex:inputField value="{!takedown.TBO020_ls_Line_of_Business__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Origin_of_equipment__c}"/>
+                <apex:inputField value="{!takedown.TBO020_tx_Collateral__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Equipment_Import_Required__c}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!takedown.TBO020_ls_Import_Type__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Structure detail" columns="2">
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Term__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Security_Deposit__c}"/>
+                <apex:inputField value="{!takedown.TBO020_dv_ANI__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Depreciation__c}"/>
+                <apex:inputField value="{!takedown.TBO020_tx_Pricing_Rate_Type__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Residual__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Payment_Type__c}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Opening_Fee__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Profitability" columns="2">
+                <apex:inputField value="{!takedown.TBO020_pr_Pricing_Economic_ROI__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Economic_Yield__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Pricing_Net_Income__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Book_Yield__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Pricing_Economic_ROE__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Lending_Rate__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Pricing_Finance_Margin__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Full_Term_Rate__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Gross_Margin__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Full_Term_Rate_w_Resid__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Contributed_Value__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Cost" columns="2">
+                <apex:inputField value="{!takedown.TBO020_pr_Pricing_Cost_of_Funds_L__c}"/>
+                <apex:inputField value="{!takedown.TBO020_fh_Pricing_Money_Cost_Date__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Pricing_Cost_of_Funds_U__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Loss_ANI__c}"/>
+                <apex:inputField value="{!takedown.TBO020_un_Pricing_Expense_ANI__c}"/>
+                <apex:inputField value="{!takedown.TBO020_tx_Pricing_Leverage__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Vendor/ Broker parameters" columns="2">
+                <apex:inputField value="{!takedown.TBO020_ls_Opportunity_from_Vendor__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Opportunity_from_Broker__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Vendor_Brand__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Broker_name__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Vendor_Distributor__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Broker_Fee_Commision__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Vendor_Fee_Commision__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Broker_Fee_Commision__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Vendor_Fee_Commision__c}"/>
+                
+                
+                <apex:inputField value="{!takedown.TBO020_ls_Vendor_Rates_Subides__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Vendor_Risk_Support__c}"/>
+                
+                         
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Sharing information" columns="2">
+                <apex:inputField value="{!takedown.TBO020_ls_Shared_Takedown__c}"/>
+                <apex:inputField value="{!takedown.TBO020_rb_Share_Rep_1__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Of_sharing_reps__c}"/>
+                <apex:inputField value="{!takedown.TBO020_pr_Sharing_1__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Sharing_Criteria__c}"/>
+                <apex:inputField value="{!takedown.TBO020_rb_Share_Rep_2__c}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!takedown.TBO020_pr_Sharing_2__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Marketing initiatives" columns="2">
+                <apex:inputField value="{!takedown.TBO020_rb_Refered_by__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Marketing_Initiative_2__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Marketing_Initiative_1__c}"/>
+                <apex:inputField value="{!takedown.TBO020_ls_Marketing_Initiative_3__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="System information" columns="2">
+                <apex:outputText value="{!takedown.CreatedBy}"/>
+                <apex:outputField value="{!takedown.CreatedDate}"/>
+                <apex:outputText value="{!takedown.LastModifiedBy}"/>
+                <apex:outputField value="{!takedown.LastModifiedDate}"/>
+                <apex:inputField value="{!takedown.TBO020_tx_EXT_REF_ID__c}"/>
+            </apex:pageBlockSection>
+            <apex:outputPanel id="pricings">
+                <apex:pageBlockSection title="Pricing" columns="1">
+                    <apex:panelGrid columns="4" id="pricings" style="padding-left: 195px;">
+                        <apex:outputLabel style="font-weight:bold; padding-right: 15px;">Pricing</apex:outputLabel>
+                        <apex:selectList id="unselectedPricing" value="{!selectedPricingsLeft}" multiselect="true" size="5" style="width:160px; height: 100px;">
+                            <apex:selectOptions value="{!UnselectedPricings}" />
+                        </apex:selectList>
+                        <apex:panelGroup >
+                            <br/>
+                            <apex:commandButton value=">" action="{!selectPricingClick}" reRender="pricings"/>
+                            <br/>
+                            <br/>
+                            <apex:commandButton value="<" action="{!unselectPricingClick}" reRender="pricings"/>
+                        </apex:panelGroup>
+                        <apex:selectList id="selectedPricing" value="{!selectedPricingsRight}" multiselect="true"  size="5" style="width:160px; height: 100px;">
+                            <apex:selectOptions value="{!SelectedPricings}" />
+                        </apex:selectList>
+                    </apex:panelGrid>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!(!hasPrivileges)}">
+        <apex:form id="npForm">
+            <apex:pageBlock mode="maindetail" title="Insufficient Privileges">
+                <div style="padding-left: 15px;">
+                    <p>
+                        You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.
+                    </p>  
+                    <p>
+                        Click <apex:commandLink value="here" action="{!btnCancel}" /> to return to the previous page.
+                    </p>  
+                </div>  
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

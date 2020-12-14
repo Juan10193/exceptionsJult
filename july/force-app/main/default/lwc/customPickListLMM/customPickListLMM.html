@@ -1,0 +1,119 @@
+<!--
+  @File Name          : customPickListLMM.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 21/5/2020 23:29:29
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    30/4/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <lightning-layout multiple-rows>
+        <lightning-layout-item size="6" padding="around-small">
+            <div class="slds-p-around_medium slds-text-align_center divButton" onclick={handleOpenModal}>
+                <lightning-icon icon-name={incidencia} alternative-text={incidenciaWS} title={incidenciaWS}
+                    size="xx-small">
+                </lightning-icon>
+            </div>
+
+        </lightning-layout-item>
+        <!--<lightning-layout-item size="6" padding="around-small">
+            <div class="slds-p-around_medium slds-text-align_center">
+                <lightning-button-icon icon-name="utility:record_create" alternative-text="Add LegalAssessment"
+                    title="Add LegalAssessment" onclick={handleOpenModal}>
+                </lightning-button-icon>
+            </div>
+        </lightning-layout-item> -->
+    </lightning-layout>
+
+    <template if:true={openModal}>
+        <lightning-layout vertical-align="center" class="x-large">
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box">
+                    <c-modal-question onclose={handleCloseModal} onaccept={handleUpdate}
+                        close-button-name={cancelButtonName} accept-button-name={acceptButtonName} title={titleModal}
+                        init-modal-class={sizeModal}>
+                        <div slot="body">
+                            <template if:true={showLA}>
+                                <lightning-combobox name="LA" label="Search" value={valueRequest}
+                                    placeholder="Select a Legal Assesment" options={valueRequestOptions}
+                                    onchange={handleChange}>
+                                </lightning-combobox>
+
+                                <lightning-layout multiple-rows>
+                                    <lightning-layout-item size="12" padding="around-small">
+                                        <h3 class="slds-section-title--divider">Bil</h3>
+                                        <!--<div class="custom-box slds-box slds-p-around_medium slds-text-align_center">1</div>-->
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>RequestId:</p>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>
+                                            <lightning-formatted-text value={requestId}></lightning-formatted-text>
+                                        </p>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>Fecha de Revision:</p>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>
+                                            <lightning-formatted-text value={fechaRevision}></lightning-formatted-text>
+                                        </p>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>Incidencia:</p>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>
+                                            <lightning-icon icon-name={incidencia} alternative-text={incidenciaWS}
+                                                title={incidenciaWS} size="xx-small"></lightning-icon>
+                                        </p>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>Comentarios:</p>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>
+                                            <lightning-formatted-text value={comentarios}></lightning-formatted-text>
+                                        </p>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="12" padding="around-small">
+                                        <h3 class="slds-section-title--divider">Apoderados</h3>
+                                        <!--<div class="custom-box slds-box slds-p-around_medium slds-text-align_center">1</div>-->
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="12" padding="around-small">
+                                        <div id="datatableApoderados">
+                                            <lightning-datatable 
+                                                key-field="laAApoderadoID"
+                                                data={apoderadosData} 
+                                                columns={columnsApoderados}
+                                                hide-checkbox-column>
+                                            </lightning-datatable>
+                                        </div>
+                                    </lightning-layout-item>
+
+                                </lightning-layout>
+                            </template>
+                            <template if:false={showLA}>
+                                <lightning-layout multiple-rows>
+                                    <lightning-layout-item size="3" padding="around-small">
+                                        <p>No legal assessment found</p>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </template>
+
+                        </div>
+                    </c-modal-question>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+    </template>
+
+</template>

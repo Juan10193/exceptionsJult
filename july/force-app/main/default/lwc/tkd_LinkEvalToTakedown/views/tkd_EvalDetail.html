@@ -1,0 +1,343 @@
+<template>
+    <lightning-card style="max-width: 100%;">
+        <h3 slot="title" class="animated fadeInDown">
+            <strong>Eval: <a href={urlEval} title="View Eval" target="_blank">{evalrequestId}</a></strong>
+            <lightning-button-icon icon-name="utility:delete" alternative-text="Remove this Eval"
+                class="slds-m-left_xx-small slds-p-left_medium" onclick={removeEval}>
+            </lightning-button-icon>
+            <emplate if:true={printPdfbutton}>
+                <lightning-button-icon icon-name="utility:print"  alternative-text="Send PDF" onclick={printPDF} class="slds-m-left_xx-small slds-p-left_medium"></lightning-button-icon>
+            </emplate>
+            <template if:true={loadSearch}>
+                <div>LOADING ...</div>
+            </template>
+        </h3>
+        <template if:true={evalSumary}>
+            <lightning-accordion allow-multiple-sections-open class={classAcordion}
+                onsectiontoggle={handleToggleSection} active-section-name={activeSections}>
+                <lightning-accordion-section name="Eval Summary" label="Eval Summary">
+                    <div class="slds-form" role="list">
+                        <template if:true={endDate}>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label">Valid Through</label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{endDate}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Asset Count</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{evalSumary.evAssetCount}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Request Status</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{evalStatus}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Total Equipment Cost $</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-number value={evalSumary.evEquipmentAmount}
+                                                format-style="decimal" minimum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Soft Cost & Taxes $</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-number value={evalSumary.evCostAmountTax}
+                                                format-style="decimal" minimum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Equipment Amount Percent %</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-number value={evalSumary.evEquipmentAmountPercent}
+                                                format-style="percent" maximum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Soft Cost $</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-number value={evalSumary.evCostAmount}
+                                                format-style="decimal" minimum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Transaction Amount $</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-number value={evalSumary.evEquipmentAmountTax}
+                                                format-style="decimal" minimum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                    <label class="slds-form-element__label">Soft Cost Percent %</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-number value={evalSumary.evCostAmountPercent}
+                                                format-style="percent" maximum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="Endorsement comment" label="Endorsement comment">
+                    <fieldset class="slds-form-element slds-form-element_readonly">
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__row">
+                                <div class="slds-size_6-of-12">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">Endorsement Comment</label>
+                                        <div class="slds-form-element__static">{evalSumary.evEndorsementComment}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="Eval Assets" label="Eval Assets">
+                    <template if:true={evalAssets}>
+                        <lightning-datatable key-field='evAssetAssetId' data={evalAssets} hide-checkbox-column
+                            columns={assetsColumns} onrowaction={assetRowAction}>
+                        </lightning-datatable>
+                    </template>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="Valuations" label="Valuations">
+                    <template if:true={evalValuations}>
+                        <lightning-datatable key-field='evValValuationId' data={evalValuations} hide-checkbox-column
+                            columns={valuationsColummns} onrowaction={assetRowAction}>
+                        </lightning-datatable>
+                    </template>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="Blended" label="Blended">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_12-of-12">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="slds-cell-buffer_right" scope="row">AMOUNTS</th>
+                                        <template for:each={amounts} for:item="monto">
+                                            <th class="slds-cell-buffer_right" scope="col" key={monto}>
+                                                <div class="slds-truncate" title={monto.months}>{monto.months}</div>
+                                            </th>
+                                        </template>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="FMV" class="slds-cell-buffer_right">FMV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.months}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="FMV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.fmv} format-style="currency" currency-code="MXN">
+                                                    </lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="NRV" class="slds-cell-buffer_right">NRV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.nrv}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="NRV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.nrv} format-style="currency" currency-code="MXN">
+                                                    </lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="OLV" class="slds-cell-buffer_right">OLV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.olv}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="OLV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.olv} format-style="currency" currency-code="MXN">
+                                                    </lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="RV" class="slds-cell-buffer_right">RV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.rv}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="RV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.rv} format-style="currency" currency-code="MXN">
+                                                    </lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="slds-cell-buffer_right" scope="row">PERCENT</th>
+                                        <template for:each={amounts} for:item="monto">
+                                            <th class="slds-cell-buffer_right" scope="col" key={monto}>
+                                                <div class="slds-truncate" title={monto.months}>{monto.months}</div>
+                                            </th>
+                                        </template>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="FMV" class="slds-cell-buffer_right">FMV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.months}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="FMV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.fmvPer} format-style="decimal"
+                                                        minimum-fraction-digits="2" maximum-fraction-digits="2">
+                                                    </lightning-formatted-number>%
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="NRV" class="slds-cell-buffer_right">NRV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.nrvPer}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="NRV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.nrvPer} format-style="decimal"
+                                                        minimum-fraction-digits="2" maximum-fraction-digits="2">
+                                                    </lightning-formatted-number>%
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="OLV" class="slds-cell-buffer_right">OLV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.olvPer}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="OLV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.olvPer} format-style="decimal"
+                                                        minimum-fraction-digits="2" maximum-fraction-digits="2">
+                                                    </lightning-formatted-number>%
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="RV" class="slds-cell-buffer_right">RV</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.rvPer}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="RV">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.rvPer} format-style="decimal"
+                                                        minimum-fraction-digits="2" maximum-fraction-digits="2">
+                                                    </lightning-formatted-number>%
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="slds-cell-buffer_right" scope="row">INSURANCE</th>
+                                        <template for:each={amounts} for:item="monto">
+                                            <th class="slds-cell-buffer_right" scope="col" key={monto}>
+                                                <div class="slds-truncate" title={monto.months}>{monto.months}</div>
+                                            </th>
+                                        </template>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="slds-line-height_reset">
+                                        <td data-label="FMV" class="slds-cell-buffer_right">Total</td>
+                                        <template for:each={amounts} for:item="monto">
+                                            <td data-label={monto.insurance}
+                                                class="slds-cell-buffer_right slds-line-height_reset" key={monto}>
+                                                <div class="slds-truncate slds-line-height_reset" title="Total">
+                                                    <lightning-formatted-number class="slds-line-height_reset"
+                                                        value={monto.insurance} format-style="currency" currency-code="MXN">
+                                                    </lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template>
+    </lightning-card>
+</template>

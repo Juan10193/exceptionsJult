@@ -1,0 +1,65 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<table border="0" cellpadding="0" cellspacing="0" width="828" style="border-collapse:
+ collapse;width:621pt">
+ <colgroup><col width="828" style="mso-width-source:userset;mso-width-alt:30281;width:621pt">
+ </colgroup><tbody><tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl65" width="828" style="height:12.0pt;width:621pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><b style="color: rgb(0, 0, 102); font-family: Arial, sans-serif;">Dear User,</b></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"></blockquote></td><td height="16" class="xl66" style="height:12.0pt"></td><td height="16" class="xl66" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif">You are receiving this
+  notification because the Credit Approval&nbsp;</font></blockquote></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><font color="#000066" face="Arial, sans-serif">{!Credit_approval_CP__c.Name},
+  has changed its stage to On Hold for AML<br><ul><li>Customer:&nbsp;{!Credit_approval_CP__c.CPL_rb_account__c}</li><li>Approval Amount: {!Credit_approval_CP__c.ES3_fm_Total_Opportunities_USD__c}</li><li>Type of credit approval Workout: {!Credit_approval_CP__c.Type_of_credit_approval_Workout__c}</li><li>Exposure: {!Credit_approval_CP__c.Exposure__c}</li><li>Exposure + Approval Amount: {!Credit_approval_CP__c.CPL_fm_Opportunities_Exposure__c}</li><li>On Hold Reason: {!Credit_approval_CP__c.ES3_mpl_On_Hold_Reason__c}</li><li>AML Comment: {!Credit_approval_CP__c.ES3_tx_AML_On_Hold_Comment__c}</li></ul></font><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"></blockquote><span style="color: rgb(0, 0, 102); font-family: Arial, sans-serif; font-size: 12pt;">If you want to see the record in Salesforce,</span><b style="color: rgb(0, 0, 102); font-family: Arial, sans-serif; font-size: 12pt;">&nbsp;<a href="{!Credit_approval_CP__c.ES3_fm_CurrentURL__c}{!Credit_approval_CP__c.Id}"><font class="font5">click here</font><font class="font6">.</font></a></b><br><font face="Arial, sans-serif" color="#000066"><b><br></b></font><font face="Arial, sans-serif" color="#000066"><b>Regards,<br></b></font><b style="font-size: 16px; color: rgb(0, 0, 102); font-family: Arial, sans-serif; background-color: rgb(255, 255, 255);">Engenium Capital</b></blockquote><br><br><br><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><font face="Arial, sans-serif" color="#000066"><br></font></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"><br></td></tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl67" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl68" width="828" style="height:12.0pt;width:621pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl69" style="height:12.0pt"><br></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl66" style="height:12.0pt"></td>
+ </tr>
+ <tr height="16" style="mso-height-source:userset;height:12.0pt">
+  <td height="16" class="xl70" style="height:12.0pt"><br></td></tr></tbody></table>]]></td>
+</tr>
+</table>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Insurance VoBo Breakdown Completed</name>
+    <style>formalLetter</style>
+    <subject>Breakdown  for {!Insurance_VoBo__c.Name} has been completed</subject>
+    <textOnly>Dear Approver
+You are receiving this notification because the breakdown for {!Insurance_VoBo__c.Name}  has been completed.
+
+Requestor: {!Insurance_VoBo__c.CreatedBy}
+Quote: {!Insurance_VoBo__c.Name}
+Takedown CP: {!Insurance_VoBo__c.Takedown_CP__c}
+Insurance Type: {!Insurance_VoBo__c.Insurance_Type__c}
+Term: {!Insurance_VoBo__c.Term__c}
+Line of business: {!Insurance_VoBo__c.Line_of_Business__c}
+% UDI: {!Insurance_VoBo__c.UDI__c}
+Requestor Comments: {!Insurance_VoBo__c.Requestor_Comments__c}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

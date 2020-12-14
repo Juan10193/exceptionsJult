@@ -1,0 +1,154 @@
+<apex:page standardController="Takedowns_Contingency_plan__c" extensions="LMM_Controller_Takedown" contenttype="{!dynamicContentType}">
+    <apex:outputText rendered="{!!validationRule}">
+        <apex:pageMessage severity="Error" summary="Formato no disponible en este stage" strength="1"/>
+    </apex:outputText>
+    <apex:outputText rendered="{!validationRule}">    
+    	<apex:form >
+   										<!-- Encabezado del PDF -->
+        <div>
+            <table>
+                <thead>
+                  <tr>
+                    <th style="background-image: url('{!$Resource.logoEngen}');">
+                    </th>
+                    <th>
+                    </th>
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                      <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                        <b>APARTADO DE FONDOS</b>
+                      </p>
+                    </th>
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>  
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>  
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>  
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th> 
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>  
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>  
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>  
+                    <th style="vertical-align: bottom;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                    </th>                         
+                  </tr>
+                </thead>
+            </table>
+        </div><br/>
+ 
+        											<!--Tabla-->
+    
+        <div>
+			<table width="100%" style="border: 1px solid #003764;border-collapse : collapse;font-size : .7em;">
+				<thead style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Verdana;border-collapse: collapse">
+                     <tr style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Verdana;border-collapse: collapse">
+                         <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                                  # 
+                            </p>
+                         </th>
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                              FECHA DE SOLICITUD
+                            </p>   
+                        </th> 
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                             SOLICITADO POR
+                            </p>    
+                        </th>
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                             ENTIDAD LEGAL
+                            </p>    
+                        </th> 
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                             NOMBRE DEL CLIENTE
+                            </p>    
+                        </th>
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                           <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                            CONCEPTO
+                            </p>    
+                        </th> 
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                            NUMERO DE OPERACION
+                            </p>    
+                        </th>
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                            MONEDA A FONDEAR
+                            </p>     
+                        </th>   
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                            MONEDA DEL ANEXO
+                            </p>     
+                        </th> 
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                            MONTO TOTAL
+                            </p>     
+                        </th>
+                        <th style="vertical-align: bottom;border: #47D7AC 1px solid;border-spacing: 0;text-align:justify;font-family:Arial;border-collapse: collapse;background-color:#44546A">
+                            <p style="font-family:Arial;text-align: center;color:#FFFFFF">
+                            FECHA FONDEO
+                            </p>     
+                        </th>                         
+                    </tr>
+                   
+
+                    <apex:repeat value="{!SupplierinTkd}" var="SupTkd" id="suppliers">
+                        
+                    <tr>
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">                          
+                        </td>                            
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">
+                           <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!fechaFT}"></apex:param>
+                           </apex:outputtext>
+                        </td>
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">{!ownerName}</td>    
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">{!Tkdparent.CPL_ls_Operation_Unit__c}</td>        
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">{!customerName}</td>                            
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">TAKEDOWN</td>
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">{!Tkdparent.Name}</td>                            
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">
+                           <apex:repeat value="{!SupTkd.Sites__r}" var="sites" id="SupSite">
+                            {!sites.CurrencyIsoCode}
+                           </apex:repeat>
+                        </td>     
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">{!Tkdparent.CurrencyIsoCode}</td>                            
+                       
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">
+                              <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                <apex:param value="{!SupTkd.TKD_Monto_Invoice__c}"></apex:param>
+                              </apex:outputText>   
+                        </td>
+                        <td style="vertical-align: bottom;border: #000000 1px solid;border-spacing: 0;border-collapse: collapse;text-align:center;font-family:Arial;">
+                           <apex:outputtext value="{0, date, long}">
+                            <apex:param value="{!Tkdparent.CPL_da_Funding_Date__c}"></apex:param>
+                           </apex:outputtext>
+						</td>                                                   
+                    </tr>
+                    </apex:repeat>  
+                </thead> 
+            </table>
+        
+        </div><br/><br/>
+        
+        <p style="font-size: 9pt;color:#003764;text-align: justify;">
+            <b>
+             "  Entidades: 397- Engencap Holding S de RL de CV / 798 -Engencap Fin SA de CV SOFOM ENR / XA7 - Engencap S de RL de CV / S1U - LP Logistica de Recursos Humanos S de RL de CV <br/>
+            * Enviar a Buzon TRE (treasury@engeniumcapital.com) en asunto APARTADO FONDOS con la fecha a fondear en formato DD-MMM, por ejemplo ""APARTADO FONDOS 03 ENE"""										
+            </b>
+        </p>
+   
+    </apex:form>
+    </apex:outputText>
+</apex:page>

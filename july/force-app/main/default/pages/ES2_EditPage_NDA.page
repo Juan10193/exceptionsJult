@@ -1,0 +1,72 @@
+<apex:page lightningStylesheets="true" controller="ES2_controller_NDA">
+    <apex:form >
+        <apex:pageBlock title="NDA(Non-disclosure Agreement)">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:inputText disabled="true" id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:inputText disabled="true" id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:inputText disabled="true" id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:inputText disabled="true" id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:inputText disabled="true" id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:inputText disabled="true" id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:inputText disabled="true" id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:inputText disabled="true" id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            
+            <apex:pageBlockSection columns="1" title="NDA">  <!--AQUI EMPIEZA EL AREA NDA --> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="NDA Type" for="NDA_Type"/>
+                    <apex:selectList size="1" id="NDA_Type" style="width: 173px" value="{!req.pOutndaType}">
+                        <apex:selectOption itemLabel="" itemValue=""> </apex:selectOption>
+                        <apex:selectOption itemLabel="Engenium Capital NDA" itemValue="Engenium Capital NDA"> </apex:selectOption>
+                        <apex:selectOption itemLabel="Customer NDA" itemValue="Customer NDA"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>  
+             
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            <div style="width: 230px;margin-left: AUTO;margin-right: AUTO;">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!saveNDA}"/>
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}"/>
+            </div>
+        </apex:pageBlock> 
+        
+    </apex:form>
+</apex:page>

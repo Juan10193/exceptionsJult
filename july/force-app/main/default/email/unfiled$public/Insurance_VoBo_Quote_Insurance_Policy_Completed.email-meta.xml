@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Insurance VoBo Insurance Policy Completed</name>
+    <style>formalLetter</style>
+    <subject>Insurance Policy {!Insurance_Policy__c.Insurance_Policy_Number__c} has been issued for customer {!Insurance_Policy__c.Customer__c}</subject>
+    <textOnly>Dear Approver
+You are receiving this notification because tInsurance Policy {!Insurance_Policy__c.Insurance_Policy_Number__c} has been issued for customer {!Insurance_Policy__c.Customer__c}
+
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

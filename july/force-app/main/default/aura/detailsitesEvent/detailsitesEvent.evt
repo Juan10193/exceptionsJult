@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION">
+    <!-- pass context of where the event was fired to the handler. -->
+    <aura:attribute name="sitedata" type="Object"/>
+</aura:event>

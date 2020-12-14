@@ -1,0 +1,489 @@
+<!--
+  @description       : 
+  @author            : angel87ambher@gmail.com
+  @group             : 
+  @last modified on  : 08-21-2020
+  @last modified by  : angel87ambher@gmail.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   07-03-2020   angel87ambher@gmail.com   Initial Version
+-->
+<template>
+
+
+      
+
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <label>Total: <template if:true={supplier}>{calculateValuesScoredcard}</template> pts</label>
+                    <lightning-formatted-text></lightning-formatted-text>
+                </div>
+                <div class="slds-col">
+                    <label>Resultado: <template if:true={resultado}><div class={appResult.color}>
+                        <lightning-icon  icon-name={appResult.name} variant={appResult.variant}  size="x-small"></lightning-icon>
+                         <strong>{appResult.res}</strong>
+                    </div></template>
+                </label>
+                    <lightning-formatted-text></lightning-formatted-text>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <template if:true={supplier}>
+        <template if:false={editMode}>
+            <lightning-record-view-form
+                    record-id={recordId}
+                    object-api-name="Supplier__c">
+                    <h3 class="slds-section-title--divider animated slideInLeft">INFORMACIÓN DEL PROVEEDOR</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Tipo de Booking</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Tipo_de_Scorecard__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Comercializadora, Persona fisica, Distribuidor o Fabricante</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Tipo_de_proveedor__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Verificación de domicilio </strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Verificacion_de_domicilio__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Página web existente (Más de un año activa) </strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Pagina_web_existente__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <h3 class="slds-section-title--divider animated slideInLeft">EXPERIENCIA</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">                        
+                            <div class="slds-form__row">
+                                <template if:false={tipobooking}>
+                                <div class="slds-form__item" role="listitem">
+                                   <!-- <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>EC ha trabajado con el proveedor</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_C_ha_trabajado_con_el_proveedor__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>-->
+                                </div>
+                                
+                            </template>
+                            </div>
+                            <template if:false={tipobooking}>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>¿Numero de veces que hemos trabajo?</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Numero_de_veces_que_hemos_trabajo__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                               <!-- <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>¿Cuantos clientes de EC han traido al proveedor?</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Cuantos_clientes_de_EC_han_traido__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>-->
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>¿Que monto nos ha facturado el proveedor?</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Que_montonoshafacturado_el_proveedor__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </template>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Proveedores sustitutos</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Proveedores_sustitutos__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Presencia en otras ciudades / regiones</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Presencia_en_otras_ciudades_regiones__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Líderes en venta de este activo</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_L_deres_en_venta_de_este_activo__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Años de garantía del activo</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_A_os_de_garant_a_del_activo__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Servicio post venta</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Servicio_post_venta__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> 
+
+                    <h3 class="slds-section-title--divider animated slideInLeft">SAT</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Validación de RFC ante el SAT</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Validaci_n_de_RFC_ante_el_SAT__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Opinión positiva del SAT</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="Opini_n_positiva_del_SAT__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Revisión de facturas origen</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Revision_de_facturas_origen__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <h3 class="slds-section-title--divider animated slideInLeft">MERCADO</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  animated fadeIn" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Se encuentra en "Quién es quién"</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_quien_es_quien__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Se encuentra en "Google Search"</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Se_encuentra_en_Google_Search__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Se encuentra correcto en el BIL </strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-output-field field-name="TKD_Se_encuentra_correcto_en_el_BIL__c" variant="label-hidden"></lightning-output-field></div>
+                                            <lightning-button-icon icon-name="utility:edit"  alternative-text="Edit" title="Edit" onclick={changeToEdit} data-section="INFORMACIÓN DEL PROVEEDOR" size="xx-small" ></lightning-button-icon>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="rechazo" label="Rechazar" onclick={stageReject}></lightning-button>
+
+              <!-- </lightning-accordion-section>--> 
+            </lightning-record-view-form>
+        </template>
+
+        <template if:true={editMode}>
+            <lightning-record-edit-form record-id={recordId}
+            object-api-name="Supplier__c" onsuccess={handleSuccess} onerror={handleError} onsubmit={handleSubmit}>
+              <!--  <lightning-accordion-section name="RAC LMM" label="RAC LMM">-->
+                <h3 class="slds-section-title--divider animated slideInLeft">INFORMACIÓN DEL PROVEEDOR</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                            <div class="slds-form__row">
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Tipo de Booking</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Tipo_de_Scorecard__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Comercializadora, Persona fisica, Distribuidor o Fabricante</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Tipo_de_proveedor__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Verificación de domicilio</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Verificacion_de_domicilio__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Página web existente (Más de un año activa) </strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Pagina_web_existente__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <h3 class="slds-section-title--divider animated slideInLeft">EXPERIENCIA</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                            <template if:false={tipobooking}>
+                            <div class="slds-form__row">
+                               <!-- <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>EC ha trabajado con el proveedor</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_C_ha_trabajado_con_el_proveedor__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>-->
+
+
+                            </div>
+                            </template>
+                            <template if:false={tipobooking}>
+                            <div class="slds-form__row">
+                                <!--<div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>¿Cuantos clientes de EC han traido al proveedor?</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Cuantos_clientes_de_EC_han_traido__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>-->
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>¿Numero de veces que hemos trabajo?</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Numero_de_veces_que_hemos_trabajo__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>¿Que monto nos ha facturado el proveedor?</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Que_montonoshafacturado_el_proveedor__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                            </template>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Proveedores sustitutos</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Proveedores_sustitutos__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Presencia en otras ciudades / regiones</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Presencia_en_otras_ciudades_regiones__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Líderes en venta de este activo</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_L_deres_en_venta_de_este_activo__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Años de garantía del activo</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_A_os_de_garant_a_del_activo__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Servicio post venta</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Servicio_post_venta__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> 
+
+                    <h3 class="slds-section-title--divider animated slideInLeft">SAT</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                            <div class="slds-form__row">
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Validación de RFC ante el SAT</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Validaci_n_de_RFC_ante_el_SAT__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Opinión positiva del SAT</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="Opini_n_positiva_del_SAT__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Revisión de facturas origen</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Revision_de_facturas_origen__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <h3 class="slds-section-title--divider animated slideInLeft">MERCADO</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-form slds-p-around--medium slds-m-bottom--x-small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_12-of-12  " role="list">
+                            <div class="slds-form__row">
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Se encuentra en "Quién es quién"</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_quien_es_quien__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Se encuentra en "Google Search"</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Se_encuentra_en_Google_Search__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                        <label class="slds-form-element__label"><strong>Se encuentra correcto en el BIL</strong></label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><lightning-input-field field-name="TKD_Se_encuentra_correcto_en_el_BIL__c" variant="label-hidden"></lightning-input-field></div>
+                                        </div> 
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                <div style="text-align: center;">
+                    <lightning-button class="slds-m-top_small slds-m-right_x-large" variant="brand" type="submit" name="save" label="Save"></lightning-button>
+                    <lightning-button class="slds-m-top_small" variant="brand" type="reset" name="cancel" label="Cancel" onclick={clearEditMode}></lightning-button>
+                </div>    
+            </lightning-record-edit-form>
+        </template>
+    </template>
+</template>

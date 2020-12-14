@@ -1,0 +1,25 @@
+Dear {!TBO018_Pricing__c.Opportunity_Owner__c} ,
+
+The pricing that you submitted for approval has been {!TBO018_Pricing__c.TBO018_tx_Pricing_Status__c}.
+
+
+This approval belongs to:
+
+Account details:
+{!TBO018_Pricing__c.Account_Name__c}
+
+
+Deal parameters:
+Product: {!TBO018_Pricing__c.TBO018_tx_Product__c} 
+ROI %: {!TBO018_Pricing__c.TBO018_pr_Economic_ROI__c}
+Book yield: {!TBO018_Pricing__c.TBO018_pr_Book_Yield__c}
+
+Pricing information:
+Pricing ID: {!TBO018_Pricing__c.Name} 
+Description: {!TBO018_Pricing__c.TBO018_tx_Description__c}
+
+{!TBO018_Pricing__c.Link}
+
+Thank you,
+
+Digital Marketing – Engenium Capital.

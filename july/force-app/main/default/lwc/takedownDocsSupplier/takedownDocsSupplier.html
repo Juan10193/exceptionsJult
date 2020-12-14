@@ -1,0 +1,41 @@
+<!--
+  @File Name          : takedownDocsSupplier.html
+  @Description        : 
+  @Author             : Merari Contreras
+  @Group              : 
+  @Last Modified By   : juandedios.hernandez@engeniumcapital.com
+  @Last Modified On   : 2/12/2019 10:35:41
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    11/4/2019   Merari Contreras     Initial Version
+-->
+<template>
+  <template if:true={docshowModal}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+      aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <!-- modal body start -->
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+          <template if:true={isProgressing}>
+            <lightning-progress-bar value={progress}></lightning-progress-bar>
+            <div class="slds-text-align--center slds-text-title" style="color:forestgreen;">
+              {computedLabel}
+            </div>
+          </template>
+         
+          <lightning-card title="Documents Suppliers" icon-name="doctype:folder">
+            <div class="slds-m-around_medium">
+              <iframe width="100%" height="800" src={urlContent}></iframe>
+            </div>
+          </lightning-card>
+        </div>
+        <!-- modal footer start-->
+        <footer class="slds-modal__footer">
+          <button class="slds-button slds-button_neutral" onclick={closeModal}>
+            Close
+          </button>
+        </footer>
+      </div>
+    </section>
+  </template>
+</template>

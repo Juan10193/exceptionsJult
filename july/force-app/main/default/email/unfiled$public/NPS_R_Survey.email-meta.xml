@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>NPS-R Survey</name>
+    <style>freeForm</style>
+    <subject>¿Tienes 5 minutos? Nos encantaría conocer tu opinión</subject>
+    <textOnly>Apreciable {!Contact.FirstName}:
+
+Gracias por permitirnos ser parte del crecimiento de {!Account.Name}.
+
+Nos encantaría respondieras esta breve encuestra para enfocarnos en los aspectos más importantes para ti.
+
+En agradecimiento por tu tiempo y comentarios, recibirás un certificado de regalo digital por $500 pesos de la tienda en línea de Gandhi (www.gandhi.com.mx)
+
+Para entrar a la encuesta, da clic aquí
+
+Atentamente,
+
+Engenium Capital | Customer Success.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,142 @@
+<apex:page lightningStylesheets="true"  controller="EIV_EntitiesSearchClass" docType="HTML-5.0"  >
+    <apex:form >        
+        <apex:tabPanel switchType="client" selectedTab="TAB1" id="theTabPanel">
+            <apex:tab label="SEARCH ENTITIES" name="TAB1" id="tabOne">
+                <apex:pageBlock title="Search Entities" rendered="{!searchEntity}"> 
+                    <apex:pageBlockSection columns="1" title="Search">
+                        <apex:inputText value="{!searchString}" label="Search Entity from RFC or Name"/> 
+                        <apex:commandButton value="Search records" action="{!searchEntity}"/> 
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:pageBlock title="Entities">
+                    <apex:pageMessages id="showmsg"></apex:pageMessages> 
+                    <apex:pageblockTable value="{!entities}" var="a"> 
+                        <apex:column headerValue="Oracle Account Name">
+                            <apex:outputLink value="/apex/{!a.vfSNameRead}?PartyId={!a.Party_Id}&AccountId={!a.Account_ID}&AccountName={!a.SF_Account_Name}&TopParentID={!a.Top_Parent_ID}&TopParentName={!a.Top_Parent_Name}" id="linkaccountId">{!a.Oracle_Account_Name}</apex:outputLink>
+                        </apex:column>                       
+                        <apex:column headerValue="Oracle Account Number">
+                            <apex:outputText value="{!a.Oracle_Account_Number}"/>
+                        </apex:column>                  
+                        <apex:column headerValue="RFC">
+                            <apex:outputText value="{!a.RFC}"/>
+                        </apex:column>
+                        <apex:column headerValue="Party Id">
+                            <apex:outputText value="{!a.Party_Id}"/>
+                        </apex:column>                
+                        <apex:column headerValue="Top Parent Name">
+                            <apex:outputLink value="/{!a.Top_Parent_Id}" id="linkTopParentId">{!a.Top_Parent_Name}</apex:outputLink>
+                        </apex:column>                  
+                        <apex:column headerValue="Customer Type">
+                            <apex:outputText value="{!a.Customer_Type}"/>
+                        </apex:column>
+                    </apex:pageblockTable> 
+                </apex:pageBlock>                         
+            </apex:tab>
+            <apex:tab label="SEARCH REQUESTS" name="TAB2" id="tabTwo">
+                <apex:pageBlock title="Search Request" rendered="true"> 
+                    <apex:pageBlockSection columns="2" title="SearchReqParams">
+                        <apex:inputText value="{!searchAssignedGroup}" label="Assigned To (Group)"/> 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Request Type"/>
+                            <apex:selectList size="1" id="Request_Type" style="width: 173px" value="{!searchRequestType}">
+                                <apex:selectoption itemLabel="" itemValue=""></apex:selectoption>
+                                <apex:selectoption itemLabel="KYC ORGANIZATION" itemValue="KYC ORGANIZATION"></apex:selectoption>
+                                <apex:selectoption itemLabel="CREDIT BUREAU" itemValue="CREDIT BUREAU"></apex:selectoption>
+                                <apex:selectoption itemLabel="NDA" itemValue="NDA"></apex:selectoption>
+                                <apex:selectoption itemLabel="EVAL" itemValue="EVAL"></apex:selectoption>
+                                <apex:selectoption itemLabel="INSURANCE" itemValue="INSURANCE"></apex:selectoption>
+                                <apex:selectoption itemLabel="RAPID TAG" itemValue="RAPID TAG"></apex:selectoption>
+                                <apex:selectoption itemLabel="AML HITS CRR" itemValue="AML HITS CRR"></apex:selectoption>
+                                <apex:selectoption itemLabel="LEGAL ASSESSMENT" itemValue="LEGAL ASSESSMENT"></apex:selectoption>   
+                                <apex:selectoption itemLabel="KYC INDIVIDUAL" itemValue="KYC INDIVIDUAL"></apex:selectoption>                                
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>                        
+                        
+                        <apex:inputText value="{!searchAssignedTo}" label="Assigned To (SSO)"/>
+                        <apex:inputText value="{!searchNameAssignedTo}" label="Assigned To (person)"/>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Request Status"/>
+                            <apex:selectList size="1" id="Request_Type" style="width: 173px" value="{!searchRequestStatus}">
+                                <apex:selectoption itemLabel="" itemValue=""></apex:selectoption>
+                                <apex:selectoption itemLabel="NEW" itemValue="NEW"></apex:selectoption> 
+                                <apex:selectoption itemLabel="PENDING" itemValue="PENDING"></apex:selectoption>
+                                <apex:selectoption itemLabel="IN PROCESS" itemValue="IN PROCESS"></apex:selectoption>
+                                <apex:selectoption itemLabel="ON HOLD" itemValue="ON HOLD"></apex:selectoption>
+                                <apex:selectoption itemLabel="REWORK" itemValue="REWORK"></apex:selectoption>
+                                <apex:selectoption itemLabel="REJECTED" itemValue="REJECTED"></apex:selectoption>
+                                <apex:selectoption itemLabel="PRE APPROVED" itemValue="PRE APPROVED"></apex:selectoption>
+                                <apex:selectoption itemLabel="APPROVED" itemValue="APPROVED"></apex:selectoption>
+                                <apex:selectoption itemLabel="AUTO APPROVED" itemValue="AUTO APPROVED"></apex:selectoption>
+                                <apex:selectoption itemLabel="CANCELLED BY REQUESTOR" itemValue="CANCELLED BY REQUESTOR"></apex:selectoption>
+                                <apex:selectoption itemLabel="WAITING FOR CUSTOMER" itemValue="WAITING FOR CUSTOMER"></apex:selectoption>
+                                
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:input type="date" value="{!searchStartDate}" label="Request Start Date"/> 
+                        <apex:inputText value="{!searchRequestedBy}" label="Request By (SSO)"/> 
+                        <apex:input type="date" value="{!searchEndDate}" label="Request End Date"/> 
+                        <apex:inputText value="{!searchPartyName}" label="Oracle Account Name"/> 
+                        <apex:inputText value="{!searchSourceTopParentName}" label="Top Parent Name"/> 
+                        <apex:inputText value="{!searchSourceAccountName}" label="Opportunity Name"/>
+                        <apex:inputText value="{!searchEgPartyName}" label="Economic Group"/> 
+                        <apex:inputText value="{!searchRequestId}" label="Request ID"/> 
+                        
+                        <apex:commandButton value="Search records" action="{!searchRequest}"/> 
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:pageBlock title="Requests">
+                    <apex:pageMessages id="showmsgReq"></apex:pageMessages> 
+                    <apex:pageblockTable value="{!requestList}" var="a"> 
+                        
+                        <apex:column headerValue="Request Type">
+                            <!--<apex:outputLink value="/apex/ES2_ReadPage_AML?PartyId={!a.Party_Id}&AccountId={!a.Account_ID}&AccountName={!a.SF_Account_Name}&TopParentID={!a.Top_Parent_ID}&TopParentName={!a.Top_Parent_Name}" id="linkaccountId">{!a.pOutRequestType}</apex:outputLink>-->
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='KYC ORGANIZATION',true,false)}"  value="/apex/ES2_ReadPage_KWYPersonaMoral?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkKYCMoralId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='CREDIT BUREAU',true,false)}"  value="/apex/ES2_ReadPage_CREDIT_BUREAU?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkCreditBureauId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='NDA',true,false)}"  value="/apex/ES2_ReadPage_NDA?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkNDAId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='EVAL',true,false)}"  value="/apex/ES4_ReadPage_EVAL?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkEVALId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='INSURANCE',true,false)}"  value="/apex/ES4_ReadPage_INSURANCE?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkINSURANCEId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='LEGAL ASSESSMENT' && a.pOutndaType=='Moral',true,false)}"  value="/apex/ES5_ReadPage_Legal_Assessment_PM?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkLEGALMoral">{!a.pOutRequestType} MORAL</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='LEGAL ASSESSMENT' && a.pOutndaType=='Extranjera',true,false)}"  value="/apex/ES5_ReadPage_Legal_Assessment_PME?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkLEGALExtranjera">{!a.pOutRequestType} EXTRANJERA</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='LEGAL ASSESSMENT' && a.pOutndaType=='Fisica',true,false)}"  value="/apex/ES5_ReadPage_Legal_Assessment_PF?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkLEGALFisica">{!a.pOutRequestType} FISICA</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='RAPID TAG',true,false)}"  value="/apex/ES4_ReadPage_RAPID_TAG?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkRAPIDId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='AML HITS CRR',true,false)}"  value="/apex/ES2_ReadPage_AML?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkAMLId">{!a.pOutRequestType}</apex:outputLink>
+                            <apex:outputLink rendered="{!IF(a.pOutRequestType=='KYC INDIVIDUAL',true,false)}"  value="/apex/ES2_ReadPage_KWYPersonaFisica?requestId={!a.pOutRequestId}&sso={!sSSO}" id="linkKYCFisicaId">{!a.pOutRequestType}</apex:outputLink>
+                        </apex:column>                       
+                        
+                      
+                        <apex:column headerValue="Request Status">
+                            <apex:outputText value="{!a.pOutRequestStatus}"/>
+                        </apex:column>
+                        <apex:column headerValue="Oracle Account Name">
+                            <apex:outputText value="{!a.pOutPartyName}"/>
+                        </apex:column>
+                        <apex:column headerValue="Request Id">
+                            <apex:outputText value="{!a.pOutRequestId}"/>
+                        </apex:column>
+                        <apex:column headerValue="Created By">
+                            <apex:outputText value="{!a.nameCreatedBy}"/>
+                        </apex:column>
+                        <apex:column headerValue="Requested By">
+                            <apex:outputText value="{!a.nameRequestedBy}"/>
+                        </apex:column>
+                        <apex:column headerValue="Assigned Group">
+                            <apex:outputText value="{!a.pOutAssignedGroup}"/>
+                        </apex:column>                       
+                        <apex:column headerValue="Assigned To">
+                            <apex:outputText value="{!a.nameAssignedTo}"/>
+                        </apex:column>
+                        <apex:column headerValue="Creation Date">
+                            <apex:outputText value="{!a.pOutCreationDate}"/>
+                        </apex:column>
+                        
+                        
+                    </apex:pageblockTable> 
+                </apex:pageBlock>                         
+            
+            
+            </apex:tab>
+        </apex:tabPanel>           
+    </apex:form>
+</apex:page>

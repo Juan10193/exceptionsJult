@@ -1,0 +1,58 @@
+<!--
+  @File Name          : superTrumpSelectedPQ.html
+  @Description        : 
+  @Author             : eduardo.villegas@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 21/10/2019 16:56:58
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    13/9/2019   eduardo.villegas@engeniumcapital.com     Initial Version
+-->
+<template>
+    <lightning-card title="Select Pricing booking">
+        <div class="slds-form slds-form_stacked slds-m-around_xx-small animated fadeInRight">
+
+            <!--<lightning-input type="checkbox" label="Is mutli entry lookup" checked={isMultiEntry}
+                onchange={handleLookupTypeChange}></lightning-input>-->
+
+
+            <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="5" padding="around-small">
+                        <lightning-card variant="Narrow" title="CreditApproval" icon-name="standard:account">
+                        </lightning-card>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="2" padding="around-small">
+                        <div class="custom-box slds-box slds-p-around_medium slds-text-align_center"> VS </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="5" padding="around-small">
+                        <!--<lightning-card>-->
+
+                        <lightning-layout>
+                            <lightning-layout-item flexibility="auto" padding="around-small">
+                                <img src={STIcon} />
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" padding="around-small">
+                                <p class="slds-p-horizontal_small">Pricing Booking:</p>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" padding="around-small">
+
+                                <c-lookup selection={initialSelection} errors={errors} onsearch={handleSearch}
+                                    onselectionchange={handleSelectionChange} label="Search"
+                                    placeholder="Search PricingBooking" is-multi-entry={isMultiEntry}>
+                                </c-lookup>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" padding="around-small">
+                                <lightning-button variant="brand" label="Save" onclick={handleSubmit}>
+                                </lightning-button>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <!--  </lightning-card> -->
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </div>
+    </lightning-card>
+
+</template>

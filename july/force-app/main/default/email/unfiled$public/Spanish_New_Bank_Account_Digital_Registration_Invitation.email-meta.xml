@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead_General</letterhead>
+    <name>Spanish - New Bank Account Digital Registration Invitation</name>
+    <style>freeForm</style>
+    <subject>Completa el registro de alta de la nueva cuenta bancaria de, {!Entity_CP__c.Name}</subject>
+    <textOnly>Hola, {!Entity_CP__c.Registration_Contact_First_Name__c}:
+
+Estás recibiendo este correo, como parte del proceso de alta de, {!Entity_CP__c.Name}, como proveedor de Engenium Capital.
+
+El proceso es fácil y rápido, y te guiaremos durante cada paso. Si tienes dudas, no dudes en contactarnos por Whatsapp al número: 55-3717-9208 (horario de 8:00am a 5:30pm, de lunes a viernes)
+
+En la etapa final, será necesario adjuntes:
+
+La carátula del estado de cuenta en donde recibirás el pago
+Tu RFC (si eres proveedor nacional) / &quot;Tax ID&quot; (para extranjeros)
+
+
+Nuestro sistema solo acepta formatos JPG, JPGE o PNG, existen plataformas gratuitas en línea que te pueden convertir PDF a JPG.
+
+Toma en cuenta que en esta plataforma digital llenarás la solicitud, pero el proceso termina cuando recibes nuestro correo de confirmación.
+
+¡Sigamos construyendo juntos grandes negocios!
+
+Da clic aquí para iniciar tu proceso de registro
+
+Atentamente,
+
+Supplier Success - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

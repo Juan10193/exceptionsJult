@@ -1,0 +1,60 @@
+<apex:page controller="TBO007_cvf_CreateAccountPlan">
+    <apex:sectionHeader title="Edit Account Plan" subtitle="New Account Plan"/>
+    <apex:form >
+        <apex:pageBlock title="Account Plan">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!btnSave}"/>
+                <apex:commandButton value="Cancel" action="{!btnCancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:PageBlockSection title="Account Information" id="Account">
+                <apex:inputField value="{!account.ACC_tx_Commercial_Name__c}"/>
+                <apex:inputField value="{!account.ACC_dv_Sales_Annual_Revenue__c}"/>
+                <apex:inputField value="{!account.ACC_tx_OR_rating__c}"/>
+                <apex:inputField value="{!account.ACC_un_Total_Exposure__c}"/>
+                <apex:inputField value="{!account.ACC_un_Capex_Exposure__c}"/>
+                <apex:inputField value="{!account.ACC_un_Technology_Exposure__c}"/>
+                <apex:inputField value="{!account.ACC_un_Fleet_Exposure__c}"/>
+                <apex:inputField value="{!account.ACC_un_Real_Estate_Exposure__c}"/>
+                <apex:inputField value="{!account.ACC_rb_SIC_Code__c}"/>
+                <apex:inputField value="{!account.ACC_fm_SIC_Code_Description__c}"/>
+                <apex:inputField value="{!account.Website}"/>
+                <apex:inputField value="{!account.BillingStreet}"/>
+                <apex:inputField value="{!account.BillingCity}"/>
+                <apex:inputField value="{!account.BillingState}"/>
+                <apex:inputField value="{!account.BillingPostalCode}"/>
+                <apex:inputField value="{!account.BillingCountry}"/>
+                <apex:inputField value="{!account.ParentId}"/>
+                <apex:inputField value="{!account.ACC_fh_Last_Touched_date__c}"/>
+                <apex:inputField value="{!account.ACC_ls_Holding_Company_Country__c}"/>
+                <apex:inputField value="{!account.ACC_ls_Entity_Type__c}"/>
+            </apex:PageBlockSection>
+            <apex:PageBlockSection title="Contact Information" id="Contact">
+                <apex:inputField value="{!contact.FirstName}"/>
+                <apex:inputField value="{!contact.LastName}"/>
+                <apex:inputField value="{!contact.CON_ls_Tittle__c}"/>
+                <apex:inputField value="{!contact.CON_ls_Type__c}"/>
+                <apex:inputField value="{!contact.Email}"/>
+                <apex:inputField value="{!contact.Phone}"/>
+            </apex:PageBlockSection>
+            <apex:PageBlockSection title="Information" columns="2">
+                <apex:inputField value="{!accountPlan.TBO007_rb_Account__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_un_Total_Facility_Size__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_un_Debt_EBITDA__c}" required="true"/>
+                <apex:inputField value="{!accountPlan.TBO007_un_Expected_Volume_CapEx__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_at_Current_Lender_s__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_un_Expected_Volume_Real_Estate__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_at_Type_of_Facility_of_Current__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_un_Expected_Volume_TF__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_tl_Current_Facts_relationship__c}" required="true"/>
+                <apex:inputField value="{!accountPlan.TBO007_un_Expected_Volume_Fleet__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_tl_Key_Business_Challenges_Needs__c}" required="true"/>
+                <apex:inputField value="{!accountPlan.TBO007_fh_Target_Close_Date__c}" required="true"/>
+                <apex:inputField value="{!accountPlan.TBO007_tl_Potential_Business__c}" required="true"/>
+                <apex:inputField value="{!accountPlan.TB007_fh_Facility_Maturity_Date__c}"/>
+                <apex:inputField value="{!accountPlan.TBO007_tl_Action_Plan__c}" required="true"/>
+                <apex:inputField value="{!accountPlan.CurrencyIsoCode}"/>
+            </apex:PageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

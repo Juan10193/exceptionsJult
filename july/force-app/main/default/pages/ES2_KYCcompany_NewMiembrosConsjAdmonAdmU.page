@@ -1,0 +1,72 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaMoral">
+    <apex:form id="frm">
+        <script>
+     function validar(){
+    	var alerts=[];
+    	var nombre = document.getElementById('{!$Component.frm.pb.pbs.pbsi1.kycOrgBizManagerName}').value;
+        var puesto =  document.getElementById('{!$Component.frm.pb.pbs.pbsi2.kycOrgBizManagerTitle}').value;
+        var rfc = document.getElementById('{!$Component.frm.pb.pbs.pbsi3.kycOrgBizManagerRFC}').value; 
+         //var per =  document.getElementById('{!$Component.frm.pb.pbs.pbsi4.kycOrgPartnerIndPorcent}').value; 
+        
+    	if(nombre ==""){
+        	var validarNombre ='Porfavor Introdusca el Nombre del Administrador Único del Cliente\n';
+            alerts.push(validarNombre);
+        }
+         
+       if(puesto==""){
+       		var validarpuesto = 'Porfavor Itrodusca el Puesto o Cargo en el Consejo y/o en la empresa\n';
+            alerts.push(validarpuesto);
+       }
+         
+       if(rfc ==""){
+           var validarRfc= "Porfavor Introdusca el RFC\n";
+           alerts.push(validarRfc);
+       }
+         
+         /*if(per ==""){
+      	 var validarPer = "Porfavor Introdusca El Porcentaje de Participación\n";
+          alerts.push(validarPer);
+      }*/
+         
+         if(alerts.length >0){
+                strAlert= alerts.toString()
+                //quitar comillas del texto
+                strAlert =strAlert.replace(/,/g,"") 
+                alert(strAlert)
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+     } 
+    
+    </script>
+
+        <apex:pageBlock id="pb" title="Miembros actuales del Consejo de Administración o Administrador Único del Cliente">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection id="pbs">
+                <apex:pageBlockSectionItem id="pbsi1">
+                    <apex:outputLabel value="Nombre del Administrador Único del Cliente" for="kycOrgBizManagerName"/>
+                    <apex:inputText id="kycOrgBizManagerName" value="{!sAdmin.pOutKYCOrgBizManagerName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi2">
+                    <apex:outputLabel value="Puesto o Cargo en el Consejo y/o en la empresa" for="kycOrgBizManagerTitle"/>
+                    <apex:inputText id="kycOrgBizManagerTitle" value="{!sAdmin.pOutKYCOrgBizManagerTitle}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pbsi3">
+                    <apex:outputLabel value="RFC (para mexicanos) o Número de identificación fiscal (para extranjeros)" for="kycOrgBizManagerRFC"/>
+                    <apex:inputText id="kycOrgBizManagerRFC" value="{!sAdmin.pOutKYCOrgBizManagerRFC}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:outputPanel ></apex:outputPanel>
+                <apex:outputPanel style="float:center" >
+                <apex:commandButton value="Save" action="{!savePMAdmins}" onclick="return validar();" style="float:center; width:120px"  /> 
+            	<apex:commandButton value="Cancel" action="{!CancelTable}" style="float:center; width:120px"/>
+                </apex:outputPanel>
+                <apex:outputPanel ></apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,40 @@
+<aura:component controller="ES3_controller_ColsingMemo" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes" access="global" >
+  	<ltng:require styles="{!$Resource.closingMemo}"/>
+
+    <!-- attributes -->
+    <aura:attribute name="DataExposure" type="Object"/>
+    <aura:attribute name="isRecordTypeWK" type="Boolean" default="false"/>
+    <aura:attribute name="nameCA" type="String"/> 
+    <aura:attribute name="EGId" type="String"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="recordTypeId" type="String" default="{! $RecordType.Id}"/>
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>    
+	<!-- diseño de la tabla Exposure -->    
+     <aura:if isTrue="{!v.isRecordTypeWK}"> 
+         <div class="col-md-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4 class="card-title"><strong>Exposure</strong></h4>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <!-- /.card-tools -->
+              </div>
+              <!-- /.card-header class="table table-bordered table-striped" -->
+              <div class="card-body">
+                <lightning:datatable class="tabExp"
+                columns="{! v.columns }"
+                data="{! v.DataExposure }"
+                keyField="con.id"
+                onrowselection="{! c.updateSelectedText }"
+                hideCheckboxColumn="true"/>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>  
+     </aura:if>                   
+    <!-- /.diseño de la tabla Exposure-->       
+</aura:component>

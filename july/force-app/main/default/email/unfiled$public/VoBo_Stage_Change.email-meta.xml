@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>VoBo Stage Changed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>VoBo Stage Change</name>
+    <style>formalLetter</style>
+    <subject>{!Insurance_VoBo__c.Name} for customer {!Insurance_VoBo__c.Customer__c} has changed to stage {!Insurance_VoBo__c.Stage__c}</subject>
+    <textOnly>Dear {!Insurance_VoBo__c.OwnerFullName},
+You are receiving this notification because {!Insurance_VoBo__c.Name} for customer {!Insurance_VoBo__c.Customer__c} has changed to stage {!Insurance_VoBo__c.Stage__c}.
+
+Requestor: {!Insurance_VoBo__c.OwnerFullName}
+Insurance VoBo: {!Insurance_VoBo__c.Name}
+Takedown CP: {!Insurance_VoBo__c.Takedown_CP__c}
+Insurance Type: {!Insurance_VoBo__c.Insurance_Type__c}
+Requestor Comments: {!Insurance_VoBo__c.Requestor_Comments__c}
+
+
+If you want to see the waiver record in Salesforce, click here.
+
+Regards,
+
+Digital Marketing</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

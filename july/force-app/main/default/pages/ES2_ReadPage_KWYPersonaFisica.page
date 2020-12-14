@@ -1,0 +1,715 @@
+<apex:page lightningStylesheets="true" controller="ES2_Controller_KWYPersonaFisica" >
+<apex:slds />
+    <apex:form id="frm">
+        <script>
+        window.addEventListener("load", function() {  
+            doctipp();
+
+        });
+
+        function openDocum(docId) {
+            console.log('idee----' + docId);
+            var requestId ='{!req.pOutRequestId}' //document.getElementById('{!$Component.frm.j_id3.j_id41.j_id63.Request_Id}').innerHTML;
+            console.log('requestId' +  requestId);
+            
+            Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.ES2_Controller_KWYPersonaFisica.downloadDoctos}',
+            docId, requestId, 
+            function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+
+        }
+
+        function subirDoc(DocTypesObj, requestId, partyId, pOutEGPartyName, sso){
+             Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.ES2_Controller_KWYPersonaFisica.newdocument}',
+            DocTypesObj, requestId, partyId, pOutEGPartyName, sso,
+            function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+        }
+
+        function borrardoc(requestIdDoc,oraId,docUrl,docType,docId,nameDoc,requestId) {
+           var confirma = confirm('Are you sure to delete this document?');
+           if(confirma==true){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ES2_Controller_KWYPersonaFisica.deleteDocument}',
+            requestIdDoc,oraId,docUrl,docType,docId,nameDoc,requestId,
+                function(result, event){
+                        if (event.status) {
+                            if(result!='Error'){
+                              refresh();
+                            }
+                        }
+                    },{escape: true}
+                );
+            }
+        }
+
+        </script>
+        <apex:actionFunction name="doctipp" action="{!doctypesList}" rerender="{!doctiposString}">
+        </apex:actionFunction>
+        
+        <apex:actionFunction name="refresh" action="{!recarga}">
+        </apex:actionFunction>
+       
+        <apex:pageBlock title="KYC Persona Fisica">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+             <div style="width:800px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton style="width: 100px;" value="Send" action="{!send}" rendered="{!sendbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Accept" action="{!accept}" rendered="{!aceptbtn}"  />
+                <apex:commandButton style="width: 100px;" value="Reject" action="{!reject}" rendered="{!rejbtn}"/>
+                <apex:commandButton style="width: 220px;" value="Send to Customer" action="{!sendToCustomer}" rendered="{!senddTocustomer}"/>
+                <!--<apex:commandButton style="width: 100px;" value="Rework" action="{!rework}"/>-->
+                <apex:commandButton style="width: 220px;" value="Complete By Customer" action="{!completedByCustomer}" rendered="{!completedByC}" />
+                <apex:commandButton style="width: 100px;" value="Approve" action="{!approve}" rendered="{!aprbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Cancel" action="{!cancel}" rendered="{!cancelbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Back to Entity" action="{!backToEntity}" rendered="{!btentitybtn}"/>
+                <apex:commandButton style="width: 100px;" action="{!editKYCPF}" value="Edit" rendered="{!editbtn}"/>
+                 <apex:commandButton style="width: 100px;" action="{!printPDF}" value="Send PDF" rendered="{!editbtn}"/>
+            </div>
+            <br/>
+            <!--------------------------------------------------------------------------------------------------------------------->  
+                        <apex:pageBlockSection columns="2" title="General Information"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (SSO)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem>  
+                
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By User Name" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.nameAssignedTo}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="Request_Id"/>
+                    <apex:outputText id="Request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            <apex:pageBlock title="Customer Prospect Portal (Person)" id="pb">
+                <br/>
+                <p align="center" style="text-align: justify">
+                    <strong>FORMATO DE CONOCIMIENTO DEL CLIENTE PARA PERSONAS FÍSICAS (FIADORES / GARANTES/ PROPIETARIOS REALES)</strong> 
+                </p>
+                
+                <p>
+                    Engenium Capital ha implementado una política que requiere mantener expedientes completos y actualizados de nuestros clientes. Por tal motivo y en cumplimiento de dicha política, es importante que nos ayude a mantener su información al día en el presente Formato, conforme a lo siguiente: 
+                </p>
+                <p>
+                    1.  <strong>Llene</strong> debidamente el formato (para facilitar el llenado, podrá guardar el documento en su computadora). En caso de ser necesario, adjunte la documentación adicional correspondiente.<br/>
+                    2.  Una vez llenado, <strogn>imprima</strogn> el formato y <strong>firme</strong> en los espacios correspondientes.<br/>
+                    3.  <strong>Entregar</strong> los formatos debidamente llenados y firmados.<br/>
+                    4.  <strong>Favor de adjuntar</strong> a este formato la Documentación de cumplimiento Normativo, proporcione copia legible de los siguientes documentos:<br/>
+                    (i)  Identificación oficial vigente con fotografía y firma.<br/>
+                    (ii)  Comprobante de domicilio con una antigüedad no mayor a tres meses a su fecha de emisión. Puede ser comprobante de pago por impuesto predial o de derechos por suministro de agua, suministro de energía eléctrica, gas natural, telefonía (excepto telefonía celular), estado de cuenta bancario, contrato de arrendamiento vigente a la fecha de presentación por el Cliente y registrado ante la autoridad fiscal competente, constancia de residencia emitida por autoridad municipal o el comprobante de inscripción ante el Registro Federal de Contribuyentes.<br/>
+                    (iii) Poder e identificación oficial vigente con fotografía y firma del representante legal que suscriba el presente formato, en su caso.<br/>
+                    (iv) Anexar la relación patrimonial de bienes con información reciente, solicitar formato a su ejecutivo del área de Ventas.<br/>
+                </p>
+                <p style="text-align: justify">
+                    Para efectos del presente Formato de Conocimiento del Cliente para Personas Físicas (“Formato”), por Engenium Capital deberá entenderse: Engencap Holding, S. de R.L. de C.V.; Engencap Fin, S.A. de C.V., SOFOM, E.N.R.; y/o Engencap, S. de C.V., según corresponda a la entidad Legal con la que contrate el Cliente.
+                </p>
+                <apex:pageBlockSection title="Datos Generales" id="pbs">
+                    <apex:pageBlockSectionItem id="pbsi1">
+                        <apex:outputLabel value=" Nombre Completo (Nombres y Apellidos sin abreviaturas) " for="pOutKYCIndName"/>
+                        <apex:outputText id="pOutKYCIndName" value="{!req.kwypfObj.pOutKYCIndName}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi2">
+                        <apex:outputLabel value="Fecha de nacimiento (DD/MM/AAAA)" for="pOutKYCIndGDBirthDate"/>
+                        <apex:outputText id="pOutKYCIndGDBirthDate" value="{!req.kwypfObj.datosObj.BirthDate}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi3">
+                        <apex:outputLabel value="RFC (con homoclave)" for="pOutKYCIndGDRFC"/>
+                        <apex:outputText id="pOutKYCIndGDRFC" value="{!req.kwypfObj.datosObj.GDRFC}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi4">
+                        <apex:outputLabel value="CURP (cuando cuente con ella)" for="pOutKYCIndGDCURP"/>
+                        <apex:outputText id="pOutKYCIndGDCURP" value="{!req.kwypfObj.datosObj.GDCURP}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi5">
+                        <apex:outputLabel value="Nacionalidad (en caso de contar con más de una señalar todas)" for="pOutKYCIndGDNacionalities"/>
+                        <apex:outputText id="pOutKYCIndGDNacionalities" value="{!req.kwypfObj.datosObj.GDNacionalities}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi6">
+                        <apex:outputLabel value="Número de serie de la Firma Electrónica Avanzada (cuando cuente con ella)" for="pOutKYCIndGDFEASerialNo"/>
+                        <apex:outputText id="pOutKYCIndGDFEASerialNo" value="{!req.kwypfObj.datosObj.GDFEASerialNo}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi7">
+                        <apex:outputLabel value="País de nacimiento" for="pOutKYCIndGDBirthCountry"/>
+                        <apex:outputText id="pOutKYCIndGDBirthCountry" value="{!req.kwypfObj.datosObj.GDBirthCountry}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi8">
+                        <apex:outputLabel value="Entidad federativa de nacimiento" for="pOutKYCIndGDBirthState"/>
+                        <apex:outputText id="pOutKYCIndGDBirthState" value="{!req.kwypfObj.datosObj.GDBirthState}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Sexo"/>
+                        <apex:outputText id="pOutKYCIndGDSex" value="{!req.kwypfObj.datosObj.GDSex}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Estado Civil"/>
+                        <apex:outputText id="pOutKYCIndGDMarriageStatus" value="{!req.kwypfObj.datosObj.GDMarriageStatus}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Si es casado"/>
+                        <apex:outputText id="pOutKYCIndGDMarriageRegime" value="{!req.kwypfObj.datosObj.GDMarriageRegime}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi13">
+                        <apex:outputLabel value="Nombre del cónyuge y dependientes económicos" for="pOutKYCIndGDNameOfSpouse"/>
+                        <apex:outputText id="pOutKYCIndGDNameOfSpouse" value="{!req.kwypfObj.datosObj.GDNameOfSpouse}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Domicilio particular de residencia" id="pbs2">
+                    <apex:pageBlockSectionItem id="pbsi14">
+                        <apex:outputLabel value="Calle" for="pOutKYCIndAdrStreet"/>
+                        <apex:outputText id="pOutKYCIndAdrStreet" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrStreet}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi15">
+                        <apex:outputLabel value="Número exterior" for="pOutKYCIndAdrOutNum"/>
+                        <apex:outputText id="pOutKYCIndAdrOutNum" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrOutNum}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi16">
+                        <apex:outputLabel value="Número interior" for="pOutKYCIndAdrIntNum"/>
+                        <apex:outputText id="pOutKYCIndAdrIntNum" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrIntNum}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi17">
+                        <apex:outputLabel value="Colonia / Urbanización" for="pOutKYCIndAdrCounty"/>
+                        <apex:outputText id="pOutKYCIndAdrCounty" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrCounty}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi18">
+                        <apex:outputLabel value="Alcaldía / Municipio" for="pOutKYCIndAdrMunicipality"/>
+                        <apex:outputText id="pOutKYCIndAdrMunicipality" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrMunicipality}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi19">
+                        <apex:outputLabel value="Ciudad" for="pOutKYCIndAdrCity"/>
+                        <apex:outputText id="pOutKYCIndAdrCity" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrCity}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi20">
+                        <apex:outputLabel value="Estado" for="pOutKYCIndAdrState"/>
+                        <apex:outputText id="pOutKYCIndAdrState" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrState}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi21">
+                        <apex:outputLabel value="País" for="pOutKYCIndAdrCountry"/>
+                        <apex:outputText id="pOutKYCIndAdrCountry" value="{!req.kwypfObj.dominioObj.pOutKYCIndAdrCountry}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi211">
+                        <apex:outputLabel value="C.P" for="pOutKYCIndIntAdrZipCode"/>
+                        <apex:outputText id="pOutKYCIndIntAdrZipCode" value="{!req.kwypfObj.dominioObj.pOutKYCIndIntAdrZipCode}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Datos generales de su empleo u ocupación principal" id="pbs3">
+                    <apex:pageBlockSectionItem id="pbsi22">
+                        <apex:outputLabel value="Profesión u ocupación" for="pOutKYCIndBizTitle"/>
+                        <apex:outputText id="pOutKYCIndBizTitle" value="{!req.kwypfObj.datosgObj.pOutKYCIndBizTitle}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi23">
+                        <apex:outputLabel value="a) En caso de mantener vínculos patrimoniales con sociedades o asociaciones, mencionar la denominación o razón social" for="pOutKYCIndBizRelatedPaties"/>
+                        <apex:outputText id="pOutKYCIndBizRelatedPaties" value="{!req.kwypfObj.datosgObj.pOutKYCIndBizRelatedPaties}" />
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>
+                <apex:pageBlockSection id="pbs4" title="Personas Políticamente Expuestas (PPE) o Persona Políticamente Expuesta por Asimilación (PPE por asimilación)" columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="a) ¿Es usted PPE? "/>
+                        <apex:outputText id="pOutKYCIndPPEFlag" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEFlag}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi26">
+                        <apex:outputLabel value="En caso afirmativo señale el puesto (Ejemplo, presidente de la República, secretario o Subsecretario de Estado, Senador, diputado, Gobernador, Presidente Municipal, Magistrado, etc.)" for="PPEIYP"/>
+                        <apex:outputText id="pOutKYCIndPPEJob" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEJob}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi27">
+                        <apex:outputLabel value="b)  ¿Es usted PPE por asimilación?"/>
+                        <apex:outputText id="pOutKYCIndPPEAFlag" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEAFlag}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi28">
+                        <apex:outputLabel value="En caso afirmativo señale lo siguiente:"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi29">
+                        <apex:outputLabel value="Nombre de la PPE" for="pOutKYCIndPPEAName"/>
+                        <apex:outputText id="pOutKYCIndPPEAName" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEAName}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi30">
+                        <apex:outputLabel value=" Parentesco" for="pOutKYCIndPPEARelationship"/>
+                        <apex:outputText id="pOutKYCIndPPEARelationship" value="{!req.kwypfObj.ppeObj.pOutKYCIndPPEARelationship}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                    <!-- <apex:pageBlockSection id="pbs5" title="Origin of resources / resource provider / Real Owner" columns="1">
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="En caso de no actuar por cuenta propia deberá proporcionar lo datos solicitados del Proveedor de Recursos en el siguiente recuadro:"/>
+<apex:selectCheckboxes disabled="true" ></apex:selectCheckboxes>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi31">
+<apex:outputLabel value="If there is a Resource Provider, please include the following information:"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+<!--
+<apex:pageBlockSectionItem id="pbsi32">
+<apex:outputLabel value="Name, Reason or Social denomination" for="ORRRNAME"/>
+<apex:outputText id="ORRRNAME"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi33">
+<apex:outputLabel value="Nationality / Place of Constitution" for="ORRNC"/>
+<apex:outputText id="ORRNC"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi34">
+<apex:outputLabel value="RFC (Only for Mexicans) or Date of Birth" for="ORRRFCB"/>
+<apex:outputText id="ORRRFCB"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi35">
+<apex:outputLabel value="Domicilie" for="ORRDOM"/>
+<apex:outputText id="ORRDOM"/>
+</apex:pageBlockSectionItem>  
+<apex:pageBlockSectionItem >
+<apex:commandButton value="ADD"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem> -->
+                    <!--
+<apex:pageBlockSectionItem id="pbsi36">
+<apex:outputLabel value="I manifest under protest to tell the truth that I do not have a Real Owner of resources"/>
+<apex:selectCheckboxes disabled="true" ></apex:selectCheckboxes>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi37">
+<apex:outputLabel value="If there is a Real Owner, please include the following information:"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+<!--<apex:pageBlockSectionItem id="pbsi38">
+<apex:outputLabel value="Social denomination" for="ORRSD"/>
+<apex:outputText id="ORRSD"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi39">
+<apex:outputLabel value="Nationality / Place of constitution" for="ORRNPC"/>
+<apex:outputText id="ORRNPC"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi40">
+<apex:outputLabel value="RFC (Only for Mexicans) or Date of Birth" for="ORRRFBRO"/>
+<apex:outputText id="ORRRFBRO"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi41">
+<apex:outputLabel value="Domicile" for="ORRDOM"/>
+<apex:outputText id="ORRDOM"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:commandButton value="ADD"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem>-->
+                    <!-- <apex:pageBlockSectionItem id="pbsi42">
+<table border="1" cellspacing="0" width="100%">
+<tr>
+<th>Action</th>
+<th> Name, Reason or Social denomination</th>
+<th>Nationality / Place of Constitution</th>
+<th> RFC (Only for Mexicans) or Date of Birth</th>
+<th>Domicilie</th>
+<th> </th>
+</tr>
+<tr>
+<td><button>
+Delete
+</button></td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><button>
+View
+</button></td>
+</tr>
+</table>
+</apex:pageBlockSectionItem> -->
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Confidencialidad" columns="1"> 
+                    <p style="text-align: justify">
+                        Engenium Capital reitera su compromiso de mantener toda  la  información  proporcionada  mediante  el  presente  Formato en cumplimiento a todas y cada una de las obligaciones de  confidencialidad  aplicables  conforme  a  la legislación  de  los  Estados Unidos Mexicanos y conforme a los contratos, acuerdos y convenios que en esta materia se  han celebrado entre el Garante, la persona moral cuyas obligaciones ha garantizado y Engenium Capital, incluyendo a todas sus subsidiarias, filiales y partes relacionadas. 
+                    </p>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Aviso de Privacidad respecto del tratamiento de Datos Personales" columns="1">
+                    <p style="text-align: justify">
+                        Sus datos personales están seguros en Engenium Capital. En los términos de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y su reglamento, Engenium Capital (así como entidades filiales y subsidiarias), con domicilio en Antonio Dovalí Jaime No. 70, Torre C, Piso 5° Col. Santa Fe, 01210, México, D.F. utilizará sus datos personales aquí recabados con la 
+                        finalidad de analizarlos y evaluarlos para ofrecerle cualquiera de nuestros productos y servicios financieros, cumplir con nuestros términos y condiciones en la prestación de nuestros productos y servicios, para el análisis de riesgo en la contratación de los mismos y en general, para hacer de su conocimiento los servicios que ofrece Engenium Capital. Mediante su contestación a este correo entenderemos que acepta y reconoce expresamente que sus datos personales, incluidos aquellos catalogados como sensibles, 
+                        financieros y patrimoniales podrán ser tratados, transmitidos y verificados para dichos efectos por Engenium Capital, así como por terceros autorizados proveedores de servicios. Para mayor información acerca del tratamiento y de los derechos que puede hacer valer, usted puede acceder al aviso de privacidad completo a través de nuestra página de internet <a href="www.engeniumcapital.com" target="blank">www.engeniumcapital.com</a> 
+                    </p>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title=" Origen de los Recursos / Proveedor de Recursos / Propietario Real" columns="1">
+                    <p>
+                        Origen de los Recursos: El “Cliente” declara que está actuando por cuenta propia y no a cuenta de un tercero y que el origen de los recursos con que hará frente a las Obligaciones contraídas con Engenium Capital, provienen de fuentes lícitas, producto de la actividad principal que desempeña conforme a lo declarado en el apartado 4 de este Formato. 
+                    </p>
+                    <p>
+                        Proveedor de Recursos: Se define como aquella persona (física o moral) que sin ser titular de un contrato celebrado con Engenium Capital, aporta recursos de manera regular para el cumplimiento de las obligaciones derivadas de dicho contrato sin obtener los beneficios económicos derivados de este.
+                    </p>
+                    <p>
+                        En caso de no actuar por cuenta propia deberá proporcionar lo datos solicitados del Proveedor de Recursos en el siguiente recuadro: 
+                    </p>
+                    
+                    <apex:pageBlock title="Recursos" >
+                        <div style="width: 130px;margin-left: auto;margin-right: auto;">
+                            <apex:commandButton value="New"  action="{!newKYCPFrovider}" rendered="{!Ncombtn}" />
+                        </div>
+                        <apex:pageBlockTable value="{!req.kwypfObj.provedorObj}" var="add" align="center" >
+                            <apex:column >
+                                <apex:facet name="header"><apex:outputText escape="false" value="Action"/></apex:facet>
+                                <apex:commandLink value="Delete" action="{!deleteProvider}" styleClass="btn" style="color:red;text-decoration:none;font:black" > 
+                                    <apex:param name="regId"  	value="{!add.kycIndResId}" assignTo="{!idReg}"/> 
+                                </apex:commandLink>                
+                            </apex:column>                        
+                            <apex:column value="{!add.pOutKYCIndResLegalName}" >
+                                <apex:facet name="header" >
+                                    <apex:outputText escape="false" value="Nombre, Razón o <br/> Denominación Social"></apex:outputText>
+                                    
+                                </apex:facet>
+                            </apex:column>
+                            
+                            <apex:column value="{!add.pOutKYCIndResCountry}" >
+                                <apex:facet name="header" >
+                                    <apex:outputText escape="false" value="Nacionalidad / Lugar <br/> de constitución"></apex:outputText>
+                                </apex:facet>	
+                            </apex:column>
+                            <apex:column value="{!add.pOutKYCIndResRFC}">
+                                <apex:facet name="header" >
+                                    <apex:outputText escape="false" value="RFC (Sólo para mexicanos) <br/> y Fecha de Nacimiento"></apex:outputText>
+                                </apex:facet>
+                            </apex:column>    
+                            <apex:column headerValue="Domicilio" value="{!add.pOutKYCIndResAddress}" />
+                            <apex:column value="{!add.pOutKYCIndResFEASerialNo}">
+                                <apex:facet name="header" >
+                                    <apex:outputText escape="false" value="NÚMERO DE SERIE DE LA <br/> FIRMA ELECTRÓNICA AVANZADA"></apex:outputText>
+                                </apex:facet>	
+                            </apex:column>    
+                            <!--<apex:column headerValue="NÚMERO DE SERIE DE LA FIRMA ELECTRÓNICA AVANZADA" />-->
+                            
+                            
+                        </apex:pageBlockTable>   
+                    </apex:pageBlock>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="El presente Formato es suscrito por:" id="pbs6">
+                    <apex:pageBlockSectionItem id="pbsi43">
+                        <apex:outputLabel value="Nombre" for="pOutKYCIndSignName"/>
+                        <apex:outputText id="pOutKYCIndSignName" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignName}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi44">
+                        <apex:outputLabel value="Por mi propio Derecho"/>
+                        <apex:outputText id="pOutKYCIndSignFlag" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignFlag}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi45">
+                        <apex:outputLabel value="En calidad de apoderado conforme a la escritura pública"/>
+                        <apex:outputText id="pOutKYCIndSignPowerFlag" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignPowerFlag}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi46">
+                        <apex:outputLabel value="Número" for="pOutKYCIndSignPublicDeedNum"/>
+                        <apex:outputText id="pOutKYCIndSignPublicDeedNum" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignPublicDeedNum}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi47">
+                        <apex:outputLabel value="de fecha" for="pOutKYCIndSignPublicDeedDate"/>
+                        <apex:outputText id="pOutKYCIndSignPublicDeedDate" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignPublicDeedDate}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi48">
+                        <apex:outputLabel value="Otorgada ante el Licenciado" for="pOutKYCIndSignNotaryName"/>
+                        <apex:outputText id="pOutKYCIndSignNotaryName" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignNotaryName}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi49">
+                        <apex:outputLabel value="Notario Público número " for="pOutKYCIndSignNotaryNum"/>
+                        <apex:outputText id="pOutKYCIndSignNotaryNum" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignNotaryNum}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi50">
+                        <apex:outputLabel value="de la Ciudad de " for="pOutKYCIndSignNotaryState"/>
+                        <apex:outputText id="pOutKYCIndSignNotaryState" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignNotaryState}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi51">
+                        <apex:outputLabel value="Mediante la firma del presente Formato, el suscrito reconoce y declara bajo protesta de decir verdad que los datos antes mencionados son correctos, veraces y exactos.  Asimismo, el suscrito declara que los datos se encuentran actualizados hasta el día" for="pOutKYCIndSignDateDay"/>
+                        <apex:outputText id="pOutKYCIndSignDateDay" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignDateDay}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi52">
+                        <apex:outputLabel value="del mes de" for="pOutKYCIndSignDateMonth"/>
+                        <apex:outputText id="pOutKYCIndSignDateMonth" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignDateMonth}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pbsi53">
+                        <apex:outputLabel value="de 20" for="pOutKYCIndSignDateYear"/>
+                        <apex:outputText id="pOutKYCIndSignDateYear" value="{!req.kwypfObj.suscritoObj.pOutKYCIndSignDateYear}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <!-- <apex:pageBlockSection id="pbs7" title="Authorization to request Credit Reports">
+<apex:pageBlockSectionItem id="pbsi54">
+<apex:outputLabel value="Authorization for:"/>
+<apex:selectRadio disabled="true" >
+<apex:selectOption itemValue="Physical Person (PF)" itemLabel="Physical Person (PF)"/>
+<apex:selectOption itemValue="Physical Person with Business Activity (PFAE)" itemLabel="Physical Person with Business Activity (PFAE)" />
+<apex:selectOption itemValue="Moral Person (PM)" itemLabel="Moral Person (PM)" />
+</apex:selectRadio>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi55">
+<apex:outputLabel value="Applicant name" for="ANameFormat"/>
+<apex:outputText id="ANameFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi56">
+<apex:outputLabel value="RFC or CURP" for="RFCCURPFORMAT"/>
+<apex:outputText id="RFCCURPFORMAT"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi57">
+<apex:outputLabel value="Domicilie" for="DomicilieFormat"/>
+<apex:outputText id="DomicilieFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi58">
+<apex:outputLabel value="County" for="CountyFormat"/>
+<apex:outputText id="CountyFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi59">
+<apex:outputLabel value="Municipality" for="MunicipalityFormat"/>
+<apex:outputText id="MunicipalityFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi60">
+<apex:outputLabel value="State" for="StateFormat"/>
+<apex:outputText id="StateFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi61">
+<apex:outputLabel value="Zip Code" for="ZCFormat"/>
+<apex:outputText id="ZCFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi62">
+<apex:outputLabel value="Phone(s)" for="PhoneFormat"/>
+<apex:outputText id="PhoneFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi63">
+<apex:outputLabel value="In the case of Moral, name of the Legal Representative" for="IMLRFormat"/>
+<apex:outputText id="IMLRFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi64">
+<apex:outputLabel value="Date the authorization is signed" for="DASFormat"/>
+<apex:outputText id="DASFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi65">
+<apex:outputLabel value="Place where the authorization is signed" for="PWASFormat"/>
+<apex:outputText id="PWASFormat"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi66">
+<apex:outputLabel value="Name of the official that collecting the authorization" for="NOCAFormat"/>
+<apex:outputText id="NOCAFormat"/>
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+<apex:pageBlockSection title="For the exclusive use of the Company that makes the Consultation" id="pbs8">
+<apex:pageBlockSectionItem id="pbsi67">
+<apex:outputLabel value="Date of Consultation BC" for="DCBCFCC"/>
+<apex:outputText id="DCBCFCC"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem id="pbsi68">
+<apex:outputLabel value="Consultation Folium BC" for="CFBCCC"/>
+<apex:outputText id="CFBCCC"/>
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection> -->
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlock title="Comments" >
+                
+                <div style="width: 150px;margin-left: auto;margin-right: auto;">
+                    <apex:commandButton value="New Comment" action="{!newcoment}" rendered="{!Ncombtn}" />
+                </div>
+                <apex:pageBlockTable value="{!req.comentarios}" var="add" align="Center" >                 
+                    <apex:column value="{!add.pOutComCreationDate}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Date Time"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.pOutComCreatedBy}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="User"></apex:outputText>
+                        </apex:facet>	
+                    </apex:column>
+                    <apex:column value="{!add.comNameCreatedBy}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="User Name"></apex:outputText>
+                        </apex:facet>	
+                    </apex:column>
+                    <apex:column value="{!add.pOutComComment}">
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Comment"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable>   
+            </apex:pageBlock>
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlock title="Documents" >
+            
+
+            <div id ="mazacuata" style="width:150px;margin-left: auto;margin-right: auto;">  
+                <apex:commandButton value="New Document" onclick="subirDoc('{!doctiposString}','{!req.pOutRequestId}','{!req.pOutPartyId}','{!OracleAccountName}','{!sSSO}');return false;" />
+            </div>
+                <div id="mazacuata2">
+                 <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+            <apex:pageBlockTable value="{!req.documentos}" var="add" align="center">
+               <apex:column >
+                    <apex:facet name="header">Delete</apex:facet>
+                    
+                    <span onclick="borrardoc('{!add.requestId}','{!add.oraId}','{!add.pOutDocURL}','{!add.pOutDocType}','{!add.pOutDocId}','{!add.pOutDocName}','{!req.pOutRequestId}')"  class="slds-icon_container slds-icon_container_circle slds-icon-action-delete" title="Delete" rendered="{!IF(Ndocbtn && add.pOutCreatedBy == sSSo,true,false )}">
+                        <svg class="slds-icon" aria-hidden="true">
+                            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#delete')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Click to Delete Document</span>
+                    </span>
+                  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Download</apex:facet>
+                   <span  class="slds-icon_container slds-icon_container_circle slds-icon-action-download" title="Download" onclick="openDocum('{!add.pOutDocId}');">
+                        <svg class="slds-icon" aria-hidden="true">
+                            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#download')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Click to Download Document</span>
+                        </span>
+                                
+                </apex:column>      
+               
+                <apex:column value="{!add.pOutDocId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="DocId"></apex:outputText>
+                    </apex:facet>
+                </apex:column>         
+                <apex:column value="{!add.requestId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="requestId"></apex:outputText>
+                    </apex:facet>
+                </apex:column> 
+                <apex:column value="{!add.partyId}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="partyId"></apex:outputText>
+                    </apex:facet>
+                </apex:column> 
+                
+                     
+                <apex:column value="{!add.pOutCreationDate}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Creation Date"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutDocName}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Name"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.pOutDocType}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document Type"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!add.pOutDocURL}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document Url"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+               
+                <apex:column value="{!add.pOutDocStatus}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document Status"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!add.pOutDocEndDate}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Document End Date"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable>
+             </html>
+                </div>
+               
+        </apex:pageBlock>
+        
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlock title="Change log" >
+                <apex:pageBlockTable value="{!req.audits}" var="add" align="center" >                     
+                    <apex:column value="{!add.pOutAuditLastUpdateDate}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Date Time"></apex:outputText>
+                            
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column value="{!add.pOutAuditUpdatedBy}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="User"></apex:outputText>
+                        </apex:facet>	
+                    </apex:column>
+                    <apex:column value="{!add.auditNameUpdatedBy}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="User Name"></apex:outputText>
+                        </apex:facet>	
+                    </apex:column>
+                    <apex:column value="{!add.pOutAuditComment}">
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Action"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable>   
+            </apex:pageBlock>
+            <div align="center" draggable="false">
+                <apex:commandButton value="Back to Entity" action="{!backToEntity}" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,152 @@
+<aura:component controller="ES3_DocSInRequestCalloutClass" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="response" type="Map" />
+    <aura:attribute name="ListaDocs" type="string[]" />
+    <aura:attribute name="urlServer" type="string" />
+    <aura:attribute name="slash" type="string" default="/"/>
+    <aura:attribute name="urlServerExt" type="string" />
+    <aura:attribute name="urlAppDoctos" type="string" />
+    <aura:attribute name="EncriptationType" type="string" />
+    <aura:attribute name="KeyEncriptation" type="string" />
+    <aura:attribute name ="instanceUri" type="string"/>
+    <aura:attribute name="errores" type="string" />
+    <aura:attribute name ="oportunitys" type="Opportunity_in_Credit_approval_CP__c[]"/>
+    <aura:attribute name ="tiposdeDoc" type="Credit_approval_CP__c"/>
+    <aura:attribute name="boltabla" type="boolean"/>
+    <aura:attribute name="userProfile" type="string"/>
+    <aura:attribute name="sso" type="string"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.warnDc}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.gInstanceUrl}"/> 
+  <aura:handler name="init" value="{!this}" action="{!c.gurlServ}" />
+  <aura:handler name="init" value="{!this}" action="{!c.gurlServExt}" />
+  <aura:handler name="init" value="{!this}" action="{!c.gurlAppD}" />
+  <aura:handler name="init" value="{!this}" action="{!c.getEncriptationType}" />
+  <aura:handler name="init" value="{!this}" action="{!c.getEncriptationKey}" />
+    <aura:handler name="init" value="{!this}" action="{!c.getOps}" />
+    <aura:handler name="init" value="{!this}" action="{!c.getDoctypes}" />
+    <aura:handler name="init" value="{!this}" action="{!c.gUserProfile}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.gsso}"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="sObjectName" type="String" />
+    
+
+    <div class="slds-m-around--medium">
+        <!--header-->
+        <div class="slds-page-header" role="banner">
+            <div class="slds-media__body">
+                <p class="slds-page-header__title slds-truncate" title="Documentos">Documents in Credit Approval</p>
+                <lightning:button variant="brand" label="View Documents" onclick="{!c.toggle}" />
+                 <!--<lightning:button variant="brand" label="View Docs Ops in CP" onclick="{!c.toggle2}" />-->
+            </div>
+        </div>
+        <!--Header part close-->
+       
+        <div class="slds-scrollable_x" style="height: auto; width: auto;">
+            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <thead aura:id="tabla" class="hide">
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Delete">Delete</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Download">Download</div>
+                        </th>
+                       
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Document Type">Document Type</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Creation Date">Creation Date</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Created By">Created By</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="End Date">End Date</div>
+                        </th>
+                         <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Opportunity Id">Opportunity Id</div>
+                        </th>
+                    </tr>
+                </thead>
+                 <aura:if isTrue="{!v.boltabla ==true}">
+                <tbody>
+
+                    
+                    <aura:iteration aura:id="hector" items="{!v.ListaDocs}" var="docLst" indexVar="idx">
+                        <tr class="slds-hint-parent tabla">
+                            <th data-label="Delete" scope="row">
+                                 <aura:if isTrue="{!docLst.createdBy == v.sso || v.userProfile =='System Administrator' || v.userProfile =='Administrador del sistema' || v.userProfile =='Administrator' || v.userProfile=='Administrador' }">
+                                <div class="slds-truncate" title="Delete" >
+                                    <lightning:icon size="small" iconName="action:delete" title="Delete"  alternativeText="{!idx}"  onclick="{!c.deleteDoc}" class="manito"
+                                    />
+                                    <!--<lightning:input value="{!'sourceAccountName' + idx}"/>-->
+                                </div>
+                                </aura:if>
+                            </th>
+                            <th data-label="Download" scope="row">
+                                <div class="slds-truncate" title="Download">
+                                    <lightning:icon iconName="action:download" size="small" title="Download" alternativeText="{!docLst.contentDocId}" onclick="{!c.descDoc}" class="manito" />
+                                </div>
+                            </th>
+                           
+                            <td data-label="Document Type">
+                                <div class="slds-truncate" title="{!docLst.type}">{!docLst.type}</div>
+                            </td>
+                            <td data-label="Creation Date">
+                                <div class="slds-truncate" title="{!docLst.startDate}">{!docLst.startDate}</div>
+                            </td>
+                            <td data-label="Created By">
+                                <div class="slds-truncate" title="{!docLst.nameCreatedBy}">{!docLst.nameCreatedBy}</div>
+                            </td>
+                            <td data-label="Name">
+                                <div class="slds-truncate" title="{!docLst.name}">{!docLst.name}</div>
+                            </td>
+                
+                            <td data-label="End Date">
+                                <div class="slds-truncate" title="{!docLst.endDate}">{!docLst.endDate}</div>
+                            </td>
+
+                            <td data-label="Opportunity Id">
+                                
+                                <div class="slds-truncate" title="{!docLst.sourceOpId}"><a href="{!v.instanceUri + docLst.sourceOpId + '/view'}"  tabindex="0">{!docLst.sourceOpId}</a></div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+                </aura:if>
+            </table>
+        </div>
+        
+        <div class="slds-page-header" role="banner">
+            <div class="slds-media__body">
+                <p class="slds-page-header__title slds-truncate" title="Upload">Upload Documents</p>
+                <br/>
+                <lightning:button variant="brand" label="Upload Documents" onclick="{!c.upload}" />
+                <div class="slds-form-element">
+  <label class="slds-form-element__label" for="select-01">Select Oportunity</label>
+  <div class="slds-form-element__control">
+    <div class="slds-select_container">
+      <select class="slds-select" id="slectlists" name="aaaa">
+        <option value="">Please select</option>
+          <aura:iteration  items="{!v.oportunitys}" var="oplist" indexVar="idx">
+        <option value="{!oplist.Id}">{!oplist.ES3_fm_Opportunity_Name__c}</option>
+        </aura:iteration>
+      </select>
+    </div>
+  </div>
+</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</aura:component>

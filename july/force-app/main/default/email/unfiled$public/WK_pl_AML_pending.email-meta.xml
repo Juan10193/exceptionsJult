@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>WK_pl_AML_pending</name>
+    <style>freeForm</style>
+    <subject>Credit Approval &quot;{!Credit_approval_CP__c.Name}&quot; has been submitted for your approval</subject>
+    <textOnly>Dear Approver,
+You are receiving this notification because the Credit Approval
+{!Credit_approval_CP__c.Name}, has been submitted for your approval.
+
+Customer: {!Credit_approval_CP__c.CPL_rb_account__c}
+Approval Amount: {!Credit_approval_CP__c.ES3_fm_Total_Opportunities_USD__c}
+Type of credit approval Workout: {!Credit_approval_CP__c.Type_of_credit_approval_Workout__c}
+Exposure: {!Credit_approval_CP__c.Exposure__c}
+Exposure  + Approval Amount:{!Credit_approval_CP__c.CPL_fm_Opportunities_Exposure__c}
+
+If you want to see the record in Salesforce, click here.
+
+Regards,
+Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

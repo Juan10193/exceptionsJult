@@ -1,0 +1,349 @@
+<apex:page lightningStylesheets="true" controller="ES5_Controller_LA_Apoderados" docType="html-5.0">
+    
+    
+    <apex:form id="form1">
+        <script>
+            function getRemoteAccount(){
+                if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_De_Dom.SelectList_Act_De_Dom}').value == "R"){
+                    GeneraCampMandatorios();
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Tip_De_Cre.SelectList_Tip_De_Cre}').value == "R"){
+                    GeneraCampMandatorios();    
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_Adm.SelectList_Act_Adm}').value == "R"){
+                    GeneraCampMandatorios();   
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Ple_Y_cob.pleitoscobra}').value == "R"){
+                    GeneraCampMandatorios();    
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_De_Dom.SelectList_Act_De_Dom}').value != "R" 
+                   && document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Tip_De_Cre.SelectList_Tip_De_Cre}').value != "R"
+                   && document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_Adm.SelectList_Act_Adm}').value != "R" 
+                   && document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Ple_Y_cob.pleitoscobra}').value != "R"){
+                    DesactivaCampMandatorios();    
+                }
+                
+            }
+            function GeneraCampMandatorios(){
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Nom_Esc_Rev.OutputLabel_Nom_Esc_Rev}').innerHTML = "Nombre escritura revocada*";
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Fech_Rev.OutputLabel_Fech_Rev}').innerHTML = "Fecha revocada*";
+            }
+            function DesactivaCampMandatorios(){
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Nom_Esc_Rev.OutputLabel_Nom_Esc_Rev}').innerHTML = "Nombre escritura revocada";
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Fech_Rev.OutputLabel_Fech_Rev}').innerHTML = "Fecha revocada";
+            }
+            
+    
+        </script>
+            <apex:pageBlock title="Apoderados" id="PageBlock_Apoderados">
+            
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information" id="PageBlockSection_Gen_Inf"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Entity Information" id="PageBlockSection_Ent_Inf"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Entidad" for="Entidad"/>
+                    <apex:outputText id="Entidad" value="{!req.LAH.pOutEntidad}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Número de Cuenta" for="no_cuenta"/>
+                    <apex:outputText id="no_cuenta" value="{!req.LAH.pOutNoCuenta}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nacionalidad" for="Nacionalidad"/>
+                    <apex:outputText id="Nacionalidad" value="{!req.LAH.pOutnacionalidad}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Tipo de Entidad" for="EntityTipo"/>
+                    <apex:outputText id="EntityTipo" value="{!req.LAH.pOutEntidadtype}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC/TIN" for="RFC"/>
+                    <apex:outputText id="RFC" value="{!req.LAH.pOutRFC}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Grupo Económico" for="Grupo_Economico"/>
+                    <apex:outputText id="Grupo_Economico" value="{!req.LAH.pOutEConomicgroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            
+            <apex:pageBlockSection columns="2" title="Apoderados" id="PageBlockSection_Apoderados">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Vigencia Id" for="vigid"/>
+                    <apex:input type="date" id="vigid"  value="{!laAvigid}"/>
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Escritura No." for="Escriturano"/>
+                    <apex:inputText id="Escriturano" value="{!APO.laAEscrituraNum}"/> 
+                </apex:pageBlockSectionItem>
+                <!--si-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nombre del facultado*" for="nomfac" />
+                    <apex:inputText id="nomfac" value="{!APO.laANombreFacultado}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="*Fecha" for="Fecha"/>
+                    <apex:input type="date" id="RFecha"  value="{!laAFecha}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha Registro" for="ReFecha"/>
+                    <apex:input type="date" id="ReFecha"  value="{!laAFechaRegistro}"/>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="PageBlockSectionItem_Act_De_Dom">
+                    <apex:outputLabel for="actosdomin">Actos de Dominio</apex:outputLabel>
+                    <apex:selectList size="1" id="SelectList_Act_De_Dom" style="width: 173px" value="{!APO.laAActosDominio}" onchange="HideFields();">
+                        <apex:selectOption itemLabel="SI" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="REVOCADO" itemValue="R"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="PageBlockSectionItem_Tip_De_Cre" rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Títulos de Crédito" for="tiposcred"/>
+                    <apex:selectList size="1" id="SelectList_Tip_De_Cre" style="width: 173px" value="{!APO.laATitulosCredito}" onchange="HideFields();">
+                        <apex:selectOption itemLabel="SI" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="REVOCADO" itemValue="R"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="PageBlockSectionItem_Act_Adm" rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Actos de Administración" for="actosadminst"/>
+                    <apex:selectList size="1" id="SelectList_Act_Adm" style="width: 173px" value="{!APO.laAActosAdministrativos}" onchange="HideFields();">
+                        <apex:selectOption itemLabel="SI" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="REVOCADO" itemValue="R"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="PageBlockSectionItem_Ple_Y_cob" rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Pleitos y Cobranza" for="pleitoscobra"/>
+                    <apex:selectList size="1" id="pleitoscobra" style="width: 173px" value="{!APO.laAPleitosCobranza}" onchange="HideFields();">
+                        <apex:selectOption itemLabel="SI" itemValue="Y"> </apex:selectOption>
+                        <apex:selectOption itemLabel="NO" itemValue="N"> </apex:selectOption>
+                        <apex:selectOption itemLabel="REVOCADO" itemValue="R"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="I-M" for="I-M"/>
+                    <apex:selectList size="1" id="I-M" style="width: 173px" value="{!APO.laAIndMan}">
+                        <apex:selectOption itemLabel="INDIVIDUAL" itemValue="IND"> </apex:selectOption>
+                        <apex:selectOption itemLabel="MANCOMUNADO" itemValue="MANC"> </apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                
+                
+                <!--si x4-->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fedatario Público" for="FedatarioPublico"/>
+                    <apex:inputText id="FedatarioPublico" value="{!APO.laAFedatarioPublico}"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Lugar de Registro" for="LugarRegistro"/>
+                    <apex:inputText id="LugarRegistro" value="{!APO.laALugarRegistro}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Datos de Registro" for="DatosRegistro"/>
+                    <apex:inputText id="DatosRegistro" value="{!APO.laADatosRegistro}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Ocupación" for="Ocupacion"/>
+                    <apex:inputText id="Ocupacion" value="{!APO.laAOcupacion}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Fecha Nacimiento" for="FechaNacimiento"/>
+                    <apex:input type="date" id="FechaNacimiento"  value="{!laAFechaNacimiento}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="PBS41" rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                        <apex:outputLabel value="Nacionalidad"/>
+                        <c:AutoCompleteV2 id="Nacionalidad"
+                                          allowClear="true" 
+                                          importJquery="true"
+                                          syncManualEntry="false"
+                                          labelField="ES5_tx_nombre_pais__c" 
+                                          SObject="ES5_obj_catalogo_pais__c" 
+                                          valueField="Id" 
+                                          targetField="{!Nac}" 
+                                          style="width:321px;"
+                                          /> 
+                    </apex:pageBlockSectionItem> 
+                
+                <!--<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nacionalidad" for="Nacionalidad"/>
+                    <apex:inputText id="Nacionalidad" value="{!APO.laANacionalidad}"/> 
+                </apex:pageBlockSectionItem>-->
+                <!-- -->
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Domicilio" for="Domicilio"/>
+                    <apex:inputText id="Domicilio" value="{!APO.laADomicilio}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="P. Especial" for="PEspecial"/>
+                    <apex:inputTextarea rows="3" id="PEspecial" value="{!APO.laAPEspecial}"/>
+                    <!--<apex:inputText id="PEspecial" value="{!APO.laAPEspecial}"/> -->
+                </apex:pageBlockSectionItem>
+                <!--
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="P. Otros" for="POtros"/>
+                    <apex:inputTextarea rows="3" id="POtros" value="{!APO.laAPOtros}"/>
+                </apex:pageBlockSectionItem> 
+                -->
+                <apex:pageBlockSectionItem rendered="{!IF(Tipo_detalle == 'A' || Tipo_detalle == 'T',true,false)}">
+                    <apex:outputLabel value="Observaciones" for="Observaciones"/>
+                    <apex:inputTextarea rows="3" id="Observaciones" value="{!APO.laAObservaciones}"/>
+                    <!--<apex:inputText id="Observaciones" value="{!APO.laAObservaciones}"/> -->
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->
+            
+            <apex:pageBlockSection columns="2" title="Revocados" id="PageBlockSection_Revocados" rendered="{!IF(APO.laAActosAdministrativos == 'R' || Tipo_detalle == 'T',true,false)}">
+                
+                <!-- -->
+                <apex:pageBlockSectionItem id="pageBlockSectionItem_Nom_Esc_Rev">
+                    <apex:outputLabel value="Nombre escritura revocada*" id="OutputLabel_Nom_Esc_Rev" for="nomrevoca"/>
+                    <apex:inputText id="nomrevoca" value="{!APO.laAEscrituraRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem_Fech_Rev">
+                    <apex:outputLabel value="Fecha revocada*" id="OutputLabel_Fech_Rev" for="Fecharevoca"/>
+                    <apex:input type="date" id="Fecharevoca"  value="{!laAFechaRevoca}"/>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="pageBlockSectionItem_lugar_revoca">
+                    <apex:outputLabel value="Lugar revocada" for="lugarrevoca"/>
+                    <apex:inputText id="lugarrevoca" value="{!APO.laALugarRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem_datos_revoca">
+                    <apex:outputLabel value="Datos de registro revocados" for="datosrevoca"/>
+                    <apex:inputText id="datosrevoca" value="{!APO.laADatosRegistroRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem_obs_revoca">
+                    <apex:outputLabel value="Observaciones" for="ObservacionesRevoca"/>
+                    <apex:inputText id="ObservacionesRevoca" value="{!APO.laAObservacionesRevoca}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+            </apex:pageBlockSection>
+            
+            <div style="width: 250px;margin-left: auto;margin-right: auto;" id="div">
+                <apex:commandButton style="width: 100px;" value="Save" action="{!Save}" rendered="{!editbtn}"/>
+                <apex:commandButton style="width: 115px;" value="Back to Entity" action="{!redirect_RP_Apoderados}" rendered="{!!IsBackToLegal}"/>
+                <apex:commandButton style="width: 115px;" value="Back to Legal" action="{!redirect_RP_LA}" rendered="{!IsBackToLegal}"/>                
+            </div>
+            
+        </apex:pageBlock> 
+        
+    </apex:form>
+    <script>
+    window.addEventListener("load", function() {  
+        
+        HideFields();
+        
+        });
+    
+    function HideFields(){
+        		if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_De_Dom.SelectList_Act_De_Dom}').value == "R" ||
+                   document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Tip_De_Cre.SelectList_Tip_De_Cre}').value == "R" ||
+                   document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_Adm.SelectList_Act_Adm}').value == "R" ||
+                   document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Ple_Y_cob.pleitoscobra}').value == "R"){
+                	document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados}').style.display = "block";
+                    console.log('Hola');
+                } else {
+                    document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados}').style.display = "none";
+                    
+                    document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Nom_Esc_Rev.nomrevoca}').value = "";
+                   document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Fech_Rev.Fecharevoca}').value = "";
+                   document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_lugar_revoca.lugarrevoca}').value = "";
+                   document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_datos_revoca.datosrevoca}').value = "";
+                    document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_obs_revoca.ObservacionesRevoca}').value = "";
+                }
+        }
+        		
+        /*//document.getElementById('{!$Component.F1.PB00.PBS40.PBS43s.ComponentVF}').style.display = "block";
+                if(document.getElementById('{!$Component.img_j_id0:form1:PageBlock_Apoderados:PageBlockSection_Revocados}').value == "R"){
+                    GeneraCampMandatorios();
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Tip_De_Cre.SelectList_Tip_De_Cre}').value == "R"){
+                    GeneraCampMandatorios();    
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_Adm.SelectList_Act_Adm}').value == "R"){
+                    GeneraCampMandatorios();   
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Ple_Y_cob.pleitoscobra}').value == "R"){
+                    GeneraCampMandatorios();    
+                } else if(document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_De_Dom.SelectList_Act_De_Dom}').value != "R" 
+                   && document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Tip_De_Cre.SelectList_Tip_De_Cre}').value != "R"
+                   && document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Act_Adm.SelectList_Act_Adm}').value != "R" 
+                   && document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Apoderados.PageBlockSectionItem_Ple_Y_cob.pleitoscobra}').value != "R"){
+                    DesactivaCampMandatorios();    
+                }
+                
+            }
+            function GeneraCampMandatorios(){
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Nom_Esc_Rev.OutputLabel_Nom_Esc_Rev}').innerHTML = "Nombre escritura revocada*";
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Fech_Rev.OutputLabel_Fech_Rev}').innerHTML = "Fecha revocada*";
+            }
+            function DesactivaCampMandatorios(){
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Nom_Esc_Rev.OutputLabel_Nom_Esc_Rev}').innerHTML = "Nombre escritura revocada";
+                document.getElementById('{!$Component.form1.PageBlock_Apoderados.PageBlockSection_Revocados.pageBlockSectionItem_Fech_Rev.OutputLabel_Fech_Rev}').innerHTML = "Fecha revocada";
+            }*/
+    </script>    
+</apex:page>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>New Lead - HTML</name>
+    <style>freeForm</style>
+    <subject>{!Lead.Company} has been created as a prospect</subject>
+    <textOnly>Dear user,
+
+A new prospect that requires your approval has been created. Please refer to the following details for your review:
+
+Company name: {!Lead.Company}
+Created on: {!Lead.CreatedDate}
+Created by: {!Lead.OwnerFullName}
+Manager: {!Lead.JR_F_Owner_Manager__c}
+
+
+To view the prospect record, please click in following link:
+{!Lead.Link}
+
+Regards,
+
+Digital Maketing - Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

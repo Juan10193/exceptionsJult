@@ -1,0 +1,82 @@
+<!-- apexWireMethodToProperty.html -->
+<template>
+    <lightning-record-view-form>
+        <article class="slds-card slds-align_absolute-center">
+            <div class="slds-card__body slds-card__body_inner">
+                <!-- Button group: simple buttons -->
+                <lightning-button-group>
+                    <template if:true={visibility}>
+                        <lightning-button label="Approve" icon-name="action:approval" variant="brand"
+                            data-action='Approve' onclick={abreModal}></lightning-button>
+                        <lightning-button label="Recall" data-action='Recall' icon-name="action:recall"
+                            onclick={abreModal}></lightning-button>
+                        <lightning-button label="Reject" data-action='Reject' variant="destructive"
+                            icon-name="action:delete" onclick={abreModal}></lightning-button>
+                    </template>
+                </lightning-button-group>
+                <template if:true={openmodal}>
+
+                    <c-modal-question onclose={closeModal} onaccept={saveMethod} close-button-name='Close'
+                        disable-close-button='true' title='Approval Process' accept-button-name="Save"
+                        init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'>
+                        <div slot="body">
+                            <lightning-card variant="Narrow" title={label} icon-name="standard:approval">
+                                <template if:true={isApproval}>
+                                    <template if:true={approvalValidations}>
+                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                            Can´t approve Please Check te checklist for this process stage
+                                            {takedownStage} for remain validations.
+                                        </div>
+                                    </template>
+                                    <template if:false={approvalValidations}>
+                                        <center>
+                                            <template if:true={isDocumentManagementUserPermission}>
+                                                <template if:true={isDocumentManagementStagePermission}>
+                                                    <lightning-combobox label="Visto bueno finanzas"
+                                                        value={TKD_ls_Visto_bueno_finanzasValue}
+                                                        placeholder="Select an option"
+                                                        options={TKD_ls_Visto_bueno_finanzasOptions}
+                                                        data-field="vistoBuenoFinanzas" 
+                                                        field-level-help="¿Es un visto bueno de documentos para finanzas?
+                                                        Este campo solo se llena por el equipo de Document Management para indicar que es
+                                                        Una aprobación con documentos o una aprobación con excepción"
+                                                        required>
+                                                    </lightning-combobox>
+                                                </template>
+                                            </template>
+                                            <lightning-textarea name="comments" onchange={captureComment}
+                                                placeholder="Reason for approval" label="Comments" maxlength="4000"
+                                                message-when-too-long="A maximum of 4000 characters are allowed .">
+                                            </lightning-textarea>
+                                        </center>
+                                    </template>
+                                </template>
+                                <template if:true={isRecall}>
+                                    <center>
+                                        <lightning-textarea name="comments" onchange={captureComment}
+                                            placeholder="Reason for approval" label="Comments" maxlength="4000"
+                                            message-when-too-long="A maximum of 4000 characters are allowed .">
+                                        </lightning-textarea>
+                                    </center>
+                                </template>
+                                <template if:true={isReject}>
+                                    <center>
+                                        <h2><b>Required reason for reject</b></h2><br />
+                                        <c-approval-rejects record-id={recordId} object-api-name={objectApiName}>
+                                        </c-approval-rejects>
+                                        <lightning-textarea name="comments" onchange={captureComment}
+                                            placeholder="Reason for approval" label="" maxlength="4000"
+                                            message-when-too-long="A maximum of 4000 characters are allowed .">
+                                        </lightning-textarea>
+                                    </center>
+                                </template>
+
+
+                            </lightning-card>
+                        </div>
+                    </c-modal-question>
+                </template>
+            </div>
+        </article>
+    </lightning-record-view-form>
+</template>

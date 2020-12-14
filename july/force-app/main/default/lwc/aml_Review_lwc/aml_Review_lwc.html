@@ -1,0 +1,80 @@
+<template>
+  <div style="margin-top: 5px"></div>
+  <div class="c-container">
+    <lightning-layout multiple-rows="true">
+      <lightning-layout-item padding="slds-m-horizontal_small" size="12">
+        <div class="page-section page-header">
+          <lightning-card>
+            <h3 slot="title">
+              <lightning-layout>
+                <lightning-icon icon-name="utility:copy_to_clipboard" size="small"></lightning-icon>
+                &nbsp;
+                <a href={recordCA} id="the_link" target="_blank"><lightning-formatted-text title={caName} value={caName}></lightning-formatted-text></a>
+                <p> - AML REVIEW</p>
+                </br></br></br>
+              </lightning-layout>
+            </h3>
+            <lightning-layout-item padding="slds-m-horizontal_small" size="12">
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-max-medium-table_stacked-horizontal">
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="Originator"
+                        style="text-align: center; border-style: solid; border-right: white; border: 3px">
+                        Originator
+                      </div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="ISC" style="text-align: center">ISC</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="Sr.UW" style="text-align: center">Sr.UW</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="Approval Level" style="text-align: center">
+                        Approval Level
+                      </div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="Economic Group" style="text-align: center">
+                        Economic Group
+                      </div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="estatus" style="text-align: center">
+                        Status
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="slds-hint-parent">
+                    <td data-label="Originator">
+                      <div class="slds-truncate" title={originator}>{originator}</div>
+                    </td>
+                    <td data-label="ISC">
+                      <div class="slds-truncate" title={isc}>{isc}</div>
+                    </td>
+                    <td data-label="Sr.UW">
+                      <div class="slds-truncate" title={srUW}>{srUW}</div>
+                    </td>
+                    <td data-label="Approval Level">
+                      <div class="slds-truncate" title={approvalLevel}>{approvalLevel}</div>
+                    </td>
+                    <td data-label="Economic Group">
+                      <div class="slds-truncate" title={economicGRoup}>{economicGRoup}</div>
+                    </td>
+                    <td data-label="Status">
+                      <div class="slds-truncate" title={stage}>{stage}</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </lightning-layout-item>
+          </lightning-card>
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+</template>

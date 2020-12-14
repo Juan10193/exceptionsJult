@@ -1,0 +1,620 @@
+<apex:page lightningStylesheets="true" controller="ES5_controller_LAPME">
+    <apex:slds />
+    <apex:form id="frm1">
+        <script>
+        window.addEventListener("load", function() {  
+            doctipp();
+            
+        });
+        
+        function openDocum(docId) {
+            console.log('idee----' + docId);
+            var requestId ='{!req.pOutRequestId}' //document.getElementById('{!$Component.frm.j_id3.j_id41.j_id63.Request_Id}').innerHTML;
+            console.log('requestId' +  requestId);
+            
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ES5_controller_LAPME.downloadDoctos}',
+                docId, requestId, 
+                function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+            
+        }
+        
+        function subirDoc(DocTypesObj, requestId, partyId, pOutEGPartyName, sso){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ES5_controller_LAPME.newdocument}',
+                DocTypesObj, requestId, partyId, pOutEGPartyName, sso,
+                function(result, event){
+                    if (event.status) {
+                        window.open(result);
+                    }
+                },{escape: true}
+            );
+        }
+        
+        function borrardoc(requestIdDoc,oraId,docUrl,docType,docId,nameDoc,requestId) {
+            var confirma = confirm('Are you sure to delete this document?');
+            if(confirma==true){
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ES5_controller_LAPME.deleteDocument}',
+                    requestIdDoc,oraId,docUrl,docType,docId,nameDoc,requestId,
+                    function(result, event){
+                        if (event.status) {
+                            if(result!='Error'){
+                                refresh();
+                            }
+                        }
+                    },{escape: true}
+                );
+            }
+        }
+        
+        </script>
+        <apex:actionFunction name="doctipp" action="{!doctypesList}" rerender="{!doctiposString}">
+        </apex:actionFunction>
+        
+    </apex:form>
+    
+    <apex:form id="F1">
+        <apex:pageBlock title="Legal Assessment-Persona Moral Extranjera" id="PB00">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            
+            <div style="width: 800px;margin-left: auto;margin-right: auto;" id="div">
+                <apex:commandButton style="width: 100px;" value="Send" rendered="{!sendbtn}" action="{!send}"/>
+                <apex:commandButton style="width: 100px;" value="Accept" action="{!accept}" rendered="{!aceptbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Edit" action="{!EditPME}" rendered="{!editbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Cancel" action="{!cancel}" rendered="{!cancelbtn}"/>
+                <apex:commandButton style="width: 100px;" value="Approve" rendered="{!aprbtn}" action="{!approve}"/><!-- -->
+                <apex:commandButton style="width: 100px;" value="Reject" rendered="{!rejbtn}" action="{!reject}"/><!-- -->
+                <apex:commandButton style="width: 100px;" value="Rework" action="{!rework}" rendered="{!reworkbtn}"/><!-- -->
+                <apex:commandButton style="width: 100px;" value="On Hold" rendered="{!onhdbtn}" action="{!onHold}"/><!-- -->
+                <apex:commandButton style="width: 115px;" value="Back to Entity" action="{!Backtoentity}" />
+
+                
+            </div>
+            <br/>
+            <!--------------------------------------------------------------------------------------------------------------------->    
+            <apex:pageBlockSection columns="2" title="General Information" id="PBS10"> <!--AQUI EMPIEZA EL AREA GENERAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem id="PBSI11">
+                    <apex:outputLabel value="Oracle Account Name" for="Oracle_Account_Name"/>
+                    <apex:outputText id="Oracle_Account_Name" value="{!req.pOutPartyName}" /> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="PBSI12">
+                    <apex:outputLabel value="Request Start Date" for="StartDate"/>
+                    <apex:outputText id="StartDate" value="{!req.pOutStartDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem id="PBSI13">
+                    <apex:outputLabel value="Top Parent Name" for="Top_Parent_Name"/>
+                    <apex:outputText id="Top_Parent_Name" value="{!req.pOutSourceTopParentName}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="PBSI14">
+                    <apex:outputLabel value="Request End Date" for="EndDate"/>
+                    <apex:outputText id="EndDate" value="{!req.pOutEndDate}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem id="PBSI15">
+                    <apex:outputLabel value="Request Status" for="Status"/>
+                    <apex:outputText id="Status" value="{!req.pOutRequestStatus}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->        
+                <apex:pageBlockSectionItem id="PBSI16">
+                    <apex:outputLabel value="Assigned To (Group)" for="AssignedGroup"/>
+                    <apex:outputText id="Assigned_Group" value="{!req.pOutAssignedGroup}"/> 
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:pageBlockSectionItem id="PBSI17">
+                    <apex:outputLabel value="Requested By" for="RequestedBy"/>
+                    <apex:outputText id="Requeste_By" value="{!req.pOutRequestedBy}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="PBSI18">
+                    <apex:outputLabel value="Assigned To (Person)" for="AssignedTo"/>
+                    <apex:outputText id="Assigned_To" value="{!req.pOutAssignedTo}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Request Id" for="request_Id"/>
+                    <apex:outputText id="request_Id" value="{!req.pOutRequestId}"/> 
+                </apex:pageBlockSectionItem>
+
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Valid Through" for="Valid_Through"/>
+                    <apex:outputText id="Valid_Through" value="{!req.LAH.pOutValidThrough}" /> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Entity Information"> <!--AQUI EMPIEZA EL AREA ENTIDAD -->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Número de Cuenta" for="no_cuenta"/>
+                    <apex:outputText id="no_cuenta" value="{!req.LAH.pOutNoCuenta}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Nacionalidad" for="Nacionalidad"/>
+                    <apex:outputText id="Nacionalidad" value="{!req.LAH.pOutnacionalidad}"/> 
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Tipo de Entidad" for="EntityTipo"/>
+                    <apex:outputText id="EntityTipo" value="{!req.LAH.pOutEntidadtype}"/> 
+                </apex:pageBlockSectionItem> 
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RFC/TIN" for="RFC"/>
+                    <apex:outputText id="RFC" value="{!req.LAH.pOutRFC}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Acta Constitutiva"> <!--AQUI EMPIEZA EL ACTA CONSTITUTIVA -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Denominación al Momento de Constituirse" for="Domicilio_Con"/>
+                    <apex:outputText id="Domicilio_Con" value="{!req.LAH.pmoralExtranjera.pOutLAPMEACDenomconstituirse}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Duración" for="duracion"/>
+                    <apex:outputText id="duracion" value="{!req.LAH.pmoralExtranjera.pOutLAPMEACDuracion}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha" for="Fecha"/>
+                    <apex:outputText id="Fecha" value="{!req.LAH.pmoralExtranjera.pOutLAPMEACFechaEscritura}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Observaciones" for="Observa"/>
+                    <apex:outputText id="Observa" value="{!req.LAH.pmoralExtranjera.pOutLAPMEACObservaciones}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Domicilio Social"> <!--AQUI EMPIEZA EL DOMICILIO SOCIAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="País" for="DSPais"/>
+                    <apex:outputText id="DSPais" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSPais}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Colonia" for="DSColonia"/>
+                    <apex:outputText id="DSColonia" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSColonia}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Código Postal" for="DSCP"/>
+                    <apex:outputText id="DSCP" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSCodigoPostal}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Calle" for="DSCalle"/>
+                    <apex:outputText id="DSCalle" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSCalle}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Estado" for="DSEstado"/>
+                    <apex:outputText id="DSEstado" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSEstado}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="No. Exterior" for="DSNoE"/>
+                    <apex:outputText id="DSNoE" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSNoExterior}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Ciudad" for="DSCiudad"/>
+                    <apex:outputText id="DSCiudad" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSCiudad}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="No. Interior" for="DSNoI"/>
+                    <apex:outputText id="DSNoI" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSNoInterior}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Municipio/Alcaldía" for="DSMun"/>
+                    <apex:outputText id="DSMun" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDSMunicipioAlcaldia}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlock title="Estatutos" >
+                
+                <div style="width: 200px;margin-left: auto;margin-right: auto;" id="div">
+                    <apex:commandButton style="width: 135px;" value="Agregar Estatuto" action="{!newestatuto}" rendered="{!aprbtn}"/>
+                </div>
+                <apex:pageBlockTable value="{!req.LAH.pmoralExtranjera.estatutos}" var="add" align="center" >        
+                    
+                    <apex:column >
+                        <apex:facet name="header">view</apex:facet>
+                        <apex:commandLink value="view" action="{!viewestatuto}" styleClass="btn" style="color:blue;text-decoration:none;font:black" >
+                            <apex:param name="regId"  	value="{!add.pOutlaEEstatutoID}" assignTo="{!idReg}"/> 
+                        </apex:commandLink>
+                    </apex:column>
+                    
+                    <apex:column value="{!add.pOutlaEEstatuto}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Estatuto"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column value="{!add.pOutlaEFecha}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Fecha"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column value="{!add.pOutlaEComentarios}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Comentarios"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.pOutlaEObservaciones}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Observaciones"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable>                
+            </apex:pageBlock>  
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Comprobante de Domicilio"> <!--AQUI EMPIEZA EL DOMICILIO SOCIAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="País" for="CDPais"/>
+                    <apex:outputText id="CDPais" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDPais}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Colonia" for="CDColonia"/>
+                    <apex:outputText id="CDColonia" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDColonia}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Código Postal" for="CDCP"/>
+                    <apex:outputText id="CDCP" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDCodigoPostal}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Calle" for="CDCalle"/>
+                    <apex:outputText id="CDCalle" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDCalle}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Estado" for="CDEstado"/>
+                    <apex:outputText id="CDEstado" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDEstado}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="No. Exterior" for="CDNoE"/>
+                    <apex:outputText id="CDNoE" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDNoExterior}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Ciudad" for="CDCiudad"/> 
+                    <apex:outputText id="CDCiudad" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDCiudad}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="No. Interior" for="CDNoI"/>
+                    <apex:outputText id="CDNoI" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDNoInterior}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Municipio/Alcaldía" for="CDMun"/>
+                    <apex:outputText id="CDMun" value="{!req.LAH.pmoralExtranjera.pOutLAPMECDMunicipioAlcaldia}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->   
+            
+            <apex:pageBlockSection columns="2" title="Datos Fiscales"> <!--AQUI EMPIEZA EL DOMICILIO SOCIAL -->
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="TIN" for="TIN"/>
+                    <apex:outputText id="TIN" value="{!req.LAH.pOutRFC}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="W-8/W-9" for="W8"/>
+                    <apex:outputText id="W8" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFW8W9}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="País" for="DFPais"/>
+                    <apex:outputText id="DFPais" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFPais}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Colonia" for="DFColonia"/>
+                    <apex:outputText id="DFColonia" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFColonia}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Código Postal" for="DFCP"/>
+                    <apex:outputText id="DFCP" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFCodigoPostal}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Calle" for="DFCalle"/>
+                    <apex:outputText id="DFCalle" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFCalle}"/> 
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Estado" for="DFEstado"/>
+                    <apex:outputText id="DFEstado" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFEstado}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="No. Exterior" for="DFNoE"/>
+                    <apex:outputText id="DFNoE" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFNoExterior}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Ciudad" for="DFCiudad"/>
+                    <apex:outputText id="DFCiudad" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFCiudad}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="No. Interior" for="DFNoI"/>
+                    <apex:outputText id="DFNoI" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFNoInterior}"/> 
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Municipio/Alcaldía" for="DFMun"/>
+                    <apex:outputText id="DFMun" value="{!req.LAH.pmoralExtranjera.pOutLAPMEDFMunicipioAlcaldia}"/> 
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlockSection columns="2" title="BIL">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Fecha Revision" for="BFV"/>
+                    <apex:outputText id="BFV" value="{!req.LAH.pmoralExtranjera.pOutLAPMEBFechaRevision}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Incidencias" for="BI"/>
+                    <apex:outputText id="BI" value="{!req.LAH.pmoralExtranjera.pOutLAPMEBIncidencias}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Comentarios" for="BC"/>
+                    <apex:outputText id="BC" value="{!req.LAH.pmoralExtranjera.pOutLAPMEBComentarios}"/> 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlock title="Apoderados" >
+                
+                <div style="width: 420px;margin-left: auto;margin-right: auto;" id="div">
+                    <apex:commandButton style="width: 155px;" action="{!Redirect_New_Apoder}" value="Agregar Apoderado" rendered="{!aprbtn}" />
+                    <apex:commandButton style="width: 155px;" action="{!Redirect_New_limitante}" value="Agregar revocado" rendered="{!aprbtn}"/>
+                </div>
+                
+                <apex:pageBlockTable value="{!req.LAH.pmoralExtranjera.apoderados}" var="add" align="center" >        
+                    
+                    <apex:column >
+                        <apex:facet name="header">view</apex:facet>
+                        <apex:commandLink value="view" action="{!Redirect_Read_Apoder}" styleClass="btn" style="color:blue;text-decoration:none;font:black" >
+                            <apex:param name="regId"    value="{!add.laAApoderadoID}" assignTo="{!idReg}"/> 
+                        </apex:commandLink>
+                    </apex:column>
+                    
+                    <apex:column value="{!add.laANombreFacultado}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="nombre"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laAPOtros}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="vigencia id"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laAActosDominio}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Actos de <br/> Dominio"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laATitulosCredito}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Títulos de <br/> credito"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laAActosAdministrativos}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Actos Administrativos"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laAPleitosCobranza}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="pleitos y <br/> cobranzas"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laAIndMan}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="I-M"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.laAObservaciones}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Observaciones"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                    
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+            
+            <!--------------------------------------------------------------------------------------------------------------------->
+            <apex:pageBlock title="Comments" >
+                
+                <div style="width:150px;margin-left: auto;margin-right: auto;">
+                    <apex:commandButton value="New Comment" action="{!newcoment}"/>
+                </div>
+                <apex:pageBlockTable value="{!req.comentarios}" var="add" align="center" >                    
+                    <apex:column value="{!add.pOutComCreationDate}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Date Time"></apex:outputText>
+                            
+                        </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!add.pOutComCreatedBy}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="User"></apex:outputText>
+                        </apex:facet>	
+                    </apex:column>
+                    <apex:column value="{!add.comNameCreatedBy}" >
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="User Name"></apex:outputText>
+                        </apex:facet>	
+                    </apex:column>
+                    <apex:column value="{!add.pOutComComment}">
+                        <apex:facet name="header" >
+                            <apex:outputText escape="false" value="Comment"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable>   
+            </apex:pageBlock>
+       <!-- </apex:pageBlock> -->
+    <!--</apex:form>-->
+    <!--<apex:form >
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Documents" >
+            <div id ="mazacuata" style="width:150px;margin-left: auto;margin-right: auto;">  
+                <apex:commandButton value="New Document" onclick="subirDoc('{!doctiposString}','{!req.pOutRequestId}','{!req.pOutPartyId}','{!req.pOutSourceAccountName}','{!sSSO}');return false;"/>
+            </div>
+            <div id="mazacuata2">
+                <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+                    <apex:pageBlockTable value="{!req.documentos}" var="add" align="center">
+                        <apex:column >
+                            <apex:facet name="header">Delete</apex:facet>
+                            <span onclick="borrardoc('{!add.requestId}','{!add.oraId}','{!add.pOutDocURL}','{!add.pOutDocType}','{!add.pOutDocId}','{!add.pOutDocName}','{!req.pOutRequestId}')"  class="slds-icon_container slds-icon_container_circle slds-icon-action-delete" title="Delete" rendered="{!IF(Ndocbtn && add.pOutCreatedBy == sSSo,true,false )}">
+                                <svg class="slds-icon" aria-hidden="true">
+                                    <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#delete')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Click to Delete Document</span>
+                            </span>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">Download</apex:facet>
+                            <span  class="slds-icon_container slds-icon_container_circle slds-icon-action-download" title="Download" onclick="openDocum('{!add.pOutDocId}');">
+                                <svg class="slds-icon" aria-hidden="true">
+                                    <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#download')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Click to Download Document</span>
+                            </span>      
+                        </apex:column>      
+                        
+                        <apex:column value="{!add.pOutDocId}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="DocId"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>         
+                        <apex:column value="{!add.requestId}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="requestId"></apex:outputText>
+                            </apex:facet>
+                        </apex:column> 
+                        <apex:column value="{!add.partyId}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="partyId"></apex:outputText>
+                            </apex:facet>
+                        </apex:column> 
+                        
+                        
+                        <apex:column value="{!add.pOutCreationDate}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Creation Date"></apex:outputText>
+                                
+                            </apex:facet>
+                        </apex:column>
+                        
+                        <apex:column value="{!add.pOutDocName}" >
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Name"></apex:outputText>
+                            </apex:facet>	
+                        </apex:column>
+                        <apex:column value="{!add.pOutDocType}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document Type"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!add.pOutDocURL}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document Url"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        
+                        <apex:column value="{!add.pOutDocStatus}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document Status"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!add.pOutDocEndDate}">
+                            <apex:facet name="header" >
+                                <apex:outputText escape="false" value="Document End Date"></apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </html>
+            </div>
+            
+        </apex:pageBlock>
+        
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <apex:pageBlock title="Change Log" >
+            <apex:pageBlockTable value="{!req.audits}" var="add" align="center" >                     
+                <apex:column value="{!add.pOutAuditLastUpdateDate}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Date Time"></apex:outputText>
+                        
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column value="{!add.pOutAuditUpdatedBy}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="User"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.auditNameUpdatedBy}" >
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="User Name"></apex:outputText>
+                    </apex:facet>	
+                </apex:column>
+                <apex:column value="{!add.pOutAuditComment}">
+                    <apex:facet name="header" >
+                        <apex:outputText escape="false" value="Action"></apex:outputText>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+        <br/>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

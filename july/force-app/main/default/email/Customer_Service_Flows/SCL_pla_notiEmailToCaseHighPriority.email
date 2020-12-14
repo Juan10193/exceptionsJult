@@ -1,0 +1,14 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<span style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Hola,<b>&nbsp;</b></span><font face="arial"><b>{!Case.OwnerFullName}</b><span style="font-size: 12pt;">&nbsp;buena tarde:</span></font>]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[<div style="font-size: 12pt;"><div style="font-size: 12pt;">Le informamos que se ha creado el caso&nbsp;<span style="font-size: 12pt;">&nbsp;</span><b style="font-size: 12pt;"><a href="https://na30.salesforce.com/{!Case.Id}">{!Case.CaseNumber}</a>&nbsp;</b><span style="font-size: 12pt;">y este contiene palabra(s) clave de alta prioridad, por lo que le enviamos esta notificación para que lo revise y clasifique para su atención inmediata</span><b style="font-size: 12pt;">:</b></div><div style="font-size: 12pt;"><br></div><div style="font-size: 12pt;"><font face="arial"><b><a href="https://na30.salesforce.com/{!Case.Id}">{!Case.Subject}</a></b></font></div><div style="font-size: 12pt;"><font face="arial"><br></font></div><div style="font-size: 12pt;"><font face="arial">y el siguiente contenido:</font></div><div style="font-size: 12pt;"><font face="arial"><br></font></div><div style="font-size: 12pt;"><font face="arial"><b>{!Case.Description}</b></font></div><div style="font-size: 12pt;"><br></div><div style="font-size: 12pt;">(Puede abrir el caso dando clic directamente en el numero de caso)</div></div><div style="font-size: 12pt;"><br></div><div style="font-size: 12pt;">Atentamente el equipo de Servicio a Clientes de ENGENIUM CAPITAL</div>]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[<div style="font-size: 12pt;"><span lang="EN-US" style="font-family: Verdana, sans-serif;"><b><font size="2">Tel.: +52 (55) 5257.6161 (CDMX o zona metropolitana)</font></b></span></div><div style="font-size: 12pt;"><span lang="EN-US" style="font-family: Verdana, sans-serif;"><b><font size="2">Tel.: 01-800-714-3227 (Interior)</font></b></span></div><div><span lang="EN-US" style="font-family: Verdana, sans-serif;"><font size="2"><br></font></span></div><div><span lang="EN-US" style="font-family: Verdana, sans-serif;"><font size="2">{!Case.CAS009_fm_referencia__c}</font></span></div>]]></td>
+</tr>
+</table>

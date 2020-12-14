@@ -1,0 +1,230 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 10-21-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-25-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    <lightning-card title="Approval Process" icon-name="custom:custom90">
+        <lightning-button label="Closing Memo" slot="actions" onclick={handleOpenModalClosingMemo}></lightning-button>
+        <lightning-button label="Envíar para aprobación" slot="actions" onclick={hanldeSubmitForApproval} variant="brand"></lightning-button>
+        <div slot="footer">
+            <div
+                class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none lgc-bg">
+                <div>
+                    <lightning-layout multiple-rows>
+
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <strong>Estatus de aprobación</strong>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <strong>Equipo asignado</strong>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <strong>Fecha de modificación</strong>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <strong>Opciones</strong>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div>
+                    <lightning-layout multiple-rows>
+
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <div>
+                                    <lightning-icon icon-name={AML_AP_StageIcon} alternative-text={AML_AP_Stage}
+                                        title={AML_AP_Stage} size='small'></lightning-icon>
+                                </div>
+                                <div>
+                                    {AML_AP_Stage}
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                AML
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <lightning-formatted-date-time value={AML_AP_LastModifiedDate} year="numeric"
+                                    month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone-name="short"
+                                    hour12="true"></lightning-formatted-date-time>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <lightning-button-menu alternative-text="Show menu" variant="border-filled"
+                                onselect={handleAMLOpenRecord}>
+                                    <lightning-menu-item value="AbrirRegistro" label="Abrir registro">
+                                    </lightning-menu-item>
+                                </lightning-button-menu>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div>
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <div>
+                                    <lightning-icon icon-name={Riesgo_AP_StageIcon} alternative-text={Riesgo_AP_Stage}
+                                        title={Riesgo_AP_Stage} size='small'></lightning-icon>
+                                </div>
+                                <div>
+                                    {Riesgo_AP_Stage}
+                                </div>
+
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                Riesgo
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <lightning-formatted-date-time value={Riesgo_AP_LastModifiedDate} year="numeric"
+                                    month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone-name="short"
+                                    hour12="true"></lightning-formatted-date-time>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <lightning-button-menu alternative-text="Show menu" variant="border-filled"
+                                onselect={handleRiskOpenRecord}>
+                                    <lightning-menu-item value="AbrirRegistro" label="Abrir registro">
+                                    </lightning-menu-item>
+                                </lightning-button-menu>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <div>
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <div>
+                                    <lightning-icon icon-name={Tesoreria_AP_StageIcon}
+                                        alternative-text={Tesoreria_AP_Stage} title={Tesoreria_AP_Stage}
+                                        size='small'>
+                                    </lightning-icon>
+                                </div>
+                                <div>{Tesoreria_AP_Stage}</div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                Tesorería
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <lightning-formatted-date-time value={Tesoreria_AP_LastModifiedDate} year="numeric"
+                                    month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone-name="short"
+                                    hour12="true"></lightning-formatted-date-time>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-p-around_medium slds-text-align_center">
+                                <lightning-button-menu alternative-text="Show menu" variant="border-filled"
+                                onselect={handleTesoreriaOpenRecord}>
+                                    <lightning-menu-item value="AbrirRegistro" label="Abrir registro">
+                                    </lightning-menu-item>
+                                </lightning-button-menu>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <div>
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-m-around_xx-small slds-text-align_center">
+                                <div>
+                                    <lightning-icon icon-name={Pricing_AP_StageIcon}
+                                        alternative-text={Pricing_AP_Stage} title={Pricing_AP_Stage}
+                                        size='small'>
+                                    </lightning-icon>
+                                </div>
+                                <div>{Pricing_AP_Stage}</div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-m-around_xx-small slds-text-align_center">
+                                Pricing
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-m-around_xx-small slds-text-align_center">
+                                <lightning-formatted-date-time value={Pricing_AP_LastModifiedDate} year="numeric"
+                                    month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone-name="short"
+                                    hour12="true"></lightning-formatted-date-time>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                            large-device-size="3" >
+                            <div class="slds-m-around_xx-small slds-text-align_center">
+                                <lightning-button-menu alternative-text="Show menu" variant="border-filled"
+                                onselect={handlePricingOpenRecord}>
+                                    <lightning-menu-item value="AbrirRegistro" label="Abrir registro">
+                                    </lightning-menu-item>
+                                </lightning-button-menu>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+    <template if:true={openModalClosingMemo}>
+        <c-modal-question onclose={handleCloseModalClosingMemo} onaccept={showPDF} close-button-name='Close' accept-button-name="PDF" title='Closing Memo'
+            init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_large'
+            >
+            <div slot="body" class="slds-scrollable_y" style="height:400px">
+                <!--<c-lmm-closingmem-opp record-id={recordId}></c-lmm-closingmem-opp>-->
+                <c-woa-closing-memo-opp record-id={recordId}></c-woa-closing-memo-opp>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={showSpinner}>
+        <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+    </template>
+
+
+</template>

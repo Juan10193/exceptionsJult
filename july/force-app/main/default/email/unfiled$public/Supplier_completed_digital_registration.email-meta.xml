@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead_General</letterhead>
+    <name>Supplier completed digital registration</name>
+    <style>freeForm</style>
+    <subject>{!Entity_CP__c.Name}, has completed the supplier digital registration.</subject>
+    <textOnly>Dear {!Entity_CP__c.CreatedBy},
+
+You&apos;re receiving this notification because, {!Entity_CP__c.Name}, completed the digital registration. The person who completed the process was, {!Entity_CP__c.Registration_Contact_First_Name__c} {!Entity_CP__c.Registration_Contact_Last_Name__c}.
+
+You can see the complete digital response by clicking here.
+
+The next step is to ensure proper registration, you can correct any inconsistency directly in the record, for further Sourcing template automatic generation in the SupplierToGo button.
+
+To review the Entity record created in Salesforce, click here.
+
+Regards,
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,108 @@
+{
+    "responseSatVO": {
+        "statusCode": "200",
+        "statusDescription": "success",
+        "statusFactura": "Vigente",
+        "messsage": "Consulta estatus CFDI SAT: S - Comprobante obtenido satisfactoriamente.",
+        "enableCancelation": "No cancelable"
+    },
+    "responseValidatorVO": {
+        "code": "101",
+        "message": "Validación exitosa del StatusCfdi ante el SAT\nLa factura ya ha sido validada por el servicio EC anteriormente\nLa forma de pago del comprobante es inválida\nEl método de pago del comprobante es inválido\nEl uso de CFDI del comprobante es inválido\nEl nodo cfdi:ComplementoConcepto es requerido para el concepto: 1",
+        "success": "False"
+    },
+    "comprobanteVO": {
+        "schemaLocation": "",
+        "certificado": "MIIGOTCCBCGgAwIBAgIUMDAwMDEwMDAwMDA0MDQwNzA3ODEwDQYJKoZIhvcNAQELBQAwggGyMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMR8wHQYJKoZIhvcNAQkBFhBhY29kc0BzYXQuZ29iLm14MSYwJAYDVQQJDB1Bdi4gSGlkYWxnbyA3NywgQ29sLiBHdWVycmVybzEOMAwGA1UEEQwFMDYzMDAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBEaXN0cml0byBGZWRlcmFsMRQwEgYDVQQHDAtDdWF1aHTDqW1vYzEVMBMGA1UELRMMU0FUOTcwNzAxTk4zMV0wWwYJKoZIhvcNAQkCDE5SZXNwb25zYWJsZTogQWRtaW5pc3RyYWNpw7NuIENlbnRyYWwgZGUgU2VydmljaW9zIFRyaWJ1dGFyaW9zIGFsIENvbnRyaWJ1eWVudGUwHhcNMTYxMDI2MTcxMTM5WhcNMjAxMDI2MTcxMTM5WjCB2TEpMCcGA1UEAxMgUExBU1RJQ09TIFBBTkFNRVJJQ0FOT1MgU0EgREUgQ1YxKTAnBgNVBCkTIFBMQVNUSUNPUyBQQU5BTUVSSUNBTk9TIFNBIERFIENWMSkwJwYDVQQKEyBQTEFTVElDT1MgUEFOQU1FUklDQU5PUyBTQSBERSBDVjElMCMGA1UELRMcUFBBNjgwNjE0QUczIC8gR09BSjY4MTAxOUpQNjEeMBwGA1UEBRMVIC8gR09BSjY4MTAxOUhUU01OTjAwMQ8wDQYDVQQLEwZtYXRyaXowggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDRuBqrvISAY7yj37F0V9Vxc1FRwzU2RJ+t7eoHbCtrrtrOYz3PrZAodIRv73UNdqywpw5Mi1CVn9E4fTewM62dJUH8gGE1jIKun/AQEZMrZd02CVRoEtxvW5sqvr351pXTrf94J3IpKHz1c8nbLmT9fzVk8mNL3VcIZzYbfMjn3OcZXuFzTtqzQjSs0A7zSORT0Htmb8FCykCi0a8fRzxkMv99wRUQZRPdgqTYAMgJW4tDuduBmhXwboEAyXkav9Cp8W9rz0DvGm6rds3sjnif3/6CpMgr1II6ghPprYQiyDCgvGKsrcWZKxZpQkgf10cv6m/BBRK4uPuh8OO3f8a3AgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBCwUAA4ICAQBz84HYTxwpdwmizxuAulHq3RgS3y0EqIlb60+AgzOcsdtehfNV6xiiRainI1+Pd9Nu1S7yOQ59uB+KFdIx58AJ0sFRw9aKiNaJvW8OfPnxepnDcu5fPLsUvaYQZenCTs9Fwj5zCUeLSO9o7alCP7ldxcpYt/S7uw7/nq6SHckQvIAszNQ4sAhuPNx+XGsc4y751DXvqah1ELezMagNPz4UaSw8QuB/8ovmAIdfL4R4Ox3ommdhBrz59PLwwPxeZ112ALZrneeePV2F1rcgESYC1ZjPKfG0c0yXTAfj7EhIJNlp+1NMCfF4/GilWycnFT/d+MJwtumJFF/IAyTSPIwQ05f7//GZiUx8Rn0MHKc4zc/UmsD+kFBscoqSW+KZoxpzL8+0YQ2kTgudxhc+NH7MYAB7JNEIekk0hpYH9a7fvhGNIMdYMTT3y+VcQwcaNEFoEdPI+vWSvQNV9FzqWxPaOesbXm0UErgZljnx6hlFmd+/UEHktTRnVyl0Lsmxqx9suzdKmG+1lLu+Na7iqemNbR0h8DJO1ND19vHOELVpmTmVJ3XRHzbFtkLwt25Sc38CHRuzFTwfyUor/fl535qM1rQImFUyfZCb6TuoF/JMLOdMeDMIvCmNHtHn3DQnf5gIw9JOQueRNeX2N2iWoij217DP/RpLHofswXpNZcGuCw==",
+        "fecha": "2018-12-17T17:44:42",
+        "folio": "8502",
+        "formaPago": "03",
+        "lugarExpedicion": "54900",
+        "metodoPago": "PUE",
+        "moneda": "MXN",
+        "descuento": "",
+        "noCertificado": "00001000000404070781",
+        "sello": "IN84zAcITCL4w9ZeeX9sBQV8lREDg9odIK6um7Z+VMd6xHItqtFRL9SCf93hMYDwru9K5kfaspEeFfZ0FIP4+0C5T9MatnAnkLI+g6/FzW8z5XjG5FRz3rI1V7yyi3jtsA0k6cMsYfB1QSGDnCbCGjiPOFDSNv93EqEIjLadS/KgAAViSY9h+00zkiDcCCkokvYWwlB1MR5aekkPPImSKqulbWg043q/4duceXzfk/AP0oNxYhgZnDgQvtQOr9sxx/+9MY8EkUDpQzy3ZYLU+2emRO6L6aYZgXSJu29OTvBfnNK4JR+qpqAssLC3AeIswag/MkzICGNcurLVnHlZyQ==",
+        "serie": "PPF",
+        "subTotal": "6858750.00",
+        "tipoCambio": "1",
+        "tipoDeComprobante": "I",
+        "total": "7956150.00",
+        "version": "3.3",
+        "cfdiRelacionadosVO": {
+            "tipoRelacion": "04",
+            "listCfdiRelacionadoVO": [
+                {
+                    "uuid": "2AE022EA-C10F-7F46-895C-21F0A104DCB5"
+                }
+            ]
+        },
+        "emisorVO": {
+            "nombre": "Plásticos Panamericanos SA de CV",
+            "regimenFiscal": "601",
+            "rfc": "PPA680614AG3"
+        },
+        "receptorVO": {
+            "nombre": "ENGENCAP FIN, S.A. DE C.V. SOFOM E.N.R.",
+            "rfc": "GCL950705UQ8",
+            "usoCFDI": "I08"
+        },
+        "conceptosVO": {
+            "listConceptoVO": [
+                {
+                    "cantidad": "1.00",
+                    "claveProdServ": "84111506",
+                    "claveUnidad": "ACT",
+                    "descripcion": "55% ANTICIPO MOLDE TARIMA 48X40\" MODELO TA70FABRICANTE: MaristS.r.I. via Ferri 18/C25010 BORGOSATOLLO BRESCIA BS ITALIA",
+                    "importe": "6858750.00",
+                    "noIdentificacion": "ANTIMOLDETARIMA",
+                    "unidad": "Actividad",
+                    "valorUnitario": "6858750.00",
+                    "impuestosVO": {
+                        "totalImpuestosTrasladados": null,
+                        "trasladosVO": {
+                            "listTrasladoVO": [
+                                {
+                                    "base": "6858750.00",
+                                    "importe": "1097400.00",
+                                    "impuesto": "002",
+                                    "tasaOCuota": "0.160000",
+                                    "tipoFactor": "Tasa"
+                                }
+                            ]
+                        }
+                    },
+                    "informacionAduaneraVO": null,
+                    "complementoConceptoVO": null,
+                    "parteVO": null
+                }
+            ]
+        },
+        "impuestosVO": {
+            "totalImpuestosTrasladados": "1097400.00",
+            "trasladosVO": {
+                "listTrasladoVO": [
+                    {
+                        "base": "",
+                        "importe": "1097400.00",
+                        "impuesto": "002",
+                        "tasaOCuota": "0.160000",
+                        "tipoFactor": "Tasa"
+                    }
+                ]
+            }
+        },
+        "complementoVO": {
+            "timbreFiscalDigitalVO": {
+                "schemaLocation": "",
+                "version": "1.1",
+                "uuid": "2C2EA6F2-87CF-884A-9725-CEC29636E4AE",
+                "fechaTimbrado": "2018-12-17T17:49:44",
+                "rfcProvCertif": "SCD110105654",
+                "selloCFD": "IN84zAcITCL4w9ZeeX9sBQV8lREDg9odIK6um7Z+VMd6xHItqtFRL9SCf93hMYDwru9K5kfaspEeFfZ0FIP4+0C5T9MatnAnkLI+g6/FzW8z5XjG5FRz3rI1V7yyi3jtsA0k6cMsYfB1QSGDnCbCGjiPOFDSNv93EqEIjLadS/KgAAViSY9h+00zkiDcCCkokvYWwlB1MR5aekkPPImSKqulbWg043q/4duceXzfk/AP0oNxYhgZnDgQvtQOr9sxx/+9MY8EkUDpQzy3ZYLU+2emRO6L6aYZgXSJu29OTvBfnNK4JR+qpqAssLC3AeIswag/MkzICGNcurLVnHlZyQ==",
+                "noCertificadoSAT": "00001000000401041203",
+                "selloSAT": "r50YGkJPWG4Gw11IaANfTDCJMUbgqz79GB1MvFAefkqMOkrDkf1gD3ZLGIxQTY6/JivrwIhMBYd7EtSXj0WJk67apftl8C2XLYdB9eb05b6xoYjvO0IhGIftlD7LbTzL5y0gEQ73ABnQP4tVGB9/75H+Jo3dum3xEWmmiy8kdYq2dAo4CLQQ6OY6o16rWHvhwV5o9LdZ/CWcy1h1wEvcbw1bPanGLNBolnJjq0KZGRHE0ppvQmePPPy9LKQ7UpRhsxjWbrYMkHrkCvjMBp05/rwOW+21g0Ko0NlSAr+gVah0YxjPfmIaxvRJAPnBb0mmtUpDEEiJ/sDkw1AXNzcOlg=="
+            }
+        }
+    }
+}

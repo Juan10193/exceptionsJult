@@ -1,0 +1,154 @@
+<!--
+  @File Name          : approvalRejects.html
+  @Description        : 
+  @Author             : eduardo.amiens@outlook.com
+  @Group              : 
+  @Last Modified By   : eduardo.amiens@outlook.com
+  @Last Modified On   : 26/6/2020 7:50:02
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    24/6/2020   eduardo.amiens@outlook.com     Initial Version
+-->
+<template>
+    <!--<lightning-button variant="brand" label="Save" title="Save" onclick={saverejects} class="slds-m-left_x-small">
+    </lightning-button>-->
+    <div class="slds-form-element">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <label class="slds-form-element__label" for="combobox-id-7">Error Type</label>
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container">
+                        <div class={typeexpanded.class} aria-expanded={typeexpanded.expanded} aria-haspopup="listbox"
+                            role="combobox">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                role="none">
+                                <input type="text"
+                                    class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value"
+                                    id="combobox-id-7" aria-controls="listbox-id-7" role="textbox"
+                                    placeholder="Select an Option" readonly="" onclick={expandetype} />
+                                <span
+                                    class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                    <lightning-icon icon-name="utility:down" alternative-text="Open" size="xx-small"
+                                        title="Open">
+                                    </lightning-icon>
+                                </span>
+                            </div>
+                            <div id="listbox-id-7" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                role="listbox">
+                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                    <template for:each={rejectTypes} for:item='tipo' for:index='index'>
+                                        <li key={tipo.Id} role="presentation" class="slds-listbox__item">
+                                            <template if:true={tipo.selected}>
+                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-is-selected"
+                                                    role="option">
+                                                    <span class="slds-media__figure slds-listbox__option-icon">
+                                                        <span
+                                                            class="slds-icon_container slds-icon-utility-check slds-current-color">
+                                                            <lightning-icon icon-name="utility:check"
+                                                                alternative-text="Checked" size="xx-small"
+                                                                title="Unselect" style="cursor: pointer;"
+                                                                onclick={selectVal} data-index={index}>
+                                                            </lightning-icon>
+                                                        </span>
+                                                    </span>
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-truncate" title={tipo.type}>
+
+                                                            <span class="slds-assistive-text">Current
+                                                                Selection:</span>{tipo.type}</span>
+                                                    </span>
+                                                </div>
+                                            </template>
+                                            <template if:false={tipo.selected}>
+                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                    onclick={selectVal} data-index={index}>
+                                                    {tipo.type}
+                                                </div>
+                                            </template>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <template if:true={selectedTypesLength}>
+                    <label class="slds-form-element__label" for="combobox-id-10">Subtype Error</label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-combobox_container">
+                            <div class={subtypeexpanded.class} aria-expanded={subtypeexpanded.expanded}
+                                aria-haspopup="listbox" role="combobox">
+                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                    role="none">
+                                    <input type="text" class="slds-input slds-combobox__input slds-has-focus"
+                                        id="combobox-id-10" aria-controls="listbox-id-3" role="textbox"
+                                        placeholder="Select an Option" readonly="" onclick={expandesubtype} />
+                                    <span
+                                        class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                        <lightning-icon icon-name="utility:down" alternative-text="Open" size="xx-small"
+                                            title="Open">
+                                        </lightning-icon>
+                                    </span>
+                                </div>
+                                <div id="listbox-id-3" class="slds-dropdown slds-dropdown_fluid slds-dropdown_length-5" role="listbox">
+                                    <template for:each={rejectSubtypes} for:item='type' for:index='typeindex'>
+                                        <ul key={type.type} class="slds-listbox slds-listbox_vertical" role="group"
+                                            aria-label={type.type}>
+                                            <li role="presentation" class="slds-listbox__item">
+                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                    role="presentation">
+                                                    <h3 class="slds-listbox__option-header" role="presentation">
+                                                        {type.type}
+                                                    </h3>
+                                                </div>
+                                            </li>
+                                            <template for:each={type.subtypes} for:item='subtype' for:index='index'>
+                                                <template if:false={subtype.selected}>
+
+                                                    <li key={subtype.subtype} role="presentation"
+                                                        class="slds-listbox__item">
+                                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                            onclick={selectValSubType} data-index={index}
+                                                            data-typeindex={typeindex}>
+                                                            {subtype.subtype}
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                                <template if:true={subtype.selected}>
+                                                    <li key={subtype.subtype} role="presentation"
+                                                        class="slds-listbox__item">
+                                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-is-selected"
+                                                            role="option">
+                                                            <span class="slds-media__figure slds-listbox__option-icon">
+                                                                <span
+                                                                    class="slds-icon_container slds-icon-utility-check slds-current-color">
+                                                                    <lightning-icon icon-name="utility:check"
+                                                                        alternative-text="Checked" size="xx-small"
+                                                                        title="Unselect" style="cursor: pointer;"
+                                                                        onclick={selectValSubType} data-index={index} data-typeindex={typeindex}>
+                                                                    </lightning-icon>
+                                                                </span>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={subtype.subtype}>
+
+                                                                    <span class="slds-assistive-text">Current
+                                                                        Selection:</span>{subtype.subtype}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </template>
+                                        </ul>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

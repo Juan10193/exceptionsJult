@@ -1,0 +1,205 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-25-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   07-15-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+    <div class={initPrincipalClass}>
+        <div class="slds-p-around_medium lgc-bg">
+            <div>
+                <lightning-button-group>
+                    <lightning-button label="Delete selectected" icon-name="utility:delete"
+                        alternative-text="Delete selectected" onclick={handleOpenModalAskDeleteInvoices}
+                        disabled={disableDeleteInvoices}>
+                    </lightning-button>
+                    <template if:true={permissionToValidateInvoices}>
+                        <lightning-button label="Validate invoices" icon-name="utility:share_file"
+                            alternative-text="Validate invoices" onclick={handleValidateInvoices}
+                            disabled={disableValidateInvoices}>
+                        </lightning-button>
+                    </template>
+                    <lightning-button label="Open AssetBreakdown" icon-name="utility:cases"
+                        alternative-text="Open AssetBreakdown" onclick={handleOpenModalAB}
+                        disabled={isButtonABDisabled}>
+                    </lightning-button>
+                    <template if:true={ButtonSubmiToReviewShow}>
+                        <lightning-button label="Submit to review" variant="brand" icon-name="utility:reassign"
+                            onclick={handleOpenModalSubmitToReview} disabled={isButtonSubmiToReviewDisabled}>
+                        </lightning-button>
+                    </template>
+                    <div class="slds-text-body_small">
+                        <lightning-button-menu icon-name="utility:download" alternative-text="Setting actions" onselect={handleOnselectDownloads}>
+                            <lightning-menu-item label="Download Contract Import" value="dContractImport" prefix-icon-name="utility:description">
+                            </lightning-menu-item>
+                            <lightning-menu-item label="Download Invoices" value="dInvoices" prefix-icon-name="utility:overflow">
+                            </lightning-menu-item>
+                        </lightning-button-menu>
+                        <lightning-button-menu icon-name="utility:settings" alternative-text="Setting actions"
+                            onselect={handleOnselectSettings}>
+                            <template if:true={ButtonUnlockAndApproveShow}>
+                                <lightning-menu-subheader label="Security actions"></lightning-menu-subheader>
+                                <lightning-menu-item label={toggleLockABLabel} value="toggleLockABvalue"
+                                    prefix-icon-name={toggleLockABIconName}
+                                    disabled={disableButtonUnlockABANDApproveInvoice}>
+                                </lightning-menu-item>
+                                <lightning-menu-item label={toggleLockInvoicesLabel} value="toggleLockInvoicesvalue"
+                                    prefix-icon-name={toggleLockInvoicesName}
+                                    disabled={disableButtonUnlockABANDApproveInvoice}>
+                                </lightning-menu-item>
+                                <lightning-menu-divider variant="compact">
+                                </lightning-menu-divider>
+                                <lightning-menu-subheader label="Approval actions"></lightning-menu-subheader>
+                                <lightning-menu-item label="Approve invoices" value="approveInvoices"
+                                    prefix-icon-name="utility:retail_execution"
+                                    disabled={disableButtonUnlockABANDApproveInvoice}>
+                                </lightning-menu-item>
+                                <lightning-menu-item label="Reject invoices" value="rejectInvoices"
+                                    prefix-icon-name="utility:cancel_file_request"
+                                    disabled={disableButtonUnlockABANDApproveInvoice}>
+                                </lightning-menu-item>
+                                <lightning-menu-item label="Rework invoices" value="reworkInvoices"
+                                    prefix-icon-name="utility:thunder" disabled={disableButtonReworkInvoices}>
+                                </lightning-menu-item>
+                            </template>
+                            <lightning-menu-divider variant="compact">
+                            </lightning-menu-divider>
+                            <lightning-menu-subheader label="Settings"></lightning-menu-subheader>
+                            <lightning-menu-item label="Filters" value="filters" prefix-icon-name="utility:filterList">
+                            </lightning-menu-item>
+                        </lightning-button-menu>
+                    </div>
+                    &nbsp;<lightning-helptext
+                        content="*Only can validate xml files, don't worry if you select pdf files, the pdf files will be skip.">
+                    </lightning-helptext>
+                </lightning-button-group>
+            </div>
+        </div>
+    </div>
+    <c-takedown-table-invoices recordid={recordId} onselectedinvoices={handleSelectedInvoices}>
+    </c-takedown-table-invoices>
+    <template if:true={openModalAB}>
+        <c-takedown-table-a-b recordid={recordId} onclosemodal={handleCloseModals}></c-takedown-table-a-b>
+    </template>
+    <template if:true={openModalSubmitToReview}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleSubmitToReview} close-button-name="cancel"
+            accept-button-name="Submit" title="Do you want to submit Asset breakdown to review?">
+            <span slot="subTitle">Remember, If you submit Asset breakdown to review</span>
+            <div slot="body">
+                <li>The prebook team will be notify to review</li>
+                <li>After to send asset breakdown you will able not modify the assets</li>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalDeleteInvoices}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleMultideleteDocuments} close-button-name="cancel"
+            accept-button-name="Delete" title="Do you
+        want to delete this data?">
+            <span slot="subTitle">Remember, If you delete the invoice record also you will delete the associated
+                assets.</span>
+            <div slot="body">
+                <p class="slds-text-body_regular">Invoices to delete</p>
+                <template for:each={documentsToDelete} for:item="document">
+                    <li key={document}>
+                        {document.Name}.{document.Extension}
+                    </li>
+                </template>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalLockAB}>
+        <template if:false={takedwownCPRecord.fields.TKD_ca_Block_AB__c.value}>
+            <c-modal-question onclose={handleCloseModals} onaccept={handleBlockAB} close-button-name="cancel"
+                accept-button-name="Lock" title="Do you
+            want to lock Asset Breakdown button?">
+                <span slot="subTitle">Remember, If you lock Open Asset Breakdown button, the button will be disable only
+                    to ISC team and only you, have the necessary permissions to unlock the Open Asset Breakdown
+                    button.</span>
+            </c-modal-question>
+        </template>
+        <template if:true={takedwownCPRecord.fields.TKD_ca_Block_AB__c.value}>
+            <c-modal-question onclose={handleCloseModals} onaccept={handleBlockAB} close-button-name="cancel"
+                accept-button-name="Unlock" title="Do you
+            want to unlock Asset Breakdown button?">
+                <span slot="subTitle">Remember, If you unlock Open Asset Breakdown button, the button will be enable
+                    only to ISC team and only you, have the necessary permissions to lock the Open Asset Breakdown
+                    button.</span>
+            </c-modal-question>
+        </template>
+    </template>
+    <template if:true={openModalLockInvoices}>
+        <template if:false={isButtonInvoiceDisabled}>
+            <c-modal-question onclose={handleCloseModals} onaccept={handleBlockInvoice} close-button-name="cancel"
+                accept-button-name="Lock" title="Do you
+            want to lock Invoices?">
+                <span slot="subTitle">Remember, If you lock Invoices, the edition will be disable only
+                    to ISC team and only you, have the necessary permissions to unlock the Invoices.</span>
+            </c-modal-question>
+        </template>
+        <template if:true={isButtonInvoiceDisabled}>
+            <c-modal-question onclose={handleCloseModals} onaccept={handleBlockInvoice} close-button-name="cancel"
+                accept-button-name="Unlock" title="Do you
+            want to unlock Invoices?">
+                <span slot="subTitle">Remember, If you unlock Invoices, the edition will be enable 
+                    to ISC team and only you, have the necessary permissions to lock the Invoices.</span>
+            </c-modal-question>
+        </template>
+    </template>
+    <template if:true={openModalApproveInvoices}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleApproveInvoices} close-button-name="cancel"
+            accept-button-name="Approve" title="Do you
+        want to Approve Invoices?">
+            <span slot="subTitle">Remember, If you approve the invoices, nobody will can update the invoices or assets
+                associate to they.</span>
+            <div slot="body">
+                <lightning-textarea name="Comments" label="Enter your comments" value={approvalComments}
+                    onchange={handleFormInputChange}></lightning-textarea>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalRejectInvoices}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleInvoiceRejects} close-button-name="cancel"
+            accept-button-name="Reject" title="Do you
+        want to Reject Invoices?">
+            <span slot="subTitle">Remember, If you reject the invoices, the ISC team will can update the invoices or
+                assets associate to they</span>
+            <div slot="body" style="height:40vh" class="slds-scrollable_y">
+                <c-invoice-reason-reaject record-id={recordId} object-api-name={currenObjectName}>
+                </c-invoice-reason-reaject>
+                <br/>
+                <lightning-textarea name="Comments" label="Enter your comments" value={approvalComments}
+                    onchange={handleFormInputChange}></lightning-textarea>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalReworkInvoices}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleReworkInvoices} close-button-name="cancel"
+            accept-button-name="Rework" title="Do you
+        want to Rework Invoices?">
+            <span slot="subTitle">Remember, If you rework the invoices, the ISC team will can update the invoices or
+                assets associate to they and the approval process will be init from behing</span>
+            <div slot="body">
+                <lightning-textarea name="Comments" label="Enter your comments" value={approvalComments}
+                    onchange={handleFormInputChange}></lightning-textarea>
+            </div>
+        </c-modal-question>
+    </template>
+    <template if:true={openModalFilterInvoices}>
+        <c-modal-question onclose={handleCloseModals} onaccept={handleReworkInvoices} close-button-name="cancel"
+            accept-button-name="save" title="Settings">
+            <div slot="body">
+                <lightning-dual-listbox name="Set up document type" label="Select Options (at least 1)"
+                    source-label="Available" selected-label="Selected"
+                    field-level-help="The selected option will allow you work different document type" options={optionFilters}
+                    min={min} value={values} onchange={handleChange}>
+                </lightning-dual-listbox>
+            </div>
+        </c-modal-question>
+    </template>
+
+
+</template>

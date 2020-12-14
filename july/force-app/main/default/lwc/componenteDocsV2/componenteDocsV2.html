@@ -1,0 +1,29 @@
+<!--
+  @Component Name     : componenteDocsV2.html
+  @Description        : 
+  @Author             : jhernandez@anivia.mx
+  @Group              : 
+  @Last Modified By   : juandedios.hernandez@engeniumcapital.com
+  @Last Modified On   : 4/11/2019 17:43:36
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    19/8/2019 22:51:03   jhernandez@anivia.mx     Initial Version
+-->
+<!-- <template>
+    <div data-id="Content">
+      <object type="text/html" width="100%" height="600" style="border-radius: 2%" id="resultados_google" data={urlContent}>
+        <p>Si puede leer este mensaje es que su navegador no soporta correctamente el elemento <code>object</code></p>
+    </object>
+    </div>
+</template>  -->
+<template>
+  <template if:true={urlContent}>
+    <lightning-card  title="Documents" icon-name="custom:custom59" style="z-index: -1;">
+            <div class="slds-m-around_medium">
+                <iframe width="100%" height="600" style="border-radius: 2%" src={urlContent}></iframe>
+            </div>    
+    </lightning-card>
+  </template>
+  </template>

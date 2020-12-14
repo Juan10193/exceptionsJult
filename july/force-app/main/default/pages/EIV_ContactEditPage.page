@@ -1,0 +1,449 @@
+<apex:page lightningStylesheets="true" controller="EIV_EntityExtendClassBis">
+    <script>
+    function ltrM(id){
+        var tecla=document.getElementById(id).value;
+        var tecla2=tecla.toUpperCase();
+        document.getElementById(id).value=tecla2;
+    }
+    function validarCampos(){
+        var alerts = [];
+        
+        var validatePrefix = document.getElementById('{!$Component.frm.pb1.pbs7.pbsprefix.Prefix}').value;
+        if(validatePrefix == ""){
+            var validatePrefixAlrt = "Prefix is Required\n"
+            alerts.push(validatePrefixAlrt)
+        }        
+        var validateFirstName = document.getElementById('{!$Component.frm.pb1.pbs7.pbs8.Fists_Name}').value;
+        if(validateFirstName == ""){
+            var validateFirstNameAlrt = "First Name is Required\n"
+            alerts.push(validateFirstNameAlrt)
+        }
+        
+        var validateFirstLastName = document.getElementById('{!$Component.frm.pb1.pbs7.pbs9.Last_Name}').value;
+        if(validateFirstLastName ==""){
+            var validateFirstLastNameAlrt = "Last Name is Required\n"
+            alerts.push(validateFirstLastNameAlrt)
+        }
+        
+        var validateEmail = document.getElementById('{!$Component.frm.pb1.pbs7.pbs16.Email}').value;
+        if(validateEmail == ""){
+            var validateEmailAlrt = "An Email is Required\n"
+            alerts.push(validateEmailAlrt)
+        }
+        
+        var validateType = document.getElementById('{!$Component.frm.pb1.pbs7.pbs11.Type}').value;
+        if(validateType == "SELECTION"){
+            var validateTypeAlrt = "Select a Type fi Contact\n"
+            alerts.push(validateTypeAlrt)
+        }
+        
+        var validarCuntryCode = document.getElementById('{!$Component.frm.pb1.pbs7.pbs14.country_code}').value;
+        var validarAreaCode =document.getElementById('{!$Component.frm.pb1.pbs7.pbs15.Area_Code}').value;
+        var validarPhone = document.getElementById('{!$Component.frm.pb1.pbs7.pbs18.Phone}').value;
+        
+        if(validarCuntryCode !=""){
+        	if(validarAreaCode=="" && alerts.includes('Please Insert an Area Code\n')==false){
+            	var validarAreaCodeAlrt = "Please Insert an Area Code\n";
+                alerts.push(validarAreaCodeAlrt)
+            }
+            
+            if(validarPhone =="" && alerts.includes('Please Insert a Phone\n')==false){
+            	var validarPhoneAlrt ="Please Insert a Phone\n";
+                alerts.push(validarPhoneAlrt)
+            }
+        }
+        
+        if(validarAreaCode !=""){
+        	if(validarCuntryCode =="" && alerts.includes('Please Insert a Country Code\n')==false){ 
+            	var validarCuntryCodeAlrt = "Please Insert a Country Code\n";
+                alerts.push(validarCuntryCodeAlrt)
+            }
+            
+            if(validarPhone=="" && alerts.includes('Please Insert a Phone\n')==false){
+            	var validarPhoneAlrt ="Please Insert a Phone\n"
+                alerts.push(validarPhoneAlrt);
+            }
+        }
+        
+        if(validarPhone!=""){
+        	if(validarAreaCode=="" && alerts.includes('Pease Insert an Area Code\n')==false){
+            	var validarAreaCodeAlrt = "Please Insert an Area Code\n"
+                alerts.push(validarAreaCodeAlrt)
+            }
+            
+            if(validarCuntryCode=="" && alerts.includes('Please Insert a Cuntry Code\n')==false){
+            	var validarCuntryCodeAlrt= "Please Insert a Cuntry Code\n"
+                alerts.push(validarCuntryCodeAlrt)
+            }
+        }
+        
+        
+        
+        if(alerts.length > 0){
+            strAlrts = alerts.toString()
+            strAlrts = strAlrts.replace(/,/g,"")
+            alert(strAlrts)
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    function valEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    
+    function checkEmail(valor){
+        if (!valEmail(valor) && valor !=""){
+            alert(valor + ' Please input a valid Email Address(xxx@xxx.xx)')
+            
+        }
+        
+    }
+    </script>
+    
+    <apex:form id="frm" >
+        <apex:pageBlock title="Contact" id="pb1">
+            <apex:pageMessages id="showmsg"></apex:pageMessages> 
+            <apex:pageBlockSection columns="2" title="information" id="pbs7">
+                <apex:pageBlockSectionItem id="pbsprefix">
+                    <apex:outputLabel value="Prefix*"/>
+                    <apex:selectList id="Prefix" size="1" style="width: 160px" value="{!contactObj.Prefix}" >
+                        <apex:selectoption itemLabel="SELECTION" itemValue=""></apex:selectoption>
+                        <apex:selectoption itemLabel="MR." itemValue="MR."></apex:selectoption>
+                        <apex:selectoption itemLabel="MS." itemValue="MS."></apex:selectoption>
+                        <apex:selectoption itemLabel="MRS." itemValue="MRS."></apex:selectoption>
+                        <apex:selectoption itemLabel="DR." itemValue="DR."></apex:selectoption>
+                        <apex:selectoption itemLabel="PROF." itemValue="PROF."></apex:selectoption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs16">
+                    <apex:outputLabel value="Email*" />
+                    <apex:inputText id="Email" disabled="false" value="{!contactObj.Email}" onblur="valEmail(this.value), checkEmail(this.value)" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs8">
+                    <apex:outputLabel value="First Name*" />
+                    <apex:inputText id="Fists_Name" disabled="False" value="{!contactObj.First_name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs14">
+                    <apex:outputLabel value="Country Code" />
+                    <!-- <apex:inputText id="country_code" value="{!contactObj.Country_code}" onkeyup="ltrM(this.id);"/>-->
+                    
+                    <apex:selectList id="country_code" size="1" style="width: 160px" value="{!contactObj.Country_code}" >
+                        <apex:selectoption itemLabel="SELECTION" itemValue=""></apex:selectoption>
+                        <apex:selectoption itemLabel="1" itemValue="1"></apex:selectoption>
+                        <apex:selectoption itemLabel="2" itemValue="2"></apex:selectoption>
+                        <apex:selectoption itemLabel="7" itemValue="7"></apex:selectoption>
+                        <apex:selectoption itemLabel="20" itemValue="20"></apex:selectoption>
+                        <apex:selectoption itemLabel="27" itemValue="27"></apex:selectoption>
+                        <apex:selectoption itemLabel="30" itemValue="30"></apex:selectoption>
+                        <apex:selectoption itemLabel="31" itemValue="31"></apex:selectoption>
+                        <apex:selectoption itemLabel="32" itemValue="32"></apex:selectoption>
+                        <apex:selectoption itemLabel="33" itemValue="33"></apex:selectoption>
+                        <apex:selectoption itemLabel="34" itemValue="34"></apex:selectoption>
+                        <apex:selectoption itemLabel="36" itemValue="36"></apex:selectoption>
+                        <apex:selectoption itemLabel="39" itemValue="39"></apex:selectoption>
+                        <apex:selectoption itemLabel="40" itemValue="40"></apex:selectoption>
+                        <apex:selectoption itemLabel="41" itemValue="41"></apex:selectoption>
+                        <apex:selectoption itemLabel="43" itemValue="43"></apex:selectoption>
+                        <apex:selectoption itemLabel="44" itemValue="44"></apex:selectoption>
+                        <apex:selectoption itemLabel="45" itemValue="45"></apex:selectoption>
+                        <apex:selectoption itemLabel="46" itemValue="46"></apex:selectoption>
+                        <apex:selectoption itemLabel="47" itemValue="47"></apex:selectoption>
+                        <apex:selectoption itemLabel="48" itemValue="48"></apex:selectoption>
+                        <apex:selectoption itemLabel="49" itemValue="49"></apex:selectoption>
+                        <apex:selectoption itemLabel="51" itemValue="51"></apex:selectoption>
+                        <apex:selectoption itemLabel="52" itemValue="52"></apex:selectoption>
+                        <apex:selectoption itemLabel="53" itemValue="53"></apex:selectoption>
+                        <apex:selectoption itemLabel="54" itemValue="54"></apex:selectoption>
+                        <apex:selectoption itemLabel="55" itemValue="55"></apex:selectoption>
+                        <apex:selectoption itemLabel="56" itemValue="56"></apex:selectoption>
+                        <apex:selectoption itemLabel="57" itemValue="57"></apex:selectoption>
+                        <apex:selectoption itemLabel="58" itemValue="58"></apex:selectoption>
+                        <apex:selectoption itemLabel="60" itemValue="60"></apex:selectoption>
+                        <apex:selectoption itemLabel="61" itemValue="61"></apex:selectoption>
+                        <apex:selectoption itemLabel="62" itemValue="62"></apex:selectoption>
+                        <apex:selectoption itemLabel="63" itemValue="63"></apex:selectoption>
+                        <apex:selectoption itemLabel="64" itemValue="64"></apex:selectoption>
+                        <apex:selectoption itemLabel="65" itemValue="65"></apex:selectoption>
+                        <apex:selectoption itemLabel="66" itemValue="66"></apex:selectoption>
+                        <apex:selectoption itemLabel="81" itemValue="81"></apex:selectoption>
+                        <apex:selectoption itemLabel="82" itemValue="82"></apex:selectoption>
+                        <apex:selectoption itemLabel="84" itemValue="84"></apex:selectoption>
+                        <apex:selectoption itemLabel="86" itemValue="86"></apex:selectoption>
+                        <apex:selectoption itemLabel="90" itemValue="90"></apex:selectoption>
+                        <apex:selectoption itemLabel="91" itemValue="91"></apex:selectoption>
+                        <apex:selectoption itemLabel="92" itemValue="92"></apex:selectoption>
+                        <apex:selectoption itemLabel="93" itemValue="93"></apex:selectoption>
+                        <apex:selectoption itemLabel="94" itemValue="94"></apex:selectoption>
+                        <apex:selectoption itemLabel="95" itemValue="95"></apex:selectoption>
+                        <apex:selectoption itemLabel="98" itemValue="98"></apex:selectoption>
+                        <apex:selectoption itemLabel="211" itemValue="211"></apex:selectoption>
+                        <apex:selectoption itemLabel="212" itemValue="212"></apex:selectoption>
+                        <apex:selectoption itemLabel="213" itemValue="213"></apex:selectoption>
+                        <apex:selectoption itemLabel="216" itemValue="216"></apex:selectoption>
+                        <apex:selectoption itemLabel="218" itemValue="218"></apex:selectoption>
+                        <apex:selectoption itemLabel="220" itemValue="220"></apex:selectoption>
+                        <apex:selectoption itemLabel="221" itemValue="221"></apex:selectoption>
+                        <apex:selectoption itemLabel="222" itemValue="222"></apex:selectoption>
+                        <apex:selectoption itemLabel="223" itemValue="223"></apex:selectoption>
+                        <apex:selectoption itemLabel="224" itemValue="224"></apex:selectoption>
+                        <apex:selectoption itemLabel="225" itemValue="225"></apex:selectoption>
+                        <apex:selectoption itemLabel="226" itemValue="226"></apex:selectoption>
+                        <apex:selectoption itemLabel="227" itemValue="227"></apex:selectoption>
+                        <apex:selectoption itemLabel="228" itemValue="228"></apex:selectoption>
+                        <apex:selectoption itemLabel="229" itemValue="229"></apex:selectoption>
+                        <apex:selectoption itemLabel="230" itemValue="230"></apex:selectoption>
+                        <apex:selectoption itemLabel="231" itemValue="231"></apex:selectoption>
+                        <apex:selectoption itemLabel="232" itemValue="232"></apex:selectoption>
+                        <apex:selectoption itemLabel="233" itemValue="233"></apex:selectoption>
+                        <apex:selectoption itemLabel="234" itemValue="234"></apex:selectoption>
+                        <apex:selectoption itemLabel="235" itemValue="235"></apex:selectoption>
+                        <apex:selectoption itemLabel="236" itemValue="236"></apex:selectoption>
+                        <apex:selectoption itemLabel="237" itemValue="237"></apex:selectoption>
+                        <apex:selectoption itemLabel="238" itemValue="238"></apex:selectoption>
+                        <apex:selectoption itemLabel="239" itemValue="239"></apex:selectoption>
+                        <apex:selectoption itemLabel="240" itemValue="240"></apex:selectoption>
+                        <apex:selectoption itemLabel="241" itemValue="241"></apex:selectoption>
+                        <apex:selectoption itemLabel="242" itemValue="242"></apex:selectoption>
+                        <apex:selectoption itemLabel="243" itemValue="243"></apex:selectoption>
+                        <apex:selectoption itemLabel="244" itemValue="244"></apex:selectoption>
+                        <apex:selectoption itemLabel="245" itemValue="245"></apex:selectoption>
+                        <apex:selectoption itemLabel="246" itemValue="246"></apex:selectoption>
+                        <apex:selectoption itemLabel="248" itemValue="248"></apex:selectoption>
+                        <apex:selectoption itemLabel="249" itemValue="249"></apex:selectoption>
+                        <apex:selectoption itemLabel="250" itemValue="250"></apex:selectoption>
+                        <apex:selectoption itemLabel="251" itemValue="251"></apex:selectoption>
+                        <apex:selectoption itemLabel="252" itemValue="252"></apex:selectoption>
+                        <apex:selectoption itemLabel="253" itemValue="253"></apex:selectoption>
+                        <apex:selectoption itemLabel="254" itemValue="254"></apex:selectoption>
+                        <apex:selectoption itemLabel="255" itemValue="255"></apex:selectoption>
+                        <apex:selectoption itemLabel="256" itemValue="256"></apex:selectoption>
+                        <apex:selectoption itemLabel="257" itemValue="257"></apex:selectoption>
+                        <apex:selectoption itemLabel="258" itemValue="258"></apex:selectoption>
+                        <apex:selectoption itemLabel="260" itemValue="260"></apex:selectoption>
+                        <apex:selectoption itemLabel="261" itemValue="261"></apex:selectoption>
+                        <apex:selectoption itemLabel="262" itemValue="262"></apex:selectoption>
+                        <apex:selectoption itemLabel="263" itemValue="263"></apex:selectoption>
+                        <apex:selectoption itemLabel="264" itemValue="264"></apex:selectoption>
+                        <apex:selectoption itemLabel="265" itemValue="265"></apex:selectoption>
+                        <apex:selectoption itemLabel="266" itemValue="266"></apex:selectoption>
+                        <apex:selectoption itemLabel="267" itemValue="267"></apex:selectoption>
+                        <apex:selectoption itemLabel="268" itemValue="268"></apex:selectoption>
+                        <apex:selectoption itemLabel="269" itemValue="269"></apex:selectoption>
+                        <apex:selectoption itemLabel="290" itemValue="290"></apex:selectoption>
+                        <apex:selectoption itemLabel="291" itemValue="291"></apex:selectoption>
+                        <apex:selectoption itemLabel="297" itemValue="297"></apex:selectoption>
+                        <apex:selectoption itemLabel="298" itemValue="298"></apex:selectoption>
+                        <apex:selectoption itemLabel="299" itemValue="299"></apex:selectoption>
+                        <apex:selectoption itemLabel="350" itemValue="350"></apex:selectoption>
+                        <apex:selectoption itemLabel="351" itemValue="351"></apex:selectoption>
+                        <apex:selectoption itemLabel="352" itemValue="352"></apex:selectoption>
+                        <apex:selectoption itemLabel="353" itemValue="353"></apex:selectoption>
+                        <apex:selectoption itemLabel="354" itemValue="354"></apex:selectoption>
+                        <apex:selectoption itemLabel="355" itemValue="355"></apex:selectoption>
+                        <apex:selectoption itemLabel="356" itemValue="356"></apex:selectoption>
+                        <apex:selectoption itemLabel="357" itemValue="357"></apex:selectoption>
+                        <apex:selectoption itemLabel="358" itemValue="358"></apex:selectoption>
+                        <apex:selectoption itemLabel="359" itemValue="359"></apex:selectoption>
+                        <apex:selectoption itemLabel="370" itemValue="370"></apex:selectoption>
+                        <apex:selectoption itemLabel="371" itemValue="371"></apex:selectoption>
+                        <apex:selectoption itemLabel="372" itemValue="372"></apex:selectoption>
+                        <apex:selectoption itemLabel="373" itemValue="373"></apex:selectoption>
+                        <apex:selectoption itemLabel="374" itemValue="374"></apex:selectoption>
+                        <apex:selectoption itemLabel="375" itemValue="375"></apex:selectoption>
+                        <apex:selectoption itemLabel="376" itemValue="376"></apex:selectoption>
+                        <apex:selectoption itemLabel="377" itemValue="377"></apex:selectoption>
+                        <apex:selectoption itemLabel="378" itemValue="378"></apex:selectoption>
+                        <apex:selectoption itemLabel="380" itemValue="380"></apex:selectoption>
+                        <apex:selectoption itemLabel="381" itemValue="381"></apex:selectoption>
+                        <apex:selectoption itemLabel="382" itemValue="382"></apex:selectoption>
+                        <apex:selectoption itemLabel="385" itemValue="385"></apex:selectoption>
+                        <apex:selectoption itemLabel="386" itemValue="386"></apex:selectoption>
+                        <apex:selectoption itemLabel="387" itemValue="387"></apex:selectoption>
+                        <apex:selectoption itemLabel="389" itemValue="389"></apex:selectoption>
+                        <apex:selectoption itemLabel="420" itemValue="420"></apex:selectoption>
+                        <apex:selectoption itemLabel="421" itemValue="421"></apex:selectoption>
+                        <apex:selectoption itemLabel="423" itemValue="423"></apex:selectoption>
+                        <apex:selectoption itemLabel="500" itemValue="500"></apex:selectoption>
+                        <apex:selectoption itemLabel="501" itemValue="501"></apex:selectoption>
+                        <apex:selectoption itemLabel="502" itemValue="502"></apex:selectoption>
+                        <apex:selectoption itemLabel="503" itemValue="503"></apex:selectoption>
+                        <apex:selectoption itemLabel="504" itemValue="504"></apex:selectoption>
+                        <apex:selectoption itemLabel="505" itemValue="505"></apex:selectoption>
+                        <apex:selectoption itemLabel="506" itemValue="506"></apex:selectoption>
+                        <apex:selectoption itemLabel="507" itemValue="507"></apex:selectoption>
+                        <apex:selectoption itemLabel="508" itemValue="508"></apex:selectoption>
+                        <apex:selectoption itemLabel="509" itemValue="509"></apex:selectoption>
+                        <apex:selectoption itemLabel="590" itemValue="590"></apex:selectoption>
+                        <apex:selectoption itemLabel="591" itemValue="591"></apex:selectoption>
+                        <apex:selectoption itemLabel="592" itemValue="592"></apex:selectoption>
+                        <apex:selectoption itemLabel="593" itemValue="593"></apex:selectoption>
+                        <apex:selectoption itemLabel="594" itemValue="594"></apex:selectoption>
+                        <apex:selectoption itemLabel="595" itemValue="595"></apex:selectoption>
+                        <apex:selectoption itemLabel="596" itemValue="596"></apex:selectoption>
+                        <apex:selectoption itemLabel="597" itemValue="597"></apex:selectoption>
+                        <apex:selectoption itemLabel="598" itemValue="598"></apex:selectoption>
+                        <apex:selectoption itemLabel="599" itemValue="599"></apex:selectoption>
+                        <apex:selectoption itemLabel="649" itemValue="649"></apex:selectoption>
+                        <apex:selectoption itemLabel="670" itemValue="670"></apex:selectoption>
+                        <apex:selectoption itemLabel="672" itemValue="672"></apex:selectoption>
+                        <apex:selectoption itemLabel="673" itemValue="673"></apex:selectoption>
+                        <apex:selectoption itemLabel="674" itemValue="674"></apex:selectoption>
+                        <apex:selectoption itemLabel="675" itemValue="675"></apex:selectoption>
+                        <apex:selectoption itemLabel="676" itemValue="676"></apex:selectoption>
+                        <apex:selectoption itemLabel="677" itemValue="677"></apex:selectoption>
+                        <apex:selectoption itemLabel="678" itemValue="678"></apex:selectoption>
+                        <apex:selectoption itemLabel="679" itemValue="679"></apex:selectoption>
+                        <apex:selectoption itemLabel="680" itemValue="680"></apex:selectoption>
+                        <apex:selectoption itemLabel="681" itemValue="681"></apex:selectoption>
+                        <apex:selectoption itemLabel="682" itemValue="682"></apex:selectoption>
+                        <apex:selectoption itemLabel="683" itemValue="683"></apex:selectoption>
+                        <apex:selectoption itemLabel="684" itemValue="684"></apex:selectoption>
+                        <apex:selectoption itemLabel="685" itemValue="685"></apex:selectoption>
+                        <apex:selectoption itemLabel="686" itemValue="686"></apex:selectoption>
+                        <apex:selectoption itemLabel="687" itemValue="687"></apex:selectoption>
+                        <apex:selectoption itemLabel="688" itemValue="688"></apex:selectoption>
+                        <apex:selectoption itemLabel="689" itemValue="689"></apex:selectoption>
+                        <apex:selectoption itemLabel="690" itemValue="690"></apex:selectoption>
+                        <apex:selectoption itemLabel="691" itemValue="691"></apex:selectoption>
+                        <apex:selectoption itemLabel="692" itemValue="692"></apex:selectoption>
+                        <apex:selectoption itemLabel="699" itemValue="699"></apex:selectoption>
+                        <apex:selectoption itemLabel="850" itemValue="850"></apex:selectoption>
+                        <apex:selectoption itemLabel="852" itemValue="852"></apex:selectoption>
+                        <apex:selectoption itemLabel="853" itemValue="853"></apex:selectoption>
+                        <apex:selectoption itemLabel="855" itemValue="855"></apex:selectoption>
+                        <apex:selectoption itemLabel="856" itemValue="856"></apex:selectoption>
+                        <apex:selectoption itemLabel="872" itemValue="872"></apex:selectoption>
+                        <apex:selectoption itemLabel="880" itemValue="880"></apex:selectoption>
+                        <apex:selectoption itemLabel="886" itemValue="886"></apex:selectoption>
+                        <apex:selectoption itemLabel="960" itemValue="960"></apex:selectoption>
+                        <apex:selectoption itemLabel="961" itemValue="961"></apex:selectoption>
+                        <apex:selectoption itemLabel="962" itemValue="962"></apex:selectoption>
+                        <apex:selectoption itemLabel="963" itemValue="963"></apex:selectoption>
+                        <apex:selectoption itemLabel="964" itemValue="964"></apex:selectoption>
+                        <apex:selectoption itemLabel="965" itemValue="965"></apex:selectoption>
+                        <apex:selectoption itemLabel="966" itemValue="966"></apex:selectoption>
+                        <apex:selectoption itemLabel="967" itemValue="967"></apex:selectoption>
+                        <apex:selectoption itemLabel="968" itemValue="968"></apex:selectoption>
+                        <apex:selectoption itemLabel="970" itemValue="970"></apex:selectoption>
+                        <apex:selectoption itemLabel="971" itemValue="971"></apex:selectoption>
+                        <apex:selectoption itemLabel="972" itemValue="972"></apex:selectoption>
+                        <apex:selectoption itemLabel="973" itemValue="973"></apex:selectoption>
+                        <apex:selectoption itemLabel="974" itemValue="974"></apex:selectoption>
+                        <apex:selectoption itemLabel="975" itemValue="975"></apex:selectoption>
+                        <apex:selectoption itemLabel="976" itemValue="976"></apex:selectoption>
+                        <apex:selectoption itemLabel="977" itemValue="977"></apex:selectoption>
+                        <apex:selectoption itemLabel="992" itemValue="992"></apex:selectoption>
+                        <apex:selectoption itemLabel="993" itemValue="993"></apex:selectoption>
+                        <apex:selectoption itemLabel="994" itemValue="994"></apex:selectoption>
+                        <apex:selectoption itemLabel="995" itemValue="995"></apex:selectoption>
+                        <apex:selectoption itemLabel="996" itemValue="996"></apex:selectoption>
+                        <apex:selectoption itemLabel="998" itemValue="998"></apex:selectoption>                        
+                    </apex:selectList>                    
+                    
+                    
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs9bis">
+                    <apex:outputLabel value="Middle Name" />
+                    <apex:inputText id="Middle_Name" value="{!contactObj.middleName}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>                    
+                
+                
+                <!-- -->
+                
+                <!-- -->
+                
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs15">
+                    <apex:outputLabel value="Area Code" />
+                    <apex:inputText id="Area_Code" value="{!contactObj.Area_code}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+                <apex:pageBlockSectionItem id="pbs9">
+                    <apex:outputLabel value="Last Name*" />
+                    <apex:inputText id="Last_Name" value="{!contactObj.First_Last_Name}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                
+                
+                
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs18">
+                    <apex:outputLabel value="Phone" />
+                    <apex:inputText id="Phone" disabled="false" value="{!contactObj.Phone}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                
+                <apex:pageBlockSectionItem id="pbs10">
+                    <apex:outputLabel value="Second Last Name" />
+                    <apex:inputText id="secound_last_name" value="{!contactObj.secondLastName}"   onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs20">
+                    <apex:outputLabel value="Phone Number Extension"/>
+                    <apex:inputText id="Phone_Number_Extension" value="{!contactObj.Phone_number_extension}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbs11">
+                    <apex:outputLabel value="Type*" />
+                    <apex:selectList id="Type" disabled="{!NOT(IsBlank(contactObj.Contact_id))}" value="{!contactObj.TypeContact}" size="1"  style="width: 173px">
+                        <apex:selectOption itemLabel="SELECTION" itemValue="SELECTION"></apex:selectOption>
+                        <apex:selectOption itemLabel="BILLING" itemValue="BILLING"></apex:selectOption>
+                        <apex:selectOption itemLabel="COLLECTIONS" itemValue="COLLECTIONS"></apex:selectOption>
+                        <apex:selectOption itemLabel="INSURANCE" itemValue="INSURANCE"></apex:selectOption>
+                        <apex:selectOption itemLabel="PORTFOLIO MONITORING" itemValue="PORTFOLIO MONITORING"></apex:selectOption>
+                        <apex:selectOption itemLabel="OTHER" itemValue="OTHER"></apex:selectOption>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs22">
+                    <apex:outputLabel value="Mobile"/>
+                    <apex:inputText id="Mobile" disabled="false" value="{!contactObj.Mobile}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                <!-- -->
+                <apex:pageBlockSectionItem id="pbs13">
+                    <apex:outputLabel value="Title" />
+                    <apex:inputText id="Job_Title" disabled="{!NOT(IsBlank(contactObj.Contact_id))}" value="{!contactObj.title}" onkeyup="ltrM(this.id);"/>
+                </apex:pageBlockSectionItem>
+                
+                
+                
+                
+                <!-- 
+            
+            <apex:pageBlockSectionItem id="pbs19">
+            disabled="{!NOT(IsBlank(contactObj.Contact_id))}"
+            <apex:outputLabel value="Departament"/>
+            <apex:inputText id="Departament" disabled="False" onkeyup="ltrM(this.id);"/>
+            </apex:pageBlockSectionItem>
+            -->
+                            
+                            <!-- 
+            <apex:pageBlockSectionItem id="pbs21">
+            <apex:outputLabel value="No Longer Works There"/>
+            <apex:inputCheckbox id="No_Longer_Works_There" onkeyup="ltrM(this.id);"/>
+            </apex:pageBlockSectionItem>      
+            
+            <apex:pageBlockSectionItem id="pbs24">
+            <apex:outputLabel value="Contact Comments"/>
+            <apex:inputText id="Contact_Comments" disabled="false" onkeyup="ltrM(this.id);"/>
+            </apex:pageBlockSectionItem>-->
+            </apex:pageBlockSection>     
+            <div style="width: 230px;margin-left: auto;margin-right: auto;">
+                <apex:commandButton value="Save" style="width: 100px;" onclick="return validarCampos();" action="{!saveContact}" />
+                <apex:commandButton style="width: 120px;" value="Back to Entity" action="{!backToEntity}"/>
+            </div>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

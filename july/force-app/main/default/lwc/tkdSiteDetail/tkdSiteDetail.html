@@ -1,0 +1,146 @@
+<!--
+  @description       : 
+  @author            : eduardo.amiens@outlook.com
+  @group             : 
+  @last modified on  : 09-14-2020
+  @last modified by  : eduardo.amiens@outlook.com
+  Modifications Log 
+  Ver   Date         Author                       Modification
+  1.0   08-10-2020   eduardo.amiens@outlook.com   Initial Version
+-->
+<template>
+  <h3 class="slds-section-title--divider">Site</h3>
+  <div class="slds-p-around_x-small">
+    <lightning-card title="Site Information" icon-name="standard:location">
+      <lightning-button-stateful if:true={siteId} slot="actions" label-when-off="Edit" label-when-on="Editing"
+        label-when-hover="Save" icon-name-when-off="utility:edit" icon-name-when-on="utility:edit_form"
+        icon-name-when-hover="utility:save" selected={isSelectedEditing} onclick={handleEditClick}>
+      </lightning-button-stateful>
+    </lightning-card>
+  </div>
+
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" padding="around-small">
+      <div class="slds-p-around_xx-small container lgc-bg">Information
+      </div>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Org Name" data-field="orgName" readonly required>
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="Tax Code" data-field="taxCodeReadOnly" readonly required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Tax Code" value={TKD_Vat_codeValue} placeholder="Select a Tax Code"
+          options={TKD_Vat_codeOptions} data-field="taxCode" required>
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+
+    <lightning-layout-item size="12" padding="around-small">
+      <div class="slds-p-around_xx-small container lgc-bg">Location
+      </div>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Phone" field-level-help="you can put a number with extension. Example 5511551155 ext 3940"
+        data-field="phone" readonly={isReadOnly} required onchange={validatePhone}>
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="8" medium-device-size="8" large-device-size="8"
+      padding="around-small">
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Address Line 1" data-field="addLine1" readonly={isReadOnly} required
+      maxlength="50">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="Address Line 2" data-field="addLine2" readonly={isReadOnly}
+      maxlength="50">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="ZIP" data-field="zip" readonly={isReadOnly} required
+      maxlength="5">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <lightning-input type="text" label="City" data-field="city" readonly={isReadOnly} required
+      maxlength="50">
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="State" data-field="StateReadOnly" readonly required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="State" value={TKD_ls_StateValue} placeholder="Select a State"
+          options={TKD_ls_StateOptions} data-field="State" required={requiredState} disabled={disableState}>
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="4"
+      padding="around-small">
+      <template if:true={isReadOnly}>
+        <lightning-input type="text" label="Country" data-field="countryReadOnly" readonly required>
+        </lightning-input>
+      </template>
+      <template if:false={isReadOnly}>
+        <lightning-combobox label="Country" value={TKD_tx_CountryValue} placeholder="Select a Country"
+          options={TKD_tx_CountryOptions} data-field="country" onchange={validateCountry} required>
+        </lightning-combobox>
+      </template>
+    </lightning-layout-item>
+
+    <lightning-layout-item size="12" padding="around-small">
+      <h3 class="slds-section-title--divider">Bank Accounts</h3>
+      <lightning-layout multiple-rows>
+        <lightning-layout-item size="12" padding="around-small">
+          <lightning-card title="Bank Account Information" icon-name="custom:custom87">
+            <lightning-button slot="actions" label="Add New" title="Add New" icon-name="utility:add"
+              class="slds-m-left_x-small" onclick={handleOpenBankAccountModal}></lightning-button>
+            <p slot="footer" class="slds-p-horizontal_small">
+              <lightning-datatable key-field="id" data={bankAccountsData} columns={bankAccountsColumns}
+                onrowaction={handleBankAccountRowAction} hide-checkbox-column></lightning-datatable>
+            </p>
+          </lightning-card>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" padding="around-small">
+      <h3 class="slds-section-title--divider">Contacts</h3>
+      <lightning-layout multiple-rows>
+        <lightning-layout-item size="12" padding="around-small">
+          <lightning-card title="Contact Information" icon-name="standard:contact">
+            <lightning-button slot="actions" label="Add New" title="Add New" icon-name="utility:add"
+              class="slds-m-left_x-small" onclick={handleOpenContactModal}></lightning-button>
+            <p slot="footer" class="slds-p-horizontal_small">
+              <lightning-datatable key-field="id" data={ContactsData} columns={contactsColumns}
+                onrowaction={handleContactRowAction} hide-checkbox-column></lightning-datatable>
+            </p>
+          </lightning-card>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-layout-item>
+
+  </lightning-layout>
+  <template if:true={openModalAskDelete}>
+    <c-modal-question onclose={cancelDelete} onaccept={deleteRow} close-button-name='Close' accept-button-name="Delete"
+      title='Are you sure to delete this record?'
+      init-modal-class='slds-modal slds-fade-in-open animated fadeInRight slds-modal_small'>
+    </c-modal-question>
+  </template>
+
+</template>

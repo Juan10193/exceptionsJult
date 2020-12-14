@@ -1,0 +1,88 @@
+<aura:component controller="ES3_ValidaPricingInCreditApproval" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes">
+    <aura:attribute name="recordId" type="String" />
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--<aura:handler name="init" value="{!this}" action="{!c.recargarx2}"/>-->
+<aura:handler event="force:refreshView" action="{!c.doInit}" />
+
+<ltng:require styles="{!$Resource.multilineToastCSS}" /> 
+    <aura:attribute name="button" type="map"/>
+    
+    <aura:attribute name="SetOnHoldAML" type="Boolean" />
+    
+    <aura:if isTrue="{!v.button.ES3_BUTTON_ACCEPT_TO_REVIEW_RISK__C}">
+        <button aura:id="btnRisk" onclick="{!c.acceptToReviewRisk}" class="slds-button slds-button_neutral">Accept to review Risk</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_ACCEPT_TO_REVIEW_AML__C}">
+        <button aura:id="btnRisk" onclick="{!c.acceptToReviewAML}" class="slds-button slds-button_neutral">Accept to review AML</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_APPROVE__C}">
+        <button aura:id="btnRisk" onclick="{!c.approveAML}" class="slds-button slds-button_neutral">Approve AML</button>    
+    </aura:if>
+    <aura:if isTrue="{!v.button.ES3_BUTTON_APPROVE__C}">
+        <button aura:id="btnRisk" onclick="{!c.approveAMLWithConditions}" class="slds-button slds-button_neutral">Approve AML With conditions</button>    
+    </aura:if>
+
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_BACK_TO_IN_PROCESS_AML__C}">
+        <button aura:id="btnRisk" onclick="{!c.backtoInProcessAML}" class="slds-button slds-button_neutral">Back to in Process AML</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_BACK_TO_IN_PROCESS_RISK__C}">
+        <button aura:id="btnRisk" onclick="{!c.backtoInProcessRisk}" class="slds-button slds-button_neutral">Back to in Process Risk</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_REWORK_AML__C}">
+        <button aura:id="btnRisk" onclick="{!c.reworkAML}" class="slds-button slds-button_neutral">Rework AML</button>    
+    </aura:if>
+    
+     <aura:if isTrue="{!v.button.ES3_Button_Rework_for_entities_AML__c}">
+        <button aura:id="btnRisk" onclick="{!c.reworkForEntAML}" class="slds-button slds-button_neutral">Rework For Entities AML</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_REWORK_RISK__C}">
+        <button aura:id="btnRisk" onclick="{!c.reworkRisk}" class="slds-button slds-button_neutral">Rework Risk</button>    
+    </aura:if>
+    
+     <aura:if isTrue="{!v.button.ES3_Button_Rework_for_entities_RISK__c}">
+        <button aura:id="btnRisk" onclick="{!c.reworkForEntRisk}" class="slds-button slds-button_neutral">Rework For Entities Risk</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_SET_ON_HOLD_AML__C}">
+        <button aura:id="btnRisk" onclick="{!c.onHoldAML}" class="slds-button slds-button_neutral">On Hold AML</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_SET_ON_HOLD_RISK__C}">
+        <button aura:id="btnRisk" onclick="{!c.onHoldRisk}" class="slds-button slds-button_neutral">On Hold Risk</button>    
+    </aura:if>
+
+   <!-- <aura:if isTrue="{!v.button.ES3_BUTTON_WITHDRAWN_AML__C}">
+        <button aura:id="btnRisk" onclick="{!c.WithdrawnAML}" class="slds-button slds-button_neutral">Withdrawn AML</button>    
+    </aura:if>-->
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_WITHDRAWN_RISK__C}">
+        <button aura:id="btnRisk" onclick="{!c.WithdrawnRISK}" class="slds-button slds-button_neutral">Withdrawn Risk</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_SEND_TO_RISK__C}">
+        <button aura:id="btnAML" onclick="{!c.sendToRISK}" class="slds-button slds-button_neutral" >Send To Risk</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_SEND_TO_AML__C}">
+        <button aura:id="btnAML" onclick="{!c.sendToAML}" class="slds-button slds-button_neutral" >Send To AML</button>    
+    </aura:if>
+
+     <aura:if isTrue="{!v.button.ES3_BUTTON_SUBMIT_FOR_APPROVAL_RISK__C}">
+        <button aura:id="btnSubmitForA" onclick="{!c.submitForAproval}" class="slds-button slds-button_neutral">Submit for Approval</button>
+    </aura:if>
+    
+     <aura:if isTrue="{!v.button.ES3_BUTTON_DECLINED_AML__C}">
+        <button aura:id="btnRisk" onclick="{!c.declineAML}" class="slds-button slds-button_neutral">Decline AML</button>    
+    </aura:if>
+
+    <aura:if isTrue="{!v.button.ES3_BUTTON_DECLINED_RISK__C}">
+        <button aura:id="btnRisk" onclick="{!c.declineRisk}" class="slds-button slds-button_neutral">Decline Risk</button>    
+    </aura:if>
+
+</aura:component>

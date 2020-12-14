@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Membrete_para_leads2</letterhead>
+    <name>Save The Date Event</name>
+    <style>freeForm</style>
+    <subject>{!Account.Name}– Engen Capital Presentación de servicios</subject>
+    <textOnly>Hola {!Contact.FirstName}:
+
+
+Agradezco mucho la atención a mi llamada y la oportunidad de recibirnos en tus instalaciones ubicadas en:
+
+{!Account.BillingAddress}
+
+Teléfono:{!Contact.Phone}
+
+
+
+El próximo:{!DATETIMEVALUE(Event.StartDateTime)}
+
+
+{!Contact.FirstName},copio en este correo a nuestro subdirector de negocio {!Event.OwnerName__c}, quién asistirá a la cita.
+
+
+Nuevamente muchas gracias por tu atención.
+
+
+{!Event.CreatedBy}
+
+
+
+
+
+
+
+{!User.Name}
+
+{!User.Phone}
+
+www.engen.com.mx</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

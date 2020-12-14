@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Covenant Breach</name>
+    <style>formalLetter</style>
+    <subject>New opportunity has been created at, {!Account.Name}, account with a covenant breach</subject>
+    <textOnly>Dear {!Account.OwnerFullName},
+You are receiving this notification because a new opportunity has been created at, {!Account.Name}, account that has a covenant breach.
+
+The covenant(s) this accounts have are:
+
+{!Account.Covenants__c}
+
+The status of the covenant(s) is: {!Account.Covenant_Status__c}
+Risk economic group name: {!Account.ACC_tx_Risk_Economic_Group__c}
+Latest Risk Classification: {!Account.ACC_rb_Risk_Classification__c}
+Latest OR rating: {!Account.ACC_rb_OR_rating__c}
+Current exposure ($USD): {!Account.ACC_un_Total_Exposure__c}
+
+It&apos;s important that our review the covenant status with the account portfolio analyst, {!Account.Portfolio_Monitoring_Analyst__c}, to anticipate for any further possible stopper in the origination process.
+
+To review account record in Salesforce, click here.
+
+Regards,
+
+
+Digital Marketing - Engenium Capital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

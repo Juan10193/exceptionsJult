@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>EC_Letterhead</letterhead>
+    <name>Referral Incentive</name>
+    <style>freeForm</style>
+    <subject>Your referred opportunity of {!Opportunity.Account} has changed stage to {!Opportunity.StageName}</subject>
+    <textOnly>Dear {!Opportunity.OPP_rb_Refered_by__c}:
+
+Your receiving this notification because the opportunity that you referred has changed stage to: {!Opportunity.StageName}
+
+Please refer to the following referral details:
+
+Customer name: {!Opportunity.Account}
+Opportunity name: {!Opportunity.Name}
+Amount: {!Opportunity.Amount}
+Line of business: {!Opportunity.OPP_ls_Line_of_Business__c}
+Expected 1st funding date: {!Opportunity.CPS2_da_Expected_1st_funding_date__c}
+Funded volume ($USD): {!Opportunity.Funded_volume__c}
+
+You can view the record in the following link
+
+Regards,
+
+Digital Marketing - Engenium Capital.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

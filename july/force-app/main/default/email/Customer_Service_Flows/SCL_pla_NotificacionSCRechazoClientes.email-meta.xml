@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Soporte_ENGENIUM_Interno</letterhead>
+    <name>SCL_pla_NotificacionSCRechazoClientes</name>
+    <style>formalLetter</style>
+    <subject>Se rechazo el caso {!Case.CaseNumber} por los aprobadores</subject>
+    <textOnly>Hola, {!Case.Contact} buena tarde:
+Le informamos que en atención de su llamada con el siguiente asunto:
+
+{!Case.Subject}
+
+y la siguiente descripción:
+
+{!Case.Description}
+
+Hemos creado el Caso {!Case.CaseNumber} el cual sera asignado en breve para su atención.
+
+Si usted requiere ayuda o estatus de su petición puede contestar este correo o llamar al telefono indicado al final del correo.
+
+
+Atentamente el equipo de Servicio a Clientes de ENGENIUM CAPITAL
+Tel.: +52 (55) 5257.6161 (CDMX o zona metropolitana)
+Tel.: 01-800-714-3227 (Interior)
+
+{!Case.CAS009_fm_referencia__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

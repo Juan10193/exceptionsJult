@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CPL_pl_notiAMarketing1raActualizarSalesforce</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>MembreteCreditApproval</letterhead>
+    <name>CPL_pl_notiAMarketing1raActualizarSalesforce</name>
+    <style>freeForm</style>
+    <subject>Credit Approval enviado a revisión a underwriting</subject>
+    <textOnly>Hola, buenas tardes:
+
+Se le informa que el Credit Approval:
+
+
+Nombre: {!Credit_approval_CP__c.Name}
+Monto Total: {!Credit_approval_CP__c.CPL_fm_Amount_of_opportunities__c}
+Exposure :{!Credit_approval_CP__c.Exposure__c}
+Creado por:{!Credit_approval_CP__c.OwnerFullName} el {!Credit_approval_CP__c.CreatedDate}
+
+
+Ha sido enviado para su revisión a underwriting.
+
+Saludos.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

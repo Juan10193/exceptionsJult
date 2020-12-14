@@ -1,0 +1,195 @@
+<!--
+  @File Name          : tkd_checklistTollgate1.html
+  @Description        : 
+  @Author             : juandedios.hernandez@engeniumcapital.com
+  @Group              : 
+  @Last Modified By   : eduardo.villegas@engeniumcapital.com
+  @Last Modified On   : 14/1/2020 16:48:10
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    25/10/2019   juandedios.hernandez@engeniumcapital.com     Initial Version
+-->
+<template>
+    <div class="slds-theme_default">
+        <div class="slds-grid slds-wrap">
+            <template if:true={buttonVisbile}>
+                
+                <div class="slds-col">
+                    <lightning-button label={nameButton} onclick={openmodal}></lightning-button>
+                </div>
+            </template>
+        </div>
+        <template if:true={openmodel}>
+            <div class="demo-only" style="height: 640px;">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" size="medium">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"></h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <template if:true={isProgressing}>
+                                <lightning-progress-bar value={progress}></lightning-progress-bar>
+                                <div class="slds-text-align--center slds-text-title" style="color:forestgreen;">
+                                  {computedLabel}
+                                </div>
+                              </template>
+                            <h3 class="slds-section-title--divider animated slideInLeft">{nameButton}</h3>
+                            <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+                                active-section-name={activeSections}>
+                                <lightning-accordion-section name="A" label="Process">
+                                    <div class="slds-form slds-p-around--medium slds-m-bottom--x-small animated fadeIn"
+                                        role="list">
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div
+                                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">Legal Assessment</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div
+                                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <div class="slds-form-element__control">
+                                                        <lightning-input type="checkbox-button" label="Input Two" disabled 
+                                                            name="input2" checked={linkedLegals}>
+                                                        </lightning-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__row">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div
+                                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <label
+                                                        class="slds-form-element__label"><strong>Eval</strong></label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div
+                                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                    <div class="slds-form-element__control">
+                                                        <lightning-input type="checkbox-button" label="Input Two" disabled
+                                                            name="input2" checked={contieneEval}>
+                                                        </lightning-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <template if:true={showTakdownT2Val}>                                        
+                                            <div class="slds-form__row">
+                                                <div class="slds-form__item" role="listitem">
+                                                    <div
+                                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                        <label class="slds-form-element__label"><strong>Validate
+                                                                Suppilers</strong></label>
+                                                        <div class="slds-form-element__control">
+                                                            <div class="slds-form-element__static"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-form__item" role="listitem">
+                                                    <div
+                                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                        <div class="slds-form-element__control">
+                                                            <lightning-input type="checkbox-button" label="Input Two"
+                                                                name="input2" checked={suppliersApproved} disabled></lightning-input> (Required for tollgate 2)
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__row">
+                                                <div class="slds-form__item" role="listitem">
+                                                    <div
+                                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                        <label class="slds-form-element__label"><strong>Validate
+                                                                Invoices</strong></label>
+                                                        <div class="slds-form-element__control">
+                                                            <div class="slds-form-element__static"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-form__item" role="listitem">
+                                                    <div
+                                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                        <div class="slds-form-element__control">
+                                                            <lightning-input type="checkbox-button" label="Input Two"
+                                                                name="input2" checked={invoicesValidation} disabled>
+                                                            </lightning-input> (Optional for tollgate 2)
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__row">
+                                                <div class="slds-form__item" role="listitem">
+                                                    <div
+                                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                        <label class="slds-form-element__label"><strong>Opportunity Valid</strong></label>
+                                                        <div class="slds-form-element__control">
+                                                            <div class="slds-form-element__static"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-form__item" role="listitem">
+                                                    <div
+                                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                                                        <div class="slds-form-element__control">
+                                                            <lightning-input type="checkbox-button" label="Input Two"
+                                                                name="input2" checked={opportunityValid} disabled>
+                                                            </lightning-input> (Required for tollgate 2)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </template>
+
+                                    </div>
+                                </lightning-accordion-section>
+
+                                <lightning-accordion-section name="B" label={processName}>
+                                    <template if:true={validations}>
+                                        <lightning-datatable
+                                            key-field="entidad"
+                                            data={validations}
+                                            columns={culumnasVal}
+                                            onrowaction={handleRowAction}>
+                                        </lightning-datatable>
+                                    </template>
+                                </lightning-accordion-section>
+                                <lightning-accordion-section name="C" label="Tollgate 2 review">
+                                   <lightning-record-edit-form onsubmit={handlesubmitreview}  onsuccess={handleSuccessreview} onerror={errorreview} record-id={recordId} object-api-name="Takedowns_Contingency_plan__c">
+                                       <lightning-messages></lightning-messages>
+                                       <lightning-input-field field-name='TKD_tollgate2_Review__c'></lightning-input-field>
+                                       <lightning-button type="submit" label="Update record"></lightning-button>
+                                   </lightning-record-edit-form>
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+
+
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label="Exit" variant="neutral" onclick={closeModal}></lightning-button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <!-- <lightning-button label="Save" variant="brand" onclick={saveMethod}></lightning-button> -->
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+</template>

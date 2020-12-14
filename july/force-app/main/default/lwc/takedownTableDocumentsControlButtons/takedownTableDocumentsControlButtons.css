@@ -1,0 +1,8 @@
+.lgc-bg {
+    background-color: rgb(242, 242, 242);
+}
+
+.slds-modal__container {
+    max-width: 80rem !important;
+    width: 80% !important;
+}
